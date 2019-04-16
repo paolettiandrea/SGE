@@ -22,7 +22,9 @@ void GameObjectMemoryLayer::custom_realloc() {
     for (auto &gameobj : gameobjects_vector) {
         gameobj.get_handle().update_origin_pointer(&gameobj);
     }
-    //std::cout << "Reallocation happened" << std::endl;
+
+    // TEMP
+    std::cout << "Reallocation happened" << std::endl;
     //Handle<GameObject>::print_entries_array_info();
 }
 
@@ -35,7 +37,7 @@ void GameObjectMemoryLayer::remove_gameobject(Handle<GameObject> target_handle) 
         last_element_pointer->get_handle().update_origin_pointer(target_pointer);
         std::swap(target_pointer, last_element_pointer);
     }
-    //target_handle.make_origin_expired();
+    target_handle.make_origin_expired();
     gameobjects_vector.pop_back();
 }
 
