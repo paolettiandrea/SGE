@@ -1,0 +1,54 @@
+#ifndef FACTORY_EXPERIMENTS_GAMEOBJECTMEMORYLAYER_HPP
+#define FACTORY_EXPERIMENTS_GAMEOBJECTMEMORYLAYER_HPP
+
+#include <vector>
+#include "../GameObject.hpp"
+#include "../handles/Handle.hpp"
+
+class Scene;
+
+/*!
+ * \brief It's the object meant to manage a scene's list of GameObjects in memory
+ * \details
+ * It has a few functions:
+ * - allowing for GameObject creation and destruction
+ * - update of the handle pointers when necessary (since it will move objects in the underlying array during creation and removal)
+ */
+class GameObjectMemoryLayer {
+public:
+    explicit GameObjectMemoryLayer(Scene* scene, unsigned int initial_reserved_spaces=2);  // TODO: change default to a reasonable number
+    /*!
+     * \brief Creates a new GameObject in this memory layer
+     * \return a handle to the created GameObject
+     */
+    Handle<GameObject> create_new_gameobject(const std::string& name);
+    /*!
+     * Removes a GameObject from this memory layer
+     * \param target_handle An handle to the GameObject that needs to be removed
+     */
+    void remove_gameobject(Handle<GameObject> target_handle);
+
+private:
+    /*!
+     * \brief Method that is called right before a normal reallocation would happen, it reallocates at the same way but it also updates the handle's pointers to the objects since they've been moved in memory.
+     */
+    void custom_realloc();
+    /*!
+     * \brief The internal vector of GameObjects
+     */
+    std::vector<GameObject> gameobjects_vector;
+    /*!
+     * \brief The Scene this object holds the GameObject list for
+     */
+    Scene* scene;
+};
+
+
+#endif //FACTORY_EXPERIMENTS_GAMEOBJECTMEMORYLAYER_HPP
+
+
+
+/*!
+\file
+\brief ${BRIEF_FILE_DESCRIPTION}
+*/
