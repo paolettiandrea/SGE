@@ -96,6 +96,12 @@ public:
      * \return A pointer to the object this handle is referencing.
      */
     T* operator->() {
+#ifdef DEBUG
+        if (!this->is_valid()) {
+            std::cout << "ERROR: Tried to use the -> operator on an invalid handle" << std::endl;
+            exit(1);
+        }
+#endif
         return this->get_pointer();
     }
     /*!

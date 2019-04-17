@@ -2,10 +2,10 @@
 #define FACTORY_EXPERIMENTS_COMPONENTMEMORYLAYER_HPP
 
 
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/
+
+#include <string>
+
+
 
 class ComponentMemoryLayer {
 
@@ -13,3 +13,9 @@ class ComponentMemoryLayer {
 
 
 #endif //FACTORY_EXPERIMENTS_COMPONENTMEMORYLAYER_HPP
+
+
+/*!
+\file
+\brief ${BRIEF_FILE_DESCRIPTION}
+*/

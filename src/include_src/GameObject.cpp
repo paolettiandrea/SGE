@@ -2,7 +2,7 @@
 // Created by andrea on 4/15/19.
 //
 
-#include "GameObject.hpp"
+#include "../../include/SGE/GameObject.hpp"
 
 #include <iostream>
 

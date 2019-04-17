@@ -3,11 +3,11 @@
 // TEMP
 #include <iostream>
 
-GameObjectMemoryLayer::GameObjectMemoryLayer(Scene* _scene, unsigned int initial_reserved_spaces) : scene(_scene) {
+GameObjectMemoryLayer::GameObjectMemoryLayer(unsigned int initial_reserved_spaces) {
     gameobjects_vector.reserve(initial_reserved_spaces);
 }
 
-Handle<GameObject> GameObjectMemoryLayer::create_new_gameobject(const std::string& name) {
+Handle<GameObject> GameObjectMemoryLayer::create_new_gameobject(const std::string& name, Scene* scene) {
     if (gameobjects_vector.size()==gameobjects_vector.capacity())
         custom_realloc();
 

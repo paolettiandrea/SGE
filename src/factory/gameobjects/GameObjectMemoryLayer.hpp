@@ -2,8 +2,8 @@
 #define FACTORY_EXPERIMENTS_GAMEOBJECTMEMORYLAYER_HPP
 
 #include <vector>
-#include "../GameObject.hpp"
-#include "../handles/Handle.hpp"
+#include "SGE/GameObject.hpp"
+#include "Handle.hpp"
 
 class Scene;
 
@@ -16,12 +16,12 @@ class Scene;
  */
 class GameObjectMemoryLayer {
 public:
-    explicit GameObjectMemoryLayer(Scene* scene, unsigned int initial_reserved_spaces=2);  // TODO: change default to a reasonable number
+    explicit GameObjectMemoryLayer(unsigned int initial_reserved_spaces=2);  // TODO: change default to a reasonable number
     /*!
      * \brief Creates a new GameObject in this memory layer
      * \return a handle to the created GameObject
      */
-    Handle<GameObject> create_new_gameobject(const std::string& name);
+    Handle<GameObject> create_new_gameobject(const std::string& name, Scene* scene);
     /*!
      * Removes a GameObject from this memory layer
      * \param target_handle An handle to the GameObject that needs to be removed
@@ -37,10 +37,7 @@ private:
      * \brief The internal vector of GameObjects
      */
     std::vector<GameObject> gameobjects_vector;
-    /*!
-     * \brief The Scene this object holds the GameObject list for
-     */
-    Scene* scene;
+
 };
 
 

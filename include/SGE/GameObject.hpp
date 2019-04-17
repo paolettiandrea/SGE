@@ -1,15 +1,16 @@
 #ifndef FACTORY_EXPERIMENTS_GAMEOBJECT_HPP
 #define FACTORY_EXPERIMENTS_GAMEOBJECT_HPP
 
-#include "handles/Handle.hpp"
+#include "Handle.hpp"
 #include <string>
 
 class Scene;
 
 class GameObject {
 public:
-    explicit GameObject(Scene* scene, const std::string& name = "GameObject");
+    explicit GameObject(Scene* scene, const std::string& name = "GameObject");                  // TODO: for now it should be fine, but sooner or later this will need a copy constructor
     virtual ~GameObject();
+
 
     Handle<GameObject> &get_handle();
 

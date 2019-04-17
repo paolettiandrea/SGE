@@ -1,7 +1,10 @@
 #include "Factory.hpp"
 
+
 unsigned int Factory::build_scene() {
-    scene_stack.emplace(scene_stack.size());
+    gameobj_layers_stack.emplace();
+
+    scene_stack.emplace(scene_stack.size(), &gameobj_layers_stack.top());
     return (unsigned int)scene_stack.size()-1;
 }
 

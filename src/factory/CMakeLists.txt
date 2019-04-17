@@ -4,7 +4,7 @@ target_sources(factory_experiments PRIVATE
         Factory.hpp
         Factory.cpp
 
-        GameObjectMemoryLayer.cpp
-        GameObjectMemoryLayer.hpp)
+        gameobjects/GameObjectMemoryLayer.cpp
+        gameobjects/GameObjectMemoryLayer.hpp)
 
 add_subdirectory(components)
