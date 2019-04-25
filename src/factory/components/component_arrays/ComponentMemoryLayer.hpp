@@ -4,14 +4,15 @@
 #include <vector>
 #include "Handle.hpp"
 #include "GameObject.hpp"
+#include "IComponentMemoryLayer.hpp"
 
 /*!
  * \brief Manages a list of Components keeping them contiguous in memory while allowing for creation and removal
  */
  template <class ComponentT>
-class ComponentArray {
+class ComponentMemoryLayer : public IComponentMemoryLayer {
 public:
-    explicit ComponentArray (unsigned int initial_reserved_space=2);
+    explicit ComponentMemoryLayer (unsigned int initial_reserved_space=2);
     /*!
      * \brief Creates a new Component in this ComponentArray
      * \return a handle to the created Component
@@ -24,6 +25,11 @@ public:
      * \param target_handle An handle refeencing to the Component that needs to be removed
      */
     void remove_component(Handle<ComponentT> target_handle);
+
+
+    unsigned int create_unspecified_component(Handle<GameObject> gameobject) override;
+    void remove_unspecified_component(unsigned int index) override;
+
 private:
     std::vector<ComponentT> component_vector;
     std::vector<Handle<ComponentT>> handle_vector;
@@ -35,13 +41,13 @@ private:
 
 
 template<class ComponentT>
-ComponentArray<ComponentT>::ComponentArray(unsigned int initial_reserved_space) {
+ComponentMemoryLayer<ComponentT>::ComponentMemoryLayer(unsigned int initial_reserved_space) {
     component_vector.reserve(initial_reserved_space);
     handle_vector.reserve(initial_reserved_space);
 }
 
 template<class ComponentT>
-Handle<ComponentT> ComponentArray<ComponentT>::create_new_component(Handle<GameObject> gameobject) {
+Handle<ComponentT> ComponentMemoryLayer<ComponentT>::create_new_component(Handle<GameObject> gameobject) {
     if (component_vector.size()==component_vector.capacity())
         custom_realloc();
 
@@ -51,7 +57,7 @@ Handle<ComponentT> ComponentArray<ComponentT>::create_new_component(Handle<GameO
 }
 
 template<class ComponentT>
-void ComponentArray<ComponentT>::custom_realloc() {
+void ComponentMemoryLayer<ComponentT>::custom_realloc() {
     component_vector.reserve(component_vector.capacity()*2);
 
     // Updates the handle entries of every Component in the reallocated vector
@@ -60,12 +66,12 @@ void ComponentArray<ComponentT>::custom_realloc() {
     }
 
     // TEMP
-    std::cout << "ComponentArray of type [" << typeid(ComponentT).name() << "] Reallocation happened" << std::endl;
+    std::cout << "ComponentMemoryLayer of type [" << typeid(ComponentT).name() << "] Reallocation happened" << std::endl;
     //Handle<GameObject>::print_entries_array_info();
 }
 
 template<class ComponentT>
-void ComponentArray<ComponentT>::remove_component(Handle<ComponentT> target_handle) {
+void ComponentMemoryLayer<ComponentT>::remove_component(Handle<ComponentT> target_handle) {
     // If we're removing the last element there's no need of memory swapping shenanigans
     // else the last element is swapped in the gap created by the removal and the corresponding handle origin pointer is updated
     if (target_handle.get_pointer() != &component_vector.back()) {
@@ -90,6 +96,17 @@ void ComponentArray<ComponentT>::remove_component(Handle<ComponentT> target_hand
         std::cout << &component_vector[i] << "----" << go->name << std::endl;
     }
      */
+}
+
+template<class ComponentT>
+unsigned int ComponentMemoryLayer<ComponentT>::create_unspecified_component(Handle<GameObject> gameobject) {
+    Handle<ComponentT> new_component_handle = create_new_component(gameobject);
+    return new_component_handle.get_index();
+}
+
+template<class ComponentT>
+void ComponentMemoryLayer<ComponentT>::remove_unspecified_component(unsigned int index) {
+    remove_component(Handle<ComponentT>::get_handle_from_index(index));
 }
 
 

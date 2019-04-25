@@ -1,7 +1,9 @@
 target_include_directories(factory_experiments PRIVATE .)
 
 target_sources(factory_experiments PRIVATE
-        ComponentMemoryLayer.cpp
-        ComponentMemoryLayer.hpp
-        
-        ComponentArray.hpp)
+        ComponentFactory.hpp
+        ComponentFactory.cpp)
+
+add_subdirectory(component_arrays)
+add_subdirectory(component_creators)
+add_subdirectory(component_memory_layers)

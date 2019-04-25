@@ -1,43 +1,46 @@
 #include <iostream>
+#include <SGE/components/LogicHub.hpp>
 #include "Factory.hpp"
 #include "include/SGE/Scene.hpp"
 
-#include "ComponentArray.hpp"
+#include "components/component_arrays/ComponentMemoryLayer.hpp"
 #include "Transform.hpp"
+#include "ComponentFactory.hpp"
+#include "components/component_creators/ComponentCreator.hpp"
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
     Factory factory;
-    factory.build_scene();
 
-    Handle<GameObject> go1 = factory.get_top_scene()->spawn_gameobject("GO1");
-    Handle<GameObject> go2 = factory.get_top_scene()->spawn_gameobject("GO2");
-    Handle<GameObject> go3 = factory.get_top_scene()->spawn_gameobject("GO3");
-    Handle<GameObject> go4 = factory.get_top_scene()->spawn_gameobject("GO4");
 
-    ComponentArray<Transform> transform_array;
-    Handle<Transform> trans1 = transform_array.create_new_component(go1);
-    Handle<Transform> trans2 = transform_array.create_new_component(go2);
-    Handle<Transform> trans3 = transform_array.create_new_component(go3);
-    Handle<Transform> trans4 = transform_array.create_new_component(go4);
+    ComponentCreator<Transform> transform_creator ("Transform");
+    ComponentCreator<LogicHub> logic_creator ("LogicHub");
+
+
+    Scene* scene = factory.push_new_scene();
+
+    Handle<GameObject> go1 = scene->spawn_gameobject("Test Object 1");
+    Handle<GameObject> go2 = scene->spawn_gameobject("Test Object 2");
+    Handle<GameObject> go3 = scene->spawn_gameobject("Test Object 3");
+    Handle<GameObject> go4 = scene->spawn_gameobject("Test Object 4");
+
+    go1.
+
+    auto trans1 = go1->add_component<Transform>("Transform");
+    auto trans2 = go2->add_component<Transform>("Transform");
+    auto trans3 = go3->add_component<Transform>("Transform");
+    auto trans4 = go4->add_component<Transform>("Transform");
+
+
+    go1->add_component<LogicHub>("LogicHub");
+
+    std::cout << go1->has_component("Transform") << std::endl;
+
+    go1->remove_component("Transform");
+    std::cout << go1->has_component("Transform") << std::endl;
     Handle<Transform>::print_entries_array_info();
 
-    transform_array.remove_component(trans2);
-    transform_array.remove_component(trans1);
-
-    transform_array.create_new_component(go1);
-    transform_array.create_new_component(go1);
-
-
-
-    Handle<Transform>::print_entries_array_info();
-
-
-    Handle<GameObject> yo = trans4->gameobject();
-    std::cout << yo->name << std::endl;
-
-
-
+    go2->remove_component("Transform");
 
 
     return 0;

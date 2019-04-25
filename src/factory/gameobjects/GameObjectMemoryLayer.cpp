@@ -24,7 +24,7 @@ void GameObjectMemoryLayer::custom_realloc() {
     }
 
     // TEMP
-    std::cout << "Reallocation happened" << std::endl;
+    std::cout << "GameObjectMemoryLayer reallocation happened" << std::endl;
     //Handle<GameObject>::print_entries_array_info();
 }
 

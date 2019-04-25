@@ -5,6 +5,6 @@ target_sources(factory_experiments PUBLIC
         Scene.cpp
 
         Component.cpp
-        Logic.cpp
+        LogicHub.cpp
         Transform.cpp
         )

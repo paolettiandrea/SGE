@@ -6,9 +6,9 @@
 
 
 
-class Logic : public Component {
+class LogicHub : public Component {
 public:
-    explicit Logic(const Handle<GameObject> &gameobject);
+    explicit LogicHub(const Handle<GameObject> &gameobject);
 };
 
 

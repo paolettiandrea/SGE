@@ -1,4 +1,6 @@
 cmake-build-debug
+.doxygen/m.css
+doc/generated
 
 *.o
 *.data

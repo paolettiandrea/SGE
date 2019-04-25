@@ -67,6 +67,7 @@ public:
     void make_null() {
         index = MAXIMUM_HANDLES_PER_TYPE;
     }
+
     /*!
      * \brief Checks if the handle is safe to use.
      * \retval *true* if this handle is valid, meaning that it references an object and it can be accessed safely
