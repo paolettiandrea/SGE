@@ -17,7 +17,7 @@ class IComponentMemoryLayer;
 /*!
  * \brief .....
  */
-class Scene {
+class Scene : public utils::log::Loggable {
 public:
     /*!
      * \brief The index of this scene in the scene stack, it's not expected to change during the lifetime of the scene.
@@ -27,7 +27,9 @@ public:
     explicit Scene(unsigned int _index,
                    GameObjectMemoryLayer* gameobj_memory_layer,
                    IComponentMemoryLayer* componentarrays_array[]);                // ONLY TO BE USED BY THE FACTORY!!!
-                   
+
+    virtual ~Scene();
+
     /*!
      * \brief Spawns a new GameObject in this Scene
      * \return an Handle referencing to the spawn GameObject

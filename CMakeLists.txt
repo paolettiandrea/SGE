@@ -5,8 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(factory_experiments main.cpp)
 
-add_subdirectory(src)
-add_subdirectory(include)
+
 
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -19,3 +18,10 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
 else()
     target_compile_definitions(factory_experiments PUBLIC RELEASE=1)
 endif()
+
+
+
+add_subdirectory(src)
+add_subdirectory(include)
+
+

@@ -4,6 +4,7 @@
 #include <vector>
 #include "SGE/GameObject.hpp"
 #include "Handle.hpp"
+#include "Loggable.hpp"
 
 class Scene;
 
@@ -14,7 +15,7 @@ class Scene;
  * - allowing for GameObject creation and destruction
  * - update of the handle pointers when necessary (since it will move objects in the underlying array during creation and removal)
  */
-class GameObjectMemoryLayer {
+class GameObjectMemoryLayer : public utils::log::Loggable {
 public:
     explicit GameObjectMemoryLayer(unsigned int initial_reserved_spaces=2);  // TODO: change default to a reasonable number
     /*!

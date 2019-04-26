@@ -6,6 +6,7 @@
 #include "ComponentMemoryLayer.hpp"
 #include "IComponentCreator.hpp"
 #include "ComponentFactory.hpp"
+#include "Loggable.hpp"
 
 /*!
  * \brief Manages a stack of ComponentArray, all of the same Component type.
@@ -13,9 +14,12 @@
  * \tparam T The type of Component co
  */
 template <class T>
-class ComponentCreator : public IComponentCreator {
+class ComponentCreator : public IComponentCreator, public utils::log::Loggable {
 public:
-    explicit ComponentCreator(const std::string& _id) : id(_id) {
+    explicit ComponentCreator(const std::string& _id)
+        : Loggable("[" + _id + "] COMPONENT CREATOR")
+        , id(_id) {
+        LOG_DEBUG(15) << "Registering to the ComponentFactory";
         ComponentFactory::register_component_creator(this);                 // Register itself to the ComponentFactory
     }
 
@@ -25,20 +29,20 @@ public:
 
 
     IComponentMemoryLayer* push_new_layer() override {
-        componentarray_stack.emplace();
-        return &componentarray_stack.top();
+        componentmemorylayer_stack.emplace(id);
+        return &componentmemorylayer_stack.top();
     }
 
     IComponentMemoryLayer* get_top_layer() override {
-        return  &componentarray_stack.top();
+        return  &componentmemorylayer_stack.top();
     }
 
     void pop_top_layer() override {
-        componentarray_stack.pop();
+        componentmemorylayer_stack.pop();
     }
 
 private:
-    std::stack<ComponentMemoryLayer<T>> componentarray_stack;
+    std::stack<ComponentMemoryLayer<T>> componentmemorylayer_stack;
     std::string id;
 };
 #endif //FACTORY_EXPERIMENTS_COMPONENTCREATOR_HPP

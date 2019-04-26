@@ -56,7 +56,7 @@ public:
 
     /*!
      * \retval *true* if this handle is not referencing to any object in this moment, equivalent to a nullptr for pointers
-     * \retal *false* if this handle is referencing to an object, but the reference could be expired, use is_expired() or is_valid() to check that.
+     * \retval *false* if this handle is referencing to an object, but the reference could be expired, use is_expired() or is_valid() to check that.
      */
     bool is_null() {
         return (index == MAXIMUM_HANDLES_PER_TYPE);
@@ -130,9 +130,6 @@ public:
 private:
     int index;
     int counter;
-
-
-
 
 
     // STATIC-------------------------------------------------------------------

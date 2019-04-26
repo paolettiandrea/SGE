@@ -7,10 +7,10 @@
 
 
 GameObject::GameObject(Scene* _scene, const std::string& _name)
-    : scene(_scene)
-    , name(_name)
+    : Loggable(_name)
+    , scene(_scene)
     , handle(this){
-    std::cout << "Construction of GameObject " << name << std::endl;
+    LOG_DEBUG(19) << "Construction";
 
     for (int &val : my_components_mapped_array) {
         val = -1;
@@ -18,7 +18,7 @@ GameObject::GameObject(Scene* _scene, const std::string& _name)
 }
 
 GameObject::~GameObject() {
-    std::cout << "Destruction of GameObject " << name << std::endl;
+    LOG_DEBUG(19) << "Destruction";
 
 }
 
@@ -31,13 +31,14 @@ bool GameObject::has_component(const std::string &id) {
 }
 
 void GameObject::remove_component(const std::string &id) {
+    LOG_DEBUG(19) << "Removing component of id [" + id + "]";
     unsigned int type_index = ComponentFactory::id_to_index(id);
     int comp_index = my_components_mapped_array[type_index];
     if (comp_index >= 0) {
         scene->get_component_memorylayer_array()[type_index]->remove_unspecified_component(comp_index);
         my_components_mapped_array[type_index] = -1;
     } else {
-        std::cout << "Error: Tried to remove an inexistent component with id [" << id << "]" << std::endl;
+        LOG_ERROR << "Error: Tried to remove an inexistent component with id [" << id << "]";
         exit(1);
     }
 }

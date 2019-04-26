@@ -5,12 +5,14 @@
 #include <stack>
 #include "gameobjects/GameObjectMemoryLayer.hpp"
 #include "ComponentFactory.hpp"
+#include "SGE/utils/log/Loggable.hpp"
 
 /*!
  * The object used to build GameObjects and Components
  */
-class Factory {
+class Factory : public utils::log::Loggable  {
 public:
+    Factory() : Loggable("SCENE FACTORY") {}
     /*!
      * Builds a new scene at the top of the scene stack
      * \return the index of the built scene in the stack index

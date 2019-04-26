@@ -3,13 +3,15 @@
 
 #include <map>
 #include "SGE/Macros.hpp"
+#include "Loggable.hpp"
 
 
 class IComponentCreator;
 class IComponentMemoryLayer;
 
-class ComponentFactory {
+class ComponentFactory : public utils::log::Loggable {
 public:
+    ComponentFactory() : utils::log::Loggable("COMPONENT FACTORY") {}
     static void register_component_creator(IComponentCreator* new_component_creator);
     /*!
      * \brief Method that allows the conversion of the string id to the array index correspondyng to that component type.

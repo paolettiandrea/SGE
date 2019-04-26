@@ -3,7 +3,8 @@
 // TEMP
 #include <iostream>
 
-GameObjectMemoryLayer::GameObjectMemoryLayer(unsigned int initial_reserved_spaces) {
+GameObjectMemoryLayer::GameObjectMemoryLayer(unsigned int initial_reserved_spaces)
+    : Loggable("GAME OBJECT MEMORY LAYER"){
     gameobjects_vector.reserve(initial_reserved_spaces);
 }
 
@@ -16,15 +17,13 @@ Handle<GameObject> GameObjectMemoryLayer::create_new_gameobject(const std::strin
 }
 
 void GameObjectMemoryLayer::custom_realloc() {
+    LOG_DEBUG(18) << "Reached maximum capacity of [" << gameobjects_vector.capacity() << "], reallocating vector";
     gameobjects_vector.reserve(gameobjects_vector.capacity()*2);
 
     // Updates the handle entries of every GameObject in the reallocated vector
     for (auto &gameobj : gameobjects_vector) {
         gameobj.get_handle().update_origin_pointer(&gameobj);
     }
-
-    // TEMP
-    std::cout << "GameObjectMemoryLayer reallocation happened" << std::endl;
     //Handle<GameObject>::print_entries_array_info();
 }
 

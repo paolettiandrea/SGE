@@ -4,10 +4,11 @@
 #include "Handle.hpp"
 #include "Macros.hpp"
 #include <string>
+#include "Loggable.hpp"
 
 class Scene;
 
-class GameObject {
+class GameObject : public utils::log::Loggable {
 public:
     explicit GameObject(Scene* scene, const std::string& name = "GameObject");      // TODO: for now it should be fine, but sooner or later this will need a copy constructor since its copied on every vector reallocation
     virtual ~GameObject();
@@ -22,8 +23,6 @@ public:
     bool has_component(const std::string& id);
     void remove_component(const std::string& id);
 
-    // TEMP
-    std::string name;
 
 
 
@@ -52,9 +51,9 @@ private:
 
 template<class T>
 Handle<T> GameObject::add_component(const std::string &id) {
-
+    LOG_DEBUG(19) << "Adding a new component of id [" + id + "]";
     if (this->has_component(id)) {
-        std::cout << "Error: this GameObject already has a component of id [" << id << "]";
+        LOG_ERROR << "Error: this GameObject already has a component of id [" << id << "]";
         exit(1);
     } else {
         unsigned int handle_index = this->add_unspecified_component(id);

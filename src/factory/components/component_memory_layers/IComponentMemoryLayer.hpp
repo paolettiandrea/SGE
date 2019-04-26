@@ -1,6 +1,7 @@
 #ifndef FACTORY_EXPERIMENTS_ICOMPONENTARRAY_HPP
 #define FACTORY_EXPERIMENTS_ICOMPONENTARRAY_HPP
 
+
 /*!
  * \brief The non-specified interface of a ComponentArray. Allows some manipulations without the need of knowing the exact type of Component that the Array contains.
  */
