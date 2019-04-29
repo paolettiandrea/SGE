@@ -4,10 +4,6 @@
 #include "SGE/GameObject.hpp"
 #include "SGE/misc/handles/Handle.hpp"
 
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/
 
 /*!
  * \brief An aggregation of related data and functionality meant to be attached
@@ -20,9 +16,17 @@ public:
     const Handle<GameObject> &gameobject() const;
 
 private:
-    Handle<GameObject> my_gameobject;
+    Handle<GameObject> gameobject_handle;
 
 };
 
 
 #endif //FACTORY_EXPERIMENTS_COMPONENT_HPP
+
+
+
+
+/*!
+\file
+\brief ${BRIEF_FILE_DESCRIPTION}
+*/

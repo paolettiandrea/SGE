@@ -40,18 +40,23 @@ public:
      * \param target_handle An handle to the GameObject that needs to be destroyed
      */
     void destroy_gameobject(Handle<GameObject> target_handle);
-
+    /*!
+     * \brief Gets an array of pointers to every ComponentMemoryLayer of this scene, one for each type at the index
+     * expected from the id_to_index correspondence
+     */
     IComponentMemoryLayer *const *get_component_memorylayer_array() const;
 
 
 private:
     /*!
-     * The GameObject/Component calls to the creation methods of the factory should pass through the scene, so that it can enforce the call only on its index
+     * \brief The GameObject/Component calls to the creation methods of the factory should pass through the scene, so that it can enforce the call only on its index
      */
     GameObjectMemoryLayer* gameobject_memory_layer;
+    /*!
+     * \brief Array of pointers to each ComponentMemoryLayer (unspecified interface) of this Scene, one for each type
+     * at the index expected from the id_to_index correspondance
+     */
     IComponentMemoryLayer* component_memory_layer_array[TOTAL_POSSIBLE_COMPONENTS];
-public:
-
 };
 
 

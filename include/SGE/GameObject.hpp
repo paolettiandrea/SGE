@@ -24,9 +24,6 @@ public:
     void remove_component(const std::string& id);
 
 
-
-
-
 private:
     /*!
      * Pointer to the scene this GameObject is in

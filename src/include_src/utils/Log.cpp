@@ -47,7 +47,7 @@ namespace utils {
                 id_string = std::string(LOG_ID_MAX_WIDTH - id_string.length(), ' ') + id_string;
             }
             id_string += " ";
-#if LOG_PRINT_HEADER
+#ifdef LOG_PRINT_HEADER
             std::string logger_header_string = "L:[" + std::to_string(message_level) + "]\t" + logger->get_logger_header();
             os << terminal::TextMod(*color, terminal::Style::FAINT) << logger_header_string << std::endl << terminal::TextMod(terminal::Color::RESET);
 #endif
