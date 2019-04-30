@@ -1,3 +1,55 @@
-#include "LogicHub.hpp"
 
-LogicHub::LogicHub(const Handle<GameObject> &gameobject) : Component(gameobject) {}
+#include <SGE/components/LogicHub.hpp>
+
+#include "LogicHub.hpp"
+#include "Logic.hpp"
+
+
+LogicHub::LogicHub(const Handle<GameObject> &gameobject) : Component(gameobject, "LogicHub") {}
+
+void LogicHub::attach_logic(Logic *new_logic) {
+    LOG_DEBUG(18) << "Attaching new logic with logic id (" << new_logic->get_logic_id() << ")";
+
+    attached_logic_list.push_back(new_logic);
+    new_logic->update_references(this->gameobject());
+    new_logic->on_start();
+}
+
+bool LogicHub::has_logic(const std::string &logic_id) {
+    for (auto attached_logic : attached_logic_list) {
+        if (attached_logic->get_logic_id() == logic_id) return true;
+    }
+    return false;
+}
+
+bool LogicHub::has_logic(Logic *target_logic) {
+    for (auto attached_logic : attached_logic_list) {
+        if (attached_logic == target_logic) return true;
+    }
+    return false;
+}
+
+void LogicHub::remove_logic(Logic *target_logic) {
+    attached_logic_list.remove(target_logic);
+    target_logic->on_destruction();
+    delete(target_logic);
+}
+
+LogicHub::~LogicHub() {
+    for (auto attached_logic : attached_logic_list) {
+        delete(attached_logic);
+    }
+}
+
+Logic *LogicHub::get_unspecificed_logic(const std::string &logic_id) {
+    for (auto attached_logic : attached_logic_list) {
+        if (attached_logic->get_logic_id() == logic_id) return attached_logic;
+    }
+    return nullptr;
+}
+
+
+
+
+
+

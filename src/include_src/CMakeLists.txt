@@ -7,6 +7,9 @@ target_sources(factory_experiments PUBLIC
         Component.cpp
         LogicHub.cpp
         Transform.cpp
+
+        Logic.cpp
+        DummyLogic.cpp
         )
 
 add_subdirectory(utils)

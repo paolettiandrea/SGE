@@ -5,4 +5,4 @@
 #include "Transform.hpp"
 
 Transform::Transform(const Handle<GameObject> &gameobject)
-    : Component(gameobject) {}
+    : Component(gameobject, "Transform") {}

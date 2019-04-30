@@ -8,10 +8,7 @@
 
 #include "Component.hpp"
 
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/
+
 
 class Transform : public Component {
 public:
@@ -20,3 +17,10 @@ public:
 
 
 #endif //FACTORY_EXPERIMENTS_TRANSFORM_HPP
+
+
+
+/*!
+\file
+\brief ${BRIEF_FILE_DESCRIPTION}
+*/

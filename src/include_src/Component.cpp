@@ -1,11 +1,13 @@
 #include <SGE/components/Component.hpp>
+#include "GameObject.hpp"
 
 
-Component::Component(Handle<GameObject> gameobject)
-    : gameobject_handle(gameobject) {
+Component::Component(Handle<GameObject> gameobject, const std::string &id)
+    : Loggable( "[" + id + "] of {" + gameobject->get_log_id() + "}" )
+    , gameobject_handle(gameobject) {
 
 }
 
-const Handle<GameObject> &Component::gameobject() const {
+Handle<GameObject> &Component::gameobject() {
     return gameobject_handle;
 }

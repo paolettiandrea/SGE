@@ -8,6 +8,8 @@
 #include "ComponentFactory.hpp"
 #include "components/component_creators/ComponentCreator.hpp"
 
+#include "DummyLogic.hpp"
+
 int main() {
     std::cout << "Hello, World!" << std::endl;
     Factory factory;
@@ -26,17 +28,16 @@ int main() {
     Handle<GameObject> go4 = scene->spawn_gameobject("Test Object 4");
     Handle<GameObject> go5 = scene->spawn_gameobject("Test Object 5");
 
-    auto trans1 = go1->add_component<Transform>("Transform");
-    auto trans2 = go2->add_component<Transform>("Transform");
-    auto trans3 = go3->add_component<Transform>("Transform");
-    auto trans4 = go4->add_component<Transform>("Transform");
 
 
-    go1->add_component<LogicHub>("LogicHub");
+    auto logic_hub = go1->get_component<LogicHub>("LogicHub");
+    logic_hub->attach_logic(new DummyLogic);
+    DummyLogic* lo = logic_hub->get_logic<DummyLogic>("DummyLogic");
+
+    Handle<LogicHub> hub = go1->get_component<LogicHub>("LogicHub");
 
 
-    go1->remove_component("Transform");
-    go2->remove_component("Transform");
+
 
 
     return 0;

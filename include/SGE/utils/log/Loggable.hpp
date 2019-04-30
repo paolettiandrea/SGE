@@ -32,7 +32,7 @@ namespace utils {
              */
             virtual std::string get_logger_header();
 
-            const std::string &get_log_id() const;
+            virtual const std::string &get_log_id() const;
 
             void set_log_id(const std::string &name);
 
