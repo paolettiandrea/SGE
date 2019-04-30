@@ -33,8 +33,12 @@ public:
         return &componentmemorylayer_stack.top();
     }
 
-    IComponentMemoryLayer* get_top_layer() override {
+    IComponentMemoryLayer* get_unspecified_top_layer() override {
         return  &componentmemorylayer_stack.top();
+    }
+
+    ComponentMemoryLayer<T>* get_top_layer() {
+        return &componentmemorylayer_stack.top();
     }
 
     void pop_top_layer() override {

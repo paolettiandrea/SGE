@@ -13,6 +13,7 @@
 class Transform : public Component {
 public:
     explicit Transform(const Handle<GameObject> &gameobject);
+
 };
 
 

@@ -28,6 +28,9 @@ public:
      */
     void pop_top_component_memory_layer();
 
+    bool check_registration_status();
+
+
 private:
     static std::map<std::string, unsigned int> id_index_map;
     static IComponentCreator* creators[];

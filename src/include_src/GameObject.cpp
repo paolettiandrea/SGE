@@ -35,8 +35,6 @@ bool GameObject::has_component(const std::string &id) {
 }
 
 void GameObject::remove_component(const std::string &id) {
-
-    LOG_DEBUG(19) << "Removing component of id [" + id + "]";
     if (id == "Transform" || id == "LogicHub") {
         LOG_ERROR << "It's not possible to remove Transform or LogicHub components";
         exit(1);
@@ -44,9 +42,12 @@ void GameObject::remove_component(const std::string &id) {
 
     unsigned int type_index = ComponentFactory::id_to_index(id);
     int comp_index = my_components_mapped_array[type_index];
+
     if (comp_index >= 0) {
         scene->get_component_memorylayer_array()[type_index]->remove_unspecified_component(comp_index);
         my_components_mapped_array[type_index] = -1;
+
+        LOG_DEBUG(19) << "Doomed [" + id + "]";
 
     } else {
         LOG_ERROR << "Error: Tried to remove an inexistent component with id [" << id << "]";
@@ -55,6 +56,7 @@ void GameObject::remove_component(const std::string &id) {
 }
 
 unsigned int GameObject::add_unspecified_component(const std::string &id) {
+    LOG_DEBUG(19) << "Adding a new component of id [" + id + "]";
     unsigned int type_index = ComponentFactory::id_to_index(id);
     auto yo = scene->get_component_memorylayer_array();
     my_components_mapped_array[type_index] = yo[type_index]->create_unspecified_component(this->get_handle());

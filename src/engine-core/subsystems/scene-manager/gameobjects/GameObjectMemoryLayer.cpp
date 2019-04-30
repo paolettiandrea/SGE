@@ -40,6 +40,25 @@ void GameObjectMemoryLayer::remove_gameobject(Handle<GameObject> target_handle) 
     gameobjects_vector.pop_back();
 }
 
+const std::vector<GameObject> &GameObjectMemoryLayer::get_gameobjects_vector() const {
+    return gameobjects_vector;
+}
+
+void GameObjectMemoryLayer::doom_pass() {
+    int target_index = 0;
+    for (int i = 0; i < gameobjects_vector.size(); ++i) {
+        GameObject* target_gameobj_p = &gameobjects_vector[target_index];
+        if (target_gameobj_p->is_doomed()) {
+            target_gameobj_p->logichub()->on_destruction();
+            remove_gameobject(target_gameobj_p->get_handle());
+        } else {
+            target_index++;
+        }
+    }
+
+
+}
+
 
 
 

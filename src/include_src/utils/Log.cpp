@@ -1,5 +1,5 @@
 #ifndef LOG_ID_MAX_WIDTH
-#define LOG_ID_MAX_WIDTH 38
+#define LOG_ID_MAX_WIDTH 46
 #endif
 
 #include "Log.hpp"

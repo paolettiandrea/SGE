@@ -5,7 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(factory_experiments)
 
-add_subdirectory(tester)
+add_executable(tester tester/main.cpp tester/InitialDummyLogic.cpp tester/InitialDummyLogic.hpp)
+target_link_libraries(tester PUBLIC factory_experiments)
+
 
 
 

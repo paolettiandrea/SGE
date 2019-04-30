@@ -42,4 +42,10 @@ void ComponentFactory::pop_top_component_memory_layer() {
     }
 }
 
+bool ComponentFactory::check_registration_status() {
+    return (TOTAL_POSSIBLE_COMPONENTS == registration_counter);
+}
+
+
+
 

@@ -18,6 +18,8 @@ public:
      * \param index The index of the handle entry referencing to the Component that needs to be removed
      */
     virtual void remove_unspecified_component(unsigned int index) = 0;
+
+    virtual void doom_pass() = 0;
 };
 
 

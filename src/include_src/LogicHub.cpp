@@ -48,6 +48,33 @@ Logic *LogicHub::get_unspecificed_logic(const std::string &logic_id) {
     return nullptr;
 }
 
+//region Callback propagation methods
+
+void LogicHub::on_start() {
+    for (auto logic : attached_logic_list) {
+        logic->on_start();
+    }
+}
+
+void LogicHub::on_destruction() {
+    for (auto logic : attached_logic_list) {
+        logic->on_destruction();
+    }
+}
+
+void LogicHub::on_update() {
+    for (auto logic : attached_logic_list) {
+        logic->on_update();
+    }
+}
+
+void LogicHub::on_fixed_update() {
+    for (auto logic : attached_logic_list) {
+        logic->on_fixed_update();
+    }
+}
+//endregion
+
 
 
 

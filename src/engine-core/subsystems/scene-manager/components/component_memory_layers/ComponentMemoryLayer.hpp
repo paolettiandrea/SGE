@@ -6,6 +6,7 @@
 #include "GameObject.hpp"
 #include "IComponentMemoryLayer.hpp"
 #include "Loggable.hpp"
+#include "ComponentFactory.hpp"
 
 /*!
  * \brief Manages a list of Components keeping them contiguous in memory while allowing for creation and removal
@@ -13,7 +14,7 @@
  template <class ComponentT>
 class ComponentMemoryLayer : public IComponentMemoryLayer, public utils::log::Loggable {
 public:
-    explicit ComponentMemoryLayer(const std::string& id, unsigned int initial_reserved_space = 2);
+    explicit ComponentMemoryLayer(const std::string& id, unsigned int initial_reserved_space = 16);
     /*!
      * \brief Creates a new Component in this ComponentArray
      * \return a handle to the created Component
@@ -21,29 +22,37 @@ public:
     Handle<ComponentT> create_new_component(Handle<GameObject> gameobject);
 
     Handle<ComponentT> get_component_by_index(unsigned int index);
-    /*!
-     * \brief Removes a Component from this ComponentArray
-     * \param target_handle An handle refeencing to the Component that needs to be removed
-     */
-    void remove_component(Handle<ComponentT> target_handle);
 
+
+    const std::vector<Handle<ComponentT>> &get_component_vector() const;
+
+    void doom_pass() override;
 
     unsigned int create_unspecified_component(Handle<GameObject> gameobject) override;
     void remove_unspecified_component(unsigned int index) override;
 
 private:
+    const std::string id;
+
     std::vector<ComponentT> component_vector;
     std::vector<Handle<ComponentT>> handle_vector;
 
     void custom_realloc();
+
+    /*!
+     * \brief Removes a Component from this ComponentArray
+     * \param target_handle An handle referencing to the Component that needs to be removed
+     */
+    void remove_component(Handle<ComponentT> target_handle);
 };
 
 
 
 
 template<class ComponentT>
-ComponentMemoryLayer<ComponentT>::ComponentMemoryLayer(const std::string& id, unsigned int initial_reserved_space)
-    : Loggable("[" + id + "] COMPONENT MEMORY LAYER")  {
+ComponentMemoryLayer<ComponentT>::ComponentMemoryLayer(const std::string& _id, unsigned int initial_reserved_space)
+    : Loggable("[" + _id + "] COMPONENT MEMORY LAYER")
+    , id (_id){
     component_vector.reserve(initial_reserved_space);
     handle_vector.reserve(initial_reserved_space);
 }
@@ -67,13 +76,14 @@ void ComponentMemoryLayer<ComponentT>::custom_realloc() {
         handle_vector[i].update_origin_pointer(&component_vector[i]);
     }
 
-    // TEMP
     LOG_DEBUG(18) << "Reallocation happened";
-    //Handle<GameObject>::print_entries_array_info();
 }
 
 template<class ComponentT>
 void ComponentMemoryLayer<ComponentT>::remove_component(Handle<ComponentT> target_handle) {
+    LOG_DEBUG(25) << "Removing component " << target_handle->get_log_id();
+    // Sets the correspondent value in the mapped array to -1 (representing absence of the component)
+    target_handle->gameobject()->my_components_mapped_array[ComponentFactory::id_to_index(id)] = -1;
     // If we're removing the last element there's no need of memory swapping shenanigans
     // else the last element is swapped in the gap created by the removal and the corresponding handle origin pointer is updated
     if (target_handle.get_pointer() != &component_vector.back()) {
@@ -101,7 +111,26 @@ unsigned int ComponentMemoryLayer<ComponentT>::create_unspecified_component(Hand
 
 template<class ComponentT>
 void ComponentMemoryLayer<ComponentT>::remove_unspecified_component(unsigned int index) {
-    remove_component(Handle<ComponentT>::get_handle_from_index(index));
+    auto component = Handle<ComponentT>::get_handle_from_index(index);
+    component->destroy();
+}
+
+template<class ComponentT>
+const std::vector<Handle<ComponentT>> &ComponentMemoryLayer<ComponentT>::get_component_vector() const {
+    return handle_vector;
+}
+
+template<class ComponentT>
+void ComponentMemoryLayer<ComponentT>::doom_pass() {
+    LOG_DEBUG(25) << "Doom pass";
+    unsigned int target_index = 0;
+    for (int i = 0; i < handle_vector.size(); ++i) {
+        if (handle_vector[target_index]->is_doomed()) {         // Component removal
+            remove_component(handle_vector[target_index]);
+        } else {
+            target_index++;
+        }
+    }
 }
 
 

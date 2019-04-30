@@ -5,8 +5,10 @@
 
 #include <string>
 #include "SGE/Macros.hpp"
+
 #include "SGE/components/Transform.hpp"
 #include "SGE/components/LogicHub.hpp"
+
 #include "SGE/utils/log/Loggable.hpp"
 #include "SGE/utils/handles/Handle.hpp"
 
@@ -22,15 +24,25 @@ public:
 
     Handle<GameObject> &get_handle();
 
-    const Handle<Transform> &transform() const;
-    Handle<LogicHub> &logichub();
-
+    const Handle<Transform>& transform() const;
+    Handle<LogicHub>& logichub();
     template <class T>
     Handle<T> add_component(const std::string& id);
+    unsigned int add_unspecified_component(const std::string& id);
+
     template <class T>
     Handle<T> get_component(const std::string& id);
     bool has_component(const std::string& id);
     void remove_component(const std::string& id);
+    /*!
+     * \brief Flags this GameObject for destruction. It will be actually destroyed after update and before render.
+     */
+    void destroy() { is_doomed_flag = true; }
+    /*!
+     * \brief Checks if the object is flagged for destruction
+     * \return true if this GameObject is flagged for destruction, false otherwise
+     */
+    bool is_doomed() { return is_doomed_flag; }
 
 
 private:
@@ -50,16 +62,18 @@ private:
      */
     int my_components_mapped_array[TOTAL_POSSIBLE_COMPONENTS] = {-1};
 
+    bool is_doomed_flag = false;
 
-    unsigned int add_unspecified_component(const std::string& id);
+
     unsigned int id_to_index(const std::string& id);
 
+    template <class T>
+    friend class ComponentMemoryLayer;
 };
 
 
 template<class T>
 Handle<T> GameObject::add_component(const std::string &id) {
-    LOG_DEBUG(19) << "Adding a new component of id [" + id + "]";
     if (this->has_component(id)) {
         LOG_ERROR << "Error: this GameObject already has a component of id [" << id << "]";
         exit(1);

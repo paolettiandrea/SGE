@@ -1,23 +1,17 @@
 #include <iostream>
-#include <SGE/components/LogicHub.hpp>
-#include "SGE/Scene.hpp"
-
-#include "SGE/components/Transform.hpp"
-
-
-#include "SGE/logic/DummyLogic.hpp"
+#include "SGE/Engine.hpp"
+#include "InitialDummyLogic.hpp"
+#include <unistd.h>
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    Engine engine;
 
+    Logic* dummy_logic = new InitialDummyLogic();
+    engine.initialize(dummy_logic);
 
-
-
-
-
-
-
-
+    while (engine.game_loop()) {
+        sleep(1);
+    }
 
 
     return 0;

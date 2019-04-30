@@ -29,6 +29,10 @@ public:
      */
     void remove_gameobject(Handle<GameObject> target_handle);
 
+    const std::vector<GameObject> &get_gameobjects_vector() const;
+
+    void doom_pass();
+
 private:
     /*!
      * \brief Method that is called right before a normal reallocation would happen, it reallocates at the same way but it also updates the handle's pointers to the objects since they've been moved in memory.

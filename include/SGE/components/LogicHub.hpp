@@ -2,13 +2,13 @@
 #define FACTORY_EXPERIMENTS_LOGIC_HUB_HPP
 
 #include <list>
-#include "Component.hpp"
-
+#include "SGE/components/Component.hpp"
+#include "SGE/logic/ILogicCallbacks.hpp"
 
 class Logic;
 
 
-class LogicHub : public Component {
+class LogicHub : public Component, public ILogicCallbacks {
 public:
     LogicHub(const Handle<GameObject> &gameobject);
 
@@ -28,6 +28,19 @@ public:
     void remove_logic(Logic* target_logic);
 
     // TODO: get_logics and remove_logics (multiple logics with same id)
+
+
+    //region Callback propagation methods
+
+    void on_start() override;
+
+    void on_destruction() override;
+
+    void on_update() override;
+
+    void on_fixed_update() override;
+
+    //endregion
 
 
 private:

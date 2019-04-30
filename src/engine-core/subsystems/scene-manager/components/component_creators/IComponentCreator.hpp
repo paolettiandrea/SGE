@@ -24,7 +24,7 @@ public:
      * \brief Gets the topmost ComponentArray.
      * \return A pointer to the un-specified interface of the topmost ComponentArray.
      */
-    virtual IComponentMemoryLayer* get_top_layer() = 0;
+    virtual IComponentMemoryLayer* get_unspecified_top_layer() = 0;
     /*!
      * \brief Pops the topmost ComponentArray
      */

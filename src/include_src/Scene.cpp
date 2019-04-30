@@ -4,7 +4,7 @@
 #include "ComponentFactory.hpp"
 #include "Loggable.hpp"
 
-Scene::Scene(unsigned int _index, GameObjectMemoryLayer* _gameobj_memory_layer, IComponentMemoryLayer* _componentarrays_array[])
+Scene::Scene(unsigned int _index, GameObjectMemoryLayer* _gameobj_memory_layer, IComponentMemoryLayer* _componentarrays_array[], Logic* initial_logic)
         : Loggable ("SCENE [" + std::to_string(_index) + "]")
         , index(_index)
         , gameobject_memory_layer(_gameobj_memory_layer)
@@ -13,6 +13,9 @@ Scene::Scene(unsigned int _index, GameObjectMemoryLayer* _gameobj_memory_layer, 
             for (int i = 0; i < TOTAL_POSSIBLE_COMPONENTS; ++i) {
                 component_memory_layer_array[i] = _componentarrays_array[i];
             }
+
+            auto initial_gameobj = spawn_gameobject("Initial GameObject");
+            initial_gameobj->get_component<LogicHub>("LogicHub")->attach_logic(initial_logic);
         }
 
 Handle<GameObject> Scene::spawn_gameobject(const std::string& name) {

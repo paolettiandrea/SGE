@@ -18,9 +18,21 @@ public:
 
     Handle<GameObject> &gameobject();
 
+    bool is_doomed() { return is_doomed_flag; }
+
+
 private:
     Handle<GameObject> gameobject_handle;
 
+    bool is_doomed_flag = false;
+
+    template <class T>
+    friend class ComponentMemoryLayer;
+
+    /*!
+     * \brief Flags the Component for destruction
+     */
+    virtual void destroy();
 };
 
 

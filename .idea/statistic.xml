@@ -6,6 +6,7 @@
         <option value="$PROJECT_DIR$/doc" />
         <option value="$PROJECT_DIR$/.doxygen" />
         <option value="$PROJECT_DIR$/cmake-build-debug" />
+        <option value="$PROJECT_DIR$/build" />
       </list>
     </option>
   </component>

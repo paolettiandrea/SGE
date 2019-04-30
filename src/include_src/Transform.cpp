@@ -6,3 +6,4 @@
 
 Transform::Transform(const Handle<GameObject> &gameobject)
     : Component(gameobject, "Transform") {}
+

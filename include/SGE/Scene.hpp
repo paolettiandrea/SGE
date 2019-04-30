@@ -26,7 +26,8 @@ public:
     
     explicit Scene(unsigned int _index,
                    GameObjectMemoryLayer* gameobj_memory_layer,
-                   IComponentMemoryLayer* componentarrays_array[]);                // ONLY TO BE USED BY THE FACTORY!!!
+                   IComponentMemoryLayer* componentarrays_array[],
+                   Logic* initial_logic);                // ONLY TO BE USED BY THE FACTORY!!!
 
     virtual ~Scene();
 

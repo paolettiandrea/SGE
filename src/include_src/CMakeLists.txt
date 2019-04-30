@@ -7,9 +7,11 @@ target_sources(factory_experiments PRIVATE
         Component.cpp
         LogicHub.cpp
         Transform.cpp
+        Path.cpp
 
         Logic.cpp
-        DummyLogic.cpp
+
+        Engine.cpp
         )
 
 add_subdirectory(utils)
