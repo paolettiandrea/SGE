@@ -3,7 +3,10 @@ project(factory_experiments)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(factory_experiments main.cpp)
+add_library(factory_experiments)
+
+add_subdirectory(tester)
+
 
 
 

@@ -1,4 +1,4 @@
-#include "GameObject.hpp"
+#include "SGE/GameObject.hpp"
 
 #include <iostream>
 #include "ComponentFactory.hpp"

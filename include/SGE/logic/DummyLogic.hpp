@@ -5,7 +5,7 @@
 #ifndef FACTORY_EXPERIMENTS_DUMMYLOGIC_HPP
 #define FACTORY_EXPERIMENTS_DUMMYLOGIC_HPP
 
-#include "Logic.hpp"
+#include "SGE/logic/Logic.hpp"
 
 class DummyLogic : public  Logic {
 public:

@@ -3,8 +3,8 @@
 
 
 #include "SGE/GameObject.hpp"
-#include "SGE/misc/handles/Handle.hpp"
 #include "SGE/Macros.hpp"
+#include "SGE/utils/handles/Handle.hpp"
 
 /*!
 \file

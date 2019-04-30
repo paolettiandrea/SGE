@@ -2,8 +2,8 @@
 #define FACTORY_EXPERIMENTS_COMPONENT_HPP
 
 //#include "SGE/GameObject.hpp"
-#include "SGE/misc/handles/Handle.hpp"
-#include "Loggable.hpp"
+#include "SGE/utils/handles/Handle.hpp"
+#include "SGE/utils/log/Loggable.hpp"
 
 
 class GameObject;

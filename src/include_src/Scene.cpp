@@ -1,8 +1,6 @@
+#include <Scene.hpp>
 
-#include <SGE/Scene.hpp>
-
-#include "Scene.hpp"
-#include "gameobjects/GameObjectMemoryLayer.hpp"
+#include "GameObjectMemoryLayer.hpp"
 #include "ComponentFactory.hpp"
 #include "Loggable.hpp"
 

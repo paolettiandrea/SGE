@@ -1,12 +1,14 @@
 #ifndef FACTORY_EXPERIMENTS_GAMEOBJECT_HPP
 #define FACTORY_EXPERIMENTS_GAMEOBJECT_HPP
 
-#include "Handle.hpp"
-#include "Macros.hpp"
+
+
 #include <string>
-#include "Loggable.hpp"
+#include "SGE/Macros.hpp"
 #include "SGE/components/Transform.hpp"
 #include "SGE/components/LogicHub.hpp"
+#include "SGE/utils/log/Loggable.hpp"
+#include "SGE/utils/handles/Handle.hpp"
 
 class Scene;
 

@@ -2,10 +2,11 @@
 #define FACTORY_EXPERIMENTS_LOGIC_HPP
 
 #include <string>
-#include "Handle.hpp"
-#include "ILogicCallbacks.hpp"
-#include "Loggable.hpp"
-#include "GameObject.hpp"
+#include "SGE/GameObject.hpp"
+#include "SGE/logic/ILogicCallbacks.hpp"
+#include "SGE/utils/handles/Handle.hpp"
+#include "SGE/utils/log/Loggable.hpp"
+
 
 class Logic : public ILogicCallbacks, public utils::log::Loggable {
 public:

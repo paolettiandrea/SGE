@@ -1,4 +1,4 @@
-#include <SGE/components/Component.hpp>
+#include "Component.hpp"
 #include "GameObject.hpp"
 
 
