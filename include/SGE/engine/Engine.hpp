@@ -1,7 +1,3 @@
-//
-// Created by andrea on 4/30/19.
-//
-
 #ifndef FACTORY_EXPERIMENTS_ENGINE_HPP
 #define FACTORY_EXPERIMENTS_ENGINE_HPP
 
@@ -9,10 +5,7 @@
 
 class EngineCore;
 class Logic;
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/
+
 /*!
  * \brief The engine object (entry side)
  */
@@ -31,3 +24,11 @@ private:
 
 
 #endif //FACTORY_EXPERIMENTS_ENGINE_HPP
+
+
+
+
+/*!
+\file
+\brief ${BRIEF_FILE_DESCRIPTION}
+*/

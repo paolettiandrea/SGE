@@ -6,6 +6,7 @@
 #include "SGE/logic/ILogicCallbacks.hpp"
 #include "SGE/utils/handles/Handle.hpp"
 #include "SGE/utils/log/Loggable.hpp"
+#include "SGE/Scene.hpp"
 
 
 class Logic : public ILogicCallbacks, public utils::log::Loggable {
@@ -23,6 +24,8 @@ public:
 
     virtual std::string get_logic_id() = 0;
     Handle<GameObject> gameobject();
+    Scene* scene();
+    IEnvironment* env();
 
 
     // Logic Callbacks ------------------------------------------------------------------------------------------------
@@ -34,7 +37,9 @@ public:
     void on_fixed_update() override;
 
 private:
-    Handle<GameObject> gameobject_handle;
+    Handle<GameObject> m_gameobject_handle;
+    Scene* m_scene;
+    IEnvironment* m_env;
 
 };
 

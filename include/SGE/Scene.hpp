@@ -2,6 +2,7 @@
 #define FACTORY_EXPERIMENTS_SCENE_HPP
 
 
+#include <SGE/engine/IEnvironment.hpp>
 #include "SGE/GameObject.hpp"
 #include "SGE/Macros.hpp"
 #include "SGE/utils/handles/Handle.hpp"
@@ -24,10 +25,11 @@ public:
      */
     const unsigned int index;
     
-    explicit Scene(unsigned int _index,
+    explicit Scene(unsigned int _index,                                            // ONLY TO BE USED BY THE FACTORY!!!
                    GameObjectMemoryLayer* gameobj_memory_layer,
                    IComponentMemoryLayer* componentarrays_array[],
-                   Logic* initial_logic);                // ONLY TO BE USED BY THE FACTORY!!!
+                   IEnvironment* env,
+                   Logic* initial_logic);
 
     virtual ~Scene();
 
@@ -45,7 +47,11 @@ public:
      * \brief Gets an array of pointers to every ComponentMemoryLayer of this scene, one for each type at the index
      * expected from the id_to_index correspondence
      */
-    IComponentMemoryLayer *const *get_component_memorylayer_array() const;
+    IComponentMemoryLayer * *get_component_memorylayer_array();
+
+    IEnvironment* env() {
+        return env_p;
+    }
 
 
 private:
@@ -58,6 +64,10 @@ private:
      * at the index expected from the id_to_index correspondance
      */
     IComponentMemoryLayer* component_memory_layer_array[TOTAL_POSSIBLE_COMPONENTS];
+    /*!
+     * \brief A pointer to the IEnvironment interface of the Engine
+     */
+    IEnvironment* env_p;
 };
 
 

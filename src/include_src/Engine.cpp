@@ -1,7 +1,7 @@
 
-#include <SGE/Engine.hpp>
+#include <SGE/engine/Engine.hpp>
 
-#include "Engine.hpp"
+#include "SGE/engine/Engine.hpp"
 #include "EngineCore.hpp"
 
 Engine::Engine()

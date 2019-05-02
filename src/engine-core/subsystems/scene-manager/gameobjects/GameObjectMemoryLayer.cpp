@@ -30,27 +30,28 @@ void GameObjectMemoryLayer::custom_realloc() {
 void GameObjectMemoryLayer::remove_gameobject(Handle<GameObject> target_handle) {
     // If we're removing the last element there's no need of memory swapping shenanigans
     // else the last element is swapped in the gap created by the removal and the corresponfing handle origin pointer is updated
-    if (target_handle.get_pointer() != &gameobjects_vector.back()) {
-        GameObject* target_pointer = target_handle.get_pointer();
+    auto target_pointer = target_handle.get_pointer();
+    if (target_pointer != &gameobjects_vector.back()) {
         GameObject* last_element_pointer = &gameobjects_vector.back();
         last_element_pointer->get_handle().update_origin_pointer(target_pointer);
-        std::swap(target_pointer, last_element_pointer);
+        target_pointer->swap(gameobjects_vector.back());
     }
     target_handle.make_origin_expired();
     gameobjects_vector.pop_back();
 }
 
-const std::vector<GameObject> &GameObjectMemoryLayer::get_gameobjects_vector() const {
-    return gameobjects_vector;
+std::vector<GameObject>* GameObjectMemoryLayer::get_gameobjects_vector() {
+    return &gameobjects_vector;
 }
 
 void GameObjectMemoryLayer::doom_pass() {
+    LOG_DEBUG(25) << "Doom pass";
     int target_index = 0;
     for (int i = 0; i < gameobjects_vector.size(); ++i) {
         GameObject* target_gameobj_p = &gameobjects_vector[target_index];
         if (target_gameobj_p->is_doomed()) {
-            target_gameobj_p->logichub()->on_destruction();
-            remove_gameobject(target_gameobj_p->get_handle());
+            Handle<GameObject> go = target_gameobj_p->get_handle();
+            remove_gameobject(go);
         } else {
             target_index++;
         }

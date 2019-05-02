@@ -100,6 +100,7 @@ public:
 #ifdef DEBUG
         if (!this->is_valid()) {
             std::cout << "ERROR: Tried to use the -> operator on an invalid handle" << std::endl;
+            Handle<T>::print_entries_array_info();
             exit(1);
         }
 #endif

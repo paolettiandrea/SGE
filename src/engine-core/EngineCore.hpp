@@ -9,13 +9,20 @@
 #include "ObjectManager.hpp"
 #include "LogicManager.hpp"
 #include "Loggable.hpp"
+#include "IEnvironment.hpp"
 
-class EngineCore : utils::log::Loggable {
+class EngineCore : utils::log::Loggable, IEnvironment {
 public:
     EngineCore();
     bool game_loop();
 
     void initialize(Logic* initial_logic);
+
+    //region IEnvironment declarations
+
+    double delta_time() override;
+    double fixed_delta_time() override;
+    //endregion
 
 
 private:

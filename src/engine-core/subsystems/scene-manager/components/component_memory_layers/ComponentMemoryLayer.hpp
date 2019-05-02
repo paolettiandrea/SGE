@@ -31,6 +31,8 @@ public:
     unsigned int create_unspecified_component(Handle<GameObject> gameobject) override;
     void remove_unspecified_component(unsigned int index) override;
 
+    void doom_unspecified_component(unsigned int index) override;
+
 private:
     const std::string id;
 
@@ -45,7 +47,6 @@ private:
      */
     void remove_component(Handle<ComponentT> target_handle);
 };
-
 
 
 
@@ -83,7 +84,7 @@ template<class ComponentT>
 void ComponentMemoryLayer<ComponentT>::remove_component(Handle<ComponentT> target_handle) {
     LOG_DEBUG(25) << "Removing component " << target_handle->get_log_id();
     // Sets the correspondent value in the mapped array to -1 (representing absence of the component)
-    target_handle->gameobject()->my_components_mapped_array[ComponentFactory::id_to_index(id)] = -1;
+    target_handle->gameobject()->m_components_mapped_array[ComponentFactory::id_to_index(id)] = -1;
     // If we're removing the last element there's no need of memory swapping shenanigans
     // else the last element is swapped in the gap created by the removal and the corresponding handle origin pointer is updated
     if (target_handle.get_pointer() != &component_vector.back()) {
@@ -126,11 +127,17 @@ void ComponentMemoryLayer<ComponentT>::doom_pass() {
     unsigned int target_index = 0;
     for (int i = 0; i < handle_vector.size(); ++i) {
         if (handle_vector[target_index]->is_doomed()) {         // Component removal
+            handle_vector[target_index]->destruction_callback();
             remove_component(handle_vector[target_index]);
         } else {
             target_index++;
         }
     }
+}
+
+template<class ComponentT>
+void ComponentMemoryLayer<ComponentT>::doom_unspecified_component(unsigned int index) {
+    handle_vector[index]->doom();
 }
 
 

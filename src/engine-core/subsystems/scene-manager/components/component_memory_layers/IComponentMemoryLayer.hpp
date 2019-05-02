@@ -19,6 +19,8 @@ public:
      */
     virtual void remove_unspecified_component(unsigned int index) = 0;
 
+    virtual void doom_unspecified_component(unsigned int index) = 0;
+
     virtual void doom_pass() = 0;
 };
 

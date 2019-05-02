@@ -29,7 +29,7 @@ public:
      */
     void remove_gameobject(Handle<GameObject> target_handle);
 
-    const std::vector<GameObject> &get_gameobjects_vector() const;
+    std::vector<GameObject>* get_gameobjects_vector();
 
     void doom_pass();
 

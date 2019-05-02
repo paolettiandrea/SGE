@@ -1,5 +1,5 @@
 #include <iostream>
-#include "SGE/Engine.hpp"
+#include "SGE/engine/Engine.hpp"
 #include "InitialDummyLogic.hpp"
 #include <unistd.h>
 

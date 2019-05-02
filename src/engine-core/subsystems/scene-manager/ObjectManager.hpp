@@ -2,13 +2,16 @@
 #define FACTORY_EXPERIMENTS_FACTORY_HPP
 
 #include "Scene.hpp"
+
 #include <stack>
-#include <SGE/components/Path.hpp>
+
 #include "GameObjectMemoryLayer.hpp"
 #include "ComponentFactory.hpp"
-#include "Subsystem.hpp"
 #include "ComponentCreator.hpp"
+#include "Subsystem.hpp"
+
 #include "Transform.hpp"
+#include "Path.hpp"
 
 /*!
  * \brief The object that allows for Scene generation and manipulation.
@@ -16,10 +19,11 @@
  */
 class ObjectManager : public Subsystem {
 public:
-    ObjectManager()
+    explicit ObjectManager(IEnvironment* _env)
         : Subsystem("OBJECT MANAGER")
         , transform_creator("Transform")
-        , path_creator("Path"){ }
+        , path_creator("Path")
+        , env(_env){ }
     /*!
      * Builds a new scene at the top of the scene stack
      * \return the index of the built scene in the stack index
@@ -34,6 +38,10 @@ public:
      * \brief Pops the topmost Scene, deleting it.
      */
     void pop_top_scene();
+    /*!
+     * \brief Returns the size of the scene stack on a given moment.
+     * \return An unsigned int representing the size of the scene stack a.k.a. the number of existing scenes.
+     */
     unsigned int get_scene_stack_size();
 
     void doom_pass();
@@ -47,6 +55,8 @@ private:
 
     ComponentCreator<Transform> transform_creator;
     ComponentCreator<Path> path_creator;
+
+    IEnvironment* env;
 };
 
 

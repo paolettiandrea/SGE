@@ -13,7 +13,7 @@
 
 class Path : public Component {
 public:
-    Path(const Handle<GameObject> &gameobject);
+    Path(const Handle<GameObject>& gameobject);
 };
 
 

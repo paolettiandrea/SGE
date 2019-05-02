@@ -8,8 +8,16 @@ Component::Component(Handle<GameObject> gameobject, const std::string &id)
 
 }
 
+
 Handle<GameObject> &Component::gameobject() {
     return gameobject_handle;
 }
 
 void Component::destroy() { is_doomed_flag = true; }
+
+void Component::doom() {
+    LOG_DEBUG(35) << "Doomed";
+    is_doomed_flag = true;
+}
+
+

@@ -18,7 +18,14 @@ public:
 
     Handle<GameObject> &gameobject();
 
+    /*!
+     * \brief A callback called right befor the removal of the component,
+     * a concrete component can override this in order to prepare for deletion
+     */
+    virtual void destruction_callback() {}
+
     bool is_doomed() { return is_doomed_flag; }
+    void doom();
 
 
 private:

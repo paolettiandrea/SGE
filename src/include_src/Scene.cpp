@@ -4,10 +4,15 @@
 #include "ComponentFactory.hpp"
 #include "Loggable.hpp"
 
-Scene::Scene(unsigned int _index, GameObjectMemoryLayer* _gameobj_memory_layer, IComponentMemoryLayer* _componentarrays_array[], Logic* initial_logic)
+Scene::Scene(unsigned int _index,
+             GameObjectMemoryLayer* _gameobj_memory_layer,
+             IComponentMemoryLayer* _componentarrays_array[],
+             IEnvironment* _env,
+             Logic* initial_logic)
         : Loggable ("SCENE [" + std::to_string(_index) + "]")
         , index(_index)
         , gameobject_memory_layer(_gameobj_memory_layer)
+        , env_p(_env)
         {
             LOG_DEBUG(18) << "Initiating construction";
             for (int i = 0; i < TOTAL_POSSIBLE_COMPONENTS; ++i) {
@@ -28,7 +33,7 @@ void Scene::destroy_gameobject(Handle<GameObject> target_handle) {
     gameobject_memory_layer->remove_gameobject(target_handle);
 }
 
-IComponentMemoryLayer *const *Scene::get_component_memorylayer_array() const {
+IComponentMemoryLayer * *Scene::get_component_memorylayer_array() {
     return component_memory_layer_array;
 }
 

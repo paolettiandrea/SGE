@@ -36,9 +36,7 @@ void LogicHub::remove_logic(Logic *target_logic) {
 }
 
 LogicHub::~LogicHub() {
-    for (auto attached_logic : attached_logic_list) {
-        delete(attached_logic);
-    }
+
 }
 
 Logic *LogicHub::get_unspecificed_logic(const std::string &logic_id) {
@@ -71,6 +69,13 @@ void LogicHub::on_update() {
 void LogicHub::on_fixed_update() {
     for (auto logic : attached_logic_list) {
         logic->on_fixed_update();
+    }
+}
+
+void LogicHub::destruction_callback() {
+    LOG_DEBUG(20) << "Destroying attached logic";
+    for (auto logic : attached_logic_list) {
+        delete(logic);
     }
 }
 //endregion

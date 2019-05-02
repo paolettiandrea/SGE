@@ -12,6 +12,7 @@ class LogicHub : public Component, public ILogicCallbacks {
 public:
     LogicHub(const Handle<GameObject> &gameobject);
 
+
     virtual ~LogicHub();
 
     void attach_logic(Logic* new_logic);
@@ -39,6 +40,8 @@ public:
     void on_update() override;
 
     void on_fixed_update() override;
+
+    void destruction_callback() override;
 
     //endregion
 
