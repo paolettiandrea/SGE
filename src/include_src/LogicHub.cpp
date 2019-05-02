@@ -31,7 +31,6 @@ bool LogicHub::has_logic(Logic *target_logic) {
 
 void LogicHub::remove_logic(Logic *target_logic) {
     attached_logic_list.remove(target_logic);
-    target_logic->on_destruction();
     delete(target_logic);
 }
 

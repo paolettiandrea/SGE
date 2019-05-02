@@ -1,14 +1,16 @@
 #include "ObjectManager.hpp"
 
 
-Scene* ObjectManager::push_new_scene(Logic* initial_logic) {
+Scene* ObjectManager::push_new_scene(SceneConstructionData *scene_construction_data) {
     LOG_DEBUG(11) << "Pushing a new m_scene";
     gameobj_layers_stack.emplace();
+    scene_construction_data->gameobj_memory_layer = &gameobj_layers_stack.top();
 
-    IComponentMemoryLayer* componentarray_out[TOTAL_POSSIBLE_COMPONENTS];
-    component_factory.push_new_component_memory_layer(componentarray_out);
+    component_factory.push_new_component_memory_layer(scene_construction_data->componentarrays_array);
 
-    scene_stack.emplace(scene_stack.size(), &gameobj_layers_stack.top(), componentarray_out, env, initial_logic);
+    scene_construction_data->env = env;
+
+    scene_stack.emplace(scene_construction_data);
     return &scene_stack.top();
 
 }
@@ -52,4 +54,30 @@ void ObjectManager::doom_pass() {
     gameobj_layers_stack.top().doom_pass();
 
 
+}
+
+void ObjectManager::scene_pass() {
+    if (pop_top_scene_flag) {
+        pop_top_scene();
+        pop_top_scene_flag = false;
+    }
+    if (new_scene_construction_data != nullptr) {
+        push_new_scene(new_scene_construction_data);
+        delete( new_scene_construction_data );
+        new_scene_construction_data = nullptr;
+    }
+}
+
+bool ObjectManager::book_scene_push(const std::string &name, Logic *initial_logic) {
+    bool book_successfull = false;
+    if (new_scene_construction_data == nullptr) {
+        new_scene_construction_data = new SceneConstructionData(name);
+        new_scene_construction_data->initial_logic = initial_logic;
+        book_successfull = true;
+    }
+    return  book_successfull;
+}
+
+void ObjectManager::doom_top_scene() {
+    pop_top_scene_flag = true;
 }

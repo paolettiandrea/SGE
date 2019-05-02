@@ -19,7 +19,7 @@ public:
     Handle<GameObject> &gameobject();
 
     /*!
-     * \brief A callback called right befor the removal of the component,
+     * \brief A callback called right before the removal of the component,
      * a concrete component can override this in order to prepare for deletion
      */
     virtual void destruction_callback() {}

@@ -42,6 +42,10 @@ public:
     }
 
     void pop_top_layer() override {
+        // Call a destruction_callback on every component of the top layer, since is going to be popped
+        for (auto component : componentmemorylayer_stack.top().get_component_vector()) {
+            component->destruction_callback();
+        }
         componentmemorylayer_stack.pop();
     }
 

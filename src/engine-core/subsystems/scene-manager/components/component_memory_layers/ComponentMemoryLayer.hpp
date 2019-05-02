@@ -83,6 +83,7 @@ void ComponentMemoryLayer<ComponentT>::custom_realloc() {
 template<class ComponentT>
 void ComponentMemoryLayer<ComponentT>::remove_component(Handle<ComponentT> target_handle) {
     LOG_DEBUG(25) << "Removing component " << target_handle->get_log_id();
+    target_handle->destruction_callback();
     // Sets the correspondent value in the mapped array to -1 (representing absence of the component)
     target_handle->gameobject()->m_components_mapped_array[ComponentFactory::id_to_index(id)] = -1;
     // If we're removing the last element there's no need of memory swapping shenanigans
@@ -127,7 +128,6 @@ void ComponentMemoryLayer<ComponentT>::doom_pass() {
     unsigned int target_index = 0;
     for (int i = 0; i < handle_vector.size(); ++i) {
         if (handle_vector[target_index]->is_doomed()) {         // Component removal
-            handle_vector[target_index]->destruction_callback();
             remove_component(handle_vector[target_index]);
         } else {
             target_index++;

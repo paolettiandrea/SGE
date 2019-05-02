@@ -21,5 +21,7 @@ void InitialDummyLogic::on_start() {
 
     go2->add_unspecified_component("Padth");        // FIXME: the factory somehow doesn't break with an inexistent id
 
+    env()->book_new_scene_push("Sceeeene", new LogBehaviour());
+
 }
 

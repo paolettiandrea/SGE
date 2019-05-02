@@ -6,6 +6,7 @@
 #include "SGE/GameObject.hpp"
 #include "SGE/Macros.hpp"
 #include "SGE/utils/handles/Handle.hpp"
+#include "SGE/SceneConstructionData.hpp"
 
 /*!
 \file
@@ -20,16 +21,8 @@ class IComponentMemoryLayer;
  */
 class Scene : public utils::log::Loggable {
 public:
-    /*!
-     * \brief The index of this scene in the scene stack, it's not expected to change during the lifetime of the scene.
-     */
-    const unsigned int index;
     
-    explicit Scene(unsigned int _index,                                            // ONLY TO BE USED BY THE FACTORY!!!
-                   GameObjectMemoryLayer* gameobj_memory_layer,
-                   IComponentMemoryLayer* componentarrays_array[],
-                   IEnvironment* env,
-                   Logic* initial_logic);
+    explicit Scene(SceneConstructionData* scene_construction_data);
 
     virtual ~Scene();
 
@@ -39,15 +32,10 @@ public:
      */
     Handle<GameObject> spawn_gameobject(const std::string& name);
     /*!
-     * \brief Flags an object for destruction
-     * \param target_handle An handle to the GameObject that needs to be destroyed
-     */
-    void destroy_gameobject(Handle<GameObject> target_handle);
-    /*!
      * \brief Gets an array of pointers to every ComponentMemoryLayer of this scene, one for each type at the index
      * expected from the id_to_index correspondence
      */
-    IComponentMemoryLayer * *get_component_memorylayer_array();
+    IComponentMemoryLayer** get_component_memorylayer_array();
 
     IEnvironment* env() {
         return env_p;

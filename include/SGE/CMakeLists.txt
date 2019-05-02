@@ -4,6 +4,7 @@ target_sources(factory_experiments PUBLIC
         engine/Engine.hpp
         GameObject.hpp
         Scene.hpp
+        SceneConstructionData.hpp
         )
 
 add_subdirectory(engine)

@@ -1,14 +1,15 @@
 #ifndef FACTORY_EXPERIMENTS_FACTORY_HPP
 #define FACTORY_EXPERIMENTS_FACTORY_HPP
 
-#include "Scene.hpp"
-
 #include <stack>
 
 #include "GameObjectMemoryLayer.hpp"
 #include "ComponentFactory.hpp"
 #include "ComponentCreator.hpp"
 #include "Subsystem.hpp"
+
+#include "Scene.hpp"
+#include "SceneConstructionData.hpp"
 
 #include "Transform.hpp"
 #include "Path.hpp"
@@ -24,11 +25,21 @@ public:
         , transform_creator("Transform")
         , path_creator("Path")
         , env(_env){ }
+
+    /*!
+     * \brief Books the push of a scene, meaning that if successfull at the end of this gameloop a new scene will
+     * be pushed on top of the scene stack with the givel logic
+     * \param initial_logic The Logic that will be given to the new Scene
+     * \return true if the booking was successfull (because there wasn't already a scene push booked), false otherwise
+     */
+    bool book_scene_push(const std::string &name, Logic *initial_logic);
+
+    void doom_top_scene();
     /*!
      * Builds a new scene at the top of the scene stack
      * \return the index of the built scene in the stack index
      */
-    Scene* push_new_scene(Logic* initial_logic);
+    Scene* push_new_scene(SceneConstructionData *scene_construction_data);        // TODO: delayed pushing and popping of scenes (or recursive?)
     /*!
      * \brief Get the Scene that is currently at the top of the stack
      * \return A pointer to the top Scene.
@@ -45,6 +56,10 @@ public:
     unsigned int get_scene_stack_size();
 
     void doom_pass();
+    /*!
+     * \brief Checks if the scene stack needs to be modified and act accordingly
+     */
+    void scene_pass();
 
 
 private:
@@ -57,6 +72,15 @@ private:
     ComponentCreator<Path> path_creator;
 
     IEnvironment* env;
+
+    // Acts as a flag that signals if the push of a new scene was requested during the last gameloop
+    SceneConstructionData* new_scene_construction_data = nullptr;
+    // Flag that signals if the popping of the top scene was requested during the last gameloop
+    bool pop_top_scene_flag = false;
+    // If both are true at the scene_pass the top scene is substituted by a new scene having the initial logic contained in the flag
+
+
+
 };
 
 

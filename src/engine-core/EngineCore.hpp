@@ -21,7 +21,12 @@ public:
     //region IEnvironment declarations
 
     double delta_time() override;
-    double fixed_delta_time() override;
+
+private:
+    bool book_new_scene_push(const std::string &name, Logic *initial_logic) override;
+
+    void doom_top_scene() override;
+    //double fixed_delta_time() override;
     //endregion
 
 

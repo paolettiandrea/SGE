@@ -10,6 +10,7 @@ std::string LogBehaviour::get_logic_id() {
 
 void LogBehaviour::on_start() {
     LOG(10) << "on_start";
+    env()->doom_top_scene();
 }
 
 void LogBehaviour::on_destruction() {

@@ -6,8 +6,7 @@
 int main() {
     Engine engine;
 
-    Logic* dummy_logic = new InitialDummyLogic();
-    engine.initialize(dummy_logic);
+    engine.initialize(new InitialDummyLogic());
 
     while (engine.game_loop()) {
         sleep(1);
