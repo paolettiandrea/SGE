@@ -2,18 +2,22 @@
 #define FACTORY_EXPERIMENTS_LOGIC_HPP
 
 #include <string>
+
 #include "SGE/GameObject.hpp"
+#include "SGE/Scene.hpp"
+
 #include "SGE/logic/ILogicCallbacks.hpp"
+
 #include "SGE/utils/handles/Handle.hpp"
 #include "SGE/utils/log/Loggable.hpp"
-#include "SGE/Scene.hpp"
+
 
 /*!
  * \brief Object through which the library user can define it's custom game logic.
  */
 class Logic : public ILogicCallbacks, public utils::log::Loggable {
 public:
-    Logic() : Loggable("placeholder text replaced on update_reference()") {
+    Logic() : Loggable("Placeholder id for Logic yet to be attached") {
 
     }
     virtual ~Logic();

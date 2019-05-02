@@ -16,7 +16,7 @@ bool EngineCore::game_loop() {
 
     // End-loop passes
     object_manager.doom_pass();
-    object_manager.scene_pass();
+    object_manager.scene_pass();        // Where the scene is changed if requested during this loop
 
     frame_counter++;
     LOG_DEBUG(20) << "Game_loop ended";
@@ -59,8 +59,6 @@ EngineCore::~EngineCore() {
                       << " scenes remaining in the stack, popping top " << object_manager.get_top_scene()->get_log_id();
         object_manager.pop_top_scene();
     }
-
-
 }
 
 /*double EngineCore::fixed_delta_time() {
