@@ -9,7 +9,10 @@
 #include "Component.hpp"
 
 
-
+/*!
+ * \brief The component that manages the spacial properties of a GameObject and organizes the object in a Scene
+ * in a Transform hierarchy
+ */
 class Transform : public Component {
 public:
     explicit Transform(const Handle<GameObject> &gameobject);

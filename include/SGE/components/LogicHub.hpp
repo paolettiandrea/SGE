@@ -7,7 +7,9 @@
 
 class Logic;
 
-
+/*!
+ * \brief The Component that manages the Logic attached to a GameObject
+ */
 class LogicHub : public Component, public ILogicCallbacks {
 public:
     LogicHub(const Handle<GameObject> &gameobject);

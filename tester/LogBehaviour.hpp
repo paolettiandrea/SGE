@@ -14,7 +14,7 @@
 
 class LogBehaviour : public Logic {
 public:
-    std::string get_logic_id() override;
+    std::string get_logic_type_id() override;
 
     void on_start() override;
 

@@ -1,13 +1,15 @@
 #include "InitialDummyLogic.hpp"
 #include "LogBehaviour.hpp"
 
-std::string InitialDummyLogic::get_logic_id() {
+std::string InitialDummyLogic::get_logic_type_id() {
     return "InitialDummyLogic";
 }
 
 void InitialDummyLogic::on_start() {
     LOG(10) << "on_start";
     gameobject()->add_unspecified_component("Path");
+
+    env()->book_new_scene_push("Recursive", new InitialDummyLogic());
 
 
     auto go1 = scene()->spawn_gameobject("Yoo");

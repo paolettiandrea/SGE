@@ -20,7 +20,6 @@ Scene *ObjectManager::get_top_scene() {
 }
 
 void ObjectManager::pop_top_scene() {
-    LOG_DEBUG(15) << "Popping the top Scene";
     component_factory.pop_top_component_memory_layer();
     gameobj_layers_stack.pop();
     scene_stack.pop();
@@ -31,6 +30,7 @@ unsigned int ObjectManager::get_scene_stack_size() {
 }
 
 void ObjectManager::doom_pass() {
+    LOG_DEBUG(15) << "Starting doom pass";
     for (auto & gameobj : (*gameobj_layers_stack.top().get_gameobjects_vector())) {
         if (gameobj.is_doomed()) {
             // Every component attached to the doomed gameobject is doomed
@@ -53,19 +53,25 @@ void ObjectManager::doom_pass() {
     }
     gameobj_layers_stack.top().doom_pass();
 
+    LOG_DEBUG(15) << "Doom pass terminated";
 
 }
 
 void ObjectManager::scene_pass() {
+    LOG_DEBUG(15) << "Starting scene pass";
     if (pop_top_scene_flag) {
+        LOG_DEBUG(15) << "Popping the top scene (since pop_top_scene_flag == true)";
         pop_top_scene();
         pop_top_scene_flag = false;
     }
     if (new_scene_construction_data != nullptr) {
-        push_new_scene(new_scene_construction_data);
-        delete( new_scene_construction_data );
-        new_scene_construction_data = nullptr;
+        LOG_DEBUG(15) << "Pushing a new scene (since new_scene_construction_data != nullptr)";
+        SceneConstructionData* temp_pointer = new_scene_construction_data;
+        new_scene_construction_data = nullptr;          // It's nulled before the push so that there's no conflict
+        push_new_scene(temp_pointer);                   // if during scene creation some logic wants to book a push
+        delete( temp_pointer );
     }
+    LOG_DEBUG(15) << "Ending scene pass";
 }
 
 bool ObjectManager::book_scene_push(const std::string &name, Logic *initial_logic) {

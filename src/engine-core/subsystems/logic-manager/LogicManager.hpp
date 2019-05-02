@@ -10,10 +10,8 @@
 #include "LogicHub.hpp"
 
 /*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/
-
+ * \brief The Subsystem that manages Logic
+ */
 class LogicManager : public Subsystem {
 public:
     LogicManager();
@@ -27,3 +25,9 @@ private:
 
 
 #endif //FACTORY_EXPERIMENTS_LOGICMANAGER_HPP
+
+
+/*!
+\file
+\brief ${BRIEF_FILE_DESCRIPTION}
+*/

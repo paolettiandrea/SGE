@@ -1,0 +1,26 @@
+/*!
+
+\dir ./src
+\brief Contains all the source files and the internal headers
+
+\dir ./src/engine-core
+\brief Contains all the source files for the internal part of the Engine
+
+\dir ./src/engine-core/subsystems
+\brief Contains the source files for the EngineCore subsystems
+
+\dir ./src/engine-core/subsystems/logic-manager
+\brief Contains the source files for the LogicManager
+
+\dir ./src/engine-core/subsystems/object-manager
+\brief Contains the source files for the ObjectManager
+
+
+\dir ./src/include_src
+\brief Contains the source files for the headers contained in ./include
+
+\dir ./src/include_src/utils
+\brief Contains the source files for the files in ./include/utils
+
+
+*/

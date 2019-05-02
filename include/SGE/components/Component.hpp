@@ -50,5 +50,5 @@ private:
 
 /*!
 \file
-\brief ${BRIEF_FILE_DESCRIPTION}
+\brief Header file.
 */

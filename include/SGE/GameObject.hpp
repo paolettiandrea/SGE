@@ -77,6 +77,10 @@ private:
     /*!
      * \brief Internal array holding the information necessary to know if the object has a certain component
      * and to retreive an handle to it.
+     * \details
+     * The information is hold in this format:
+     * - at every index of the array is hold the information for the component type given by the correspondence of the ComponentFactory id_to_index
+     * - the value at a given index is -1 if the component is absent, if present is equal to the index of the HandleEntry of that component, so the handle can be retrieved
      */
     int m_components_mapped_array[TOTAL_POSSIBLE_COMPONENTS] = {-1};
 

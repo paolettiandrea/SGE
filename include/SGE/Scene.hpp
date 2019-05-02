@@ -48,7 +48,7 @@ private:
      */
     GameObjectMemoryLayer* gameobject_memory_layer;
     /*!
-     * \brief Array of pointers to each ComponentMemoryLayer (unspecified interface) of this Scene, one for each type
+     * \brief Array of pointers to each IComponentMemoryLayer (unspecified interface of ComponentMemoryLayer) of this Scene, one for each type
      * at the index expected from the id_to_index correspondance
      */
     IComponentMemoryLayer* component_memory_layer_array[TOTAL_POSSIBLE_COMPONENTS];
@@ -60,3 +60,11 @@ private:
 
 
 #endif //FACTORY_EXPERIMENTS_SCENE_HPP
+
+
+
+
+/*!
+\file
+\brief Header file.
+*/

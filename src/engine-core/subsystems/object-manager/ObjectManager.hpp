@@ -15,8 +15,7 @@
 #include "Path.hpp"
 
 /*!
- * \brief The object that allows for Scene generation and manipulation.
- * \details
+ * \brief The object that manages Scenes, but also indirectly GameObject and Component generation and distruction.
  */
 class ObjectManager : public Subsystem {
 public:
@@ -77,7 +76,8 @@ private:
     SceneConstructionData* new_scene_construction_data = nullptr;
     // Flag that signals if the popping of the top scene was requested during the last gameloop
     bool pop_top_scene_flag = false;
-    // If both are true at the scene_pass the top scene is substituted by a new scene having the initial logic contained in the flag
+    // If both are true at the scene_pass the top scene is substituted by a new scene having the initial logic
+    // contained in the flag
 
 
 
@@ -85,3 +85,9 @@ private:
 
 
 #endif //FACTORY_EXPERIMENTS_FACTORY_HPP
+
+
+/*!
+\file
+\brief Header file.
+*/

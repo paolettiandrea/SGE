@@ -11,6 +11,9 @@
 #include "Loggable.hpp"
 #include "IEnvironment.hpp"
 
+/*!
+ * \brief The internal part of the Engine
+ */
 class EngineCore : utils::log::Loggable, IEnvironment {
 public:
     EngineCore();
@@ -37,3 +40,12 @@ private:
 
 
 #endif //FACTORY_EXPERIMENTS_ENGINECORE_HPP
+
+
+
+
+
+/*!
+\file
+\brief Header file.
+*/

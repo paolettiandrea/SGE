@@ -11,6 +11,9 @@
 \brief ${BRIEF_FILE_DESCRIPTION}
 */
 
+/*|
+ * \brief Probably Shape would be a better name (?)
+ */
 class Path : public Component {
 public:
     Path(const Handle<GameObject>& gameobject);

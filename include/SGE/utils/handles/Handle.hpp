@@ -76,6 +76,7 @@ public:
     bool is_valid() {
         if (is_null()) return false;
         else {
+            //print_entries_array_info();
             return ((handle_entries[index].counter == counter));
         }
     }
@@ -162,7 +163,7 @@ public:
         }
     }
 
-    static const Handle get_handle_from_index(int index) {
+    static Handle get_handle_from_index(int index) {
         return  Handle(index, handle_entries[index].counter);
     }
 

@@ -137,18 +137,14 @@ void ComponentMemoryLayer<ComponentT>::doom_pass() {
 
 template<class ComponentT>
 void ComponentMemoryLayer<ComponentT>::doom_unspecified_component(unsigned int index) {
-    handle_vector[index]->doom();
+    Handle<ComponentT>::get_handle_from_index(index)->doom();
 }
 
 
 #endif //FACTORY_EXPERIMENTS_COMPONENTARRAY_HPP
 
 
-
-
-
-
 /*!
 \file
-\brief ${BRIEF_FILE_DESCRIPTION}
+\brief Header file.
 */

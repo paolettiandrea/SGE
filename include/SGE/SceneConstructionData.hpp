@@ -12,6 +12,9 @@ class IComponentMemoryLayer;
 class IEnvironment;
 class Logic;
 
+/*!
+ * \brief Object meant to contain all the data necessary to build a Scene object.
+ */
 struct SceneConstructionData {
     SceneConstructionData(const std::string& _name) : name(_name) {  }
 

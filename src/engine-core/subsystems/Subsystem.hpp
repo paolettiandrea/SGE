@@ -12,6 +12,9 @@
 \brief ${BRIEF_FILE_DESCRIPTION}
 */
 
+/*!
+ * \brief An object managing a specific aspect of the engine functionality
+ */
 class Subsystem : public utils::log::Loggable {
 public:
     Subsystem (const std::string& subsystem_name);
@@ -19,3 +22,9 @@ public:
 
 
 #endif //FACTORY_EXPERIMENTS_SUBSYSTEM_HPP
+
+
+/*!
+\file
+\brief Header file.
+*/

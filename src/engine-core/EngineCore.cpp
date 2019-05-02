@@ -12,22 +12,23 @@ bool EngineCore::game_loop() {
     LOG_DEBUG(20) << "The game_loop is starting again with " << object_manager.get_top_scene()->get_log_id()
                   << " on top of a scene stack of size " << object_manager.get_scene_stack_size();
 
-    LOG_DEBUG(21) << "Starting on_update";
+
     logic_manager.on_update();
 
-    LOG_DEBUG(21) << "Starting doom_pass";
     object_manager.doom_pass();
-    LOG_DEBUG(21) << "Starting scene_pass";
     object_manager.scene_pass();
+
+    LOG_DEBUG(20) << "Game_loop ended";
     return true;
 }
 
 void EngineCore::initialize(Logic *initial_logic) {
+    LOG_INFO << "Initialization started";
     SceneConstructionData* data = new SceneConstructionData("Initial Scene");
     data->initial_logic = initial_logic;
     Scene* scene = object_manager.push_new_scene(data);
     delete(data);
-
+    LOG_INFO << "Initialization completed";
 }
 
 

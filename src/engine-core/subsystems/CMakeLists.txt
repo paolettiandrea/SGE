@@ -4,5 +4,5 @@ target_sources(factory_experiments PRIVATE
         Subsystem.cpp
         Subsystem.hpp)
 
-add_subdirectory(scene-manager)
-add_subdirectory(logic-subsystem)
+add_subdirectory(object-manager)
+add_subdirectory(logic-manager)

@@ -11,7 +11,10 @@
 \brief ${BRIEF_FILE_DESCRIPTION}
 */
 
-
+/*!
+ * \brief The object that contains the actual pointer that a corresponding handle can retrieve
+ * \tparam T The type of pointer contained in this object
+ */
 template <class T>
 class HandleEntry {
 public:

@@ -8,16 +8,17 @@
 LogicHub::LogicHub(const Handle<GameObject> &gameobject) : Component(gameobject, "LogicHub") {}
 
 void LogicHub::attach_logic(Logic *new_logic) {
-    LOG_DEBUG(18) << "Attaching new logic with logic id (" << new_logic->get_logic_id() << ")";
+    LOG_DEBUG(18) << "Attaching new logic with logic id (" << new_logic->get_logic_type_id() << ")";
 
     attached_logic_list.push_back(new_logic);
     new_logic->update_references(this->gameobject());
+    LOG_DEBUG(18) << "Calling on_start on the newly attached logic";
     new_logic->on_start();
 }
 
 bool LogicHub::has_logic(const std::string &logic_id) {
     for (auto attached_logic : attached_logic_list) {
-        if (attached_logic->get_logic_id() == logic_id) return true;
+        if (attached_logic->get_logic_type_id() == logic_id) return true;
     }
     return false;
 }
@@ -40,7 +41,7 @@ LogicHub::~LogicHub() {
 
 Logic *LogicHub::get_unspecificed_logic(const std::string &logic_id) {
     for (auto attached_logic : attached_logic_list) {
-        if (attached_logic->get_logic_id() == logic_id) return attached_logic;
+        if (attached_logic->get_logic_type_id() == logic_id) return attached_logic;
     }
     return nullptr;
 }

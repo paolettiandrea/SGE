@@ -4,7 +4,7 @@
 
 #include "LogBehaviour.hpp"
 
-std::string LogBehaviour::get_logic_id() {
+std::string LogBehaviour::get_logic_type_id() {
     return "LogBehaviour";
 }
 

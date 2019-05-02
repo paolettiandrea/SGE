@@ -8,7 +8,9 @@
 #include "SGE/utils/log/Loggable.hpp"
 #include "SGE/Scene.hpp"
 
-
+/*!
+ * \brief Object through which the library user can define it's custom game logic.
+ */
 class Logic : public ILogicCallbacks, public utils::log::Loggable {
 public:
     Logic() : Loggable("placeholder text replaced on update_reference()") {
@@ -22,7 +24,7 @@ public:
      */
     void update_references(Handle<GameObject> gameobj);
 
-    virtual std::string get_logic_id() = 0;
+    virtual std::string get_logic_type_id() = 0;
     Handle<GameObject> gameobject();
     Scene* scene();
     IEnvironment* env();

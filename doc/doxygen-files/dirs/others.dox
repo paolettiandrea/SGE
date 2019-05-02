@@ -1,0 +1,24 @@
+/*!
+
+\dir ./.doxygen
+\brief Contains files related to Doxygen doc generation
+
+\dir ./.doxygen/m.css
+\brief Contains a tool used to theme-up the output.
+
+
+\dir ./doc
+\brief Contains Doxygen doc content
+
+\dir ./doc/doxygen-files
+\brief Contains the doxygen documentation that isn't contained in source files
+
+\dir ./doc/doxygen-files/dirs
+\brief Contains the dox files for the project's directories
+
+\dir ./doc/doxygen-files/pages
+\brief Contains the dox files for the pages in the odxygen documentation.
+
+\dir ./doc/generated
+\brief The folder where the documentation is generated
+*/
