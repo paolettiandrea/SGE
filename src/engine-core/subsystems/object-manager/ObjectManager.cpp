@@ -1,9 +1,10 @@
 #include "ObjectManager.hpp"
+#include "Logic.hpp"
 
 
 Scene* ObjectManager::push_new_scene(SceneConstructionData *scene_construction_data) {
-    LOG_DEBUG(11) << "Pushing a new m_scene";
     gameobj_layers_stack.emplace();
+    LOG_DEBUG(30) << "Pushing a new GameObjectMemoryLayer on top of the stack";
     scene_construction_data->gameobj_memory_layer = &gameobj_layers_stack.top();
 
     component_factory.push_new_component_memory_layer(scene_construction_data->componentarrays_array);
@@ -86,4 +87,11 @@ bool ObjectManager::book_scene_push(const std::string &name, Logic *initial_logi
 
 void ObjectManager::doom_top_scene() {
     pop_top_scene_flag = true;
+}
+
+ObjectManager::~ObjectManager() {
+    if (new_scene_construction_data != nullptr) {                           // There was a scene booked for pushing
+        delete((new_scene_construction_data->initial_logic));               // so some stuff needs to be deleted
+        delete(new_scene_construction_data);
+    }
 }

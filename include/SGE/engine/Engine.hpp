@@ -2,6 +2,7 @@
 #define FACTORY_EXPERIMENTS_ENGINE_HPP
 
 #include "SGE/utils/log/Loggable.hpp"
+#include "SGE/engine/IEnvironment.hpp"
 
 class EngineCore;
 class Logic;
@@ -15,6 +16,8 @@ public:
     virtual ~Engine();
 
     bool game_loop();
+    IEnvironment* env();
+
 
     void initialize(Logic* initial_logic);
 

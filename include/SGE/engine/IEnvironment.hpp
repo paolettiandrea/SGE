@@ -16,10 +16,12 @@ class Logic;
 class IEnvironment {
 public:
     virtual double delta_time() = 0;
+    virtual unsigned int frame_count() = 0;
     //virtual double fixed_delta_time() = 0;
 
     virtual bool book_new_scene_push(const std::string &name, Logic *initial_logic) = 0;
     virtual void doom_top_scene() = 0;
+
 };
 
 

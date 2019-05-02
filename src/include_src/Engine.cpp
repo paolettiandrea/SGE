@@ -11,6 +11,7 @@ Engine::Engine()
 }
 
 Engine::~Engine() {
+    LOG_INFO << "Starting engine deletion";
     delete core;
 }
 
@@ -20,6 +21,10 @@ bool Engine::game_loop() {
 
 void Engine::initialize(Logic *initial_logic) {
     core->initialize(initial_logic);
+}
+
+IEnvironment *Engine::env() {
+    return (IEnvironment*)core;
 }
 
 

@@ -25,6 +25,8 @@ public:
         , path_creator("Path")
         , env(_env){ }
 
+    virtual ~ObjectManager();
+
     /*!
      * \brief Books the push of a scene, meaning that if successfull at the end of this gameloop a new scene will
      * be pushed on top of the scene stack with the givel logic

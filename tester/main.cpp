@@ -9,7 +9,7 @@ int main() {
 
     engine.initialize(new RecursiveSceneLogic(0));
 
-    while (engine.game_loop()) {
+    while (engine.game_loop() && engine.env()->frame_count()<4) {
         sleep(1);
     }
 
