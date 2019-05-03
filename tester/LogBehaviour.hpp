@@ -12,7 +12,7 @@
 \brief ${BRIEF_FILE_DESCRIPTION}
 */
 
-class LogBehaviour : public Logic {
+class LogBehaviour : public sge::Logic {
 public:
     std::string get_logic_type_id() override;
 

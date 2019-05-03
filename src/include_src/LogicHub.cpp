@@ -4,6 +4,9 @@
 #include "LogicHub.hpp"
 #include "Logic.hpp"
 
+using sge::LogicHub;
+using sge::Logic;
+using utils::Handle;
 
 LogicHub::LogicHub(const Handle<GameObject> &gameobject) : Component(gameobject, "LogicHub") {}
 

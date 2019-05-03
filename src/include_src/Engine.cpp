@@ -4,6 +4,9 @@
 #include "SGE/engine/Engine.hpp"
 #include "EngineCore.hpp"
 
+using namespace sge;
+using namespace sge::core;
+
 Engine::Engine()
     : Loggable("ENGINE") {
     LOG_DEBUG(10) << "Initiating construction";

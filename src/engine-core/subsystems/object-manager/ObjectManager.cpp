@@ -1,6 +1,9 @@
 #include "ObjectManager.hpp"
 #include "Logic.hpp"
 
+using sge::core::ObjectManager;
+using sge::Scene;
+using sge::SceneConstructionData;
 
 Scene* ObjectManager::push_new_scene(SceneConstructionData *scene_construction_data) {
     gameobj_layers_stack.emplace();

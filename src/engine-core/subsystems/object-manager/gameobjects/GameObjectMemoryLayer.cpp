@@ -3,6 +3,10 @@
 // TEMP
 #include <iostream>
 
+using sge::core::GameObjectMemoryLayer;
+using sge::GameObject;
+using utils::Handle;
+
 GameObjectMemoryLayer::GameObjectMemoryLayer(unsigned int initial_reserved_spaces)
     : Loggable("GAME OBJECT MEMORY LAYER"){
     gameobjects_vector.reserve(initial_reserved_spaces);

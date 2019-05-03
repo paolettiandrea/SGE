@@ -1,9 +1,13 @@
 #include "ComponentFactory.hpp"
-#include "components/component_creators/IComponentCreator.hpp"
+#include "IComponentCreator.hpp"
 #include "IComponentMemoryLayer.hpp"
 
+using sge::core::ComponentFactory;
+using sge::core::IComponentCreator;
+using sge::core::IComponentMemoryLayer;
+
 // Static variables initialization
-IComponentCreator* ComponentFactory::creators[TOTAL_POSSIBLE_COMPONENTS];
+sge::core::IComponentCreator* ComponentFactory::creators[TOTAL_POSSIBLE_COMPONENTS];
 std::map<std::string, unsigned int> ComponentFactory::id_index_map = {};
 unsigned int ComponentFactory::registration_counter = 0;
 

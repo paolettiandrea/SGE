@@ -1,5 +1,8 @@
 #include <SGE/logic/Logic.hpp>
 
+using namespace sge;
+using utils::Handle;
+
 void Logic::on_start() { }
 
 void Logic::on_destruction() { }

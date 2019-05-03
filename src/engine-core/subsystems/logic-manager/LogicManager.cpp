@@ -4,6 +4,8 @@
 
 #include "LogicManager.hpp"
 
+using sge::core::LogicManager;
+
 LogicManager::LogicManager()
     : Subsystem("LOGIC SUBSYSTEM")
     , logichub_creator("LogicHub"){}

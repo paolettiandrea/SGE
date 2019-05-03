@@ -1,6 +1,9 @@
 #include "Component.hpp"
 #include "GameObject.hpp"
 
+using sge::Component;
+using sge::GameObject;
+using utils::Handle;
 
 Component::Component(Handle<GameObject> gameobject, const std::string &id)
     : Loggable( "[" + id + "] of " + gameobject->get_log_id())

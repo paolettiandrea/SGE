@@ -7,14 +7,13 @@
 
 
 int main() {
-    Engine engine;
+    sge::Engine engine;
 
     engine.initialize(new RecursiveSceneLogic(0));
 
     while (engine.game_loop() && engine.env()->frame_count()<4) {
         sleep(1);
     }
-
 
     return 0;
 }

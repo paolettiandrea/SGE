@@ -11,41 +11,46 @@
 #include "Loggable.hpp"
 #include "IEnvironment.hpp"
 
+namespace sge {
+    namespace core {
+        /*!
+         * \brief The internal part of the Engine
+         */
+        class EngineCore : utils::log::Loggable, IEnvironment {
+        public:
+            EngineCore();
 
-/*!
- * \brief The internal part of the Engine
- */
-class EngineCore : utils::log::Loggable, IEnvironment {
-public:
-    EngineCore();
+            virtual ~EngineCore();
 
-    virtual ~EngineCore();
+            bool game_loop();
 
-    bool game_loop();
+            void initialize(Logic* initial_logic);
 
-    void initialize(Logic* initial_logic);
+            //region IEnvironment declarations
 
-    //region IEnvironment declarations
+            double delta_time() override;
 
-    double delta_time() override;
+        private:
+            unsigned int frame_count() override;
 
-private:
-    unsigned int frame_count() override;
+        private:
+            bool book_new_scene_push(const std::string &name, Logic *initial_logic) override;
 
-private:
-    bool book_new_scene_push(const std::string &name, Logic *initial_logic) override;
-
-    void doom_top_scene() override;
-    //double fixed_delta_time() override;
-    //endregion
+            void doom_top_scene() override;
+            //double fixed_delta_time() override;
+            //endregion
 
 
-private:
-    ObjectManager object_manager;
-    LogicManager logic_manager;
+        private:
+            ObjectManager object_manager;
+            LogicManager logic_manager;
 
-    unsigned int frame_counter = 0;
-};
+            unsigned int frame_counter = 0;
+        };
+    }
+}
+
+
 
 
 #endif //FACTORY_EXPERIMENTS_ENGINECORE_HPP

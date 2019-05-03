@@ -6,6 +6,9 @@
 #include "Scene.hpp"
 #include "Logic.hpp"
 
+using namespace sge;
+using namespace sge::core;
+using utils::Handle;
 
 GameObject::GameObject(Scene* _scene, const std::string& _name)
     : Loggable("{" + _name + "}")

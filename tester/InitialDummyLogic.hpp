@@ -12,7 +12,7 @@
 \brief ${BRIEF_FILE_DESCRIPTION}
 */
 
-class InitialDummyLogic : public Logic {
+class InitialDummyLogic : public sge::Logic {
 public:
     std::string get_logic_type_id() override;
 

@@ -4,6 +4,10 @@
 #include "ComponentFactory.hpp"
 #include "Loggable.hpp"
 
+using namespace sge;
+using namespace sge::core;
+using utils::Handle;
+
 Scene::Scene(SceneConstructionData* scene_construction_data)
         : Loggable ("SCENE [" + scene_construction_data->name + "]")
         , gameobject_memory_layer(scene_construction_data->gameobj_memory_layer)

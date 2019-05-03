@@ -7,18 +7,24 @@
 
 #include "Loggable.hpp"
 
+namespace sge {
+    namespace core {
+        /*!
+ * \brief An object managing a specific aspect of the engine functionality
+ */
+        class Subsystem : public utils::log::Loggable {
+        public:
+            Subsystem (const std::string& subsystem_name);
+        };
+    }
+}
+
 /*!
 \file
 \brief ${BRIEF_FILE_DESCRIPTION}
 */
 
-/*!
- * \brief An object managing a specific aspect of the engine functionality
- */
-class Subsystem : public utils::log::Loggable {
-public:
-    Subsystem (const std::string& subsystem_name);
-};
+
 
 
 #endif //FACTORY_EXPERIMENTS_SUBSYSTEM_HPP

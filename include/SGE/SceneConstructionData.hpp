@@ -7,21 +7,35 @@
 
 #include "Macros.hpp"
 #include <string>
-class GameObjectMemoryLayer;
-class IComponentMemoryLayer;
-class IEnvironment;
-class Logic;
+
+namespace sge {
+
+    class IEnvironment;
+    class Logic;
+
+    namespace core {
+
+        class GameObjectMemoryLayer;
+        class IComponentMemoryLayer;
+    }
+
+    struct SceneConstructionData {
+        SceneConstructionData(const std::string& _name) : name(_name) {  }
+
+        const std::string name;
+        core::GameObjectMemoryLayer* gameobj_memory_layer;
+        core::IComponentMemoryLayer* componentarrays_array[TOTAL_POSSIBLE_COMPONENTS];
+        IEnvironment* env;
+        Logic* initial_logic;
+    };
+}
+
+
+
+
 
 /*!
  * \brief Object meant to contain all the data necessary to build a Scene object.
  */
-struct SceneConstructionData {
-    SceneConstructionData(const std::string& _name) : name(_name) {  }
 
-    const std::string name;
-    GameObjectMemoryLayer* gameobj_memory_layer;
-    IComponentMemoryLayer* componentarrays_array[TOTAL_POSSIBLE_COMPONENTS];
-    IEnvironment* env;
-    Logic* initial_logic;
-};
 #endif //FACTORY_EXPERIMENTS_SCENECONSTRUCTIONDATA_HPP

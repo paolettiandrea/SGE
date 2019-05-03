@@ -6,18 +6,24 @@
 #define FACTORY_EXPERIMENTS_PATH_HPP
 
 #include "SGE/components/Component.hpp"
+
+namespace sge {
+    /*|
+ * \brief Probably Shape would be a better name (?)
+ */
+    class Path : public Component {
+    public:
+        Path(const utils::Handle<GameObject>& gameobject);
+    };
+}
+
+
 /*!
 \file
 \brief ${BRIEF_FILE_DESCRIPTION}
 */
 
-/*|
- * \brief Probably Shape would be a better name (?)
- */
-class Path : public Component {
-public:
-    Path(const Handle<GameObject>& gameobject);
-};
+
 
 
 #endif //FACTORY_EXPERIMENTS_PATH_HPP

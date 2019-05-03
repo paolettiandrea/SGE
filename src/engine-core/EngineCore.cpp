@@ -1,6 +1,8 @@
 #include "EngineCore.hpp"
 
 
+using sge::core::EngineCore;
+
 EngineCore::EngineCore()
     : Loggable("ENGINE CORE")
     , object_manager((IEnvironment*)this) {

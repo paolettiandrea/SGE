@@ -7,7 +7,7 @@
 
 #include "SGE/logic/Logic.hpp"
 
-class RecursiveSceneLogic : public Logic {
+class RecursiveSceneLogic : public sge::Logic {
 public:
     RecursiveSceneLogic(int _depth) : depth(_depth) {}
 

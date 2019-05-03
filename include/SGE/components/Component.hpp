@@ -5,42 +5,50 @@
 #include "SGE/utils/handles/Handle.hpp"
 #include "SGE/utils/log/Loggable.hpp"
 
+namespace sge {
 
-class GameObject;
+    class GameObject;
+
+    namespace core {
+        template <class T>
+        class ComponentMemoryLayer;
+    }
 
 /*!
  * \brief An aggregation of related data and functionality meant to be attached
  * to a GameObject in order to have an impact on its behaviour
  */
-class Component : public utils::log::Loggable {
-public:
-    explicit Component(Handle<GameObject> gameobject, const std::string &id);
+    class Component : public utils::log::Loggable {
+    public:
+        explicit Component(utils::Handle<sge::GameObject> gameobject, const std::string &id);
 
-    Handle<GameObject> &gameobject();
+        utils::Handle<sge::GameObject> &gameobject();
 
-    /*!
-     * \brief A callback called right before the removal of the component,
-     * a concrete component can override this in order to prepare for deletion
-     */
-    virtual void destruction_callback() {}
+        /*!
+         * \brief A callback called right before the removal of the component,
+         * a concrete component can override this in order to prepare for deletion
+         */
+        virtual void destruction_callback() {}
 
-    bool is_doomed() { return is_doomed_flag; }
-    void doom();
+        bool is_doomed() { return is_doomed_flag; }
+        void doom();
 
 
-private:
-    Handle<GameObject> gameobject_handle;
+    private:
+        utils::Handle<sge::GameObject> gameobject_handle;
 
-    bool is_doomed_flag = false;
+        bool is_doomed_flag = false;
 
-    template <class T>
-    friend class ComponentMemoryLayer;
+        template <class T>
+        friend class core::ComponentMemoryLayer;
 
-    /*!
-     * \brief Flags the Component for destruction
-     */
-    virtual void destroy();
-};
+        /*!
+         * \brief Flags the Component for destruction
+         */
+        virtual void destroy();
+    };
+
+}
 
 
 #endif //FACTORY_EXPERIMENTS_COMPONENT_HPP
