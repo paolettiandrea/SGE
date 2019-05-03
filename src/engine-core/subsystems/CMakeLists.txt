@@ -6,3 +6,4 @@ target_sources(factory_experiments PRIVATE
 
 add_subdirectory(object-manager)
 add_subdirectory(logic-manager)
+add_subdirectory(window-manager)

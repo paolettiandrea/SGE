@@ -19,15 +19,20 @@ namespace sge {
         class IComponentMemoryLayer;
     }
 
+    namespace cd {
+    /*!
+     * \brief Object that holds all the user dependent information necessary in order to build a Scene
+     */
     struct SceneConstructionData {
-        SceneConstructionData(const std::string& _name) : name(_name) {  }
+        SceneConstructionData(const std::string& _name, Logic* _initial_logic)
+                : name(_name)
+                , initial_logic(_initial_logic){  }
 
         const std::string name;
-        core::GameObjectMemoryLayer* gameobj_memory_layer;
-        core::IComponentMemoryLayer* componentarrays_array[TOTAL_POSSIBLE_COMPONENTS];
-        IEnvironment* env;
         Logic* initial_logic;
     };
+    }
+
 }
 
 

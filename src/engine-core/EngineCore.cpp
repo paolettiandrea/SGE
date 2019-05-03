@@ -1,16 +1,17 @@
 #include "EngineCore.hpp"
 
-
 using sge::core::EngineCore;
+using sge::cd::SceneConstructionData;
 
-EngineCore::EngineCore()
+EngineCore::EngineCore(cd::EngineCore_ConstructionData& data)
     : Loggable("ENGINE CORE")
-    , object_manager((IEnvironment*)this) {
+    , object_manager((IEnvironment*)this)
+    , window_manager (data.window) {
 
 }
 
 bool EngineCore::game_loop() {
-    if (object_manager.get_scene_stack_size()==0) return false;
+    if (object_manager.get_scene_stack_size()==0 || !window_manager.window_is_open()) return false;
     LOG_DEBUG(20) << "The game_loop is starting with " << object_manager.get_top_scene()->get_log_id()
                   << " on top of a scene stack of size " << object_manager.get_scene_stack_size();
 
@@ -18,6 +19,12 @@ bool EngineCore::game_loop() {
 
     // End-loop passes
     object_manager.doom_pass();
+
+    window_manager.handle_window_events();
+    window_manager.clear_window();
+
+    window_manager.display();
+
     object_manager.scene_pass();        // Where the scene is changed if requested during this loop
 
     frame_counter++;
@@ -25,12 +32,9 @@ bool EngineCore::game_loop() {
     return true;
 }
 
-void EngineCore::initialize(Logic *initial_logic) {
+void EngineCore::initialize(cd::SceneConstructionData& initial_scene_cd) {
     LOG_INFO << "Initialization started";
-    SceneConstructionData* data = new SceneConstructionData("Initial Scene");
-    data->initial_logic = initial_logic;
-    Scene* scene = object_manager.push_new_scene(data);
-    delete(data);
+    Scene* scene = object_manager.push_new_scene(&initial_scene_cd);
     LOG_INFO << "Initialization completed";
 }
 

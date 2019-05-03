@@ -21,7 +21,8 @@ namespace sge {
     class Scene : public utils::log::Loggable {
     public:
 
-        explicit Scene(SceneConstructionData* scene_construction_data);
+        explicit Scene(cd::SceneConstructionData *scene_construction_data, core::GameObjectMemoryLayer *_gameobject_memory_layer,
+                       core::IComponentMemoryLayer **_component_memory_layer_array, IEnvironment *_env);
 
         virtual ~Scene();
 

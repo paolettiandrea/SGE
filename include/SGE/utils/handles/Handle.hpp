@@ -1,8 +1,12 @@
 #ifndef PROJECT_HANDLE_HPP
 #define PROJECT_HANDLE_HPP
 
+
 #ifndef MAXIMUM_HANDLES_PER_TYPE
-#define MAXIMUM_HANDLES_PER_TYPE 32000
+/*!
+ * \brief Defines the maximum number of handles of some type that can be used in a given moment
+ */
+#define MAXIMUM_HANDLES_PER_TYPE 128000
 #endif
 
 

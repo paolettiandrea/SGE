@@ -7,10 +7,10 @@
 using namespace sge;
 using namespace sge::core;
 
-Engine::Engine()
+Engine::Engine(cd::EngineCore_ConstructionData& data)
     : Loggable("ENGINE") {
     LOG_DEBUG(10) << "Initiating construction";
-    core = new EngineCore();
+    core = new EngineCore(data);
 }
 
 Engine::~Engine() {
@@ -22,8 +22,8 @@ bool Engine::game_loop() {
     return core->game_loop();
 }
 
-void Engine::initialize(Logic *initial_logic) {
-    core->initialize(initial_logic);
+void Engine::initialize(cd::SceneConstructionData& initial_scene_cd) {
+    core->initialize(initial_scene_cd);
 }
 
 IEnvironment *Engine::env() {

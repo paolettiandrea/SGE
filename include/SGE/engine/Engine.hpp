@@ -3,6 +3,7 @@
 
 #include "SGE/utils/log/Loggable.hpp"
 #include "SGE/engine/IEnvironment.hpp"
+#include "SGE/engine/construction_data/EngineCore_ConstructionData.hpp"
 
 namespace sge {
     namespace core {
@@ -15,14 +16,18 @@ namespace sge {
  */
     class Engine : public utils::log::Loggable {
     public:
-        Engine();
+        Engine(cd::EngineCore_ConstructionData& data);
         virtual ~Engine();
 
         bool game_loop();
+        /*!
+         * \brief Gets a pointer to the environment
+         * \return A pointer to IEnvironment
+         */
         IEnvironment* env();
 
 
-        void initialize(Logic* initial_logic);
+        void initialize(cd::SceneConstructionData& initial_scene_cd);
 
     private:
         core::EngineCore* core;

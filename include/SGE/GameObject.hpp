@@ -21,6 +21,9 @@ namespace sge {
 
     class Scene;
 
+    /*!
+     * \brief An object that holds an assortment of components that define its behaviour
+     */
     class GameObject : public utils::log::Loggable {
     public:
         explicit GameObject(Scene* scene, const std::string& name = "GameObject");      // TODO: for now it should be fine, but sooner or later this will need a custom copy constructor since its copied on every vector reallocation

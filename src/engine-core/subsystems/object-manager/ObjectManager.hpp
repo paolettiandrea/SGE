@@ -43,7 +43,7 @@ namespace sge {
              * Builds a new scene at the top of the scene stack
              * \return the index of the built scene in the stack index
              */
-            Scene* push_new_scene(SceneConstructionData *scene_construction_data);        // TODO: delayed pushing and popping of scenes (or recursive?)
+            Scene* push_new_scene(cd::SceneConstructionData *scene_construction_data);        // TODO: delayed pushing and popping of scenes (or recursive?)
             /*!
              * \brief Get the Scene that is currently at the top of the stack
              * \return A pointer to the top Scene.
@@ -78,7 +78,7 @@ namespace sge {
             IEnvironment* env;
 
             // Acts as a flag that signals if the push of a new scene was requested during the last gameloop
-            SceneConstructionData* new_scene_construction_data = nullptr;
+            cd::SceneConstructionData* new_scene_construction_data = nullptr;
             // Flag that signals if the popping of the top scene was requested during the last gameloop
             bool pop_top_scene_flag = false;
             // If both are true at the scene_pass the top scene is substituted by a new scene having the initial logic

@@ -7,12 +7,16 @@
 
 
 int main() {
-    sge::Engine engine;
 
-    engine.initialize(new RecursiveSceneLogic(0));
 
-    while (engine.game_loop() && engine.env()->frame_count()<4) {
-        sleep(1);
+    sge::cd::EngineCore_ConstructionData engine_cd;
+    sge::Engine engine (engine_cd);
+
+    sge::cd::SceneConstructionData initial_scene_cd("Initial recursive scene", new RecursiveSceneLogic(0));
+    engine.initialize(initial_scene_cd);
+
+    while (engine.game_loop()) {
+
     }
 
     return 0;

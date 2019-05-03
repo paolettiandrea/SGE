@@ -52,6 +52,9 @@ namespace utils {
             static const Color LIGHT_CYAN;
         };
 
+        /*!
+         * \brief Used to define the style of some text meant to be printed in terminal
+         */
         class Style {
 
         private:
@@ -80,6 +83,9 @@ namespace utils {
             static const Style STRIKE_OFF;
         };
 
+        /*!
+         * \brief Class used to specify some visual properties of some terminal text.
+         */
         class TextMod {
             std::string color_string;
         public:

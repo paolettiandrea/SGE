@@ -8,14 +8,15 @@ using namespace sge;
 using namespace sge::core;
 using utils::Handle;
 
-Scene::Scene(SceneConstructionData* scene_construction_data)
+Scene::Scene(cd::SceneConstructionData *scene_construction_data, GameObjectMemoryLayer *_gameobject_memory_layer,
+             core::IComponentMemoryLayer **_component_memory_layer_array, IEnvironment *_env)
         : Loggable ("SCENE [" + scene_construction_data->name + "]")
-        , gameobject_memory_layer(scene_construction_data->gameobj_memory_layer)
-        , env_p(scene_construction_data->env)
+        , gameobject_memory_layer(_gameobject_memory_layer)
+        , env_p(_env)
         {
             LOG_DEBUG(18) << "Initiating construction";
             for (int i = 0; i < TOTAL_POSSIBLE_COMPONENTS; ++i) {
-                component_memory_layer_array[i] = scene_construction_data->componentarrays_array[i];
+                component_memory_layer_array[i] = _component_memory_layer_array[i];
             }
 
             auto initial_gameobj = spawn_gameobject("Initial GameObject");

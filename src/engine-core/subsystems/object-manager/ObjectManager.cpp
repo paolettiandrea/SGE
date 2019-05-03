@@ -3,18 +3,17 @@
 
 using sge::core::ObjectManager;
 using sge::Scene;
-using sge::SceneConstructionData;
+using sge::cd::SceneConstructionData;
 
 Scene* ObjectManager::push_new_scene(SceneConstructionData *scene_construction_data) {
     gameobj_layers_stack.emplace();
     LOG_DEBUG(30) << "Pushing a new GameObjectMemoryLayer on top of the stack";
-    scene_construction_data->gameobj_memory_layer = &gameobj_layers_stack.top();
+    auto gameobj_mem_layer = &gameobj_layers_stack.top();
 
-    component_factory.push_new_component_memory_layer(scene_construction_data->componentarrays_array);
+    IComponentMemoryLayer* comp_mem_layer_array[TOTAL_POSSIBLE_COMPONENTS];
+    component_factory.push_new_component_memory_layer(comp_mem_layer_array);
 
-    scene_construction_data->env = env;
-
-    scene_stack.emplace(scene_construction_data);
+    scene_stack.emplace(scene_construction_data, gameobj_mem_layer, comp_mem_layer_array, env);
     return &scene_stack.top();
 
 }
@@ -81,8 +80,7 @@ void ObjectManager::scene_pass() {
 bool ObjectManager::book_scene_push(const std::string &name, Logic *initial_logic) {
     bool book_successfull = false;
     if (new_scene_construction_data == nullptr) {
-        new_scene_construction_data = new SceneConstructionData(name);
-        new_scene_construction_data->initial_logic = initial_logic;
+        new_scene_construction_data = new SceneConstructionData(name, initial_logic);
         book_successfull = true;
     }
     return  book_successfull;

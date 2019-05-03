@@ -8,9 +8,9 @@
 #include "SGE/components/Component.hpp"
 
 namespace sge {
-    /*|
- * \brief Probably Shape would be a better name (?)
- */
+    /*!
+     * \brief Probably Shape would be a better name (?)
+     */
     class Path : public Component {
     public:
         Path(const utils::Handle<GameObject>& gameobject);

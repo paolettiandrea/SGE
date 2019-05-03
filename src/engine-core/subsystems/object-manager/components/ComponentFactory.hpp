@@ -11,6 +11,9 @@ namespace sge {
         class IComponentCreator;
         class IComponentMemoryLayer;
 
+        /*!
+         * \brief The (decentralized) factory responsable for the fabrication of new components.
+         */
         class ComponentFactory : public utils::log::Loggable {
         public:
             ComponentFactory() : utils::log::Loggable("COMPONENT FACTORY") {}

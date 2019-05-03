@@ -44,10 +44,21 @@ namespace utils {
 if ((level) > LOG_MAX_LEVEL) ;\
 else utils::log::Log().Get(this, level)
 
-
+/*!
+ * \brief Logs a message with red coloring and top priority
+ */
 #define LOG_ERROR               LOG(-2)
+/*!
+ * \brief Logs a message with yellow coloring and high priority
+ */
 #define LOG_WARNING             LOG(-1)
+/*!
+ * \brief Logs a message with blue coloring and baseline priority
+ */
 #define LOG_INFO                LOG(0)
+/*!
+ * \brief Logs a message with a given debug_level, which allows for Log filtration through a threshold
+ */
 #define LOG_DEBUG(debug_level)  LOG((debug_level))
 
     }
