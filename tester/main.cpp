@@ -3,6 +3,8 @@
 #include "InitialDummyLogic.hpp"
 #include "RecursiveSceneLogic.hpp"
 #include <unistd.h>
+#include "SFML/Graphics.hpp"
+
 
 int main() {
     Engine engine;

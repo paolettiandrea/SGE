@@ -3,7 +3,8 @@ cmake-build-debug
 
 doc/generated
 doc/lib
-lib/
+lib
+
 
 *.o
 *.data
