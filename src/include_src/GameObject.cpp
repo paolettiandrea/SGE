@@ -8,6 +8,7 @@
 
 using namespace sge;
 using namespace sge::core;
+using namespace sge::cmp;
 using utils::Handle;
 
 GameObject::GameObject(Scene* _scene, const std::string& _name)

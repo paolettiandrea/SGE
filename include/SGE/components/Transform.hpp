@@ -8,7 +8,7 @@
 
 #include "Component.hpp"
 
-namespace sge {
+namespace sge::cmp {
 
     /*!
  * \brief The component that manages the spacial properties of a GameObject and organizes the object in a Scene

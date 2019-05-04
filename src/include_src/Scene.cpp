@@ -6,6 +6,7 @@
 
 using namespace sge;
 using namespace sge::core;
+using namespace sge::cmp;
 using utils::Handle;
 
 Scene::Scene(cd::SceneConstructionData *scene_construction_data, GameObjectMemoryLayer *_gameobject_memory_layer,

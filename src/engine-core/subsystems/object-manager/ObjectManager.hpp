@@ -72,8 +72,8 @@ namespace sge {
             std::stack<GameObjectMemoryLayer> gameobj_layers_stack;
             ComponentFactory component_factory;
 
-            ComponentCreator<Transform> transform_creator;
-            ComponentCreator<Path> path_creator;
+            ComponentCreator<cmp::Transform> transform_creator;
+            ComponentCreator<cmp::Path> path_creator;
 
             IEnvironment* env;
 

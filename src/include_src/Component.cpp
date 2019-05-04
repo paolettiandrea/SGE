@@ -1,7 +1,7 @@
 #include "Component.hpp"
 #include "GameObject.hpp"
 
-using sge::Component;
+using sge::cmp::Component;
 using sge::GameObject;
 using utils::Handle;
 

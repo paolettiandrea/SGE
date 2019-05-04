@@ -14,50 +14,53 @@ namespace sge {
         class ComponentMemoryLayer;
     }
 
-    /*!
-     * \brief An aggregation of related data and functionality meant to be attached
-     * to a GameObject in order to have an impact on a specific aspect of its behaviour
-     */
-    class Component : public utils::log::Loggable {
-    public:
+    namespace cmp {
         /*!
-         * \brief Constructor meant to be used only by the factory
-         * \param gameobject An handle to the GameObject this Component needs to be attached to
-         * \param id The id that identifies the univocally the type of component
+         * \brief An aggregation of related data and functionality meant to be attached
+         * to a GameObject in order to have an impact on a specific aspect of its behaviour
          */
-        explicit Component(utils::Handle<sge::GameObject> gameobject, const std::string &id);
+        class Component : public utils::log::Loggable {
+        public:
+            /*!
+             * \brief Constructor meant to be used only by the factory
+             * \param gameobject An handle to the GameObject this Component needs to be attached to
+             * \param id The id that identifies the univocally the type of component
+             */
+            explicit Component(utils::Handle<sge::GameObject> gameobject, const std::string &id);
 
-        /*!
-         * \brief Gets an handle to the GameObject this Component is attached to
-         */
-        utils::Handle<sge::GameObject> &gameobject();
+            /*!
+             * \brief Gets an handle to the GameObject this Component is attached to
+             */
+            utils::Handle<sge::GameObject> &gameobject();
 
-        /*!
-         * \brief A callback called right before the removal of the component,
-         * a concrete component can override this in order to prepare for deletion
-         */
-        virtual void destruction_callback() {}
+            /*!
+             * \brief A callback called right before the removal of the component,
+             * a concrete component can override this in order to prepare for deletion
+             */
+            virtual void destruction_callback() {}
 
-        /*!
-         * \brief Checks if this Component is doomed
-         * \return true if the Component is doomed and needs to be destroyed on the next doom_pass(), false otherwise
-         */
-        bool is_doomed() { return is_doomed_flag; }
-        /*!
-         * \brief Dooms this Component, the actual destruction will be delayed to after the fixed_update and before render
-         */
-        void doom();
+            /*!
+             * \brief Checks if this Component is doomed
+             * \return true if the Component is doomed and needs to be destroyed on the next doom_pass(), false otherwise
+             */
+            bool is_doomed() { return is_doomed_flag; }
+            /*!
+             * \brief Dooms this Component, the actual destruction will be delayed to after the fixed_update and before render
+             */
+            void doom();
 
 
-    private:
-        utils::Handle<sge::GameObject> gameobject_handle;
+        private:
+            utils::Handle<sge::GameObject> gameobject_handle;
 
-        bool is_doomed_flag = false;
+            bool is_doomed_flag = false;
 
-        template <class T>
-        friend class core::ComponentMemoryLayer;
+            template <class T>
+            friend class core::ComponentMemoryLayer;
 
-    };
+        };
+    }
+
 
 }
 

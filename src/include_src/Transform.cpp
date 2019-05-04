@@ -4,7 +4,7 @@
 
 #include "Transform.hpp"
 
-using sge::Transform;
+using sge::cmp::Transform;
 using utils::Handle;
 
 Transform::Transform(const Handle<GameObject> &gameobject)

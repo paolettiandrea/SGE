@@ -5,6 +5,9 @@
 \namespace sge::core
 \brief Contains all the internal classes of the engine
 
+\namespace sge::cmp
+\brief Contains all the Component classes
+
 \namespace sge::cd
 \brief Contains the ConstructionData classes
 

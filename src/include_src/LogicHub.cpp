@@ -4,7 +4,7 @@
 #include "LogicHub.hpp"
 #include "Logic.hpp"
 
-using sge::LogicHub;
+using sge::cmp::LogicHub;
 using sge::Logic;
 using utils::Handle;
 

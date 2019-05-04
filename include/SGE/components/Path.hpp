@@ -7,7 +7,7 @@
 
 #include "SGE/components/Component.hpp"
 
-namespace sge {
+namespace sge::cmp {
     /*!
      * \brief Probably Shape would be a better name (?)
      */

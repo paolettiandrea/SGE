@@ -53,12 +53,12 @@ namespace sge {
          * \brief Gets the Transform of this GameObject
          * \return An Handle to the transform, which is expected to be valid until this GameObject is destroyed
          */
-        const utils::Handle<Transform>& transform() const;
+        const utils::Handle<cmp::Transform>& transform() const;
         /*!
          * \brief Gets the LogicHub of this GameObject
          * \return An Handle to the LogicHub, which is expected to be valid until this GameObject is destroyed
          */
-        utils::Handle<LogicHub>& logichub();
+        utils::Handle<cmp::LogicHub>& logichub();
         /*!
          * \brief Adds a Component to this GameObject
          * \tparam T The type of Component
@@ -119,8 +119,8 @@ namespace sge {
          * \brief The handle referencing this GameObject.
          */
         utils::Handle<GameObject> gameobject_handle;
-        utils::Handle<Transform> transform_handle;
-        utils::Handle<LogicHub> logichub_handle;
+        utils::Handle<cmp::Transform> transform_handle;
+        utils::Handle<cmp::LogicHub> logichub_handle;
         /*!
          * \brief Internal array holding the information necessary to know if the object has a certain component
          * and to retreive an handle to it.

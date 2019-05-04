@@ -23,7 +23,7 @@ namespace sge {
             void on_fixed_update();
 
         private:
-            ComponentCreator<LogicHub> logichub_creator;
+            ComponentCreator<cmp::LogicHub> logichub_creator;
         };
     }
 }
