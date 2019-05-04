@@ -18,10 +18,18 @@ namespace sge {
 
 
         virtual ~LogicHub();
-
+        /*!
+         * \brief Attaches a new Logic object to this LogicHub, making it the owner of the Logic
+         * \param new_logic A pointer to the new Logic object
+         */
         void attach_logic(Logic* new_logic);
-        bool has_logic(const std::string& logic_id);
-        bool has_logic(Logic* target_logic);
+        /*!
+         * \brief Checks if this object has at least one Logic attached of the given type
+         * \param logic_type_id The id that identifies the Logic type
+         * \return true if this object as at least one corresponding Logic attached, false otherwise
+         */
+        bool has_logic(const std::string& logic_type_id);
+
         /*!
          * \brief Returns the first occurrence of a Logic object identified with the given id
          * \tparam T The type associated with the id (the logic will be downcasted to this type)

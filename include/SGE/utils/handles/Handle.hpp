@@ -184,6 +184,9 @@ namespace utils {
 
         }
 
+        /*!
+         * \brief Prints a bunch of info concerning the status of the entries_array that internally holds the pointers
+         */
         static void print_entries_array_info() {
             std::cout << "Entry array of type [" << typeid(T).name() << "], size [" << MAXIMUM_HANDLES_PER_TYPE << "], occupying [" << sizeof(handle_entries) << "] bytes.\n"
                       << "\tThe first untouched entry is at index [" << first_untouched_index << "]\n"

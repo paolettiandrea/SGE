@@ -9,7 +9,7 @@
 int main() {
 
 
-    sge::cd::EngineCore_ConstructionData engine_cd;
+    sge::cd::Engine_ConstructionData engine_cd;
     sge::Engine engine (engine_cd);
 
     sge::cd::SceneConstructionData initial_scene_cd("Initial recursive scene", new RecursiveSceneLogic(0));

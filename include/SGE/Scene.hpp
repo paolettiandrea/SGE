@@ -20,7 +20,13 @@ namespace sge {
  */
     class Scene : public utils::log::Loggable {
     public:
-
+        /*!
+         * \brief Constructor ONLY TO BE USED INTERNALLY
+         * \param scene_construction_data The data containing all the user defined data needed for constuction
+         * \param _gameobject_memory_layer A pointer to the GameObjectMemoryLayer assigned to this Scene
+         * \param _component_memory_layer_array A pointer to the ComponentMemoryLayer array assigned to this Scene
+         * \param _env A pointer to the IEnvironment
+         */
         explicit Scene(cd::SceneConstructionData *scene_construction_data, core::GameObjectMemoryLayer *_gameobject_memory_layer,
                        core::IComponentMemoryLayer **_component_memory_layer_array, IEnvironment *_env);
 
@@ -37,6 +43,10 @@ namespace sge {
          */
         core::IComponentMemoryLayer** get_component_memorylayer_array();
 
+        /*!
+         * \brief Gets the IEnvironment interface
+         * \return A pointer to the IEnvironment, not expected to move in memory during the application lifetime
+         */
         IEnvironment* env() {
             return env_p;
         }

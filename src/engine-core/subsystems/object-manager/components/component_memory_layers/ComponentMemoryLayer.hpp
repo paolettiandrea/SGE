@@ -117,7 +117,7 @@ namespace sge {
         template<class ComponentT>
         void ComponentMemoryLayer<ComponentT>::remove_unspecified_component(unsigned int index) {
             auto component = utils::Handle<ComponentT>::get_handle_from_index(index);
-            component->destroy();
+            component->doom();
         }
 
         template<class ComponentT>

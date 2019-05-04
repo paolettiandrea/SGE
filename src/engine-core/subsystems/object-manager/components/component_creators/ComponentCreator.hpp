@@ -10,20 +10,25 @@
 namespace sge {
     namespace core {
 
-/*!
- * \brief Manages a stack of ComponentArray, all of the same Component type.
- * \details Basically contains all the components of a specific type, organized in ComponentArrays which of whom corresponds to a Scene (memory layer).......
- * \tparam T The type of Component co
- */
+        /*!
+         * \brief Manages a stack of ComponentArray, all of the same Component type.
+         * \details Basically contains all the components of a specific type, organized in ComponentArrays which of whom corresponds to a Scene (memory layer).......
+         * \tparam T The type of Component managed by this ComponentCreator
+         */
         template <class T>
         class ComponentCreator : public IComponentCreator, public utils::log::Loggable {
         public:
+            /*!
+             * \brief Constructor for a ComponentCreator that also registers it to the ComponentFactory
+             * \param _id The unique id that will be associated to the Component type managed by this Creator
+             */
             explicit ComponentCreator(const std::string& _id)
                     : Loggable("[" + _id + "] COMPONENT CREATOR")
                     , id(_id) {
                 LOG_DEBUG(15) << "Registering to the ComponentFactory";
                 ComponentFactory::register_component_creator(this);                 // Register itself to the ComponentFactory
             }
+
 
             const std::string &get_id() override {
                 return id;
@@ -35,10 +40,14 @@ namespace sge {
                 return &componentmemorylayer_stack.top();
             }
 
+
             IComponentMemoryLayer* get_unspecified_top_layer() override {
                 return  &componentmemorylayer_stack.top();
             }
 
+            /*!
+             * \brief Gets a pointer to the ComponentMemoryLayer at the top of the stack managed by this ComponentCreator
+             */
             ComponentMemoryLayer<T>* get_top_layer() {
                 return &componentmemorylayer_stack.top();
             }

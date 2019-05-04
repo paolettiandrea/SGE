@@ -1,7 +1,3 @@
-//
-// Created by andrea on 4/10/19.
-//
-
 #ifndef PROJECT_HANDLEENTRY_HPP
 #define PROJECT_HANDLEENTRY_HPP
 

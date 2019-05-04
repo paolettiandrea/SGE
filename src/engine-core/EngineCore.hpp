@@ -10,7 +10,7 @@
 #include "LogicManager.hpp"
 #include "Loggable.hpp"
 #include "IEnvironment.hpp"
-#include "EngineCore_ConstructionData.hpp"
+#include "Engine_ConstructionData.hpp"
 #include "WindowManager.hpp"
 
 namespace sge::core {
@@ -19,12 +19,27 @@ namespace sge::core {
      */
     class EngineCore : utils::log::Loggable, IEnvironment {
     public:
-        EngineCore(cd::EngineCore_ConstructionData& data);
+        /*!
+         * \brief Constructs the core
+         * \param data The user defined data necessay in order to construct this object
+         */
+        explicit EngineCore(cd::Engine_ConstructionData& data)
+                : Loggable("ENGINE CORE")
+                , object_manager((IEnvironment*)this)
+                , window_manager (data.window) {  }
 
         virtual ~EngineCore();
 
+        /*!
+         * \brief The actual method containing the game loop
+         * \return true if the core is still running, false otherwise
+         */
         bool game_loop();
 
+        /*!
+         * \brief The initialization method of the core
+         * \param initial_scene_cd The construction data for the initial Scene the core needs to be initialized with
+         */
         void initialize(cd::SceneConstructionData& initial_scene_cd);
 
         //region IEnvironment declarations

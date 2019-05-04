@@ -20,11 +20,27 @@ namespace sge {
          */
         class WindowManager : public Subsystem {
         public:
+            /*!
+             * \brief Constructor
+             * \param data The object containing all the used defined data necessary to build this object
+             */
             WindowManager(const cd::WindowManager_ConstructionData& data);
-
+            /*!
+             * \brief Handles the SFML events related to the window
+             */
             void handle_window_events();
+            /*!
+             * \brief Checks if the window is open
+             * \return true if the window is open, false otherwise
+             */
             bool window_is_open() { return m_window.isOpen(); }
+            /*!
+             * \brief Exposes the clear method of the managed window
+             */
             void clear_window() { m_window.clear(sf::Color::Black); }
+            /*!
+             * \brief Exposes the display method of the managed window
+             */
             void display() { m_window.display(); }
 
         private:

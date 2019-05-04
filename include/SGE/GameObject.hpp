@@ -41,19 +41,57 @@ namespace sge {
          * \return An handle to the GameObject
          */
         utils::Handle<GameObject> get_handle();
+        /*!
+         * \brief Gets the Scene this object is in.
+         * \return A pointer to the Scene (which is not expected to be moved in memory until popped)
+         */
         Scene* get_scene();
 
         //region Component access and manipulation
 
+        /*!
+         * \brief Gets the Transform of this GameObject
+         * \return An Handle to the transform, which is expected to be valid until this GameObject is destroyed
+         */
         const utils::Handle<Transform>& transform() const;
+        /*!
+         * \brief Gets the LogicHub of this GameObject
+         * \return An Handle to the LogicHub, which is expected to be valid until this GameObject is destroyed
+         */
         utils::Handle<LogicHub>& logichub();
+        /*!
+         * \brief Adds a Component to this GameObject
+         * \tparam T The type of Component
+         * \param id The unique id identifying the type of Component
+         * \return An Handle to the newly created Component
+         */
         template <class T>
         utils::Handle<T> add_component(const std::string& id);
+        /*!
+         * \brief Adds a Component to this GameObject without the need to specify the type.
+         * \param id The unique id that identifies the type of Component
+         * \return The index of the HandleEntry pointing to the newly created Component
+         */
         unsigned int add_unspecified_component(const std::string& id);
 
+        /*!
+         * \brief Gets a Component attached to this GameObject
+         * \tparam T The type of Component
+         * \param id The unique id identifying the Component type
+         * \return An Handle to the retrieved Component if present, a null Handle if absent.
+         */
         template <class T>
         utils::Handle<T> get_component(const std::string& id);
+        /*!
+         * \brief Checks if a Component is attached to this GameObject
+         * \param id The unique id identifying the Component type
+         * \return True if the Component is attached to this object, false otherwise
+         */
         bool has_component(const std::string& id);
+        /*!
+         * \brief Dooms a Component, flagging it for removal from this GameObject and destruction
+         * \param id The unique id identifying the Component type
+         */
         void doom_component(const std::string &id);
         //endregion
 

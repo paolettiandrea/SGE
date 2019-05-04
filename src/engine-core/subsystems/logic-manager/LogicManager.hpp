@@ -13,8 +13,13 @@ namespace sge {
         class LogicManager : public Subsystem {
         public:
             LogicManager();
-
+            /*!
+             * \brief Calls on_update on every Logic attached to every GameObject of the top Scene.
+             */
             void on_update();
+            /*!
+             * \brief Calls on_fixed_update on every Logic attached to every GameObject of the top Scene.
+             */
             void on_fixed_update();
 
         private:

@@ -19,9 +19,14 @@ namespace sge::core {
          * \param index The index of the handle entry referencing to the Component that needs to be removed
          */
         virtual void remove_unspecified_component(unsigned int index) = 0;
-
+        /*!
+         * \brief Dooms an unspecified component, flagging it for destruction.
+         * \param index
+         */
         virtual void doom_unspecified_component(unsigned int index) = 0;
-
+        /*!
+         * \brief Destroy every doomed component
+         */
         virtual void doom_pass() = 0;
     };
 }

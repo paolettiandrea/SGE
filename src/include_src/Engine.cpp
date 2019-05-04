@@ -7,7 +7,7 @@
 using namespace sge;
 using namespace sge::core;
 
-Engine::Engine(cd::EngineCore_ConstructionData& data)
+Engine::Engine(cd::Engine_ConstructionData& data)
     : Loggable("ENGINE") {
     LOG_DEBUG(10) << "Initiating construction";
     core = new EngineCore(data);

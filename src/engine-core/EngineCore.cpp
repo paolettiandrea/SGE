@@ -3,12 +3,6 @@
 using sge::core::EngineCore;
 using sge::cd::SceneConstructionData;
 
-EngineCore::EngineCore(cd::EngineCore_ConstructionData& data)
-    : Loggable("ENGINE CORE")
-    , object_manager((IEnvironment*)this)
-    , window_manager (data.window) {
-
-}
 
 bool EngineCore::game_loop() {
     if (object_manager.get_scene_stack_size()==0 || !window_manager.window_is_open()) return false;

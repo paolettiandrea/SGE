@@ -19,23 +19,18 @@ void LogicHub::attach_logic(Logic *new_logic) {
     new_logic->on_start();
 }
 
-bool LogicHub::has_logic(const std::string &logic_id) {
+bool LogicHub::has_logic(const std::string &logic_type_id) {
     for (auto attached_logic : attached_logic_list) {
-        if (attached_logic->get_logic_type_id() == logic_id) return true;
+        if (attached_logic->get_logic_type_id() == logic_type_id) return true;
     }
     return false;
 }
 
-bool LogicHub::has_logic(Logic *target_logic) {
-    for (auto attached_logic : attached_logic_list) {
-        if (attached_logic == target_logic) return true;
-    }
-    return false;
-}
 
 void LogicHub::remove_logic(Logic *target_logic) {
     attached_logic_list.remove(target_logic);
     delete(target_logic);
+    // TODO some sort of removal callback here, probably also an Event for other object to subscribe
 }
 
 LogicHub::~LogicHub() {
