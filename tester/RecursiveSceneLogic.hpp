@@ -18,6 +18,10 @@ public:
     void on_start() override {
         LOG_DEBUG(30) << "on_start";
         env()->book_new_scene_push("Recursive scene " + std::to_string(depth+1), new RecursiveSceneLogic(depth+1));
+
+        auto yo = gameobject()->transform()->get_handle();
+
+        int i = 0;
     }
 
 private:

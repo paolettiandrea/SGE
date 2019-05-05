@@ -14,10 +14,9 @@ namespace sge {
         /*!
          * \brief The Component that manages the Logic attached to a GameObject
          */
-        class LogicHub : public Component, public ILogicCallbacks {
+        class LogicHub : public Component<LogicHub>, public ILogicCallbacks {
         public:
             LogicHub(const utils::Handle<GameObject> &gameobject);
-
 
             virtual ~LogicHub();
             /*!

@@ -109,7 +109,7 @@ unsigned int GameObject::id_to_index(const std::string &id) {
     return ComponentFactory::id_to_index(id);
 }
 
-const Handle<Transform> &GameObject::transform() const {
+Handle<Transform> &GameObject::transform() {
     return transform_handle;
 }
 

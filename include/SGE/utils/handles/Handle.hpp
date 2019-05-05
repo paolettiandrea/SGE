@@ -59,6 +59,16 @@ namespace utils {
             counter = temp.counter;
         }
 
+
+        bool operator==(const Handle &rhs) const {
+            return index == rhs.index &&
+                   counter == rhs.counter;
+        }
+
+        bool operator!=(const Handle &rhs) const {
+            return !(rhs == *this);
+        }
+
         /*!
          * \retval *true* if this handle is not referencing to any object in this moment, equivalent to a nullptr for pointers
          * \retval *false* if this handle is referencing to an object, but the reference could be expired, use is_expired() or is_valid() to check that.
@@ -72,7 +82,6 @@ namespace utils {
         void make_null() {
             index = MAXIMUM_HANDLES_PER_TYPE;
         }
-
         /*!
          * \brief Checks if the handle is safe to use.
          * \retval *true* if this handle is valid, meaning that it references an object and it can be accessed safely
@@ -87,7 +96,7 @@ namespace utils {
         }
 
         /*!
-         * \brief Updates the value of the pointer to the object this handle is referencing to,
+         * \brief \s the value of the pointer to the object this handle is referencing to,
          * when an "handled" object is moved in memory it's pointer should be updated with this method accordingly.
          * \param pointer The new pointer to the object this handle needs to reference to.
          */

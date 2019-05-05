@@ -1,8 +1,9 @@
 target_include_directories(factory_experiments PRIVATE .)
 
 target_sources(factory_experiments PUBLIC
-        Component.hpp
+        IComponent.hpp
         Transform.hpp
         LogicHub.hpp
         Path.hpp
+        Component.hpp
         )

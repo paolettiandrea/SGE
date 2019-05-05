@@ -9,7 +9,7 @@
 \brief Contains all the Component classes
 
 \namespace sge::cd
-\brief Contains the ConstructionData classes
+\brief Contains the data classes used to hold the uder dependent information necessary for construction of complex objects
 
 \namespace utils
 \brief Contains generic utility classes. Not strictly related to this project and somewhat reusable.

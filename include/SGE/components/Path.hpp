@@ -11,9 +11,9 @@ namespace sge::cmp {
     /*!
      * \brief Probably Shape would be a better name (?)
      */
-    class Path : public Component {
+    class Path : public Component<Path> {
     public:
-        Path(const utils::Handle<GameObject>& gameobject);
+        Path(const utils::Handle<GameObject> &gameobject);
     };
 }
 

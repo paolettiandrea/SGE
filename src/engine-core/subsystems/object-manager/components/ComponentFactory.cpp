@@ -19,7 +19,7 @@ void ComponentFactory::register_component_creator(IComponentCreator *new_compone
         std::cerr << "ERROR: the id [" << id << "] was already registered at index " << id_index_map[id] << std::endl;
         exit(1);
     } else if (registration_counter==TOTAL_POSSIBLE_COMPONENTS) {
-        std::cerr << "ERROR: trying to register more components than the macro TOTAL_POSSIBLE_COMPONENTS allows, have you added a new Component type and forgot to increase it?" << std::endl;
+        std::cerr << "ERROR: trying to register more components than the macro TOTAL_POSSIBLE_COMPONENTS allows, have you added a new IComponent type and forgot to increase it?" << std::endl;
         exit(1);
     }
 

@@ -1,17 +1,19 @@
 target_include_directories(factory_experiments PRIVATE .)
 
 target_sources(factory_experiments PRIVATE
+        Engine.cpp
+
         GameObject.cpp
         Scene.cpp
 
-        Component.cpp
+        IComponent.cpp
         LogicHub.cpp
         Transform.cpp
         Path.cpp
 
         Logic.cpp
 
-        Engine.cpp
+        Vec2.cpp
         )
 
 add_subdirectory(utils)

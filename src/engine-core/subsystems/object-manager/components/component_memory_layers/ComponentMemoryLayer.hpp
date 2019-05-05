@@ -65,9 +65,9 @@ namespace sge {
         utils::Handle<ComponentT> ComponentMemoryLayer<ComponentT>::create_new_component(utils::Handle<GameObject> gameobject) {
             if (component_vector.size()==component_vector.capacity())
                 custom_realloc();
+            component_vector.emplace_back(gameobject);            // IComponent CONSTRUCTION at the back of the vector
+            handle_vector.push_back(component_vector.back().get_handle());     // The pointer will be updated on Component construction
 
-            component_vector.emplace_back(gameobject);                      // Component CONSTRUCTION at the back of the vector
-            handle_vector.push_back(utils::Handle<ComponentT>::new_entry(&component_vector.back()));
             return handle_vector.back();
         }
 
@@ -75,7 +75,7 @@ namespace sge {
         void ComponentMemoryLayer<ComponentT>::custom_realloc() {
             component_vector.reserve(component_vector.capacity()*2);
 
-            // Updates the handle entries of every Component in the reallocated vector
+            // Updates the handle entries of every IComponent in the reallocated vector
             for (int i = 0; i < component_vector.size(); ++i) {
                 handle_vector[i].update_origin_pointer(&component_vector[i]);
             }
@@ -92,14 +92,14 @@ namespace sge {
             // If we're removing the last element there's no need of memory swapping shenanigans
             // else the last element is swapped in the gap created by the removal and the corresponding handle origin pointer is updated
             if (target_handle.get_pointer() != &component_vector.back()) {
-                // Calculate the index of the soon-to-be-removed Component in the internal array
+                // Calculate the index of the soon-to-be-removed IComponent in the internal array
                 int target_internal_index = target_handle.get_pointer() - &component_vector[0];
 
                 // Swap the last element with the one to remove (for both the vectors since their indexes correspond)
                 std::swap(component_vector[target_internal_index], component_vector[component_vector.size()-1]);
                 std::swap(handle_vector[target_internal_index], handle_vector[handle_vector.size()-1]);
 
-                // Updates the pointer of the Component moved to fill the gap
+                // Updates the pointer of the IComponent moved to fill the gap
                 handle_vector[target_internal_index].update_origin_pointer(&component_vector[target_internal_index]);
             }
             target_handle.make_origin_expired();
@@ -130,7 +130,7 @@ namespace sge {
             LOG_DEBUG(25) << "Doom pass";
             unsigned int target_index = 0;
             for (int i = 0; i < handle_vector.size(); ++i) {
-                if (handle_vector[target_index]->is_doomed()) {         // Component removal
+                if (handle_vector[target_index]->is_doomed()) {         // IComponent removal
                     remove_component(handle_vector[target_index]);
                 } else {
                     target_index++;

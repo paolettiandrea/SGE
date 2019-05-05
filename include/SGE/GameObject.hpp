@@ -47,13 +47,13 @@ namespace sge {
          */
         Scene* get_scene();
 
-        //region Component access and manipulation
+        //region IComponent access and manipulation
 
         /*!
          * \brief Gets the Transform of this GameObject
          * \return An Handle to the transform, which is expected to be valid until this GameObject is destroyed
          */
-        const utils::Handle<cmp::Transform>& transform() const;
+        utils::Handle<cmp::Transform>& transform();
         /*!
          * \brief Gets the LogicHub of this GameObject
          * \return An Handle to the LogicHub, which is expected to be valid until this GameObject is destroyed

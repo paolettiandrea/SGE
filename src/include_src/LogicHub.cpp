@@ -8,7 +8,9 @@ using sge::cmp::LogicHub;
 using sge::Logic;
 using utils::Handle;
 
-LogicHub::LogicHub(const Handle<GameObject> &gameobject) : Component(gameobject, "LogicHub") {}
+LogicHub::LogicHub(const Handle<GameObject> &gameobject)
+    : Component(gameobject, "LogicHub") {
+}
 
 void LogicHub::attach_logic(Logic *new_logic) {
     LOG_DEBUG(18) << "Attaching new logic with logic id (" << new_logic->get_logic_type_id() << ")";
