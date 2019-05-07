@@ -108,7 +108,8 @@ namespace sge {
         bool is_doomed() { return is_doomed_flag; }
         //endregion
 
-
+        std::string get_string_attached_components();
+        std::string get_string_local_hierarchy(bool print_components = false);
 
     private:
         /*!
@@ -135,6 +136,7 @@ namespace sge {
 
 
         unsigned int id_to_index(const std::string& id);
+        std::string recursive_get_string_local_hierarchy(std::string &out_str, unsigned int indentation, bool print_components);
 
         template <class T>
         friend class core::ComponentMemoryLayer;
@@ -165,6 +167,7 @@ namespace sge {
             return utils::Handle<T>();     // Returns a null handle.
         }
     }
+
 
 //endregion
 

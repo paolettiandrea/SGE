@@ -5,6 +5,7 @@
 #include "Component.hpp"
 #include <list>
 #include "SGE/Vec2.hpp"
+#include <string>
 
 namespace sge::cmp {
 
@@ -17,10 +18,13 @@ namespace sge::cmp {
         Transform(const utils::Handle<GameObject> &gameobject);
 
         void set_parent(utils::Handle<Transform> new_parent);
+        utils::Handle<Transform> get_parent();
         void add_child(utils::Handle<Transform> new_child);
         void remove_child(utils::Handle<Transform> target_child);
+        std::list<utils::Handle<Transform>> get_children_list();
 
-        void set_position(float x, float y);
+
+        void set_local_position(float x, float y);
         Vec2<float> get_local_position();
         Vec2<float> get_world_position();
 
@@ -34,6 +38,7 @@ namespace sge::cmp {
         Vec2<float> local_position;
         float local_rotation;
         float local_scale;
+
     };
 
 }

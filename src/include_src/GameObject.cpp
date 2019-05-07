@@ -117,6 +117,43 @@ Handle<Transform> &GameObject::transform() {
     return logichub_handle;
 }
 
+std::string GameObject::get_string_attached_components() {
+    std::string out_str;
+    for (int i = 0; i < TOTAL_POSSIBLE_COMPONENTS; ++i) {
+        if (m_components_mapped_array[i]!=-1) {
+            out_str += ComponentFactory::index_to_id(i);
+            if (i!=TOTAL_POSSIBLE_COMPONENTS-1) {
+                out_str += "]-[";
+            }
+        }
+    }
+    return out_str;
+}
+
+
+std::string sge::GameObject::get_string_local_hierarchy(bool print_components) {
+    std::string out_str;
+    recursive_get_string_local_hierarchy(out_str, 0, print_components);
+    return out_str;
+}
+
+std::string sge::GameObject::recursive_get_string_local_hierarchy(std::string &out_str, unsigned int indentation, bool print_components) {
+    for (int i = 0; i < indentation; ++i)
+        out_str += "\t";
+
+    out_str += get_log_id();
+
+    if (print_components) {
+        out_str += "   [" + get_string_attached_components() + "]";
+    }
+
+    out_str+= "\n";
+
+    for (auto child : transform()->get_children_list()) {
+        child->gameobject()->recursive_get_string_local_hierarchy(out_str, indentation+1, print_components);
+    }
+    return out_str;
+}
 
 
 

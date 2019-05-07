@@ -24,6 +24,10 @@ namespace sge {
              */
             static unsigned int id_to_index(const std::string &id);
             /*!
+             * \brief Given the index that identfies univocally a Component type it returns its unique id string
+             */
+            static std::string index_to_id(unsigned int index);
+            /*!
              * \brief Pushed a new full set of ComponentArrays to the top of the stack (each at the top of its corresponding creator)
              * \param componentarray_out The array that is filled with the pointers to the new ComponentArrays.
              */
@@ -37,7 +41,8 @@ namespace sge {
 
 
         private:
-            static std::map<std::string, unsigned int> id_index_map;
+            static std::map<std::string, unsigned int> id_to_index_map;
+            static std::string index_to_id_array[TOTAL_POSSIBLE_COMPONENTS];
             static IComponentCreator* creators[];
 
             static unsigned int registration_counter;
