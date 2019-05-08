@@ -17,12 +17,16 @@ namespace sge::cmp {
     public:
         Transform(const utils::Handle<GameObject> &gameobject);
 
+        //region Hierarchy management
+
         void set_parent(utils::Handle<Transform> new_parent);
         utils::Handle<Transform> get_parent();
         void add_child(utils::Handle<Transform> new_child);
         void remove_child(utils::Handle<Transform> target_child);
         std::list<utils::Handle<Transform>> get_children_list();
+        //endregion
 
+        //region Spacial
 
         void set_local_position(float x, float y);
         Vec2<float> get_local_position();
@@ -30,14 +34,15 @@ namespace sge::cmp {
 
         Vec2<float> transform_local_to_world(Vec2<float> local_pos);
         Vec2<float> transform_world_to_local(Vec2<float> world_pos);
+        //endregion
 
     private:
         utils::Handle<sge::cmp::Transform> parent;
         std::list<utils::Handle<sge::cmp::Transform>> children;
 
-        Vec2<float> local_position;
-        float local_rotation;
-        float local_scale;
+        Vec2<float> m_local_position;
+        float m_local_rotation_angle;
+        float m_local_scale;
 
     };
 

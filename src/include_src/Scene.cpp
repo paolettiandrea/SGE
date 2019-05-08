@@ -11,7 +11,7 @@ using utils::Handle;
 
 Scene::Scene(cd::SceneConstructionData *scene_construction_data, GameObjectMemoryLayer *_gameobject_memory_layer,
              core::IComponentMemoryLayer **_component_memory_layer_array, IEnvironment *_env)
-        : Loggable ("SCENE [" + scene_construction_data->name + "]")
+        : Loggable ("SCENE <" + scene_construction_data->name + ">")
         , gameobject_memory_layer(_gameobject_memory_layer)
         , env_p(_env)
         {

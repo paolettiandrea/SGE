@@ -91,7 +91,9 @@ void ObjectManager::doom_top_scene() {
 }
 
 ObjectManager::~ObjectManager() {
+    LOG_DEBUG(30) << "Destructor";
     if (new_scene_construction_data != nullptr) {                           // There was a scene booked for pushing
+        LOG_DEBUG(30) << "Since there was a scene push booked deleting the Logic given as initial logic gìfor the booked Scene";
         delete((new_scene_construction_data->initial_logic));               // so some stuff needs to be deleted
         delete(new_scene_construction_data);
     }

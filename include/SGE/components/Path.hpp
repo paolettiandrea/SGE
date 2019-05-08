@@ -6,6 +6,8 @@
 #define FACTORY_EXPERIMENTS_PATH_HPP
 
 #include "SGE/components/Component.hpp"
+#include <vector>
+#include "SGE/Vec2.hpp"
 
 namespace sge::cmp {
     /*!
@@ -14,6 +16,11 @@ namespace sge::cmp {
     class Path : public Component<Path> {
     public:
         Path(const utils::Handle<GameObject> &gameobject);
+
+        void set_path();
+
+    private:
+        std::vector<Vec2<float>> points;
     };
 }
 

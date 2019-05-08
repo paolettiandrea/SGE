@@ -6,7 +6,9 @@ using utils::Handle;
 
 Transform::Transform(const Handle<GameObject> &gameobject)
     : Component(gameobject, "Transform")
-    , local_position(0.f,0.f)
+    , m_local_position(0.f,0.f)
+    , m_local_rotation_angle(0.f)
+    , m_local_scale (1.f)
     {}
 
 void Transform::set_parent(Handle<Transform> new_parent) {
