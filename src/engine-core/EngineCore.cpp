@@ -6,17 +6,25 @@ using sge::cd::SceneConstructionData;
 
 bool EngineCore::game_loop() {
     if (object_manager.get_scene_stack_size()==0 || !window_manager.window_is_open()) return false;
-    LOG_DEBUG(20) << "The game_loop is starting with " << object_manager.get_top_scene()->get_log_id()
-                  << " on top of a scene stack of size " << object_manager.get_scene_stack_size();
+
+    using namespace std::chrono;
+    // Calculate the elapsed time since the last transfer to the accumulator and add it to the accumulator
+    time_point<steady_clock> temp_now = steady_clock::now();
+    duration<double, std::ratio<1>> duration_since_last_loop_start = steady_clock::now() - last_toop_start_time;
+    last_toop_start_time = temp_now;
+    m_delta_time = duration_since_last_loop_start.count();
+
+    LOG_DEBUG(1) << "Game_loop is starting |" << object_manager.get_top_scene()->get_log_id()
+                  << " | stack_size:" << object_manager.get_scene_stack_size() << " | delta_time:"<< m_delta_time;
+
 
     logic_manager.on_update();
 
-    // End-loop passes
     object_manager.doom_pass();
 
     window_manager.handle_window_events();
     window_manager.clear_window();
-
+    window_manager.draw();
     window_manager.display();
 
     object_manager.scene_pass();        // Where the scene is changed if requested during this loop
@@ -29,6 +37,7 @@ bool EngineCore::game_loop() {
 void EngineCore::initialize(cd::SceneConstructionData& initial_scene_cd) {
     LOG_INFO << "Initialization started";
     Scene* scene = object_manager.push_new_scene(&initial_scene_cd);
+    last_toop_start_time = std::chrono::steady_clock::now();
     LOG_INFO << "Initialization completed";
 }
 
@@ -37,7 +46,7 @@ void EngineCore::initialize(cd::SceneConstructionData& initial_scene_cd) {
 //region IEnvironment definitions
 
 double EngineCore::delta_time() {
-    return 0;
+    return m_delta_time;
 }
 
 bool EngineCore::book_new_scene_push(const std::string &name, Logic *initial_logic) {

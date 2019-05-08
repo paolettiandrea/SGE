@@ -2,11 +2,17 @@
 #define FACTORY_EXPERIMENTS_WINDOWMANAGER_CONSTRUCTIONDATA_HPP
 
 #include <string>
+#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Window/ContextSettings.hpp>
+
 namespace sge::cd {
     /*!
      * \brief Contains all the user dependent data necessary to build the window aspect of the engine
      */
     struct WindowManager_ConstructionData {
+        WindowManager_ConstructionData() {
+            context_settings.antialiasingLevel = 8;
+        }
         /*!
          * \brief The title of the window
          */
@@ -27,6 +33,12 @@ namespace sge::cd {
          * \brief The y position of the top-left angle of the window
          */
         int window_pos_y = 10;
+
+        bool vsync_on = true;
+
+        sf::ContextSettings context_settings;
+
+        float view_vertical_size = 1000.f;
 
     };
 }

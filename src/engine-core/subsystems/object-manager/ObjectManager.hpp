@@ -12,7 +12,7 @@
 #include "SceneConstructionData.hpp"
 
 #include "Transform.hpp"
-#include "Path.hpp"
+#include "Polygon.hpp"
 
 namespace sge {
     namespace core {
@@ -25,7 +25,6 @@ namespace sge {
             explicit ObjectManager(IEnvironment* _env)
                     : Subsystem("OBJECT MANAGER")
                     , transform_creator("Transform")
-                    , path_creator("Path")
                     , env(_env){ }
 
             virtual ~ObjectManager();
@@ -73,7 +72,7 @@ namespace sge {
             ComponentFactory component_factory;
 
             ComponentCreator<cmp::Transform> transform_creator;
-            ComponentCreator<cmp::Path> path_creator;
+
 
             IEnvironment* env;
 

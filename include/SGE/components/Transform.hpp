@@ -28,12 +28,23 @@ namespace sge::cmp {
 
         //region Spacial
 
-        void set_local_position(float x, float y);
-        Vec2<float> get_local_position();
-        Vec2<float> get_world_position();
+        void set_local_position(double x, double y);
+        Vec2<double> get_local_position();
+        Vec2<double> get_world_position();
 
-        Vec2<float> transform_local_to_world(Vec2<float> local_pos);
-        Vec2<float> transform_world_to_local(Vec2<float> world_pos);
+        void set_local_scale(double scale);
+        double get_local_scale();
+        double get_world_scale();
+
+        void set_local_rotation(double rotation);
+        double get_local_rotation();
+        double get_world_rotation();
+
+        Vec2<double> apply_transformation(Vec2<double> vector);
+
+
+        Vec2<double> transform_local_to_world(Vec2<double> local_pos);
+        Vec2<double> transform_world_to_local(Vec2<double> world_pos);
         //endregion
 
 
@@ -41,9 +52,9 @@ namespace sge::cmp {
         utils::Handle<sge::cmp::Transform> m_parent;
         std::list<utils::Handle<sge::cmp::Transform>> m_children;
 
-        Vec2<float> m_local_position;
-        float m_local_rotation_angle;
-        float m_local_scale;
+        Vec2<double> m_local_position;
+        double m_local_rotation_angle;
+        double m_local_scale;
 
     };
 

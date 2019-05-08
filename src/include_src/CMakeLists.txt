@@ -9,7 +9,7 @@ target_sources(factory_experiments PRIVATE
         IComponent.cpp
         LogicHub.cpp
         Transform.cpp
-        Path.cpp
+        Polygon.cpp
 
         Logic.cpp
 

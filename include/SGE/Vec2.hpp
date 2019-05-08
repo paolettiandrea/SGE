@@ -10,15 +10,21 @@
 \file
 \brief ${BRIEF_FILE_DESCRIPTION}
 */
+#include <string>
+
 namespace sge {
     template <class T>
     class Vec2 {
     public:
-        Vec2(T x, T y) : m_x(x), m_y(y) {}
+        Vec2(T x, T y) : x(x), y(y) {}
+        Vec2(const Vec2<T>& that) {
+            x = that.x;
+            y = that.y;
+        }
 
         bool operator==(const Vec2 &that) const {
-            return m_x == that.m_x &&
-                   m_y == that.m_y;
+            return x == that.x &&
+                   y == that.y;
         }
 
         bool operator!=(const Vec2 &that) const {
@@ -26,13 +32,41 @@ namespace sge {
         }
 
         Vec2 operator+(const Vec2& that) {
-            return Vec2<T>(this->m_x+that.m_x, this->m_y+that.m_y);
+            return Vec2<T>(this->x+that.x, this->y+that.y);
+        }
+        Vec2 operator-(const Vec2& that) {
+            return Vec2<T>(this->x-that.x, this->y-that.y);
         }
 
-    private:
-        T m_x;
-        T m_y;
+        Vec2 operator*(const double& that) {
+            return Vec2<T>(this->x*that, this->y*that);
+        }
+
+        Vec2& operator=(const Vec2<T>& that) {
+            this->x = that.x;
+            this->y = that.y;
+            return *this;
+        }
+
+        void set(T _x, T _y);
+
+        std::string to_string();
+
+
+        T x;
+        T y;
     };
+
+    template<class T>
+    void Vec2<T>::set(T _x, T _y) {
+        y = _y;
+        x = _x;
+    }
+
+    template<class T>
+    std::string Vec2<T>::to_string() {
+        return std::string("("+std::to_string(x)+ "," + std::to_string(y)+")");
+    }
 }
 
 

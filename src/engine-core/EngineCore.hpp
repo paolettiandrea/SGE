@@ -7,6 +7,7 @@
 */
 
 #include "ObjectManager.hpp"
+#include <chrono>
 #include "LogicManager.hpp"
 #include "Loggable.hpp"
 #include "IEnvironment.hpp"
@@ -63,6 +64,9 @@ namespace sge::core {
         WindowManager window_manager;
 
         unsigned int frame_counter = 0;
+
+        double m_delta_time;
+        std::chrono::time_point<std::chrono::steady_clock> last_toop_start_time;
     };
 }
 

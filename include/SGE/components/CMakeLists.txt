@@ -4,6 +4,6 @@ target_sources(factory_experiments PUBLIC
         IComponent.hpp
         Transform.hpp
         LogicHub.hpp
-        Path.hpp
+        Polygon.hpp
         Component.hpp
         )

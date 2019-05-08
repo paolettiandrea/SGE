@@ -33,6 +33,7 @@ unsigned int ObjectManager::get_scene_stack_size() {
 }
 
 void ObjectManager::doom_pass() {
+    // TODO optimization: right now the whole top scene array is scrolled, could save the index of doomed objects on doom and work with that
     LOG_DEBUG(15) << "Starting doom pass";
     for (auto & gameobj : (*gameobj_layers_stack.top().get_gameobjects_vector())) {
         if (gameobj.is_doomed()) {

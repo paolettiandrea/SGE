@@ -6,7 +6,7 @@
 /*!
  * \brief Defines the maximum number of handles of some type that can be used in a given moment
  */
-#define MAXIMUM_HANDLES_PER_TYPE 128000
+#define MAXIMUM_HANDLES_PER_TYPE 1280000
 #endif
 
 
