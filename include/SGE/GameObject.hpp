@@ -10,6 +10,8 @@
 #include "SGE/components/Transform.hpp"
 #include "SGE/components/LogicHub.hpp"
 
+#include "SGE/utils/events/Events.hpp"
+
 
 
 

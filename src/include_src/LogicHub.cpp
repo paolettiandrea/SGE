@@ -73,6 +73,7 @@ void LogicHub::on_fixed_update() {
 }
 
 void LogicHub::destruction_callback() {
+    IComponent::destruction_callback();
     LOG_DEBUG(20) << "Destroying attached logic";
     for (auto logic : attached_logic_list) {
         delete(logic);

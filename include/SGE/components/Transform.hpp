@@ -15,7 +15,7 @@ namespace sge::cmp {
  */
     class Transform : public Component<Transform> {
     public:
-        Transform(const utils::Handle<GameObject> &gameobject);
+        explicit Transform(const utils::Handle<GameObject> &gameobject);
 
         //region Hierarchy management
 
@@ -36,9 +36,10 @@ namespace sge::cmp {
         Vec2<float> transform_world_to_local(Vec2<float> world_pos);
         //endregion
 
+
     private:
-        utils::Handle<sge::cmp::Transform> parent;
-        std::list<utils::Handle<sge::cmp::Transform>> children;
+        utils::Handle<sge::cmp::Transform> m_parent;
+        std::list<utils::Handle<sge::cmp::Transform>> m_children;
 
         Vec2<float> m_local_position;
         float m_local_rotation_angle;

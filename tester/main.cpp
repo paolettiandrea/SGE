@@ -9,7 +9,6 @@
 
 int main() {
 
-
     sge::cd::Engine_ConstructionData engine_cd;
     sge::Engine engine (engine_cd);
 

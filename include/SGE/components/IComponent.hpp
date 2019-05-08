@@ -4,6 +4,7 @@
 //#include "SGE/GameObject.hpp"
 #include "SGE/utils/handles/Handle.hpp"
 #include "SGE/utils/log/Loggable.hpp"
+#include "SGE/utils/events/Events.hpp"
 
 namespace sge {
 
@@ -22,6 +23,11 @@ namespace sge {
         class IComponent : public utils::log::Loggable {
         public:
             /*!
+             * \brief Event called right before the removal and destruction of a Component
+             */
+            utils::event::Event removal_event;
+
+            /*!
              * \brief Constructor meant to be used only by the factory
              * \param gameobject An handle to the GameObject this Component needs to be attached to
              * \param id The id that identifies the univocally the type of component
@@ -37,7 +43,7 @@ namespace sge {
              * \brief A callback called right before the removal of the component,
              * a concrete component can override this in order to prepare for deletion
              */
-            virtual void destruction_callback() {}
+            virtual void destruction_callback() { removal_event(); }
 
             /*!
              * \brief Checks if this Component is doomed
