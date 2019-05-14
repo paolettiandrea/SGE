@@ -29,6 +29,11 @@ namespace sge::core {
                 , object_manager((IEnvironment*)this)
                 , window_manager (data.window) {  }
 
+    private:
+        void debug_draw(debug::DebugShape *new_debug_shape) override;
+
+    public:
+
         virtual ~EngineCore();
 
         /*!
@@ -65,7 +70,7 @@ namespace sge::core {
 
         unsigned int frame_counter = 0;
 
-        double m_delta_time;
+        double m_delta_time = 0.0;
         std::chrono::time_point<std::chrono::steady_clock> last_toop_start_time;
     };
 }

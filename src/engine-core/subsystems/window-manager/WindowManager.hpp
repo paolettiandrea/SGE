@@ -15,6 +15,7 @@
 #include "ComponentCreator.hpp"
 #include "SFML/Graphics.hpp"
 #include "SGE/engine/construction_data/WindowManager_ConstructionData.hpp"
+#include "DebugShapesManager.hpp"
 
 namespace sge {
     namespace core {
@@ -22,6 +23,7 @@ namespace sge {
          * \brief The Subsystem that manages the window and in general the video output of the engine.
          */
         class WindowManager : public Subsystem {
+            friend class EngineCore;
         public:
             /*!
              * \brief Constructor
@@ -44,9 +46,16 @@ namespace sge {
             /*!
              * \brief Exposes the display method of the managed window
              */
-            void display() { m_window.display(); }
+            void display() {
+                m_window.draw(debug_shapes_manager,sf::RenderStates::Default);
+                m_window.display();
+                debug_shapes_manager.remove_expired_shapes();
+            }
 
             void draw();
+
+
+
 
         private:
             sf::RenderWindow m_window;
@@ -55,6 +64,8 @@ namespace sge {
 
             sf::View m_view;
             sf::RenderStates m_render_states;
+
+            DebugShapesManager debug_shapes_manager;
         };
     }
 }

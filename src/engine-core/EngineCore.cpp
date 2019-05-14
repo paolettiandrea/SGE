@@ -70,6 +70,12 @@ EngineCore::~EngineCore() {
     }
 }
 
+void sge::core::EngineCore::debug_draw(sge::debug::DebugShape *new_debug_shape) {
+    window_manager.debug_shapes_manager.add_debug_shape(new_debug_shape);
+}
+
+
+
 /*double EngineCore::fixed_delta_time() {
     return 0;
 }*/

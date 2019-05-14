@@ -10,6 +10,8 @@
 namespace sge {
     class Logic;
 
+    namespace debug { class DebugShape; }
+
     /*!
      * \brief The interface of the Engine to the objects,
      * allowing for query for relevant information about the execution of the game
@@ -39,7 +41,9 @@ namespace sge {
          */
         virtual void doom_top_scene() = 0;
 
+        virtual void debug_draw(debug::DebugShape* new_debug_shape) = 0;
     };
+
 }
 
 

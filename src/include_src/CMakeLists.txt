@@ -17,3 +17,4 @@ target_sources(factory_experiments PRIVATE
         )
 
 add_subdirectory(utils)
+add_subdirectory(debug)

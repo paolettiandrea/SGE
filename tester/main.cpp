@@ -9,9 +9,12 @@
 
 int main() {
 
+    // TODO make debug_shapes' displaying size indipendent from the view zoom (probably needs some view management implementaition)
+
+
     sge::cd::Engine_ConstructionData engine_cd;
     engine_cd.window.vsync_on = false;
-    engine_cd.window.view_vertical_size = 2000;
+    engine_cd.window.view_vertical_size = 1000;
     sge::Engine engine (engine_cd);
 
     sge::cd::SceneConstructionData initial_scene_cd("Wiggle wiggle", new WigglerSpawner(6000));
