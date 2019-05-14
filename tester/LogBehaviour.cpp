@@ -15,10 +15,10 @@ void LogBehaviour::on_start() {
     env()->doom_top_scene();
     TestTransform test_transform;
     test_transform.set_translation(0,0);
-    test_transform.set_rotation(M_PI/2);
+    //test_transform.set_scale(2,2);
+    test_transform.set_rotation(1.222f);
     auto res = test_transform.transform_point(sge::Vec2<float>(2,4));
     std::cout << "Result: " << res.to_string() << std::endl;
-
 }
 
 void LogBehaviour::on_destruction() {

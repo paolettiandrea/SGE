@@ -22,17 +22,15 @@ public:
     void set_rotation(float rads);
     void set_scale(float scale_x, float scale_y);
 
-    sge::Vec2<float> transform_point(sge::Vec2<float> point);
+    sge::Vec2<float> transform_point(const sge::Vec2<float>& point);
 
-    void combine(const TestTransform& that);
 
 private:
-    void update_transform_matrix();
 
-    Matrix2D<float> m_translation_matrix;
+    sge::Vec2<float> m_translation_vector;
     Matrix2D<float> m_rotation_matrix;
     Matrix2D<float> m_scale_matrix;
-    Matrix2D<float> m_local_transform_matrix;
+
 
     utils::Handle<TestTransform> parent;
     std::vector<utils::Handle<TestTransform>> children;

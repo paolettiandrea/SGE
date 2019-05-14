@@ -67,7 +67,7 @@ Matrix2D<T>::Matrix2D(Matrix2D &that)
 
 template<class T>
 Matrix2D<T>::~Matrix2D() {
-    std::cout << "Destructor called" << std::endl;
+    //std::cout << "Destructor called" << std::endl;
     for (int i = 0; i < rows; ++i) {
         delete[](m_matrix[i]);
     }

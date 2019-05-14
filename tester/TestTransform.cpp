@@ -6,21 +6,18 @@
 #include <cmath>
 
 TestTransform::TestTransform()
-    : m_translation_matrix(3,3)
-    , m_rotation_matrix(3,3)
-    , m_scale_matrix(3,3)
-    , m_local_transform_matrix(3,3) {
+    : m_translation_vector(0.f,0.f)
+    , m_rotation_matrix(2,2)
+    , m_scale_matrix(2,2) {
 
     // Every internal matrix set to identity
-    m_translation_matrix.make_identity();
     m_rotation_matrix.make_identity();
     m_scale_matrix.make_identity();
-    this->update_transform_matrix();
 }
 
 void TestTransform::set_translation(float x, float y) {
-    m_translation_matrix[0][2] = x;
-    m_translation_matrix[1][2] = y;
+    m_translation_vector.x = x;
+    m_translation_vector.y = y;
     m_dirty_flag = true;
 }
 
@@ -41,24 +38,13 @@ void TestTransform::set_scale(float scale_x, float scale_y) {
 }
 
 
-void TestTransform::update_transform_matrix() {
-    Matrix2D<float> temp(3,3);
-    temp.multiply(m_translation_matrix, m_rotation_matrix);
-    m_local_transform_matrix.multiply(temp, m_scale_matrix);
-    m_dirty_flag = false;
-}
-
-sge::Vec2<float> TestTransform::transform_point(sge::Vec2<float> point) {
-    if (m_dirty_flag) update_transform_matrix();
-
-    Matrix2D<float> point_matrix(3,1);
+sge::Vec2<float> TestTransform::transform_point(const sge::Vec2<float>& point) {
+    // This seems to be world_to_local, probably for local_to_world we need the inverse
+    Matrix2D<float> point_matrix(2,1);
     point_matrix[0][0] = point.x;
     point_matrix[1][0] = point.y;
-    point_matrix[2][0] = 1;
-
-    Matrix2D<float> res(3,1);
-    res.multiply(m_local_transform_matrix, point_matrix);
-    return sge::Vec2(res[0][0], res[1][0]);
+    auto yo = m_rotation_matrix*(m_scale_matrix*point_matrix);
+    return sge::Vec2<float>(yo[0][0]+m_translation_vector.x, yo[1][0]+m_translation_vector.y);
 }
 
 

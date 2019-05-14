@@ -11,6 +11,7 @@
 
 
 int main() {
+    /*
     Matrix2D<float> m1(1,3);
     m1[0][0] = 3.0f;
     m1[0][1] = 4.0f;
@@ -35,8 +36,8 @@ int main() {
 
     auto df = (m1 * m2);
     df.print_matrix("Res");
+    */
 
-    /*
     sge::cd::Engine_ConstructionData engine_cd;
     engine_cd.window.vsync_on = false;
     engine_cd.window.view_vertical_size = 2000;
@@ -47,6 +48,6 @@ int main() {
 
     while (engine.game_loop()) {
     }
-    */
+
     return 0;
 }
