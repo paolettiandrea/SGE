@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(factory_experiments)
 
-add_executable(tester tester/main.cpp tester/WigglerSpawner.cpp tester/WigglerSpawner.hpp tester/LogBehaviour.cpp tester/LogBehaviour.hpp tester/Wiggler.hpp tester/HierarchyTestLogic.hpp)
+add_executable(tester tester/main.cpp tester/WigglerSpawner.cpp tester/WigglerSpawner.hpp tester/LogBehaviour.cpp tester/LogBehaviour.hpp tester/Wiggler.hpp tester/HierarchyTestLogic.hpp tester/TestTransform.cpp tester/TestTransform.hpp tester/Matrix2D.hpp)
 target_link_libraries(tester PUBLIC factory_experiments)
 
 
