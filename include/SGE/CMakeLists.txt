@@ -6,6 +6,7 @@ target_sources(factory_experiments PUBLIC
         Scene.hpp
         SceneConstructionData.hpp
         Vec2.hpp
+        Camera.hpp
         )
 
 add_subdirectory(engine)

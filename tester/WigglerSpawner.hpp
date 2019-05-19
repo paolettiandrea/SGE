@@ -20,8 +20,11 @@ public:
 
     void on_start() override;
 
+    void on_update() override;
+
 private:
     int m_number;
+    float angle = 0;
 
 };
 

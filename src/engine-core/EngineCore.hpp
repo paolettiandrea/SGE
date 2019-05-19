@@ -59,6 +59,8 @@ namespace sge::core {
         bool book_new_scene_push(const std::string &name, Logic *initial_logic) override;
 
         void doom_top_scene() override;
+
+        Camera *get_camera() override;
         //double fixed_delta_time() override;
         //endregion
 
@@ -73,6 +75,8 @@ namespace sge::core {
         double m_delta_time = 0.0;
         std::chrono::time_point<std::chrono::steady_clock> last_toop_start_time;
     };
+
+
 }
 
 

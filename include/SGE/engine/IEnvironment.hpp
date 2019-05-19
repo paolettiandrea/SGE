@@ -6,6 +6,7 @@
 #define FACTORY_EXPERIMENTS_IENVIRONMENT_HPP
 
 #include <string>
+#include "SGE/Camera.hpp"
 
 namespace sge {
     class Logic;
@@ -42,6 +43,8 @@ namespace sge {
         virtual void doom_top_scene() = 0;
 
         virtual void debug_draw(debug::DebugShape* new_debug_shape) = 0;
+
+        virtual Camera* get_camera() = 0;
     };
 
 }

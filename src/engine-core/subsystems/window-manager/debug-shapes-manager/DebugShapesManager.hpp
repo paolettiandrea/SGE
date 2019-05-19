@@ -20,16 +20,28 @@ namespace sge {
          */
         class DebugShapesManager : public sf::Drawable {
         public:
+            DebugShapesManager() {
+                debug_font.loadFromFile("resources/fonts/ProggyTinySZ.ttf");
+            }
+            virtual ~DebugShapesManager();
+
             void add_debug_shape(debug::DebugShape* new_shape);
             void remove_expired_shapes();
+            void normalize_shapes_to_screen_size(float view_vertical_size);
 
         protected:
             void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
         private:
+            float m_last_vertical_size = 0.f;
+
             std::list<debug::DebugShape*> debug_shapes_list;
 
             static bool is_discardable_check_and_delete(debug::DebugShape *shape);
+
+            sf::Font debug_font;
+
+
         };
     }
 }

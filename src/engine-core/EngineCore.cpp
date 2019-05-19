@@ -80,3 +80,8 @@ void sge::core::EngineCore::debug_draw(sge::debug::DebugShape *new_debug_shape) 
     return 0;
 }*/
 //endregion
+
+
+sge::Camera* sge::core::EngineCore::get_camera() {
+    return &window_manager.m_camera;
+}

@@ -9,13 +9,16 @@
 \file
 \brief ${BRIEF_FILE_DESCRIPTION}
 */
-#include "Subsystem.hpp"
+
 #include <chrono>
-#include "SGE/components/Polygon.hpp"
-#include "ComponentCreator.hpp"
 #include "SFML/Graphics.hpp"
-#include "SGE/engine/construction_data/WindowManager_ConstructionData.hpp"
+
+#include "Subsystem.hpp"
+#include "Polygon.hpp"
+#include "ComponentCreator.hpp"
+#include "WindowManager_ConstructionData.hpp"
 #include "DebugShapesManager.hpp"
+#include "Camera.hpp"
 
 namespace sge {
     namespace core {
@@ -47,14 +50,15 @@ namespace sge {
              * \brief Exposes the display method of the managed window
              */
             void display() {
+                debug_shapes_manager.normalize_shapes_to_screen_size(m_camera.m_vertical_size);
                 m_window.draw(debug_shapes_manager,sf::RenderStates::Default);
+
                 m_window.display();
+
                 debug_shapes_manager.remove_expired_shapes();
             }
 
             void draw();
-
-
 
 
         private:
@@ -62,10 +66,10 @@ namespace sge {
 
             ComponentCreator<cmp::Polygon> polygon_component_creator;
 
-            sf::View m_view;
             sf::RenderStates m_render_states;
 
             DebugShapesManager debug_shapes_manager;
+            Camera m_camera;
         };
     }
 }

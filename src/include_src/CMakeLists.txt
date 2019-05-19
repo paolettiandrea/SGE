@@ -14,6 +14,8 @@ target_sources(factory_experiments PRIVATE
         Logic.cpp
 
         Vec2.cpp
+
+        Camera.cpp
         )
 
 add_subdirectory(utils)

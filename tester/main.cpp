@@ -17,7 +17,7 @@ int main() {
     engine_cd.window.view_vertical_size = 1000;
     sge::Engine engine (engine_cd);
 
-    sge::cd::SceneConstructionData initial_scene_cd("Wiggle wiggle", new WigglerSpawner(6000));
+    sge::cd::SceneConstructionData initial_scene_cd("Wiggle wiggle", new WigglerSpawner(500));
     engine.initialize(initial_scene_cd);
 
     while (engine.game_loop()) {
