@@ -8,11 +8,11 @@
 template <class T>
 class Matrix2D {
 public:
-    const unsigned int rows;
-    const unsigned int columns;
+     unsigned int rows;
+     unsigned int columns;
 
     Matrix2D(unsigned int row_n, unsigned int col_n);
-    Matrix2D(Matrix2D& that);
+    Matrix2D(const Matrix2D<T>& that);
     virtual ~Matrix2D();
 
     void make_identity();
@@ -29,11 +29,12 @@ public:
 
     T* operator[](unsigned int index);
     Matrix2D<T> operator*(const Matrix2D<T>& that);
-    Matrix2D<T>& operator=(Matrix2D<T>& that);
+    Matrix2D<T>& operator=(const Matrix2D<T>& that);
 
 private:
     T** m_matrix;
 };
+
 
 
 //region Constructors and destructors
@@ -52,7 +53,7 @@ Matrix2D<T>::Matrix2D(unsigned int row_n, unsigned int col_n)
 }
 
 template<class T>
-Matrix2D<T>::Matrix2D(Matrix2D &that)
+Matrix2D<T>::Matrix2D(const Matrix2D<T> &that)
         : rows(that.rows)
         , columns(that.columns) {
     std::cout << "copy constructor called" << std::endl;
@@ -60,7 +61,7 @@ Matrix2D<T>::Matrix2D(Matrix2D &that)
     for (int row = 0; row < rows; ++row) {
         m_matrix[row] = new T[columns];
         for (int column = 0; column < columns; ++column) {
-            m_matrix[row][column] = that[row][column];
+            m_matrix[row][column] = that.m_matrix[row][column];
         }
     }
 }
@@ -168,7 +169,7 @@ Matrix2D<T> Matrix2D<T>::operator*(const Matrix2D<T> &that) {
 }
 
 template<class T>
-Matrix2D<T> &Matrix2D<T>::operator=(Matrix2D<T> &that) {
+Matrix2D<T> &Matrix2D<T>::operator=(const Matrix2D<T> &that) {
     std::cout << "Assignment operator called" << std::endl;
     if (this->columns==that.columns && this->rows == that.rows) {
         for (int row = 0; row < rows; ++row) {
@@ -176,8 +177,10 @@ Matrix2D<T> &Matrix2D<T>::operator=(Matrix2D<T> &that) {
                 m_matrix[row][column] = that.m_matrix[row][column];
             }
         }
+        return *this;
     } else {
         std::cout << "Error: Tried to use = operator on two matrices with different dimensions" << std::endl;
+        exit(1);
     }
 }
 

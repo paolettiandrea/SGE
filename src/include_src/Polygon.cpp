@@ -29,12 +29,15 @@ void sge::cmp::Polygon::draw(sf::RenderTarget &target, sf::RenderStates states) 
 }
 
 void sge::cmp::Polygon::update_gap_transform() {
+    /*
     auto my_transform = this->gameobject()->transform();
     m_gap_transform = sf::Transform::Identity;
     m_gap_transform.translate(my_transform->get_world_position().x,
                               my_transform->get_world_position().y);
+
     m_gap_transform.rotate(my_transform->get_world_rotation());
     m_gap_transform.scale(my_transform->get_world_scale(),my_transform->get_world_scale());
+     */
 }
 
 

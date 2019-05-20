@@ -6,6 +6,7 @@
 #include <list>
 #include "SGE/Vec2.hpp"
 #include <string>
+#include "SGE/utils/Matrix2D.hpp"
 
 namespace sge::cmp {
 
@@ -21,7 +22,7 @@ namespace sge::cmp {
 
         void set_parent(utils::Handle<Transform> new_parent);
         utils::Handle<Transform> get_parent();
-        void add_child(utils::Handle<Transform> new_child);
+
         void remove_child(utils::Handle<Transform> target_child);
         std::list<utils::Handle<Transform>> get_children_list();
         //endregion
@@ -33,17 +34,17 @@ namespace sge::cmp {
         Vec2<double> get_world_position();
 
         void set_local_scale(double scale);
-        double get_local_scale();
-        double get_world_scale();
+        Vec2<double> get_local_scale();
+        Vec2<double> get_world_scale();
 
         void set_local_rotation(double rotation);
         double get_local_rotation();
+        double get_local_rotation_euler();
         double get_world_rotation();
+        double get_world_rotation_euler();
 
-        Vec2<double> apply_transformation(Vec2<double> vector);
 
-
-        Vec2<double> transform_local_to_world(Vec2<double> local_pos);
+        Vec2<double> local_to_world_point(Vec2<double> point);
         Vec2<double> transform_world_to_local(Vec2<double> world_pos);
         //endregion
 
@@ -52,10 +53,21 @@ namespace sge::cmp {
         utils::Handle<sge::cmp::Transform> m_parent;
         std::list<utils::Handle<sge::cmp::Transform>> m_children;
 
-        Vec2<double> m_local_position;
-        double m_local_rotation_angle;
-        double m_local_scale;
+        sge::Vec2<double> m_local_position_vector;
+        Matrix2D<double> m_local_rotation_matrix;
+        Matrix2D<double> m_local_scale_matrix;
 
+        sge::Vec2<double> m_world_position_vector;
+        Matrix2D<double> m_world_rotation_matrix;
+        Matrix2D<double> m_world_scale_matrix;
+        bool is_dirty = true;
+
+        void make_dirty();
+        void update_world_data();
+
+        void compose_with_parent();
+
+        void add_child(utils::Handle<Transform> new_child);
 
     };
 

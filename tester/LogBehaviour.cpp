@@ -12,7 +12,7 @@ std::string LogBehaviour::get_logic_type_id() {
 
 void LogBehaviour::on_start() {
     LOG(10) << "on_start";
-    env()->doom_top_scene();
+    //env()->doom_top_scene();
     TestTransform test_transform;
     test_transform.set_translation(0,0);
     //test_transform.set_scale(2,2);

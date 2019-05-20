@@ -5,7 +5,7 @@
 #ifndef FACTORY_EXPERIMENTS_TESTTRANSFORM_HPP
 #define FACTORY_EXPERIMENTS_TESTTRANSFORM_HPP
 
-#include "Matrix2D.hpp"
+#include "SGE/utils/Matrix2D.hpp"
 #include <vector>
 #include "SGE/Vec2.hpp"
 #include "SGE/utils/handles/Handle.hpp"

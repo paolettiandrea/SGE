@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include "SFML/Graphics.hpp"
 #include "LogBehaviour.hpp"
-#include "Matrix2D.hpp"
+#include "SGE/utils/Matrix2D.hpp"
 
 
 
@@ -47,7 +47,7 @@ int main() {
     sge::Engine engine (engine_cd);
 
 
-    sge::cd::SceneConstructionData initial_scene_cd("Wiggle wiggle", new LogBehaviour());
+    sge::cd::SceneConstructionData initial_scene_cd("Wiggle wiggle", new HierarchyTestLogic());
     engine.initialize(initial_scene_cd);
 
     while (engine.game_loop()) {

@@ -9,6 +9,7 @@
 #include <vector>
 #include "SGE/Vec2.hpp"
 #include "SFML/Graphics.hpp"
+#include "SGE/utils/Matrix2D.hpp"
 
 namespace sge::core { class WindowManager; }
 
