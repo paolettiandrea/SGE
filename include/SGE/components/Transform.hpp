@@ -56,6 +56,7 @@ namespace sge::cmp {
         double m_local_rotation_angle;
         double m_local_scale;
 
+
     };
 
 }

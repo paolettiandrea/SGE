@@ -15,6 +15,7 @@ void WigglerSpawner::on_start() {
     for (int i = 0; i < m_number; ++i) {
         auto wiggler_obj = scene()->spawn_gameobject("Wiggler " + std::to_string(i));
         wiggler_obj->logichub()->attach_logic(new Wiggler(0.1+0.01 * i, Vec2<double>(0,0),1*i));
+
     }
 
 
@@ -23,8 +24,6 @@ void WigglerSpawner::on_start() {
 
 
     // FIXME: the factory somehow doesn't complain with an inexistent id!!!
-
-
 
 }
 
