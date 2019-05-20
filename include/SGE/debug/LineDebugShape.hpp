@@ -12,7 +12,8 @@ namespace sge {
     namespace debug {
         class LineDebugShape : public DebugShape {
         public:
-            LineDebugShape(float x1, float y1, float x2, float y2, float duration, unsigned int coord_decimals);
+            LineDebugShape(float x1, float y1, float x2, float y2, float duration=0.f, unsigned int coord_decimals=1,
+                           const std::string &label = "");
 
             void update_dimensions(float vertical_view_size) override;
 

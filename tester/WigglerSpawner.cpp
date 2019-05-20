@@ -29,8 +29,8 @@ void WigglerSpawner::on_start() {
 }
 
 void WigglerSpawner::on_update() {
-    //Logic::on_update();
-    //angle+=1*env()->delta_time();
-    //env()->debug_draw(new debug::PointDebugShape(cos(angle)*500,sin(angle)*500,0.f,"label",0));
+    Logic::on_update();
+    angle+=1*env()->delta_time();
+    env()->debug_draw(new debug::LineDebugShape(cos(angle) * 500, sin(angle) * 500, 0.f, 0, 0, 2, "test"));
 }
 

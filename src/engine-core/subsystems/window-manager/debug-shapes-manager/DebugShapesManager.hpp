@@ -17,6 +17,7 @@ namespace sge {
     namespace core {
         /*!
          * \brief Manages the debug shapes
+         * \warning This approach is pretty inefficient, it should be ok if not extensivelly used. But if there's time this defenetely needs a refactoring.
          */
         class DebugShapesManager : public sf::Drawable {
         public:
