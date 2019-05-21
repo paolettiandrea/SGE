@@ -47,7 +47,7 @@ int main() {
     sge::Engine engine (engine_cd);
 
 
-    sge::cd::SceneConstructionData initial_scene_cd("Wiggle wiggle", new HierarchyTestLogic());
+    sge::cd::SceneConstructionData initial_scene_cd("Wiggle wiggle", new HierarchyTestLogic(1,1));
     engine.initialize(initial_scene_cd);
 
     while (engine.game_loop()) {

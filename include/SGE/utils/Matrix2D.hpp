@@ -170,7 +170,6 @@ Matrix2D<T> Matrix2D<T>::operator*(const Matrix2D<T> &that) {
 
 template<class T>
 Matrix2D<T> &Matrix2D<T>::operator=(const Matrix2D<T> &that) {
-    std::cout << "Assignment operator called" << std::endl;
     if (this->columns==that.columns && this->rows == that.rows) {
         for (int row = 0; row < rows; ++row) {
             for (int column = 0; column < columns; ++column) {

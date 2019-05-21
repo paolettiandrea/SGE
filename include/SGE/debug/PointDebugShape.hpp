@@ -5,6 +5,7 @@
 #ifndef FACTORY_EXPERIMENTS_POINTDEBUGSHAPE_HPP
 #define FACTORY_EXPERIMENTS_POINTDEBUGSHAPE_HPP
 
+#include <SGE/Vec2.hpp>
 #include "SGE/debug/DebugShape.hpp"
 
 /*!
@@ -25,8 +26,10 @@ namespace  sge {
             void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
         private:
-            sf::CircleShape m_dot_shape;
             sf::Text m_coordinates_text;
+
+            sf::VertexArray cross_vertarray;
+            sge::Vec2<float> pos_vec;
         };
     }
 }

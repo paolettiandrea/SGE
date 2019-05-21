@@ -6,10 +6,6 @@
 #include <iostream>
 #include "SGE/debug/LineDebugShape.hpp"
 
-#ifndef LINE_DEBUG_SHAPE_THICKNESS_SCREEN_RATIO
-#define LINE_DEBUG_SHAPE_THICKNESS_SCREEN_RATIO 0.002
-#endif
-
 
 
 
@@ -20,27 +16,21 @@ sge::debug::LineDebugShape::LineDebugShape(float x1, float y1, float x2, float y
                                            , m_point1_debug_shape(x1,y1,duration, label, coord_decimals)
                                            , m_point2_debug_shape(x2,y2,duration, "", coord_decimals)
                                            , line_rect(sf::Vector2f(1.f,1.f)){
-    line_rect.setFillColor(DebugShape::primary_debug_color);
-    line_rect.setOrigin(sf::Vector2f(0.5f, 1.f));
-    line_rect.setPosition(x1,y1);
-    float ipotenusa = std::sqrt(pow(x1-x2, 2) + pow(y1-y2, 2));
-    double proj = (x2-x1)/ipotenusa;
-    float angle;
-    if (y2-y1<0) angle = asin(proj)*(180/M_PI);         // TEMP
-    else angle = acos(proj)*(180/M_PI)+90;
-    line_rect.setRotation(angle);
-    std::cout << angle << std::endl;
-    line_rect.setScale(sf::Vector2f(1.f,ipotenusa));
+    line_vertarray.setPrimitiveType(sf::PrimitiveType::Lines);
+    line_vertarray.append(sf::Vertex(sf::Vector2f(x1,-y1)));
+    line_vertarray.append(sf::Vertex(sf::Vector2f(x2,-y2)));
+    line_vertarray[0].color=primary_debug_color;
+    line_vertarray[1].color=primary_debug_color;
+
 }
 
 void sge::debug::LineDebugShape::update_dimensions(float vertical_view_size) {
     m_point1_debug_shape.update_dimensions(vertical_view_size);
     m_point2_debug_shape.update_dimensions(vertical_view_size);
-    line_rect.setScale(sf::Vector2f(LINE_DEBUG_SHAPE_THICKNESS_SCREEN_RATIO*vertical_view_size, line_rect.getScale().y));
 }
 
 void sge::debug::LineDebugShape::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(line_rect, states);
+    target.draw(line_vertarray, states);
     target.draw(m_point1_debug_shape, states);
     target.draw(m_point2_debug_shape, states);
 

@@ -35,7 +35,6 @@ namespace sge {
 
         protected:
             static sf::Color primary_debug_color;
-            static sf::Color secondary_debug_color;
             sf::Font debug_font;
 
             virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const = 0;

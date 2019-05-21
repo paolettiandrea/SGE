@@ -6,7 +6,7 @@
 /*!
  * \brief Defines the maximum number of handles of some type that can be used in a given moment
  */
-#define MAXIMUM_HANDLES_PER_TYPE 1280000
+#define MAXIMUM_HANDLES_PER_TYPE 128000
 #endif
 
 
@@ -38,6 +38,8 @@ namespace utils {
                 , counter(0) {
 
         }
+
+        static Handle<T> null() { return Handle<T>(); }
 
         /*!
          * Generates a new entry referencing to the given object and constructs an handle referencing to it

@@ -23,18 +23,23 @@ void Transform::set_parent(Handle<Transform> new_parent) {
     if (!this->m_parent.is_null() && this->m_parent!=new_parent) {
         this->m_parent->remove_child(this->get_handle());
     }
-    // Check for circular hierarchy
-    Handle<Transform> target_parent = new_parent;
-    while (!target_parent.is_null()) {
-        if (target_parent == this->get_handle()) {
-            LOG_ERROR << "Detected circular hierarchy while trying to set " << new_parent->gameobject()->get_log_id()
-                      << " as m_parent. This object's local hierarchy before this operation looks as follows:\n"
-                      << gameobject()->get_string_local_hierarchy();
-            exit(1);
+    if (!new_parent.is_null()) {
+        // Check for circular hierarchy
+        Handle<Transform> target_parent = new_parent;
+        while (!target_parent.is_null()) {
+            if (target_parent == this->get_handle()) {
+                LOG_ERROR << "Detected circular hierarchy while trying to set " << new_parent->gameobject()->get_log_id()
+                          << " as m_parent. This object's local hierarchy before this operation looks as follows:\n"
+                          << gameobject()->get_string_local_hierarchy();
+                exit(1);
+            }
+            target_parent = target_parent->get_parent();
         }
-        target_parent = target_parent->get_parent();
+
+        // Add this as child to the new parent
+        new_parent->add_child(this->get_handle());
     }
-    new_parent->add_child(this->get_handle());
+
     this->m_parent = new_parent;
     this->make_dirty();
 }
@@ -98,10 +103,14 @@ sge::Vec2<double> sge::cmp::Transform::local_to_world_point(sge::Vec2<double> po
 }
 
 void sge::cmp::Transform::make_dirty() {
-    is_dirty = true;
-    for (auto child : m_children) {     // OPTIMIZE: maybe we can stop when we encounter already dirty transforms
-        child->make_dirty();
+    if (!is_dirty) {
+        is_dirty = true;
+        transform_diry_event();
+        for (auto child : m_children) {     // OPTIMIZE: maybe we can stop when we encounter already dirty transforms
+            child->make_dirty();
+        }
     }
+
 }
 
 void sge::cmp::Transform::update_world_data() {
@@ -127,7 +136,6 @@ void sge::cmp::Transform::compose_with_parent() {
         Matrix2D<double> temp(2,2);
         temp[0][0] = m_local_position_vector.x;
         temp[1][0] = m_local_position_vector.y;
-
 
         auto yo =temp * m_parent->m_world_scale_matrix * m_parent->m_world_rotation_matrix ;
         m_world_position_vector.x = yo[0][0];

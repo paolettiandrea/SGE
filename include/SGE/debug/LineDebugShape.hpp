@@ -25,6 +25,7 @@ namespace sge {
             PointDebugShape m_point1_debug_shape;
             PointDebugShape m_point2_debug_shape;
             sf::RectangleShape line_rect;
+            sf::VertexArray line_vertarray;
         };
 
     }

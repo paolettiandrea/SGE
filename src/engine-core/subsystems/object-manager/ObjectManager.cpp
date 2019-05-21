@@ -51,6 +51,7 @@ void ObjectManager::doom_pass() {
         }
     }
 
+    // Doom pass for the Components
     auto component_memory_array = scene_stack.top().get_component_memorylayer_array();
     for (int i = 0; i < TOTAL_POSSIBLE_COMPONENTS; ++i) {
         component_memory_array[i]->doom_pass();

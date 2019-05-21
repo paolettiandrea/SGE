@@ -4,8 +4,8 @@
 
 #include "Component.hpp"
 #include <list>
-#include "SGE/Vec2.hpp"
 #include <string>
+#include "SGE/Vec2.hpp"
 #include "SGE/utils/Matrix2D.hpp"
 
 namespace sge::cmp {
@@ -16,11 +16,22 @@ namespace sge::cmp {
  */
     class Transform : public Component<Transform> {
     public:
+        /*!
+         * \brief Event that is called when this transform is made dirty.
+         */
+        utils::event::Event transform_diry_event;
+
         explicit Transform(const utils::Handle<GameObject> &gameobject);
 
         //region Hierarchy management
-
+        /*!
+         * \brief Sets the parent of this Transform
+         * \param new_parent An Handle to the new parent.
+         */
         void set_parent(utils::Handle<Transform> new_parent);
+        /*!
+         * \brief Gets an handle to the parent of this object, null handle if base
+         */
         utils::Handle<Transform> get_parent();
 
         void remove_child(utils::Handle<Transform> target_child);
@@ -64,9 +75,7 @@ namespace sge::cmp {
 
         void make_dirty();
         void update_world_data();
-
         void compose_with_parent();
-
         void add_child(utils::Handle<Transform> new_child);
 
     };
