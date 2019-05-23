@@ -11,10 +11,11 @@
 */
 
 #include <chrono>
+#include <SGE/components/VertArray.hpp>
 #include "SFML/Graphics.hpp"
 
 #include "Subsystem.hpp"
-#include "Polygon.hpp"
+#include "VertArray.hpp"
 #include "ComponentCreator.hpp"
 #include "WindowManager_ConstructionData.hpp"
 #include "DebugShapesManager.hpp"
@@ -56,6 +57,8 @@ namespace sge {
                 m_window.display();
 
                 debug_shapes_manager.remove_expired_shapes();
+
+                
             }
 
             void draw();
@@ -64,7 +67,7 @@ namespace sge {
         private:
             sf::RenderWindow m_window;
 
-            ComponentCreator<cmp::Polygon> polygon_component_creator;
+            ComponentCreator<cmp::VertArray> vertarray_component_creator;
 
             sf::RenderStates m_render_states;
 

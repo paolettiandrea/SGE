@@ -62,6 +62,8 @@ namespace sge::core {
 
         Camera *get_camera() override;
         //double fixed_delta_time() override;
+        bool is_shutting_down() override;
+        bool m_shutting_down_flag = false;
         //endregion
 
 

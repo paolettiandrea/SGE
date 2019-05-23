@@ -20,15 +20,18 @@ void Event::notifyHandlers() {
 }
 
 void Event::addHandler(const EventHandler &handler) {
-    this->subscribers.push_back((new EventHandler{handler}));
+    this->subscribers.push_back(new EventHandler(handler));
+    int ooo=0;
 }
 
-void Event::removeHandler(const EventHandler &handler) {
+void Event::removeHandler(const EventHandler &handler_to_remove) {
     bool found = false;
-    auto to_remove = this->subscribers.begin();
-    for(; to_remove != this->subscribers.end(); ++to_remove) {
-        if(*(*to_remove) == handler) {
-            this->subscribers.erase(to_remove);
+    auto target = this->subscribers.begin();
+    for(; target != this->subscribers.end(); ++target) {
+        auto yo = (*(*target)).get_id();
+        auto yo2 = handler_to_remove.get_id();
+        if((*(*target)) == handler_to_remove) {
+            this->subscribers.erase(target);
             found = true;
             break;
         }
@@ -56,4 +59,11 @@ Event &Event::operator-=(const EventHandler &handler) {
     this->removeHandler(handler);
 
     return *this;
+}
+
+Event::~Event() {
+    for (int i = 0; i < subscribers.size(); ++i) {
+        delete(subscribers[i]);
+    }
+
 }

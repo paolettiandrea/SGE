@@ -45,6 +45,8 @@ namespace sge {
         virtual void debug_draw(debug::DebugShape* new_debug_shape) = 0;
 
         virtual Camera* get_camera() = 0;
+
+        virtual bool is_shutting_down() = 0;
     };
 
 }

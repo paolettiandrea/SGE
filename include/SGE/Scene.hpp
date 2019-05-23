@@ -51,6 +51,9 @@ namespace sge {
             return env_p;
         }
 
+        void doom_scene() {m_doomed_flag = true; }
+        bool is_doomed() {return m_doomed_flag; }
+
 
     private:
         /*!
@@ -66,6 +69,8 @@ namespace sge {
          * \brief A pointer to the IEnvironment interface of the Engine
          */
         IEnvironment* env_p;
+
+        bool m_doomed_flag = false;
     };
 }
 

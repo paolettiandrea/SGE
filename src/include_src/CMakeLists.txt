@@ -10,6 +10,7 @@ target_sources(factory_experiments PRIVATE
         LogicHub.cpp
         Transform.cpp
         Polygon.cpp
+        VertArray.cpp
 
         Logic.cpp
 

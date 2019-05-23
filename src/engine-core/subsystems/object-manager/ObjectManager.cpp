@@ -64,10 +64,9 @@ void ObjectManager::doom_pass() {
 
 void ObjectManager::scene_pass() {
     LOG_DEBUG(15) << "Starting scene pass";
-    if (pop_top_scene_flag) {
+    if (scene_stack.top().is_doomed()) {
         LOG_DEBUG(15) << "Popping the top scene (since pop_top_scene_flag == true)";
         pop_top_scene();
-        pop_top_scene_flag = false;
     }
     if (new_scene_construction_data != nullptr) {
         LOG_DEBUG(15) << "Pushing a new scene (since new_scene_construction_data != nullptr)";
@@ -89,7 +88,7 @@ bool ObjectManager::book_scene_push(const std::string &name, Logic *initial_logi
 }
 
 void ObjectManager::doom_top_scene() {
-    pop_top_scene_flag = true;
+    scene_stack.top().doom_scene();
 }
 
 ObjectManager::~ObjectManager() {

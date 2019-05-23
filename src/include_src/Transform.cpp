@@ -66,24 +66,24 @@ std::list<utils::Handle<Transform>> sge::cmp::Transform::get_children_list() {
     return m_children;
 }
 
-sge::Vec2<double> sge::cmp::Transform::get_local_position() {
+sge::Vec2<float> sge::cmp::Transform::get_local_position() {
     return m_local_position_vector;
 }
 
-void sge::cmp::Transform::set_local_position(double x, double y) {
+void sge::cmp::Transform::set_local_position(float x, float y) {
     m_local_position_vector.x = x;
     m_local_position_vector.y = y;
     make_dirty();
 }
 
-void sge::cmp::Transform::set_local_scale(double scale) {
+void sge::cmp::Transform::set_local_scale(float scale) {
     m_local_scale_matrix[0][0] = scale;
     m_local_scale_matrix[1][1] = scale;
     make_dirty();
 }
 
 
-void sge::cmp::Transform::set_local_rotation(double rads) {
+void sge::cmp::Transform::set_local_rotation(float rads) {
     float sin = std::sin(rads);
     float cos = std::cos(rads);
     m_local_rotation_matrix[0][0] = cos;
@@ -93,19 +93,19 @@ void sge::cmp::Transform::set_local_rotation(double rads) {
     make_dirty();
 }
 
-sge::Vec2<double> sge::cmp::Transform::local_to_world_point(sge::Vec2<double> point) {
+sge::Vec2<float> sge::cmp::Transform::local_to_world_point(sge::Vec2<float> point) {
     if (is_dirty) update_world_data();
-    Matrix2D<double> point_matrix(2,1);
+    Matrix2D<float> point_matrix(2,1);
     point_matrix[0][0] = point.x;
     point_matrix[1][0] = point.y;
     auto yo = m_world_rotation_matrix*(m_world_scale_matrix*point_matrix);
-    return sge::Vec2<double>(yo[0][0]+m_world_position_vector.x, yo[1][0]+m_world_position_vector.y);
+    return sge::Vec2<float>(yo[0][0]+m_world_position_vector.x, yo[1][0]+m_world_position_vector.y);
 }
 
 void sge::cmp::Transform::make_dirty() {
+    transform_changed_event();
     if (!is_dirty) {
         is_dirty = true;
-        transform_diry_event();
         for (auto child : m_children) {     // OPTIMIZE: maybe we can stop when we encounter already dirty transforms
             child->make_dirty();
         }
@@ -133,7 +133,7 @@ void sge::cmp::Transform::compose_with_parent() {
         m_world_scale_matrix = m_parent->m_world_scale_matrix*m_local_scale_matrix;
         m_world_rotation_matrix = m_parent->m_world_rotation_matrix*m_local_rotation_matrix;
 
-        Matrix2D<double> temp(2,2);
+        Matrix2D<float> temp(2,2);
         temp[0][0] = m_local_position_vector.x;
         temp[1][0] = m_local_position_vector.y;
 
@@ -149,34 +149,39 @@ void sge::cmp::Transform::compose_with_parent() {
     }
 }
 
-sge::Vec2<double> sge::cmp::Transform::get_world_position() {
+sge::Vec2<float> sge::cmp::Transform::get_world_position() {
     if (is_dirty) update_world_data();
     return m_world_position_vector;
 }
 
-sge::Vec2<double> sge::cmp::Transform::get_local_scale() {
+sge::Vec2<float> sge::cmp::Transform::get_local_scale() {
     return Vec2(m_local_scale_matrix[0][0], m_local_scale_matrix[1][1]);
 }
 
-sge::Vec2<double> sge::cmp::Transform::get_world_scale() {
+sge::Vec2<float> sge::cmp::Transform::get_world_scale() {
     if (is_dirty) update_world_data();
     return Vec2(m_world_scale_matrix[0][0], m_world_scale_matrix[1][1]);
 }
 
-double sge::cmp::Transform::get_local_rotation() {
-    return acos(m_local_rotation_matrix[0][0]);
+float sge::cmp::Transform::get_local_rotation() {
+    if (asin(m_local_rotation_matrix[0][1])<0)
+        return acos(m_local_rotation_matrix[0][0]);
+    else return acos(-m_local_rotation_matrix[0][0]) + M_PI;
+
 }
 
-double sge::cmp::Transform::get_local_rotation_euler() {
+float sge::cmp::Transform::get_local_rotation_euler() {
     return get_local_rotation() * 180 / M_PI;
 }
 
-double sge::cmp::Transform::get_world_rotation() {
+float sge::cmp::Transform::get_world_rotation() {
     if (is_dirty) update_world_data();
-    return acos(m_world_rotation_matrix[0][0]);
+    if (asin(m_world_rotation_matrix[0][1])<0)
+        return acos(m_world_rotation_matrix[0][0]);
+    else return acos(-m_world_rotation_matrix[0][0]) + M_PI;
 }
 
-double sge::cmp::Transform::get_world_rotation_euler() {
+float sge::cmp::Transform::get_world_rotation_euler() {
     return  get_world_rotation() * 180 / M_PI;
 }
 

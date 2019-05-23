@@ -38,6 +38,11 @@ namespace utils {
 
             EventHandler() : id{0} {}
 
+            EventHandler(const EventHandler& that) {
+                this->_func = that._func;
+                this->id = that.id;
+            }
+
             explicit EventHandler(const Func &func) : _func{func} {
                 this->id = ++EventHandler::id_counter;
             }

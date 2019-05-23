@@ -19,7 +19,7 @@ namespace sge::cmp {
         /*!
          * \brief Event that is called when this transform is made dirty.
          */
-        utils::event::Event transform_diry_event;
+        utils::event::Event transform_changed_event;
 
         explicit Transform(const utils::Handle<GameObject> &gameobject);
 
@@ -40,23 +40,23 @@ namespace sge::cmp {
 
         //region Spacial
 
-        void set_local_position(double x, double y);
-        Vec2<double> get_local_position();
-        Vec2<double> get_world_position();
+        void set_local_position(float x, float y);
+        Vec2<float> get_local_position();
+        Vec2<float> get_world_position();
 
-        void set_local_scale(double scale);
-        Vec2<double> get_local_scale();
-        Vec2<double> get_world_scale();
+        void set_local_scale(float scale);
+        Vec2<float> get_local_scale();
+        Vec2<float> get_world_scale();
 
-        void set_local_rotation(double rotation);
-        double get_local_rotation();
-        double get_local_rotation_euler();
-        double get_world_rotation();
-        double get_world_rotation_euler();
+        void set_local_rotation(float rotation);
+        float get_local_rotation();
+        float get_local_rotation_euler();
+        float get_world_rotation();
+        float get_world_rotation_euler();
 
 
-        Vec2<double> local_to_world_point(Vec2<double> point);
-        Vec2<double> transform_world_to_local(Vec2<double> world_pos);
+        Vec2<float> local_to_world_point(Vec2<float> point);
+        Vec2<float> transform_world_to_local(Vec2<float> world_pos);
         //endregion
 
 
@@ -64,13 +64,13 @@ namespace sge::cmp {
         utils::Handle<sge::cmp::Transform> m_parent;
         std::list<utils::Handle<sge::cmp::Transform>> m_children;
 
-        sge::Vec2<double> m_local_position_vector;
-        Matrix2D<double> m_local_rotation_matrix;
-        Matrix2D<double> m_local_scale_matrix;
+        sge::Vec2<float> m_local_position_vector;
+        Matrix2D<float> m_local_rotation_matrix;
+        Matrix2D<float> m_local_scale_matrix;
 
-        sge::Vec2<double> m_world_position_vector;
-        Matrix2D<double> m_world_rotation_matrix;
-        Matrix2D<double> m_world_scale_matrix;
+        sge::Vec2<float> m_world_position_vector;
+        Matrix2D<float> m_world_rotation_matrix;
+        Matrix2D<float> m_world_scale_matrix;
         bool is_dirty = true;
 
         void make_dirty();

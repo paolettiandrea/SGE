@@ -8,9 +8,10 @@ using namespace sge::core;
 
 WindowManager::WindowManager(const cd::WindowManager_ConstructionData &data)
     : Subsystem("WINDOW MANAGER")
-    , m_window(sf::VideoMode(data.window_width, data.window_height), data.window_title,sf::Style::Default, data.context_settings)
-    , polygon_component_creator("Polygon")
+    , m_window(sf::VideoMode(data.window_width, data.window_height), data.window_title,sf::Style::Fullscreen, data.context_settings)
+    , vertarray_component_creator("VertArray")
     , m_camera(((float)data.window_width)/data.window_height, data.view_vertical_size)
+    , m_render_states(sf::Transform::Identity)
     {
     m_window.setPosition(sf::Vector2i(data.window_pos_x, data.window_pos_y));
     m_window.setVerticalSyncEnabled(data.vsync_on);
@@ -42,10 +43,9 @@ void WindowManager::handle_window_events() {
 }
 
 void WindowManager::draw() {
-    auto polygon_components_top_vector = polygon_component_creator.get_top_layer()->get_component_vector();
-    m_render_states.transform = sf::Transform::Identity;
-    for (auto polygon : polygon_components_top_vector) {
-        polygon->update_gap_transform();
-        polygon->draw(m_window, m_render_states);
+    //m_render_states.transform = sf::Transform::Identity;        // ???
+    for (auto vertarray : vertarray_component_creator.get_top_layer()->get_component_vector()) {
+        vertarray->clean_if_dirty();
+        m_window.draw(*vertarray.get_pointer(), m_render_states);
     }
 }

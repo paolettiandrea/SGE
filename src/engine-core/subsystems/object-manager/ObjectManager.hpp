@@ -78,10 +78,8 @@ namespace sge {
 
             // Acts as a flag that signals if the push of a new scene was requested during the last gameloop
             cd::SceneConstructionData* new_scene_construction_data = nullptr;
-            // Flag that signals if the popping of the top scene was requested during the last gameloop
-            bool pop_top_scene_flag = false;
-            // If both are true at the scene_pass the top scene is substituted by a new scene having the initial logic
-            // contained in the flag
+
+
 
 
 

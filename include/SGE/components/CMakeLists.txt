@@ -6,4 +6,5 @@ target_sources(factory_experiments PUBLIC
         LogicHub.hpp
         Polygon.hpp
         Component.hpp
+        VertArray.hpp
         )

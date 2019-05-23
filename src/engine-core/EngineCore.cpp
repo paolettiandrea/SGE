@@ -14,7 +14,7 @@ bool EngineCore::game_loop() {
     last_toop_start_time = temp_now;
     m_delta_time = duration_since_last_loop_start.count();
 
-    LOG_DEBUG(1) << "Game_loop is starting |" << object_manager.get_top_scene()->get_log_id()
+    LOG_DEBUG(20) << "Game_loop is starting |" << object_manager.get_top_scene()->get_log_id()
                   << " | stack_size:" << object_manager.get_scene_stack_size() << " | delta_time:"<< m_delta_time;
 
 
@@ -62,6 +62,7 @@ unsigned int EngineCore::frame_count() {
 }
 
 EngineCore::~EngineCore() {
+    m_shutting_down_flag = true;
     LOG_DEBUG(20) << "Destructor";
     while (object_manager.get_scene_stack_size() > 0){
         LOG_DEBUG(20) << "Still " << object_manager.get_scene_stack_size()
@@ -84,4 +85,8 @@ void sge::core::EngineCore::debug_draw(sge::debug::DebugShape *new_debug_shape) 
 
 sge::Camera* sge::core::EngineCore::get_camera() {
     return &window_manager.m_camera;
+}
+
+bool sge::core::EngineCore::is_shutting_down() {
+    return m_shutting_down_flag;
 }
