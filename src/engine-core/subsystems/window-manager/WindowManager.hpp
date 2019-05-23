@@ -11,11 +11,11 @@
 */
 
 #include <chrono>
-#include <SGE/components/VertArray.hpp>
+#include <SGE/components/graphics/VertArray.hpp>
 #include "SFML/Graphics.hpp"
 
 #include "Subsystem.hpp"
-#include "VertArray.hpp"
+#include "SGE/components/graphics/VertArray.hpp"
 #include "ComponentCreator.hpp"
 #include "WindowManager_ConstructionData.hpp"
 #include "DebugShapesManager.hpp"

@@ -2,7 +2,7 @@
 // Created by andrea on 5/21/19.
 //
 #include "TestLogic.hpp"
-#include "SGE/components/VertArray.hpp"
+#include "SGE/components/graphics/VertArray.hpp"
 
 
 std::string TestLogic::get_logic_type_id() {

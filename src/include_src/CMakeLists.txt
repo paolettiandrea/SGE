@@ -6,12 +6,6 @@ target_sources(factory_experiments PRIVATE
         GameObject.cpp
         Scene.cpp
 
-        IComponent.cpp
-        LogicHub.cpp
-        Transform.cpp
-        Polygon.cpp
-        VertArray.cpp
-
         Logic.cpp
 
         Vec2.cpp
@@ -21,3 +15,4 @@ target_sources(factory_experiments PRIVATE
 
 add_subdirectory(utils)
 add_subdirectory(debug)
+add_subdirectory(components)

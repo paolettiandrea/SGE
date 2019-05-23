@@ -1,0 +1,19 @@
+//
+// Created by andrea on 5/23/19.
+//
+
+#ifndef FACTORY_EXPERIMENTS_GRAPHICSCOMPONENT_HPP
+#define FACTORY_EXPERIMENTS_GRAPHICSCOMPONENT_HPP
+
+
+/*!
+\file
+\brief ${BRIEF_FILE_DESCRIPTION}
+*/
+
+class GraphicsComponent {
+
+};
+
+
+#endif //FACTORY_EXPERIMENTS_GRAPHICSCOMPONENT_HPP

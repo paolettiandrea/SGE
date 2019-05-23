@@ -1,12 +1,7 @@
-//
-// Created by andrea on 5/2/19.
-//
-
 #ifndef FACTORY_EXPERIMENTS_WIGGLER_HPP
 #define FACTORY_EXPERIMENTS_WIGGLER_HPP
 
 #include "SGE/logic/Logic.hpp"
-#include "SGE/components/Polygon.hpp"
 #include <math.h>
 
 using namespace sge;
@@ -22,8 +17,6 @@ public:
     void on_start() override {
         LOG_DEBUG(30) << "on_start";
         //env()->book_new_scene_push("Recursive scene " + std::to_string(depth+1), new Wiggler(depth+1));
-        auto poly = gameobject()->add_component<cmp::Polygon>("Polygon");
-        poly->set_polygon(10.f, 9);
     }
 
     void on_update() override {

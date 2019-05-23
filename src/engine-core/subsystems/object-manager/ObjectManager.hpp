@@ -12,7 +12,6 @@
 #include "SceneConstructionData.hpp"
 
 #include "Transform.hpp"
-#include "Polygon.hpp"
 
 namespace sge {
     namespace core {

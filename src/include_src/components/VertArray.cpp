@@ -2,7 +2,7 @@
 // Created by andrea on 5/21/19.
 //
 
-#include "VertArray.hpp"
+#include "SGE/components/graphics/VertArray.hpp"
 #include "GameObject.hpp"
 #include "Scene.hpp"
 
