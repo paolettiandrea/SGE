@@ -6,6 +6,6 @@ target_sources(factory_experiments PRIVATE
         LogicHub.cpp
         Transform.cpp
 
-        GraphicsComponent.cpp
+        PathRenderer.cpp
         VertArray.cpp
         )

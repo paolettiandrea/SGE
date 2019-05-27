@@ -84,13 +84,17 @@ void sge::cmp::Transform::set_local_scale(float scale) {
 
 
 void sge::cmp::Transform::set_local_rotation(float rads) {
-    float sin = std::sin(rads);
-    float cos = std::cos(rads);
-    m_local_rotation_matrix[0][0] = cos;
-    m_local_rotation_matrix[1][1] = cos;
-    m_local_rotation_matrix[0][1] = -sin;
-    m_local_rotation_matrix[1][0] = sin;
-    make_dirty();
+    auto diff = rads - get_local_rotation();
+    std::cout << diff << std::endl;
+    if (diff != 0) {
+        float sin = std::sin(rads);
+        float cos = std::cos(rads);
+        m_local_rotation_matrix[0][0] = cos;
+        m_local_rotation_matrix[1][1] = cos;
+        m_local_rotation_matrix[0][1] = -sin;
+        m_local_rotation_matrix[1][0] = sin;
+        make_dirty();
+    }
 }
 
 sge::Vec2<float> sge::cmp::Transform::local_to_world_point(sge::Vec2<float> point) {

@@ -8,8 +8,8 @@
 template <class T>
 class Matrix2D {
 public:
-     unsigned int rows;
-     unsigned int columns;
+    const unsigned int rows;
+    const unsigned int columns;
 
     Matrix2D(unsigned int row_n, unsigned int col_n);
     Matrix2D(const Matrix2D<T>& that);

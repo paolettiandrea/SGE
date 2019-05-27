@@ -5,21 +5,20 @@
 #ifndef FACTORY_EXPERIMENTS_WINDOWMANAGER_HPP
 #define FACTORY_EXPERIMENTS_WINDOWMANAGER_HPP
 
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/
-
 #include <chrono>
-#include <SGE/components/graphics/VertArray.hpp>
-#include "SFML/Graphics.hpp"
 
 #include "Subsystem.hpp"
+
+#include "SFML/Graphics.hpp"
+
 #include "SGE/components/graphics/VertArray.hpp"
+#include "SGE/components/graphics/PathRenderer.hpp"
+#include "SGE/Camera.hpp"
+
 #include "ComponentCreator.hpp"
 #include "WindowManager_ConstructionData.hpp"
 #include "DebugShapesManager.hpp"
-#include "Camera.hpp"
+
 
 namespace sge {
     namespace core {
@@ -68,6 +67,7 @@ namespace sge {
             sf::RenderWindow m_window;
 
             ComponentCreator<cmp::VertArray> vertarray_component_creator;
+            ComponentCreator<cmp::PathRenderer> path_component_creator;
 
             sf::RenderStates m_render_states;
 
@@ -81,3 +81,12 @@ namespace sge {
 
 
 #endif //FACTORY_EXPERIMENTS_WINDOWMANAGER_HPP
+
+
+
+
+
+/*!
+\file
+\brief ${BRIEF_FILE_DESCRIPTION}
+*/

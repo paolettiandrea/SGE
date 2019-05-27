@@ -8,8 +8,9 @@ using namespace sge::core;
 
 WindowManager::WindowManager(const cd::WindowManager_ConstructionData &data)
     : Subsystem("WINDOW MANAGER")
-    , m_window(sf::VideoMode(data.window_width, data.window_height), data.window_title,sf::Style::Fullscreen, data.context_settings)
+    , m_window(sf::VideoMode(data.window_width, data.window_height), data.window_title,sf::Style::Default, data.context_settings)
     , vertarray_component_creator("VertArray")
+    , path_component_creator("PathRenderer")
     , m_camera(((float)data.window_width)/data.window_height, data.view_vertical_size)
     , m_render_states(sf::Transform::Identity)
     {
@@ -47,5 +48,10 @@ void WindowManager::draw() {
     for (auto vertarray : vertarray_component_creator.get_top_layer()->get_component_vector()) {
         vertarray->clean_if_dirty();
         m_window.draw(*vertarray.get_pointer(), m_render_states);
+    }
+
+    for (auto path : path_component_creator.get_top_layer()->get_component_vector()) {
+        path->clean_pass();
+        m_window.draw(*path.get_pointer(), m_render_states);
     }
 }
