@@ -18,18 +18,6 @@ namespace utils {
             return color_code;
         }
 
-
-#if __linux__
-
-        static unsigned int get_terminal_width() {
-            struct winsize w;
-            ioctl(0, TIOCGWINSZ, &w);
-            unsigned int columns = w.ws_col;
-            // Since this returns strange values if run from some IDEs (0 or really high values), in that case return a fallback value
-            if (columns >0 && columns < 300) return columns;
-            else return TERMINAL_FALLBACK_WIDTH;
-        }
-
         const Color Color::RESET("0");
         const Color Color::DEFAULT("39");
         const Color Color::WHITE("97");
@@ -49,16 +37,6 @@ namespace utils {
         const Color Color::LIGHT_MAGENTA("95");
         const Color Color::LIGHT_CYAN("96");
 
-
-
-        const std::string &Style::get_color_code() const {
-            return color_code;
-        }
-
-        Style::Style(const std::string &platform_specific_color_code) {
-            color_code = platform_specific_color_code;
-        }
-
         const Style Style::BOLD("1");
         const Style Style::FAINT("2");
         const Style Style::ITALICS("3");
@@ -73,9 +51,25 @@ namespace utils {
         const Style Style::INVERSE_OFF("27");
         const Style Style::STRIKE_OFF("29");
 
+        const std::string &Style::get_color_code() const {
+            return color_code;
+        }
+
+        Style::Style(const std::string &platform_specific_color_code) {
+            color_code = platform_specific_color_code;
+        }
 
 
+#if __linux__
 
+        static unsigned int get_terminal_width() {
+            struct winsize w;
+            ioctl(0, TIOCGWINSZ, &w);
+            unsigned int columns = w.ws_col;
+            // Since this returns strange values if run from some IDEs (0 or really high values), in that case return a fallback value
+            if (columns >0 && columns < 300) return columns;
+            else return TERMINAL_FALLBACK_WIDTH;
+        }
 
         TextMod::TextMod(Color color) {
             color_string = "\033[" + color.get_color_code() + "m";
@@ -90,7 +84,21 @@ namespace utils {
         }
 
 #else
-#error "The terminal colors are defined only for linux!"
+        static unsigned int get_terminal_width() {
+            return TERMINAL_FALLBACK_WIDTH;
+        }
+
+        TextMod::TextMod(Color color) {
+            color_string = "";
+        }
+
+        TextMod::TextMod(Color color, Style style) {
+            color_string = "";
+        }
+
+        TextMod::TextMod(Style style) {
+            color_string = "";
+        }
 #endif
 
 

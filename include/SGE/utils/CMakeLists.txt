@@ -2,7 +2,6 @@ target_include_directories(factory_experiments PRIVATE .)
 
 target_sources(factory_experiments PUBLIC
         Matrix2D.hpp
-        Triangle.hpp
         )
 
 add_subdirectory(log)
