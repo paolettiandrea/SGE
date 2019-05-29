@@ -13,7 +13,7 @@ using std::unique_ptr;
 void Event::notifyHandlers() {
     auto func = this->subscribers.begin();
     for(; func != this->subscribers.end(); ++func) {
-        if(*func != nullptr && (*func).get_id() != 0) {
+        if(func->is_valid() && (*func).get_id() != 0) {
             (*func)();
         }
     }

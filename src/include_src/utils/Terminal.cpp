@@ -3,7 +3,9 @@
 //
 
 #include "Terminal.hpp"
+#if __linux__
 #include <sys/ioctl.h>
+#endif
 
 
 

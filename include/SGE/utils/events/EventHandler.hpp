@@ -64,7 +64,8 @@ namespace utils {
              * \brief Checks if the two EventHandlers have the same id
              */
             bool operator==(const EventHandler &del);
-            bool operator!=(nullptr_t);
+
+            bool is_valid();
         };
     }
 }

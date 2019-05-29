@@ -3,7 +3,6 @@ build
 
 doc/generated
 doc/lib
-lib
 
 
 *.o
