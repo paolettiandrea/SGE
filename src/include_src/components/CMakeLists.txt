@@ -8,4 +8,7 @@ target_sources(factory_experiments PRIVATE
 
         PathRenderer.cpp
         VertArray.cpp
+
+        Rigidbody.cpp
+        BoxCollider.cpp
         )

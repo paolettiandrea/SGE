@@ -78,6 +78,10 @@ namespace utils {
         bool is_null() {
             return (index == MAXIMUM_HANDLES_PER_TYPE);
         }
+
+        bool is_null() const {
+            return (index == MAXIMUM_HANDLES_PER_TYPE);
+        }
         /*!
          * \brief Makes this handle null, like a nullptr it means that it isn't referencing to any particular object.
          */
@@ -90,6 +94,14 @@ namespace utils {
          * \retval *false* if this handle is invalid, could be simply beacuse is_null(), or beacuse the entry it was referencing is expired
          */
         bool is_valid() {
+            if (is_null()) return false;
+            else {
+                //print_entries_array_info();
+                return ((handle_entries[index].counter == counter));
+            }
+        }
+
+        bool is_valid() const {
             if (is_null()) return false;
             else {
                 //print_entries_array_info();
@@ -123,6 +135,17 @@ namespace utils {
 #endif
             return this->get_pointer();
         }
+
+        T* operator->() const {
+#ifdef DEBUG
+            if (!this->is_valid()) {
+                std::cout << "ERROR: Tried to use the -> operator on an invalid handle" << std::endl;
+                Handle<T>::print_entries_array_info();
+                exit(1);
+            }
+#endif
+            return this->get_pointer();
+        }
         /*!
          * Frees the entry this handle points to, making this and every other handle referencing to it invalid.
          */
@@ -136,6 +159,11 @@ namespace utils {
          * \return A pointer to the object this handle is referencing to
          */
         T* get_pointer() {
+            if (!this->is_valid()) return nullptr;
+            else return  handle_entries[index].pointer;
+        }
+
+        T* get_pointer() const {
             if (!this->is_valid()) return nullptr;
             else return  handle_entries[index].pointer;
         }

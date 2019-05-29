@@ -60,7 +60,7 @@ namespace sge {
             sf::VertexArray m_vert_array;
 
 
-            float m_thickness = 40;
+            float m_thickness = 1;
 
             float m_inner_rounding_max_angle =M_PI - M_PI/16;
             utils::event::EventHandler transform_changed_evhandler;

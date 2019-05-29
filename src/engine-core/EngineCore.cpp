@@ -13,9 +13,20 @@ bool EngineCore::game_loop() {
     duration<double, std::ratio<1>> duration_since_last_loop_start = steady_clock::now() - last_toop_start_time;
     last_toop_start_time = temp_now;
     m_delta_time = duration_since_last_loop_start.count();
+    m_physics_time_accumulator += duration_since_last_loop_start.count();
 
     LOG_DEBUG(20) << "Game_loop is starting |" << object_manager.get_top_scene()->get_log_id()
                   << " | stack_size:" << object_manager.get_scene_stack_size() << " | delta_time:"<< m_delta_time;
+
+    // Physics
+    double fixed_delta = physics_manager.fixed_delta_time();
+    while (m_physics_time_accumulator > fixed_delta) {
+        LOG_DEBUG(30) << "Fixed Update";
+        logic_manager.on_fixed_update();
+        physics_manager.step(*object_manager.get_top_scene()->get_b2World());
+        m_physics_time_accumulator -= fixed_delta;
+    }
+    physics_manager.update_transform();
 
 
     logic_manager.on_update();
@@ -29,7 +40,7 @@ bool EngineCore::game_loop() {
 
     object_manager.scene_pass();        // Where the scene is changed if requested during this loop
 
-    frame_counter++;
+    m_frame_counter++;
     LOG_DEBUG(20) << "Game_loop ended";
     return true;
 }
@@ -58,7 +69,7 @@ void EngineCore::doom_top_scene() {
 }
 
 unsigned int EngineCore::frame_count() {
-    return  frame_counter;
+    return  m_frame_counter;
 }
 
 EngineCore::~EngineCore() {

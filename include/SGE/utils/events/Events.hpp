@@ -17,10 +17,9 @@ namespace utils {
          * \see http://www.dannyb.me/posts/2014/02/creating_event_system_c++/
          */
         class Event {
-            std::vector<EventHandler*> subscribers;
+            std::vector<EventHandler> subscribers;
 
         public:
-            virtual ~Event();
 
         private:
 

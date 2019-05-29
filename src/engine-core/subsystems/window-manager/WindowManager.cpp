@@ -44,7 +44,6 @@ void WindowManager::handle_window_events() {
 }
 
 void WindowManager::draw() {
-    //m_render_states.transform = sf::Transform::Identity;        // ???
     for (auto vertarray : vertarray_component_creator.get_top_layer()->get_component_vector()) {
         vertarray->clean_if_dirty();
         m_window.draw(*vertarray.get_pointer(), m_render_states);

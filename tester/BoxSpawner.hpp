@@ -2,8 +2,8 @@
 // Created by andrea on 4/30/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_WIGGLERSPAWNER_HPP
-#define FACTORY_EXPERIMENTS_WIGGLERSPAWNER_HPP
+#ifndef FACTORY_EXPERIMENTS_BOXSPAWNER_HPP
+#define FACTORY_EXPERIMENTS_BOXSPAWNER_HPP
 
 #include "SGE/logic/Logic.hpp"
 #include "Wiggler.hpp"
@@ -13,9 +13,9 @@
 \brief ${BRIEF_FILE_DESCRIPTION}
 */
 
-class WigglerSpawner : public sge::Logic {
+class BoxSpawner : public sge::Logic {
 public:
-    WigglerSpawner(int number) : m_number(number) {}
+    BoxSpawner() {}
     std::string get_logic_type_id() override;
 
     void on_start() override;
@@ -23,7 +23,6 @@ public:
     void on_update() override;
 
 private:
-    int m_number;
     float angle = 0;
 
 };
@@ -31,4 +30,4 @@ private:
 
 
 
-#endif //FACTORY_EXPERIMENTS_WIGGLERSPAWNER_HPP
+#endif //FACTORY_EXPERIMENTS_BOXSPAWNER_HPP

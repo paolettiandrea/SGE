@@ -6,6 +6,7 @@
 #define FACTORY_EXPERIMENTS_SUBSYSTEM_HPP
 
 #include "Loggable.hpp"
+#include "ComponentCreator.hpp"
 
 namespace sge {
     namespace core {

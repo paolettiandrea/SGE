@@ -2,7 +2,6 @@
 #define FACTORY_EXPERIMENTS_LOGICMANAGER_HPP
 
 #include "Subsystem.hpp"
-#include "ComponentCreator.hpp"
 #include "LogicHub.hpp"
 
 namespace sge {

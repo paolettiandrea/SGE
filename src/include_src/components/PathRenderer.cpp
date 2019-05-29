@@ -16,9 +16,10 @@ PathRenderer::PathRenderer(const utils::Handle<sge::GameObject> &_gameobject)
         : Component(_gameobject, "PathRenderer") {
 
     m_vert_array.setPrimitiveType(sf::PrimitiveType::TrianglesStrip);
-    transform_changed_evhandler = [&]{
-        for (int i = 0; i < m_dirty_world_flags.size(); ++i) {
-            m_dirty_world_flags[i] = true;
+    utils::Handle<PathRenderer> handle = get_handle();
+    transform_changed_evhandler = [=]{
+        for (int i = 0; i < handle->m_dirty_vertarray_chunk_flags.size(); ++i) {
+            handle->m_dirty_world_flags[i] = true;
         }
     };
 

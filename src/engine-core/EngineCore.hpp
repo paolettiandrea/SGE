@@ -13,6 +13,7 @@
 #include "IEnvironment.hpp"
 #include "Engine_ConstructionData.hpp"
 #include "WindowManager.hpp"
+#include "PhysicsManager.hpp"
 
 namespace sge::core {
     /*!
@@ -27,7 +28,8 @@ namespace sge::core {
         explicit EngineCore(cd::Engine_ConstructionData& data)
                 : Loggable("ENGINE CORE")
                 , object_manager((IEnvironment*)this)
-                , window_manager (data.window) {  }
+                , window_manager (data.window)
+                , physics_manager(data.physics){  }
 
     private:
         void debug_draw(debug::DebugShape *new_debug_shape) override;
@@ -71,10 +73,12 @@ namespace sge::core {
         ObjectManager object_manager;
         LogicManager logic_manager;
         WindowManager window_manager;
+        PhysicsManager physics_manager;
 
-        unsigned int frame_counter = 0;
+        unsigned int m_frame_counter = 0;
 
-        double m_delta_time = 0.0;
+        double m_delta_time = 0;
+        double m_physics_time_accumulator = 0;
         std::chrono::time_point<std::chrono::steady_clock> last_toop_start_time;
     };
 

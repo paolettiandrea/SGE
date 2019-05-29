@@ -56,7 +56,6 @@ template<class T>
 Matrix2D<T>::Matrix2D(const Matrix2D<T> &that)
         : rows(that.rows)
         , columns(that.columns) {
-    std::cout << "copy constructor called" << std::endl;
     m_matrix = new T*[rows];
     for (int row = 0; row < rows; ++row) {
         m_matrix[row] = new T[columns];

@@ -85,7 +85,6 @@ void sge::cmp::Transform::set_local_scale(float scale) {
 
 void sge::cmp::Transform::set_local_rotation(float rads) {
     auto diff = rads - get_local_rotation();
-    std::cout << diff << std::endl;
     if (diff != 0) {
         float sin = std::sin(rads);
         float cos = std::cos(rads);

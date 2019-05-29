@@ -7,6 +7,7 @@
 
 #include "WindowManager_ConstructionData.hpp"
 #include "SGE/SceneConstructionData.hpp"
+#include "SGE/engine/construction_data/PhysicsManager_ConstructionData.hpp"
 
 
 namespace sge {
@@ -22,6 +23,7 @@ namespace sge {
              * \brief The construction data related to the window and the video output of the engine
              */
             WindowManager_ConstructionData window;
+            PhysicsManager_ConstructionData physics;
         };
     }
 

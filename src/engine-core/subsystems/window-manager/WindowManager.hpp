@@ -15,7 +15,6 @@
 #include "SGE/components/graphics/PathRenderer.hpp"
 #include "SGE/Camera.hpp"
 
-#include "ComponentCreator.hpp"
 #include "WindowManager_ConstructionData.hpp"
 #include "DebugShapesManager.hpp"
 

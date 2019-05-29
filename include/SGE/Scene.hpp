@@ -7,6 +7,8 @@
 #include "SGE/utils/handles/Handle.hpp"
 #include "SGE/SceneConstructionData.hpp"
 
+class b2World;
+
 namespace sge {
 
     namespace core {
@@ -51,6 +53,10 @@ namespace sge {
             return env_p;
         }
 
+        b2World* get_b2World()  {
+            return  m_b2_world;
+        }
+
         void doom_scene() {m_doomed_flag = true; }
         bool is_doomed() {return m_doomed_flag; }
 
@@ -69,6 +75,7 @@ namespace sge {
          * \brief A pointer to the IEnvironment interface of the Engine
          */
         IEnvironment* env_p;
+        b2World* m_b2_world;
 
         bool m_doomed_flag = false;
     };
