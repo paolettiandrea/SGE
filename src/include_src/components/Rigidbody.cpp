@@ -38,4 +38,5 @@ void sge::cmp::Rigidbody::destruction_callback() {
         world->DestroyBody(m_body);
     }
 
+
 }
