@@ -8,7 +8,7 @@ add_library(factory_experiments)
 add_executable(tester tester/main.cpp tester/BoxSpawner.cpp tester/BoxSpawner.hpp tester/PhysicsBox.cpp tester/PhysicsBox.hpp tester/Wiggler.hpp tester/TestLogic.hpp tester/TestLogic.cpp)
 target_link_libraries(tester PUBLIC factory_experiments)
 
-
+add_compile_definitions(SFML_STATIC)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
@@ -31,30 +31,28 @@ add_subdirectory(resources)
 
 
 
-add_subdirectory(lib/Box2D-2.3.0/Box2D)
-target_link_libraries(Box2D)
+add_subdirectory(lib/Box2D/Box2D)
+target_link_libraries(factory_experiments PUBLIC Box2D)
+target_include_directories(factory_experiments PUBLIC
+        lib/Box2D/Box2D
+        )
 
+add_subdirectory(lib/SFML)
 if(UNIX)
 target_link_libraries(factory_experiments PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML-2.5.1/lib/libsfml-audio.so.2.5.1
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML-2.5.1/lib/libsfml-graphics.so.2.5.1
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML-2.5.1/lib/libsfml-window.so.2.5.1
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML-2.5.1/lib/libsfml-network.so.2.5.1
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML-2.5.1/lib/libsfml-system.so.2.5.1
+        sfml-graphics
+        sfml-window
+        sfml-system
         )
 elseif(MINGW)
-    target_link_libraries(factory_experiments PUBLIC STATIC
-            ${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML-2.5.1/bin/openal32.dll
-            ${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML-2.5.1/bin/sfml-graphics-2.dll
-            ${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML-2.5.1/bin/sfml-window-2.dll
-            ${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML-2.5.1/bin/sfml-network-2.dll
-            ${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML-2.5.1/bin/sfml-system-2.dll
+    target_link_libraries(factory_experiments PUBLIC
+            sfml-graphics
+            sfml-window
+            sfml-system
+            sfml-main
             )
-    endif()
+endif()
 
-target_include_directories(factory_experiments PUBLIC
-        lib/SFML-2.5.1/include
-        lib/Box2D-2.3.0/Box2D
-        )
+
 
 
