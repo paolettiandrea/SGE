@@ -24,3 +24,9 @@ void sge::core::PhysicsManager::update_transform() {
         rigidbody->update_transform();
     }
 }
+
+void sge::core::PhysicsManager::clean_pass() {
+    for (auto box_collider : m_box_collider_component_creator.get_top_layer()->get_component_vector()) {
+        box_collider->clean_pass();
+    }
+}

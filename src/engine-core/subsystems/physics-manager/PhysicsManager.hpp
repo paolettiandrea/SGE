@@ -21,6 +21,7 @@ namespace sge::core {
     public:
         explicit PhysicsManager(cd::PhysicsManager_ConstructionData data);
 
+        void clean_pass();
         void step(b2World& world);
         void update_transform();
 

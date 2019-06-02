@@ -23,7 +23,9 @@ void PhysicsBox::on_start() {
         rigidbody->initialize((b2BodyType::b2_staticBody));
 
     auto box_collider = gameobject()->add_component<sge::cmp::BoxCollider>("BoxCollider");
-    box_collider->initialize(m_width,m_height);
+    box_collider->set_height(m_height);
+    box_collider->set_width(m_width);
+    box_collider->set_restitution(0.9);
 
     sge::Path contour_path;
     contour_path.append_point(sge::Vec2<float>(m_width/2,m_height/2));

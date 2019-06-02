@@ -14,8 +14,8 @@ namespace sge {
     namespace debug { class DebugShape; }
 
     /*!
-     * \brief The interface of the Engine to the objects,
-     * allowing for query for relevant information about the execution of the game
+     * \brief The interface of the Engine Core exposes to game objects, logic, etc.
+     * allowing queries for relevant information about the execution of the game and some Scene stack manipulation
      */
     class IEnvironment {
     public:

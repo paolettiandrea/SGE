@@ -23,6 +23,7 @@ bool EngineCore::game_loop() {
     while (m_physics_time_accumulator > fixed_delta) {
         LOG_DEBUG(30) << "Fixed Update";
         logic_manager.on_fixed_update();
+        physics_manager.clean_pass();
         physics_manager.step(*object_manager.get_top_scene()->get_b2World());
         m_physics_time_accumulator -= fixed_delta;
     }
