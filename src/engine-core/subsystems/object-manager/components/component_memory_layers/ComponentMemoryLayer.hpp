@@ -17,7 +17,7 @@ namespace sge {
         template <class ComponentT>
         class ComponentMemoryLayer : public IComponentMemoryLayer, public utils::log::Loggable {
         public:
-            explicit ComponentMemoryLayer(const std::string& id, unsigned int initial_reserved_space = DEFAULT_RESERVED_SPACE_FOR_COMPONENTS);
+            explicit ComponentMemoryLayer(const std::string& id, unsigned int initial_reserved_space = INITIAL_RESERVED_SPACE_FOR_COMPONENTS);
             /*!
              * \brief Creates a new Component in this ComponentArray
              * \return a handle to the created Component

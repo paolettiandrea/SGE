@@ -2,6 +2,7 @@
 #include "PhysicsBox.hpp"
 #include "SGE/debug/PointDebugShape.hpp"
 #include "SGE/debug/LineDebugShape.hpp"
+#include "PhysicsCircle.hpp"
 
 
 
@@ -14,6 +15,12 @@ void BoxSpawner::on_start() {
 
     auto dynamic_obj = scene()->spawn_gameobject("Dynamic Box ");
     dynamic_obj->logichub()->attach_logic(new PhysicsBox(1,1,true));
+
+    auto dynamic_circle = scene()->spawn_gameobject("Dynamic Circle");
+    dynamic_circle->logichub()->attach_logic(new PhysicsCircle());
+    dynamic_circle->transform()->set_local_position(10,10);
+
+
 
     auto dynamic_obj2 = scene()->spawn_gameobject("Static Box ");
     dynamic_obj2->transform()->set_local_position(5,-10);

@@ -29,11 +29,14 @@ namespace sge {
             void destruction_callback() override;
 
             void set_path(const Path& new_path);
+            void set_path_as_circle(float radius, unsigned int segments_number);
 
             void set_color_all(sf::Color color);
 
+
+
             void set_closed(bool closed);
-            bool is_closed() { return m_is_closed; }
+            bool is_closed() { return m_local_path.is_closed(); }
 
             void set_point (unsigned int index, sge::Vec2<float> new_point);
 
@@ -51,13 +54,14 @@ namespace sge {
             void clean_pass();
 
 
-            bool m_is_closed = false;
             Path m_local_path;
             Path m_world_path;
             std::vector<bool> m_dirty_world_flags;
             std::vector<bool> m_dirty_vertarray_chunk_flags;
 
             sf::VertexArray m_vert_array;
+
+            sf::Color base_color = sf::Color::White;
 
 
             float m_thickness = 1;
@@ -74,31 +78,3 @@ namespace sge {
 
 
 #endif //FACTORY_EXPERIMENTS_PATHRENDERER_HPP
-
-
-
-/*
-
- void append_point(const sge::Vec2<float>& new_point);
-            void set_point(unsigned int index, const sge::Vec2<float>& new_val);
-            void set_thickness(float new_thickness);
-            void set_color_all(sf::Color color);
-
-        protected:
-            void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-
-        private:
-            sf::VertexArray m_path_vertex_array;
-
-            std::vector<sge::Vec2<float>> m_path_local_points;
-            std::vector<sge::Vec2<float>> m_path_world_points;
-            std::vector<bool> m_dirty_points;
-            float thickness = 1.f;
-
-
-void clean_point_by_index(unsigned int target_point_index);
-void update_world_position_at_index(unsigned int index);
-void clean_pass();
-
-
- */

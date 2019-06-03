@@ -1,7 +1,3 @@
-//
-// Created by andrea on 5/28/19.
-//
-
 #include "BoxCollider.hpp"
 #include "GameObject.hpp"
 #include "Rigidbody.hpp"

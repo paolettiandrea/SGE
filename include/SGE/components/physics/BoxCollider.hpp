@@ -1,9 +1,7 @@
 #ifndef FACTORY_EXPERIMENTS_BOXCOLLIDER_HPP
 #define FACTORY_EXPERIMENTS_BOXCOLLIDER_HPP
 
-#include "SGE/components/Component.hpp"
 #include "SGE/components/physics/Collider.hpp"
-#include "Box2D/Box2D.h"
 
 
 namespace sge::cmp {

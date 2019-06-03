@@ -209,6 +209,8 @@ void PathRenderer::set_path(const Path &new_path) {
         // The size of the vertarray used to represent the path obviously depends on is_closed
     if (m_world_path.is_closed()) m_vert_array.resize(new_path_size*4+2);
     else m_vert_array.resize((new_path_size-1)*4);
+
+    set_color_all(base_color);
 }
 
 void PathRenderer::clean_pass() {
@@ -248,6 +250,7 @@ void PathRenderer::set_color_all(sf::Color color) {
     for (int i = 0; i < m_vert_array.getVertexCount(); ++i) {
         m_vert_array[i].color = color;
     }
+    base_color = color;
 }
 
 void PathRenderer::set_point(unsigned int index, sge::Vec2<float> new_point) {
@@ -269,7 +272,7 @@ void sge::cmp::PathRenderer::destruction_callback() {
 }
 
 void sge::cmp::PathRenderer::set_closed(bool closed) {
-    if (closed!=m_is_closed) {
+    if (closed!=m_local_path.is_closed()) {
         if (closed) {
             m_vert_array.resize(m_local_path.get_size()*4+2);
         } else {
@@ -277,8 +280,18 @@ void sge::cmp::PathRenderer::set_closed(bool closed) {
         }
         m_dirty_vertarray_chunk_flags[0] = true;
         m_dirty_vertarray_chunk_flags[m_local_path.get_size()-1] = true;
-        m_is_closed = closed;
+        m_local_path.set_closed(closed);
     }
+}
+
+void sge::cmp::PathRenderer::set_path_as_circle(float radius, unsigned int segments_number) {
+    Path path;
+    float angle = 2*M_PI/segments_number;
+    for (int i = 0; i < segments_number; ++i) {
+        path.append_point(Vec2<float>(cosf(i*angle), sinf(i*angle)));
+    }
+    path.set_closed(true);
+    set_path(path);
 }
 
 

@@ -1,10 +1,7 @@
-//
-// Created by andrea on 5/28/19.
-//
-
 #ifndef FACTORY_EXPERIMENTS_PHYSICSMANAGER_HPP
 #define FACTORY_EXPERIMENTS_PHYSICSMANAGER_HPP
 
+#include <SGE/components/physics/CircleCollider.hpp>
 #include "Subsystem.hpp"
 #include "Rigidbody.hpp"
 #include "BoxCollider.hpp"
@@ -30,8 +27,10 @@ namespace sge::core {
     private:
         ComponentCreator<cmp::Rigidbody> m_rigidbody_component_creator;
         ComponentCreator<cmp::BoxCollider> m_box_collider_component_creator;
+        ComponentCreator<cmp::CircleCollider> m_circle_collider_component_creator;
         double m_fixed_delta_time;
     };
+
 }
 
 #endif //FACTORY_EXPERIMENTS_PHYSICSMANAGER_HPP

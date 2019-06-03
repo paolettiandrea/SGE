@@ -18,9 +18,9 @@ void PhysicsBox::on_start() {
 
     auto rigidbody = gameobject()->add_component<sge::cmp::Rigidbody>("Rigidbody");
     if (m_dynamic)
-        rigidbody->initialize(b2BodyType::b2_dynamicBody);
+        rigidbody->set_body_type(b2BodyType::b2_dynamicBody);
     else
-        rigidbody->initialize((b2BodyType::b2_staticBody));
+        rigidbody->set_body_type((b2BodyType::b2_staticBody));
 
     auto box_collider = gameobject()->add_component<sge::cmp::BoxCollider>("BoxCollider");
     box_collider->set_height(m_height);
@@ -35,9 +35,9 @@ void PhysicsBox::on_start() {
 
     auto path_renderer = gameobject()->add_component<sge::cmp::PathRenderer>("PathRenderer");
     path_renderer->set_path(contour_path);
-    path_renderer->set_color_all(sf::Color::White);
     path_renderer->set_thickness(0.1);
     path_renderer->set_closed(true);
+    path_renderer->set_color_all(sf::Color::Blue);
 
     //env()->doom_top_scene();
 }

@@ -19,7 +19,7 @@ namespace sge {
         public:
             Rigidbody(const utils::Handle<GameObject>& gameobject);
 
-            void initialize(b2BodyType body_type = b2BodyType::b2_dynamicBody);
+            void set_body_type(b2BodyType body_type);
 
 
             b2Body* get_b2_body() { return m_body; }

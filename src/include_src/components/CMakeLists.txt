@@ -11,4 +11,5 @@ target_sources(factory_experiments PRIVATE
 
         Rigidbody.cpp
         BoxCollider.cpp
+        CircleCollider.cpp
         )
