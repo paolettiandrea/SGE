@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_COMPONENTARRAY_HPP
-#define FACTORY_EXPERIMENTS_COMPONENTARRAY_HPP
+#ifndef SGE_COMPONENTARRAY_HPP
+#define SGE_COMPONENTARRAY_HPP
 
 #include <vector>
 #include "Handle.hpp"
@@ -142,7 +142,7 @@ namespace sge {
     }
 }
 
-#endif //FACTORY_EXPERIMENTS_COMPONENTARRAY_HPP
+#endif //SGE_COMPONENTARRAY_HPP
 
 
 /*!

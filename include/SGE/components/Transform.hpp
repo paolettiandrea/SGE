@@ -21,7 +21,7 @@ namespace sge::cmp {
          */
         utils::event::Event transform_changed_event;
         /*!
-         * \brief Event called when the scale of this Transform is modified
+         * \brief Event called when the scale of this Transform is made dirty, meaning that it has been modified.
          */
         utils::event::Event scale_modified_event;
 

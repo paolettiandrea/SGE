@@ -2,8 +2,8 @@
 // Created by andrea on 5/3/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_WINDOWMANAGER_HPP
-#define FACTORY_EXPERIMENTS_WINDOWMANAGER_HPP
+#ifndef SGE_WINDOWMANAGER_HPP
+#define SGE_WINDOWMANAGER_HPP
 
 #include <chrono>
 
@@ -79,7 +79,7 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_WINDOWMANAGER_HPP
+#endif //SGE_WINDOWMANAGER_HPP
 
 
 

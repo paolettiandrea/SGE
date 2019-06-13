@@ -2,8 +2,8 @@
 // Created by andrea on 4/30/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_PHYSICSBOX_HPP
-#define FACTORY_EXPERIMENTS_PHYSICSBOX_HPP
+#ifndef SGE_PHYSICSBOX_HPP
+#define SGE_PHYSICSBOX_HPP
 
 #include "SGE/logic/Logic.hpp"
 
@@ -37,4 +37,4 @@ private:
 
 
 
-#endif //FACTORY_EXPERIMENTS_BOXSPAWNER_HPP
+#endif //SGE_BOXSPAWNER_HPP

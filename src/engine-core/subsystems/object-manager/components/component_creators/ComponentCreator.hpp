@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_COMPONENTCREATOR_HPP
-#define FACTORY_EXPERIMENTS_COMPONENTCREATOR_HPP
+#ifndef SGE_COMPONENTCREATOR_HPP
+#define SGE_COMPONENTCREATOR_HPP
 
 #include <stack>
 #include "ComponentMemoryLayer.hpp"
@@ -66,4 +66,4 @@ namespace sge {
         };
     }
 }
-#endif //FACTORY_EXPERIMENTS_COMPONENTCREATOR_HPP
+#endif //SGE_COMPONENTCREATOR_HPP

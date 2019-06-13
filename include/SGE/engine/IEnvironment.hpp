@@ -28,7 +28,7 @@ namespace sge {
          * \return The number of the frame the engine is executing right now.
          */
         virtual unsigned int frame_count() = 0;
-        //virtual double fixed_delta_time() = 0;
+        virtual double fixed_delta_time() = 0;
 
         /*!
          * \brief Books the push of a new Scene on top of the Scene stack. The actual push will happen at the end of this game_loop pass.

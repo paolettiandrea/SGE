@@ -77,9 +77,12 @@ void sge::cmp::Transform::set_local_position(float x, float y) {
 }
 
 void sge::cmp::Transform::set_local_scale(float scale) {
-    m_local_scale_matrix[0][0] = scale;
-    m_local_scale_matrix[1][1] = scale;
-    make_dirty();
+    if (m_local_scale_matrix[0][0]!=scale || m_local_scale_matrix[1][1]!=scale) {
+        m_local_scale_matrix[0][0] = scale;
+        m_local_scale_matrix[1][1] = scale;
+        make_dirty();
+        scale_modified_event();
+    }
 }
 
 
@@ -101,7 +104,7 @@ sge::Vec2<float> sge::cmp::Transform::local_to_world_point(sge::Vec2<float> poin
     Matrix2D<float> point_matrix(2,1);
     point_matrix[0][0] = point.x;
     point_matrix[1][0] = point.y;
-    auto yo = m_world_rotation_matrix*(m_world_scale_matrix*point_matrix);
+    auto yo = m_world_rotation_matrix*m_world_scale_matrix*point_matrix;
     return sge::Vec2<float>(yo[0][0]+m_world_position_vector.x, yo[1][0]+m_world_position_vector.y);
 }
 
@@ -140,9 +143,9 @@ void sge::cmp::Transform::compose_with_parent() {
         temp[0][0] = m_local_position_vector.x;
         temp[1][0] = m_local_position_vector.y;
 
-        auto yo =temp * m_parent->m_world_scale_matrix * m_parent->m_world_rotation_matrix ;
-        m_world_position_vector.x = yo[0][0];
-        m_world_position_vector.y = yo[1][0];
+        auto res = m_parent->m_world_rotation_matrix *  m_parent->m_world_scale_matrix * temp;
+        m_world_position_vector.x = res[0][0];
+        m_world_position_vector.y = res[1][0];
         m_world_position_vector = m_world_position_vector + m_parent->m_world_position_vector;
 
     } else {
@@ -185,8 +188,10 @@ float sge::cmp::Transform::get_world_rotation() {
 }
 
 float sge::cmp::Transform::get_world_rotation_euler() {
+    if (is_dirty) update_world_data();
     return  get_world_rotation() * 180 / M_PI;
 }
+
 
 
 

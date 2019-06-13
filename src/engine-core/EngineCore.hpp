@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_ENGINECORE_HPP
-#define FACTORY_EXPERIMENTS_ENGINECORE_HPP
+#ifndef SGE_ENGINECORE_HPP
+#define SGE_ENGINECORE_HPP
 
 /*!
 \file
@@ -55,6 +55,9 @@ namespace sge::core {
         double delta_time() override;
 
     private:
+        double fixed_delta_time() override;
+
+    private:
         unsigned int frame_count() override;
 
     private:
@@ -89,7 +92,7 @@ namespace sge::core {
 
 
 
-#endif //FACTORY_EXPERIMENTS_ENGINECORE_HPP
+#endif //SGE_ENGINECORE_HPP
 
 
 

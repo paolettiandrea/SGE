@@ -87,14 +87,6 @@ void sge::core::EngineCore::debug_draw(sge::debug::DebugShape *new_debug_shape) 
     window_manager.debug_shapes_manager.add_debug_shape(new_debug_shape);
 }
 
-
-
-/*double EngineCore::fixed_delta_time() {
-    return 0;
-}*/
-//endregion
-
-
 sge::Camera* sge::core::EngineCore::get_camera() {
     return &window_manager.m_camera;
 }
@@ -102,3 +94,10 @@ sge::Camera* sge::core::EngineCore::get_camera() {
 bool sge::core::EngineCore::is_shutting_down() {
     return m_shutting_down_flag;
 }
+
+double sge::core::EngineCore::fixed_delta_time() {
+    return physics_manager.fixed_delta_time();
+}
+//endregion
+
+

@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_WIGGLER_HPP
-#define FACTORY_EXPERIMENTS_WIGGLER_HPP
+#ifndef SGE_WIGGLER_HPP
+#define SGE_WIGGLER_HPP
 
 #include "SGE/logic/Logic.hpp"
 #include <math.h>
@@ -33,4 +33,4 @@ private:
     double m_radius;
 
 };
-#endif //FACTORY_EXPERIMENTS_WIGGLER_HPP
+#endif //SGE_WIGGLER_HPP

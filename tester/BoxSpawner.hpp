@@ -2,8 +2,8 @@
 // Created by andrea on 4/30/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_BOXSPAWNER_HPP
-#define FACTORY_EXPERIMENTS_BOXSPAWNER_HPP
+#ifndef SGE_BOXSPAWNER_HPP
+#define SGE_BOXSPAWNER_HPP
 
 #include "SGE/logic/Logic.hpp"
 #include "Wiggler.hpp"
@@ -25,9 +25,14 @@ public:
 private:
     float angle = 0;
 
+    float m_increaser = 0.f;
+
+    utils::Handle<GameObject> parent_go;
+    utils::Handle<GameObject> child_go;
+
 };
 
 
 
 
-#endif //FACTORY_EXPERIMENTS_BOXSPAWNER_HPP
+#endif //SGE_BOXSPAWNER_HPP

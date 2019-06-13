@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_PHYSICSMANAGER_HPP
-#define FACTORY_EXPERIMENTS_PHYSICSMANAGER_HPP
+#ifndef SGE_PHYSICSMANAGER_HPP
+#define SGE_PHYSICSMANAGER_HPP
 
 #include <SGE/components/physics/CircleCollider.hpp>
 #include "Subsystem.hpp"
@@ -33,4 +33,4 @@ namespace sge::core {
 
 }
 
-#endif //FACTORY_EXPERIMENTS_PHYSICSMANAGER_HPP
+#endif //SGE_PHYSICSMANAGER_HPP

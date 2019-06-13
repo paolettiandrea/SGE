@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_FACTORY_HPP
-#define FACTORY_EXPERIMENTS_FACTORY_HPP
+#ifndef SGE_FACTORY_HPP
+#define SGE_FACTORY_HPP
 
 #include <stack>
 
@@ -86,7 +86,7 @@ namespace sge {
     }
 }
 
-#endif //FACTORY_EXPERIMENTS_FACTORY_HPP
+#endif //SGE_FACTORY_HPP
 
 
 /*!

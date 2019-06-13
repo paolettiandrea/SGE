@@ -3,8 +3,8 @@
 //
 #include "SGE/logic/Logic.hpp"
 #include "SGE/debug/LineDebugShape.hpp"
-#ifndef FACTORY_EXPERIMENTS_HIERARCHYTESTLOGIC_HPP
-#define FACTORY_EXPERIMENTS_HIERARCHYTESTLOGIC_HPP
+#ifndef SGE_HIERARCHYTESTLOGIC_HPP
+#define SGE_HIERARCHYTESTLOGIC_HPP
 
 class TestLogic : public sge::Logic {
 public:
@@ -17,4 +17,4 @@ public:
 private:
     float increaser = 0;
 };
-#endif //FACTORY_EXPERIMENTS_HIERARCHYTESTLOGIC_HPP
+#endif //SGE_HIERARCHYTESTLOGIC_HPP

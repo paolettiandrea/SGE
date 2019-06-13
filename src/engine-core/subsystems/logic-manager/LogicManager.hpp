@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_LOGICMANAGER_HPP
-#define FACTORY_EXPERIMENTS_LOGICMANAGER_HPP
+#ifndef SGE_LOGICMANAGER_HPP
+#define SGE_LOGICMANAGER_HPP
 
 #include "Subsystem.hpp"
 #include "LogicHub.hpp"
@@ -27,7 +27,7 @@ namespace sge {
     }
 }
 
-#endif //FACTORY_EXPERIMENTS_LOGICMANAGER_HPP
+#endif //SGE_LOGICMANAGER_HPP
 
 
 /*!

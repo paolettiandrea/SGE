@@ -3,6 +3,7 @@
 #include "SGE/debug/PointDebugShape.hpp"
 #include "SGE/debug/LineDebugShape.hpp"
 #include "PhysicsCircle.hpp"
+#include "Box.hpp"
 
 
 
@@ -12,7 +13,7 @@ std::string BoxSpawner::get_logic_type_id() {
 
 void BoxSpawner::on_start() {
     LOG(10) << "on_start";
-
+/*
     auto dynamic_obj = scene()->spawn_gameobject("Dynamic Box ");
     dynamic_obj->logichub()->attach_logic(new PhysicsBox(1,1,true));
 
@@ -36,6 +37,17 @@ void BoxSpawner::on_start() {
     static_obj->transform()->set_local_position(0,-19);
     static_obj->logichub()->attach_logic(new PhysicsBox(1,10,false));
 
+*/
+
+
+   parent_go = scene()->spawn_gameobject("Parent Box");
+   parent_go->transform()->set_local_position(10.f,0);
+   parent_go->logichub()->attach_logic(new Box(10,10));
+
+   child_go = scene()->spawn_gameobject("Child Box");
+   child_go->logichub()->attach_logic(new Box(3,3));
+   child_go->transform()->set_local_position(5,5);
+   child_go->transform()->set_parent(parent_go->transform());
 
 
 
@@ -46,6 +58,12 @@ void BoxSpawner::on_start() {
 
 void BoxSpawner::on_update() {
     Logic::on_update();
+
+    m_increaser += env()->delta_time();
+    auto yo = sinf(m_increaser);
+    parent_go->transform()->set_local_scale(yo+1.1);
+    parent_go->transform()->set_local_rotation(m_increaser);
+    child_go->transform()->set_local_rotation(-m_increaser*5);
 
 }
 

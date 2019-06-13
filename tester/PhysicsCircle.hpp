@@ -2,8 +2,8 @@
 // Created by andrea on 6/2/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_PHYSICSCIRCLE_HPP
-#define FACTORY_EXPERIMENTS_PHYSICSCIRCLE_HPP
+#ifndef SGE_PHYSICSCIRCLE_HPP
+#define SGE_PHYSICSCIRCLE_HPP
 
 #include "SGE/logic/Logic.hpp"
 
@@ -20,4 +20,4 @@ public:
 };
 
 
-#endif //FACTORY_EXPERIMENTS_PHYSICSCIRCLE_HPP
+#endif //SGE_PHYSICSCIRCLE_HPP
