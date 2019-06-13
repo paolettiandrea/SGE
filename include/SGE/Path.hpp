@@ -2,8 +2,8 @@
 // Created by andrea on 5/24/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_PATH_HPP
-#define FACTORY_EXPERIMENTS_PATH_HPP
+#ifndef SGE_PATH_HPP
+#define SGE_PATH_HPP
 
 #include "SGE/Vec2.hpp"
 #include <vector>
@@ -49,4 +49,4 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_PATH_HPP
+#endif //SGE_PATH_HPP

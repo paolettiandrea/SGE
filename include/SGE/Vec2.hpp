@@ -2,8 +2,8 @@
 // Created by andrea on 5/5/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_VEC2_HPP
-#define FACTORY_EXPERIMENTS_VEC2_HPP
+#ifndef SGE_VEC2_HPP
+#define SGE_VEC2_HPP
 
 #include <algorithm>
 
@@ -130,4 +130,4 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_VEC2_HPP
+#endif //SGE_VEC2_HPP

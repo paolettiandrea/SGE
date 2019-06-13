@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_ICOMPONENT_HPP
-#define FACTORY_EXPERIMENTS_ICOMPONENT_HPP
+#ifndef SGE_ICOMPONENT_HPP
+#define SGE_ICOMPONENT_HPP
 
 //#include "SGE/GameObject.hpp"
 #include "SGE/utils/handles/Handle.hpp"
@@ -69,7 +69,7 @@ namespace sge {
 }
 
 
-#endif //FACTORY_EXPERIMENTS_ICOMPONENT_HPP
+#endif //SGE_ICOMPONENT_HPP
 
 
 

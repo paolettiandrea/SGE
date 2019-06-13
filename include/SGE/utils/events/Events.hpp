@@ -2,8 +2,8 @@
 // Created by andrea on 5/8/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_EVENTS_HPP
-#define FACTORY_EXPERIMENTS_EVENTS_HPP
+#ifndef SGE_EVENTS_HPP
+#define SGE_EVENTS_HPP
 
 #include <vector>
 #include <memory>
@@ -65,4 +65,4 @@ namespace utils {
 
 
 
-#endif //FACTORY_EXPERIMENTS_EVENTS_HPP
+#endif //SGE_EVENTS_HPP

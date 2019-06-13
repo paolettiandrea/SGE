@@ -2,8 +2,8 @@
 // Created by andrea on 5/14/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_DEBUGSHAPE_HPP
-#define FACTORY_EXPERIMENTS_DEBUGSHAPE_HPP
+#ifndef SGE_DEBUGSHAPE_HPP
+#define SGE_DEBUGSHAPE_HPP
 
 #include "SFML/Graphics.hpp"
 #include <chrono>
@@ -51,4 +51,4 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_DEBUGSHAPE_HPP
+#endif //SGE_DEBUGSHAPE_HPP

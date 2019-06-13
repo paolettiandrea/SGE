@@ -2,8 +2,8 @@
 // Created by andrea on 5/23/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_PATHRENDERER_HPP
-#define FACTORY_EXPERIMENTS_PATHRENDERER_HPP
+#ifndef SGE_PATHRENDERER_HPP
+#define SGE_PATHRENDERER_HPP
 
 #include <vector>
 #include <SGE/Vec2.hpp>
@@ -77,4 +77,4 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_PATHRENDERER_HPP
+#endif //SGE_PATHRENDERER_HPP

@@ -40,9 +40,6 @@ void BoxSpawner::on_start() {
 
 
 
-
-
-
     // FIXME: the factory somehow doesn't complain with an inexistent id!!!
 
 }

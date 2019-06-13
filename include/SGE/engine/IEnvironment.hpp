@@ -2,8 +2,8 @@
 // Created by andrea on 5/1/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_IENVIRONMENT_HPP
-#define FACTORY_EXPERIMENTS_IENVIRONMENT_HPP
+#ifndef SGE_IENVIRONMENT_HPP
+#define SGE_IENVIRONMENT_HPP
 
 #include <string>
 #include "SGE/Camera.hpp"
@@ -54,4 +54,4 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_IENVIRONMENT_HPP
+#endif //SGE_IENVIRONMENT_HPP

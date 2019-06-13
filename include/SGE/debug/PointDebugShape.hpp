@@ -2,8 +2,8 @@
 // Created by andrea on 5/14/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_POINTDEBUGSHAPE_HPP
-#define FACTORY_EXPERIMENTS_POINTDEBUGSHAPE_HPP
+#ifndef SGE_POINTDEBUGSHAPE_HPP
+#define SGE_POINTDEBUGSHAPE_HPP
 
 #include <SGE/Vec2.hpp>
 #include "SGE/debug/DebugShape.hpp"
@@ -36,4 +36,4 @@ namespace  sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_POINTDEBUGSHAPE_HPP
+#endif //SGE_POINTDEBUGSHAPE_HPP

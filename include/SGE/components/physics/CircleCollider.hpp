@@ -2,8 +2,8 @@
 // Created by andrea on 6/2/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_CIRCLECOLLIDER_HPP
-#define FACTORY_EXPERIMENTS_CIRCLECOLLIDER_HPP
+#ifndef SGE_CIRCLECOLLIDER_HPP
+#define SGE_CIRCLECOLLIDER_HPP
 
 #include "SGE/components/physics/Collider.hpp"
 
@@ -31,4 +31,4 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_CIRCLECOLLIDER_HPP
+#endif //SGE_CIRCLECOLLIDER_HPP

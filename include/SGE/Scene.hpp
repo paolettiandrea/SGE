@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_SCENE_HPP
-#define FACTORY_EXPERIMENTS_SCENE_HPP
+#ifndef SGE_SCENE_HPP
+#define SGE_SCENE_HPP
 
 #include <SGE/engine/IEnvironment.hpp>
 #include "SGE/GameObject.hpp"
@@ -89,7 +89,7 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_SCENE_HPP
+#endif //SGE_SCENE_HPP
 
 
 /*!

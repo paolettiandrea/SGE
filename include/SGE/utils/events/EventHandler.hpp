@@ -2,8 +2,8 @@
 // Created by andrea on 5/8/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_EVENTHANDLER_HPP
-#define FACTORY_EXPERIMENTS_EVENTHANDLER_HPP
+#ifndef SGE_EVENTHANDLER_HPP
+#define SGE_EVENTHANDLER_HPP
 
 
 #include <functional>
@@ -79,4 +79,4 @@ namespace utils {
 
 
 
-#endif //FACTORY_EXPERIMENTS_EVENTHANDLER_HPP
+#endif //SGE_EVENTHANDLER_HPP

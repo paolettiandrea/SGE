@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_CAMERA_HPP
-#define FACTORY_EXPERIMENTS_CAMERA_HPP
+#ifndef SGE_CAMERA_HPP
+#define SGE_CAMERA_HPP
 
 #include "SFML/Graphics.hpp"
 
@@ -38,7 +38,7 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_CAMERA_HPP
+#endif //SGE_CAMERA_HPP
 
 
 

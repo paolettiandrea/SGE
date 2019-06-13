@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_GAMEOBJECT_HPP
-#define FACTORY_EXPERIMENTS_GAMEOBJECT_HPP
+#ifndef SGE_GAMEOBJECT_HPP
+#define SGE_GAMEOBJECT_HPP
 
 #include <string>
 #include "SGE/Macros.hpp"
@@ -180,7 +180,7 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_GAMEOBJECT_HPP
+#endif //SGE_GAMEOBJECT_HPP
 
 
 

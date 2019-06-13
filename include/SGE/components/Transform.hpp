@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_TRANSFORM_HPP
-#define FACTORY_EXPERIMENTS_TRANSFORM_HPP
+#ifndef SGE_TRANSFORM_HPP
+#define SGE_TRANSFORM_HPP
 
 
 #include "Component.hpp"
@@ -20,6 +20,10 @@ namespace sge::cmp {
          * \brief Event that is called when this transform is made dirty.
          */
         utils::event::Event transform_changed_event;
+        /*!
+         * \brief Event called when the scale of this Transform is modified
+         */
+        utils::event::Event scale_modified_event;
 
         explicit Transform(const utils::Handle<GameObject> &gameobject);
 
@@ -84,7 +88,7 @@ namespace sge::cmp {
 
 
 
-#endif //FACTORY_EXPERIMENTS_TRANSFORM_HPP
+#endif //SGE_TRANSFORM_HPP
 
 
 

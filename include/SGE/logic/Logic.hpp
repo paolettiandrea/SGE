@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_LOGIC_HPP
-#define FACTORY_EXPERIMENTS_LOGIC_HPP
+#ifndef SGE_LOGIC_HPP
+#define SGE_LOGIC_HPP
 
 #include <string>
 
@@ -68,7 +68,7 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_LOGIC_HPP
+#endif //SGE_LOGIC_HPP
 
 
 /*!

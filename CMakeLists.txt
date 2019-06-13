@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.13)
-project(factory_experiments)
+project(SGE)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_library(factory_experiments STATIC)
+add_library(SGE STATIC)
 
 add_executable(tester tester/main.cpp tester/BoxSpawner.cpp tester/BoxSpawner.hpp tester/PhysicsBox.cpp tester/PhysicsBox.hpp tester/Wiggler.hpp tester/TestLogic.hpp tester/TestLogic.cpp tester/PhysicsCircle.cpp tester/PhysicsCircle.hpp)
-target_link_libraries(tester PUBLIC factory_experiments)
+target_link_libraries(tester PUBLIC SGE)
 
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -14,10 +14,10 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
-    target_compile_definitions(factory_experiments PUBLIC DEBUG=1)
+    target_compile_definitions(SGE PUBLIC DEBUG=1)
 
 else()
-    target_compile_definitions(factory_experiments PUBLIC RELEASE=1)
+    target_compile_definitions(SGE PUBLIC RELEASE=1)
 endif()
 
 
@@ -33,8 +33,8 @@ SET(BOX2D_BUILD_SHARED OFF CACHE BOOL "This setting has been overridden" FORCE)
 SET(BOX2D_INSTALL OFF CACHE BOOL "This setting has been overridden" FORCE)
 
 add_subdirectory(lib/Box2D/Box2D)
-target_link_libraries(factory_experiments PUBLIC Box2D)
-target_include_directories(factory_experiments PUBLIC
+target_link_libraries(SGE PUBLIC Box2D)
+target_include_directories(SGE PUBLIC
         lib/Box2D/Box2D
         )
 
@@ -48,19 +48,19 @@ if (MINGW)
 endif()
 
 add_compile_definitions(SFML_STATIC)
-target_include_directories(factory_experiments PUBLIC
+target_include_directories(SGE PUBLIC
         lib/SFML/include
         )
 add_subdirectory(lib/SFML)
 
-target_link_libraries(factory_experiments PUBLIC
+target_link_libraries(SGE PUBLIC
         sfml-graphics
         sfml-window
         sfml-system
         )
 
 if(MINGW)
-    target_link_libraries(factory_experiments PUBLIC
+    target_link_libraries(SGE PUBLIC
             sfml-main
             )
 endif()

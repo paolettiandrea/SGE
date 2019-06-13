@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_BOXCOLLIDER_HPP
-#define FACTORY_EXPERIMENTS_BOXCOLLIDER_HPP
+#ifndef SGE_BOXCOLLIDER_HPP
+#define SGE_BOXCOLLIDER_HPP
 
 #include "SGE/components/physics/Collider.hpp"
 
@@ -24,7 +24,7 @@ namespace sge::cmp {
     };
 }
 
-#endif //FACTORY_EXPERIMENTS_BOXCOLLIDER_HPP
+#endif //SGE_BOXCOLLIDER_HPP
 
 
 

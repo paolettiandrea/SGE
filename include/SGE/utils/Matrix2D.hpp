@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_MATRIX2D_HPP
-#define FACTORY_EXPERIMENTS_MATRIX2D_HPP
+#ifndef SGE_MATRIX2D_HPP
+#define SGE_MATRIX2D_HPP
 
 #include <string>
 #include <vector>
@@ -185,4 +185,4 @@ Matrix2D<T> &Matrix2D<T>::operator=(const Matrix2D<T> &that) {
 
 
 
-#endif //FACTORY_EXPERIMENTS_MATRIX2D_HPP
+#endif //SGE_MATRIX2D_HPP

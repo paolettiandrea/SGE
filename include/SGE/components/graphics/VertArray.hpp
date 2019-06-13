@@ -2,8 +2,8 @@
 // Created by andrea on 5/21/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_VERTARRAY_HPP
-#define FACTORY_EXPERIMENTS_VERTARRAY_HPP
+#ifndef SGE_VERTARRAY_HPP
+#define SGE_VERTARRAY_HPP
 
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -41,7 +41,7 @@ namespace sge {
 }
 
 
-#endif //FACTORY_EXPERIMENTS_VERTARRAY_HPP
+#endif //SGE_VERTARRAY_HPP
 
 
 

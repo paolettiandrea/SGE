@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_LINEDEBUGSHAPE_HPP
-#define FACTORY_EXPERIMENTS_LINEDEBUGSHAPE_HPP
+#ifndef SGE_LINEDEBUGSHAPE_HPP
+#define SGE_LINEDEBUGSHAPE_HPP
 
 #include "SGE/debug/DebugShape.hpp"
 #include "SGE/debug/PointDebugShape.hpp"
@@ -32,4 +32,4 @@ namespace sge {
 }
 
 
-#endif //FACTORY_EXPERIMENTS_LINEDEBUGSHAPE_HPP
+#endif //SGE_LINEDEBUGSHAPE_HPP

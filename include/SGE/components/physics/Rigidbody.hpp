@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_RIGIDBODY_HPP
-#define FACTORY_EXPERIMENTS_RIGIDBODY_HPP
+#ifndef SGE_RIGIDBODY_HPP
+#define SGE_RIGIDBODY_HPP
 
 #include "SGE/components/Component.hpp"
 #include "SGE/Path.hpp"
@@ -36,4 +36,4 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_RIGIDBODY_HPP
+#endif //SGE_RIGIDBODY_HPP

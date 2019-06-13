@@ -2,8 +2,8 @@
 // Created by andrea on 5/3/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_ENGINE_CONSTRUCTIONDATA_HPP
-#define FACTORY_EXPERIMENTS_ENGINE_CONSTRUCTIONDATA_HPP
+#ifndef SGE_ENGINE_CONSTRUCTIONDATA_HPP
+#define SGE_ENGINE_CONSTRUCTIONDATA_HPP
 
 #include "WindowManager_ConstructionData.hpp"
 #include "SGE/SceneConstructionData.hpp"
@@ -29,4 +29,4 @@ namespace sge {
 
 }
 
-#endif //FACTORY_EXPERIMENTS_ENGINE_CONSTRUCTIONDATA_HPP
+#endif //SGE_ENGINE_CONSTRUCTIONDATA_HPP
