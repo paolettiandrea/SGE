@@ -11,7 +11,6 @@ using sge::cmp::PathRenderer;
 using sge::Vec2;
 
 
-
 PathRenderer::PathRenderer(const utils::Handle<sge::GameObject> &_gameobject)
         : Component(_gameobject, "PathRenderer") {
 

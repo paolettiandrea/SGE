@@ -17,8 +17,8 @@ void BoxSpawner::on_start() {
     dynamic_obj->logichub()->attach_logic(new PhysicsBox(1,1,true));
 
     auto dynamic_circle = scene()->spawn_gameobject("Dynamic Circle");
-    dynamic_circle->logichub()->attach_logic(new PhysicsCircle());
     dynamic_circle->transform()->set_local_position(10,10);
+    dynamic_circle->logichub()->attach_logic(new PhysicsCircle());
 
 
 
