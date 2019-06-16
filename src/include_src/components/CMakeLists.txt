@@ -13,4 +13,5 @@ target_sources(SGE PRIVATE
         ICollider.cpp
         BoxCollider.cpp
         CircleCollider.cpp
+        PolygonCollider.cpp
         )

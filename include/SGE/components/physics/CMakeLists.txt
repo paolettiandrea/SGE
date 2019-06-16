@@ -7,4 +7,5 @@ target_sources(SGE PUBLIC
         Collider.hpp
         BoxCollider.hpp
         CircleCollider.hpp
+        PolygonCollider.hpp
         )

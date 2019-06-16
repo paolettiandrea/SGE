@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(SGE STATIC)
 
-add_executable(tester tester/main.cpp tester/BoxSpawner.cpp tester/BoxSpawner.hpp tester/PhysicsBox.cpp tester/PhysicsBox.hpp tester/Wiggler.hpp tester/TestLogic.hpp tester/TestLogic.cpp tester/PhysicsCircle.cpp tester/PhysicsCircle.hpp tester/Box.hpp)
+add_executable(tester tester/main.cpp tester/BoxSpawner.cpp tester/BoxSpawner.hpp tester/PhysicsBox.cpp tester/PhysicsBox.hpp tester/Wiggler.hpp tester/TestLogic.hpp tester/TestLogic.cpp tester/PhysicsCircle.cpp tester/PhysicsCircle.hpp tester/Box.hpp tester/PhysicsPolygon.cpp tester/PhysicsPolygon.hpp)
 target_link_libraries(tester PUBLIC SGE)
 
 

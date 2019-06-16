@@ -21,7 +21,7 @@ namespace sge::debug {
             if (i==0) point_label = label;
             point_debug_shapes.emplace_back(path[i].x, path[i].y,duration,point_label,decimals);
         }
-        if (path.is_closed()) lines_vert_array.append(sf::Vertex(sf::Vector2f(path[0].x,-path[0].y)));
+        if (path.is_closed()) lines_vert_array.append(sf::Vertex(sf::Vector2f(path[0].x, -path[0].y)));
     }
 
     void update_dimensions(float vertical_view_size) override;

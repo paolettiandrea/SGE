@@ -14,6 +14,7 @@ void sge::cmp::BoxCollider::clean_shape() {
     auto world_scale = gameobject()->transform()->get_world_scale();
     shape.SetAsBox(m_width/2*world_scale.x, m_height/2*world_scale.y);
 
+
     update_shape(&shape);
     m_dirty_fixture_shape = false;
 }

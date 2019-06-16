@@ -4,9 +4,8 @@
 void sge::cmp::CircleCollider::clean_shape() {
 
     b2CircleShape shape;
-    // TEMP reversing the Transform doesn't work yet TODO
     auto relative_position = Transform::change_reference_frame(gameobject()->transform(), m_rigidbody->gameobject()->transform(), m_local_center_offset);
-    shape.m_p.Set(relative_position.x, relative_position.y);
+    shape.m_p.Set(relative_position.x*m_rigidbody->gameobject()->transform()->get_world_scale().x, relative_position.y*m_rigidbody->gameobject()->transform()->get_world_scale().y);
 
     auto world_scale = gameobject()->transform()->get_world_scale();
     if (world_scale.x == world_scale.y) {

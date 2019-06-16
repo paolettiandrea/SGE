@@ -32,6 +32,7 @@ public:
     Matrix2D<T>& operator=(const Matrix2D<T>& that);
 
     Matrix2D<T> transpose();
+    Matrix2D<T> inverse();
 
 private:
     T** m_matrix;
@@ -193,6 +194,22 @@ Matrix2D<T> Matrix2D<T>::transpose() {
         }
     }
     return res;
+}
+
+template<class T>
+Matrix2D<T> Matrix2D<T>::inverse() {
+    if (rows==columns && columns==2) {
+        float determinant = m_matrix[0][0]*m_matrix[1][1] - m_matrix[1][0]*m_matrix[0][1];
+        Matrix2D<T> res(2,2);
+        res[0][0] = m_matrix[1][1]/determinant;
+        res[1][1] = m_matrix[0][0]/determinant;
+        res[1][0] = -m_matrix[1][0]/determinant;
+        res[0][1] = -m_matrix[0][1]/determinant;
+        return res;
+    } else {
+        std::cout << "ERROR: For now only the inversion of 2x2 matrices is supported" << std::endl;
+        exit(1);
+    }
 }
 
 
