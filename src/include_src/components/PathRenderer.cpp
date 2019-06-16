@@ -10,6 +10,9 @@
 using sge::cmp::PathRenderer;
 using sge::Vec2;
 
+bool sge::cmp::PathRenderer::visual_debug_general_switch = false;
+bool sge::cmp::PathRenderer::visual_debug_show_path = true;
+bool sge::cmp::PathRenderer::visual_debug_show_triangle_strip = false;
 
 PathRenderer::PathRenderer(const utils::Handle<sge::GameObject> &_gameobject)
         : Component(_gameobject, "PathRenderer") {
@@ -26,7 +29,7 @@ PathRenderer::PathRenderer(const utils::Handle<sge::GameObject> &_gameobject)
 }
 
 void PathRenderer::elaborate_inner_point(Vec2<float> target_point, Vec2<float> prev_point, Vec2<float> next_point,
-                                                sf::Vertex vert_chunck[]) {
+                                                sf::Vertex vert_chunk[]) {
     float inner_tick_away_ratio = 0.5;
 
     auto forward_dir = next_point - target_point;
@@ -39,106 +42,123 @@ void PathRenderer::elaborate_inner_point(Vec2<float> target_point, Vec2<float> p
 
     float angle = Vec2<float>::get_signed_angle(forward_dir,backward_dir);
 
-    // Prev
-    Vec2<float> backward_outer_perpendicular = backward_dir.normalize();
-    if (angle>0) backward_outer_perpendicular = Vec2<float>::rotate(backward_outer_perpendicular,M_PI/2);
-    else backward_outer_perpendicular = Vec2<float>::rotate(backward_outer_perpendicular,-M_PI/2);
-    backward_outer_perpendicular.set_magnitude(m_thickness/2);
+    if (fabsf(angle)> M_PI-0.00001f) {
+        auto perp = forward_dir;
+        perp = sge::Vec2<float>::rotate(perp,M_PI/2);
+        perp.set_magnitude(m_thickness/2);
 
-    auto outer_prev_point_a = target_point + backward_outer_perpendicular;
-    auto outer_prev_point_b = prev_point + backward_outer_perpendicular;
-    auto inner_prev_point_a = target_point - backward_outer_perpendicular;
-    auto inner_prev_point_b = prev_point - backward_outer_perpendicular;
+        auto p1 = target_point + perp;
+        auto p2 = target_point - perp;
 
-    // Next
-    Vec2<float> forward_outer_perpendicular = forward_dir.normalize();
-    if (angle<0) forward_outer_perpendicular = Vec2<float>::rotate(forward_outer_perpendicular,M_PI/2);
-    else forward_outer_perpendicular = Vec2<float>::rotate(forward_outer_perpendicular,-M_PI/2);
-    forward_outer_perpendicular.set_magnitude(m_thickness/2);
+        vert_chunk[0] = sf::Vector2f(p1.x, -p1.y);
+        vert_chunk[1] = sf::Vector2f(p2.x, -p2.y);
+        vert_chunk[2] = sf::Vector2f(p1.x, -p1.y);
+        vert_chunk[3] = sf::Vector2f(p2.x, -p2.y);
 
-    auto outer_next_point_a = target_point + forward_outer_perpendicular;
-    auto outer_next_point_b = next_point + forward_outer_perpendicular;
-    auto inner_next_point_a = target_point - forward_outer_perpendicular;
-    auto inner_next_point_b = next_point - forward_outer_perpendicular;
-
-
-    //Vec2<float> outer_intersection;
-    //Vec2<float>::intersection(outer_prev_point_a, outer_prev_point_b, outer_next_point_a, outer_next_point_b,
-                              //outer_intersection);
-
-
-
-    // Outer
-    Vec2<float> bisettrice = forward_dir+backward_dir;
-    float angle_ratio = fabsf((float)(angle/M_PI));
-    bisettrice.set_magnitude(m_thickness/2*angle_ratio);
-    auto outer_truncator_a = target_point - bisettrice;
-    auto outer_truncator_b = outer_truncator_a + Vec2<float>::rotate(bisettrice, M_PI/2);
-
-    bool failed_intersection_flag = false;
-    Vec2<float> outer_prev_intersection, outer_next_intersection;
-    if (!Vec2<float>::intersection(outer_truncator_a, outer_truncator_b, outer_prev_point_a, outer_prev_point_b, outer_prev_intersection)) failed_intersection_flag=true;
-    if (!Vec2<float>::intersection(outer_truncator_a, outer_truncator_b, outer_next_point_a, outer_next_point_b, outer_next_intersection)) failed_intersection_flag = true;
-
-
-    if (failed_intersection_flag) {
-        outer_prev_intersection = target_point;
-        outer_next_intersection = target_point;
-    }
-
-
-    // Inner
-    Vec2<float> inner_intersection;
-    if (!Vec2<float>::intersection(inner_prev_point_a, inner_prev_point_b, inner_next_point_a, inner_next_point_b,
-                              inner_intersection)) failed_intersection_flag=true;
-
-    Vec2<float> inner_next_intersection, inner_prev_intersection;
-
-    if (failed_intersection_flag || fabsf(angle)<PATH_RENDERER_MIN_FALLBACK_ANGLE || (inner_intersection-target_point).get_magnitude()>min_dist) {
-        // If the intersection is going to infinity just clamp it to a close enough point
-        auto prev_dist = (target_point - prev_point).get_magnitude();
-        auto next_dist = (target_point - next_point).get_magnitude();
-        Vec2<float> point;
-        if (prev_dist<next_dist) {
-            forward_outer_perpendicular.set_magnitude(m_thickness/2);
-            forward_dir.set_magnitude(prev_dist);
-            point = target_point + forward_dir -forward_outer_perpendicular;
-        } else {
-            backward_outer_perpendicular.set_magnitude(m_thickness/2);
-            backward_dir.set_magnitude(next_dist);
-            point = target_point + backward_dir -backward_outer_perpendicular;
-        }
-        inner_next_intersection = point;
-        inner_prev_intersection = point;
 
     } else {
-        // The inner intersection is in normal bounds (the angle is large enough relative to the thickness)
-        bisettrice.set_magnitude((m_thickness*inner_tick_away_ratio) * (1-fabsf(angle/m_inner_rounding_max_angle)));
-        auto inner_truncator_a = inner_intersection + bisettrice;
-        auto inner_truncator_b = inner_truncator_a + Vec2<float>::rotate(bisettrice, M_PI/2);
-        if (fabsf(angle)<m_inner_rounding_max_angle) {
-            Vec2<float>::intersection(inner_truncator_a, inner_truncator_b, inner_next_point_a, inner_next_point_b, inner_next_intersection);
-            Vec2<float>::intersection(inner_truncator_a, inner_truncator_b, inner_prev_point_a, inner_prev_point_b, inner_prev_intersection);
-        } else {
-            inner_next_intersection = inner_intersection;
-            inner_prev_intersection = inner_intersection;
+        // Prev
+        Vec2<float> backward_outer_perpendicular = backward_dir.normalize();
+        if (angle>0) backward_outer_perpendicular = Vec2<float>::rotate(backward_outer_perpendicular,M_PI/2);
+        else backward_outer_perpendicular = Vec2<float>::rotate(backward_outer_perpendicular,-M_PI/2);
+        backward_outer_perpendicular.set_magnitude(m_thickness/2);
+
+        auto outer_prev_point_a = target_point + backward_outer_perpendicular;
+        auto outer_prev_point_b = prev_point + backward_outer_perpendicular;
+        auto inner_prev_point_a = target_point - backward_outer_perpendicular;
+        auto inner_prev_point_b = prev_point - backward_outer_perpendicular;
+
+        // Next
+        Vec2<float> forward_outer_perpendicular = forward_dir.normalize();
+        if (angle<0) forward_outer_perpendicular = Vec2<float>::rotate(forward_outer_perpendicular,M_PI/2);
+        else forward_outer_perpendicular = Vec2<float>::rotate(forward_outer_perpendicular,-M_PI/2);
+        forward_outer_perpendicular.set_magnitude(m_thickness/2);
+
+        auto outer_next_point_a = target_point + forward_outer_perpendicular;
+        auto outer_next_point_b = next_point + forward_outer_perpendicular;
+        auto inner_next_point_a = target_point - forward_outer_perpendicular;
+        auto inner_next_point_b = next_point - forward_outer_perpendicular;
+
+
+        //Vec2<float> outer_intersection;
+        //Vec2<float>::intersection(outer_prev_point_a, outer_prev_point_b, outer_next_point_a, outer_next_point_b,
+        //outer_intersection);
+
+
+
+        // Outer
+        Vec2<float> bisettrice = forward_dir+backward_dir;
+        float angle_ratio = fabsf((float)(angle/M_PI));
+        bisettrice.set_magnitude(m_thickness/2*angle_ratio);
+        auto outer_truncator_a = target_point - bisettrice;
+        auto outer_truncator_b = outer_truncator_a + Vec2<float>::rotate(bisettrice, M_PI/2);
+
+        bool failed_intersection_flag = false;
+        Vec2<float> outer_prev_intersection, outer_next_intersection;
+        if (!Vec2<float>::intersection(outer_truncator_a, outer_truncator_b, outer_prev_point_a, outer_prev_point_b, outer_prev_intersection)) failed_intersection_flag=true;
+        if (!Vec2<float>::intersection(outer_truncator_a, outer_truncator_b, outer_next_point_a, outer_next_point_b, outer_next_intersection)) failed_intersection_flag = true;
+
+        if (failed_intersection_flag) {
+            outer_prev_intersection = target_point;
+            outer_next_intersection = target_point;
         }
-    }
 
 
-    //gameobject()->get_scene()->env()->debug_draw(new debug::PointDebugShape(outer_prev_intersection.x, outer_prev_intersection.y,0,"outer prev inters"));
-    //gameobject()->get_scene()->env()->debug_draw(new debug::PointDebugShape(outer_next_intersection.x, outer_next_intersection.y,0,"outer next inters"));
+        // Inner
+        Vec2<float> inner_intersection;
+        if (!Vec2<float>::intersection(inner_prev_point_a, inner_prev_point_b, inner_next_point_a, inner_next_point_b,
+                                       inner_intersection)) failed_intersection_flag=true;
 
-    if (angle<0) {
-        vert_chunck[0].position = sf::Vector2f(outer_prev_intersection.x, -outer_prev_intersection.y);
-        vert_chunck[1].position = sf::Vector2f(inner_prev_intersection.x, -inner_prev_intersection.y);
-        vert_chunck[2].position = sf::Vector2f(outer_next_intersection.x, -outer_next_intersection.y);
-        vert_chunck[3].position = sf::Vector2f(inner_next_intersection.x, -inner_next_intersection.y);
-    } else {
-        vert_chunck[0].position = sf::Vector2f(inner_prev_intersection.x, -inner_prev_intersection.y);
-        vert_chunck[1].position = sf::Vector2f(outer_prev_intersection.x, -outer_prev_intersection.y);
-        vert_chunck[2].position = sf::Vector2f(inner_next_intersection.x, -inner_next_intersection.y);
-        vert_chunck[3].position = sf::Vector2f(outer_next_intersection.x, -outer_next_intersection.y);
+        Vec2<float> inner_next_intersection, inner_prev_intersection;
+
+        if (failed_intersection_flag || fabsf(angle)<PATH_RENDERER_MIN_FALLBACK_ANGLE || (inner_intersection-target_point).get_magnitude()>min_dist) {
+            // If the intersection is going to infinity just clamp it to a close enough point
+            auto prev_dist = (target_point - prev_point).get_magnitude();
+            auto next_dist = (target_point - next_point).get_magnitude();
+            Vec2<float> point;
+            if (prev_dist<next_dist) {
+                forward_outer_perpendicular.set_magnitude(m_thickness/2);
+                forward_dir.set_magnitude(prev_dist);
+                point = target_point + forward_dir -forward_outer_perpendicular;
+            } else {
+                backward_outer_perpendicular.set_magnitude(m_thickness/2);
+                backward_dir.set_magnitude(next_dist);
+                point = target_point + backward_dir -backward_outer_perpendicular;
+            }
+            inner_next_intersection = point;
+            inner_prev_intersection = point;
+
+        } else {
+            // The inner intersection is in normal bounds (the angle is large enough relative to the thickness)
+            bisettrice.set_magnitude((m_thickness*inner_tick_away_ratio) * (1-fabsf(angle/m_inner_rounding_max_angle)));
+            auto inner_truncator_a = inner_intersection + bisettrice;
+            auto inner_truncator_b = inner_truncator_a + Vec2<float>::rotate(bisettrice, M_PI/2);
+            if (fabsf(angle)<m_inner_rounding_max_angle) {
+                Vec2<float>::intersection(inner_truncator_a, inner_truncator_b, inner_next_point_a, inner_next_point_b, inner_next_intersection);
+                Vec2<float>::intersection(inner_truncator_a, inner_truncator_b, inner_prev_point_a, inner_prev_point_b, inner_prev_intersection);
+            } else {
+                inner_next_intersection = inner_intersection;
+                inner_prev_intersection = inner_intersection;
+            }
+        }
+
+
+
+
+        //gameobject()->get_scene()->env()->debug_draw(new debug::PointDebugShape(outer_prev_intersection.x, outer_prev_intersection.y,0,"outer prev inters"));
+        //gameobject()->get_scene()->env()->debug_draw(new debug::PointDebugShape(outer_next_intersection.x, outer_next_intersection.y,0,"outer next inters"));
+
+        if (angle<0) {
+            vert_chunk[0].position = sf::Vector2f(outer_prev_intersection.x, -outer_prev_intersection.y);
+            vert_chunk[1].position = sf::Vector2f(inner_prev_intersection.x, -inner_prev_intersection.y);
+            vert_chunk[2].position = sf::Vector2f(outer_next_intersection.x, -outer_next_intersection.y);
+            vert_chunk[3].position = sf::Vector2f(inner_next_intersection.x, -inner_next_intersection.y);
+        } else {
+            vert_chunk[0].position = sf::Vector2f(inner_prev_intersection.x, -inner_prev_intersection.y);
+            vert_chunk[1].position = sf::Vector2f(outer_prev_intersection.x, -outer_prev_intersection.y);
+            vert_chunk[2].position = sf::Vector2f(inner_next_intersection.x, -inner_next_intersection.y);
+            vert_chunk[3].position = sf::Vector2f(outer_next_intersection.x, -outer_next_intersection.y);
+        }
     }
 }
 
@@ -172,23 +192,6 @@ void PathRenderer::elaborate_extremes() {
 
 void PathRenderer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(m_vert_array, states);
-
-    /*
-    sf::VertexArray yo;
-    yo.setPrimitiveType(sf::PrimitiveType::LineStrip);
-    sf::Color col = sf::Color::Green;
-    for (int i = 0; i < m_vert_array.getVertexCount(); ++i) {
-
-        col.g -= 30;
-        col.b -= 30;
-        yo.append(m_vert_array[i]);
-        yo[i].color = col;
-    }
-    target.draw(yo, states);
-     */
-
-
-
 }
 
 void PathRenderer::set_path(const Path &new_path) {
@@ -291,6 +294,21 @@ void sge::cmp::PathRenderer::set_path_as_circle(float radius, unsigned int segme
     }
     path.set_closed(true);
     set_path(path);
+}
+
+void sge::cmp::PathRenderer::visual_debug_pass() {
+    clean_pass();
+    if(visual_debug_show_triangle_strip) {
+        Path temp_path;
+        for (int i = 0; i < m_vert_array.getVertexCount(); ++i) {
+            temp_path.append_point(sge::Vec2<float>(m_vert_array[i].position.x, m_vert_array[i].position.y));
+        }
+        gameobject()->get_scene()->env()->debug_draw_path(temp_path,0,"",0);
+    }
+
+    if (visual_debug_show_path) {
+        gameobject()->get_scene()->env()->debug_draw_path(m_world_path,0,"",0,sf::Color(42,199,69));
+    }
 }
 
 

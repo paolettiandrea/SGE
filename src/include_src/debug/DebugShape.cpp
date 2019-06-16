@@ -4,7 +4,7 @@
 
 #include "SGE/debug/DebugShape.hpp"
 
-sf::Color sge::debug::DebugShape::primary_debug_color(255,117,26);
+sf::Color sge::debug::DebugShape::default_debug_color(255,117,26);
 
 sge::debug::DebugShape::DebugShape(float duration) {
     using namespace std::chrono;

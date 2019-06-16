@@ -1,7 +1,3 @@
-//
-// Created by andrea on 5/28/19.
-//
-
 #include "SGE/components/physics/Rigidbody.hpp"
 #include "GameObject.hpp"
 #include "Scene.hpp"

@@ -31,3 +31,15 @@ void sge::core::PhysicsManager::clean_pass() {
         circle_collider->clean_pass();
     }
 }
+
+void sge::core::PhysicsManager::visual_debug_pass() {
+    if (cmp::ICollider::visual_debug_general_switch) {
+        for (auto circle_collider : m_circle_collider_component_creator.get_top_layer()->get_component_vector()) {
+            circle_collider->visual_debug_pass();
+        }
+        for (auto box_collider : m_box_collider_component_creator.get_top_layer()->get_component_vector()) {
+            box_collider->visual_debug_pass();
+        }
+    }
+
+}

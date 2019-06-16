@@ -39,6 +39,9 @@ namespace utils {
 
         }
 
+        /*!
+         * \return A null handle of the template type
+         */
         static Handle<T> null() { return Handle<T>(); }
 
         /*!

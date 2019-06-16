@@ -4,4 +4,7 @@ target_sources(SGE PRIVATE
         DebugShape.cpp
         PointDebugShape.cpp
         LineDebugShape.cpp
+        PathDebugShape.cpp
+        CircleDebugShape.cpp
+        DirectionDebugShape.cpp
         )

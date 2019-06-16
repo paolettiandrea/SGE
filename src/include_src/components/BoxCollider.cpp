@@ -31,3 +31,7 @@ void sge::cmp::BoxCollider::set_height(float height) {
 float sge::cmp::BoxCollider::get_height() { return m_height; }
 
 float sge::cmp::BoxCollider::get_width() { return m_width; }
+
+void sge::cmp::BoxCollider::visual_debug_pass() {
+
+}

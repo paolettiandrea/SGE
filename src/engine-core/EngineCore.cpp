@@ -1,4 +1,9 @@
 #include "EngineCore.hpp"
+#include "SGE/debug/PointDebugShape.hpp"
+#include "SGE/debug/LineDebugShape.hpp"
+#include "SGE/debug/PathDebugShape.hpp"
+#include "SGE/debug/CircleDebugShape.hpp"
+#include "SGE/debug/DirectionDebugShape.hpp"
 
 using sge::core::EngineCore;
 using sge::cd::SceneConstructionData;
@@ -33,6 +38,8 @@ bool EngineCore::game_loop() {
     logic_manager.on_update();
 
     object_manager.doom_pass();
+
+    visual_debug_pass();
 
     window_manager.handle_window_events();
     window_manager.clear_window();
@@ -83,9 +90,6 @@ EngineCore::~EngineCore() {
     }
 }
 
-void sge::core::EngineCore::debug_draw(sge::debug::DebugShape *new_debug_shape) {
-    window_manager.debug_shapes_manager.add_debug_shape(new_debug_shape);
-}
 
 sge::Camera* sge::core::EngineCore::get_camera() {
     return &window_manager.m_camera;
@@ -97,6 +101,34 @@ bool sge::core::EngineCore::is_shutting_down() {
 
 double sge::core::EngineCore::fixed_delta_time() {
     return physics_manager.fixed_delta_time();
+}
+
+void sge::core::EngineCore::debug_draw_point(const sge::Vec2<float>& point, float duration, const std::string& label, unsigned int digits, sf::Color color) {
+    window_manager.debug_shapes_manager.add_debug_shape(new sge::debug::PointDebugShape(point.x,point.y,duration,label,digits,color));
+}
+
+void sge::core::EngineCore::debug_draw_line(const sge::Vec2<float>& point1, const sge::Vec2<float>& point2, float duration, const std::string& label, unsigned int digits, sf::Color color) {
+    window_manager.debug_shapes_manager.add_debug_shape(new debug::LineDebugShape(point1.x,point1.y,point2.x,point2.y,duration,digits,label,color));
+}
+
+void sge::core::EngineCore::debug_draw_path(sge::Path path, float duration, const std::string& label, unsigned int decimals, sf::Color color) {
+    window_manager.debug_shapes_manager.add_debug_shape(new debug::PathDebugShape(path,duration,label,decimals,color));
+}
+
+void sge::core::EngineCore::debug_draw_circle(sge::Vec2<float> center_pos, float radius, float duration, const std::string& label, unsigned int decimals, sf::Color color) {
+    window_manager.debug_shapes_manager.add_debug_shape(new debug::CircleDebugShape(center_pos,radius,duration,label,decimals,color));
+}
+
+void sge::core::EngineCore::debug_draw_direction(sge::Vec2<float> from, sge::Vec2<float> to, float duration, sf::Color color) {
+    window_manager.debug_shapes_manager.add_debug_shape(new debug::DirectionDebugShape(from,to,duration,color));
+
+}
+
+void sge::core::EngineCore::visual_debug_pass() {
+    object_manager.visual_debug_pass();
+    logic_manager.visual_debug_pass();
+    window_manager.visual_debug_pass();
+    physics_manager.visual_debug_pass();
 }
 //endregion
 

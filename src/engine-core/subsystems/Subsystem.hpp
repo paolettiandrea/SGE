@@ -16,6 +16,8 @@ namespace sge {
         class Subsystem : public utils::log::Loggable {
         public:
             Subsystem (const std::string& subsystem_name);
+
+            virtual void visual_debug_pass() {};
         };
     }
 }

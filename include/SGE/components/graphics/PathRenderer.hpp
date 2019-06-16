@@ -33,6 +33,12 @@ namespace sge {
 
             void set_color_all(sf::Color color);
 
+            static bool visual_debug_general_switch;
+            static bool visual_debug_show_path;
+            static bool visual_debug_show_triangle_strip;
+
+
+            void visual_debug_pass() override;
 
 
             void set_closed(bool closed);

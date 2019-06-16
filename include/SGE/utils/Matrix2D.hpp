@@ -31,6 +31,8 @@ public:
     Matrix2D<T> operator*(const Matrix2D<T>& that);
     Matrix2D<T>& operator=(const Matrix2D<T>& that);
 
+    Matrix2D<T> transpose();
+
 private:
     T** m_matrix;
 };
@@ -182,7 +184,16 @@ Matrix2D<T> &Matrix2D<T>::operator=(const Matrix2D<T> &that) {
     }
 }
 
-
+template<class T>
+Matrix2D<T> Matrix2D<T>::transpose() {
+    Matrix2D<T> res(columns, rows);
+    for (int row = 0; row < rows; ++row) {
+        for (int col = 0; col < columns; ++col) {
+            res[col][row] = m_matrix[row][col];
+        }
+    }
+    return res;
+}
 
 
 #endif //SGE_MATRIX2D_HPP

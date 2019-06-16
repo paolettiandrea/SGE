@@ -10,6 +10,7 @@ target_sources(SGE PRIVATE
         VertArray.cpp
 
         Rigidbody.cpp
+        ICollider.cpp
         BoxCollider.cpp
         CircleCollider.cpp
         )

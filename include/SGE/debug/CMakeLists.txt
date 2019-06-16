@@ -4,5 +4,6 @@ target_sources(SGE PUBLIC
         LineDebugShape.hpp
         DebugShape.hpp
         PointDebugShape.hpp
-
+        PathDebugShape.hpp
+        CircleDebugShape.hpp
         )

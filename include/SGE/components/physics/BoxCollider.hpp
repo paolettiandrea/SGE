@@ -15,6 +15,8 @@ namespace sge::cmp {
         float get_height();
         void set_height(float height);
 
+        void visual_debug_pass() override;
+
     protected:
         void clean_shape() override;
 

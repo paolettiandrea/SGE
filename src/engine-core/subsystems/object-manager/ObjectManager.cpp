@@ -99,3 +99,13 @@ ObjectManager::~ObjectManager() {
         delete(new_scene_construction_data);
     }
 }
+
+void sge::core::ObjectManager::visual_debug_pass() {
+    Subsystem::visual_debug_pass();
+    if (cmp::Transform::visual_debug_general_switch) {
+        for (auto trans : transform_creator.get_top_layer()->get_component_vector()) {
+            trans->visual_debug_pass();
+        }
+    }
+
+}

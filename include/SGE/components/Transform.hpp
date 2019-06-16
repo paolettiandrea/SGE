@@ -21,11 +21,13 @@ namespace sge::cmp {
          */
         utils::event::Event transform_changed_event;
         /*!
-         * \brief Event called when the scale of this Transform is made dirty, meaning that it has been modified.
+         * \brief Event called when the parent of this Transform is modified.
          */
-        utils::event::Event scale_modified_event;
+        utils::event::Event parent_changed_event;
 
         explicit Transform(const utils::Handle<GameObject> &gameobject);
+
+        void visual_debug_pass() override;
 
         //region Hierarchy management
         /*!
@@ -41,6 +43,9 @@ namespace sge::cmp {
         void remove_child(utils::Handle<Transform> target_child);
         std::list<utils::Handle<Transform>> get_children_list();
         //endregion
+
+        static bool visual_debug_general_switch;
+        static bool visual_debug_show_names;
 
         //region Spacial
 
@@ -60,7 +65,11 @@ namespace sge::cmp {
 
 
         Vec2<float> local_to_world_point(Vec2<float> point);
-        Vec2<float> transform_world_to_local(Vec2<float> world_pos);
+        Vec2<float> world_to_local_point(Vec2<float> world_pos);
+
+        static Vec2<float> change_reference_frame(utils::Handle<Transform> t_from, utils::Handle<Transform> t_to, sge::Vec2<float> point) {
+            return t_to->world_to_local_point(t_from->local_to_world_point(point));
+        }
         //endregion
 
 

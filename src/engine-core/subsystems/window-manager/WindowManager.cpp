@@ -54,3 +54,11 @@ void WindowManager::draw() {
         m_window.draw(*path.get_pointer(), m_render_states);
     }
 }
+
+void WindowManager::visual_debug_pass() {
+    if (cmp::PathRenderer::visual_debug_general_switch) {
+        for (auto path_renderer : path_component_creator.get_top_layer()->get_component_vector()) {
+            path_renderer->visual_debug_pass();
+        }
+    }
+}

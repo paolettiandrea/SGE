@@ -1,10 +1,15 @@
 #include "Transform.hpp"
 #include "GameObject.hpp"
+#include "Scene.hpp"
 #include <math.h>
 #include <vector>
 
 using sge::cmp::Transform;
 using utils::Handle;
+
+bool sge::cmp::Transform::visual_debug_general_switch = false;
+bool sge::cmp::Transform::visual_debug_show_names = false;
+
 
 Transform::Transform(const Handle<GameObject> &gameobject)
     : Component(gameobject, "Transform")
@@ -42,6 +47,8 @@ void Transform::set_parent(Handle<Transform> new_parent) {
 
     this->m_parent = new_parent;
     this->make_dirty();
+
+    parent_changed_event();
 }
 
 utils::Handle<Transform> sge::cmp::Transform::get_parent() {
@@ -77,11 +84,14 @@ void sge::cmp::Transform::set_local_position(float x, float y) {
 }
 
 void sge::cmp::Transform::set_local_scale(float scale) {
+    if (scale==0.f) {
+        LOG_ERROR << "Scale cannot be 0";
+        exit(1);
+    }
     if (m_local_scale_matrix[0][0]!=scale || m_local_scale_matrix[1][1]!=scale) {
         m_local_scale_matrix[0][0] = scale;
         m_local_scale_matrix[1][1] = scale;
         make_dirty();
-        scale_modified_event();
     }
 }
 
@@ -108,6 +118,20 @@ sge::Vec2<float> sge::cmp::Transform::local_to_world_point(sge::Vec2<float> poin
     return sge::Vec2<float>(yo[0][0]+m_world_position_vector.x, yo[1][0]+m_world_position_vector.y);
 }
 
+
+sge::Vec2<float> sge::cmp::Transform::world_to_local_point(sge::Vec2<float> world_pos) {
+    if (is_dirty) update_world_data();
+    Matrix2D<float> point_matrix(2,1);
+    point_matrix[0][0] = world_pos.x;       // BOH...
+    point_matrix[1][0] = world_pos.y;
+    Matrix2D<float> inverse_scale = m_world_scale_matrix;
+    inverse_scale[0][0] = 1 / inverse_scale[0][0];
+    inverse_scale[1][1] = 1 / inverse_scale[1][1];
+    m_world_scale_matrix.print_matrix("world scale");
+    auto yo = point_matrix*inverse_scale*m_world_rotation_matrix.transpose();
+    return sge::Vec2<float>(yo[0][0], yo[1][0]);
+}
+
 void sge::cmp::Transform::make_dirty() {
     transform_changed_event();
     if (!is_dirty) {
@@ -127,7 +151,6 @@ void sge::cmp::Transform::update_world_data() {
         dirty_parents_vec.push_back(target);
         target = target->get_parent();
     }
-
     for (int i = dirty_parents_vec.size()-1; i >= 0; --i) {
             dirty_parents_vec[i]->compose_with_parent();
             dirty_parents_vec[i]->is_dirty = false;
@@ -191,6 +214,16 @@ float sge::cmp::Transform::get_world_rotation_euler() {
     if (is_dirty) update_world_data();
     return  get_world_rotation() * 180 / M_PI;
 }
+
+
+void sge::cmp::Transform::visual_debug_pass() {
+    auto env_h = gameobject()->get_scene()->env();
+    env_h->debug_draw_direction(m_world_position_vector, local_to_world_point(sge::Vec2<float>(0,3)),0.f,sf::Color(199,19,29));
+    env_h->debug_draw_direction(m_world_position_vector, local_to_world_point(sge::Vec2<float>(3,0)), 0.f, sf::Color(199,193,23));
+    if (visual_debug_show_names)
+        env_h->debug_draw_point(m_world_position_vector,0.f,gameobject()->get_log_id(),0,sf::Color(200,200,200));
+}
+
 
 
 

@@ -24,6 +24,8 @@ namespace sge::core {
 
         double fixed_delta_time() { return  m_fixed_delta_time; }
 
+        void visual_debug_pass() override;
+
     private:
         ComponentCreator<cmp::Rigidbody> m_rigidbody_component_creator;
         ComponentCreator<cmp::BoxCollider> m_box_collider_component_creator;

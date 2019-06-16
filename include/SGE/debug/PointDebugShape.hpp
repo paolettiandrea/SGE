@@ -17,8 +17,10 @@ namespace  sge {
         class LineDebugShape;
         class PointDebugShape : public DebugShape {
             friend class LineDebugShape;
+            friend class PathDebugShape;
+            friend class CircleDebugShape;
         public:
-            PointDebugShape(float x, float y, float duration = 0.f, const std::string& label = "", unsigned int coords_digits=1);
+            PointDebugShape(float x, float y, float duration = 0.f, const std::string& label = "", unsigned int coords_digits=1, sf::Color color=SGE_DEFAULT_DEBUG_COLOR);
 
             void update_dimensions(float new_vertical_screen_size) override;
 

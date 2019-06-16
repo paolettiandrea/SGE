@@ -63,6 +63,8 @@ namespace sge {
              */
             void scene_pass();
 
+            void visual_debug_pass() override;
+
 
         private:
 

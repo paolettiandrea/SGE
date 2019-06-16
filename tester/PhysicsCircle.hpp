@@ -17,6 +17,10 @@ public:
     std::string get_logic_type_id() override;
 
     void on_start() override;
+
+    void on_update() override;
+
+    float increaser;
 };
 
 

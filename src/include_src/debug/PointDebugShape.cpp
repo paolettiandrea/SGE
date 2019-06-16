@@ -13,13 +13,13 @@
 #define POINT_DEBUG_SHAPE_TEXT_OUTLINE_SCREEN_RATIO 0.002
 #endif
 
-sge::debug::PointDebugShape::PointDebugShape(float x, float y, float duration, const std::string& label, unsigned int coords_digits)
+sge::debug::PointDebugShape::PointDebugShape(float x, float y, float duration, const std::string& label, unsigned int coords_digits, sf::Color color)
 : DebugShape(duration)
 , pos_vec(x, -y) {
 
     if (coords_digits>0 || label!="") {
         m_coordinates_text.setFont(debug_font);
-        m_coordinates_text.setFillColor(DebugShape::primary_debug_color);
+        m_coordinates_text.setFillColor(color);
         m_coordinates_text.setCharacterSize(27);
         m_coordinates_text.setPosition(x,-y);
         std::stringstream ss;
@@ -34,10 +34,10 @@ sge::debug::PointDebugShape::PointDebugShape(float x, float y, float duration, c
     }
 
     cross_vertarray.setPrimitiveType(sf::PrimitiveType::Lines);
-    cross_vertarray.append(sf::Vertex(sf::Vector2f(0,0), primary_debug_color));
-    cross_vertarray.append(sf::Vertex(sf::Vector2f(0,0), primary_debug_color));
-    cross_vertarray.append(sf::Vertex(sf::Vector2f(0,0), primary_debug_color));
-    cross_vertarray.append(sf::Vertex(sf::Vector2f(0,0), primary_debug_color));
+    cross_vertarray.append(sf::Vertex(sf::Vector2f(0,0), color));
+    cross_vertarray.append(sf::Vertex(sf::Vector2f(0,0), color));
+    cross_vertarray.append(sf::Vertex(sf::Vector2f(0,0), color));
+    cross_vertarray.append(sf::Vertex(sf::Vector2f(0,0), color));
 
 
 }

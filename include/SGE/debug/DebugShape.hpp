@@ -5,6 +5,9 @@
 #ifndef SGE_DEBUGSHAPE_HPP
 #define SGE_DEBUGSHAPE_HPP
 
+#define SGE_DEFAULT_DEBUG_COLOR sf::Color(255,117,26)
+
+
 #include "SFML/Graphics.hpp"
 #include <chrono>
 
@@ -34,7 +37,7 @@ namespace sge {
             virtual void update_dimensions(float vertical_view_size) = 0;
 
         protected:
-            static sf::Color primary_debug_color;
+            static sf::Color default_debug_color;
             sf::Font debug_font;
 
             virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const = 0;

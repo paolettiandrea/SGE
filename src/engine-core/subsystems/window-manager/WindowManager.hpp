@@ -59,6 +59,8 @@ namespace sge {
                 
             }
 
+            void visual_debug_pass() override;
+
             void draw();
 
 
