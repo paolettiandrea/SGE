@@ -14,6 +14,10 @@ void sge::core::PhysicsManager::step(b2World& world) {
     world.Step(m_fixed_delta_time, 6, 2);
 }
 
+/**
+ * \brief Updates all the position and rotations of the GameObjects with a Rigidbody in the active Scene according
+ * to the simulated body's positions and rotation.
+ */
 void sge::core::PhysicsManager::update_transform() {
     auto top_layer = m_rigidbody_component_creator.get_top_layer();
     for (auto rigidbody : top_layer->get_component_vector()) {

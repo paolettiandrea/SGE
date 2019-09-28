@@ -15,7 +15,6 @@ endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
     target_compile_definitions(SGE PUBLIC DEBUG=1)
-
 else()
     target_compile_definitions(SGE PUBLIC RELEASE=1)
 endif()

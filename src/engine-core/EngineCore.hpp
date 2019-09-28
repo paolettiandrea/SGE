@@ -57,18 +57,15 @@ namespace sge::core {
     private:
         double fixed_delta_time() override;
 
-    private:
         unsigned int frame_count() override;
 
-    private:
         bool book_new_scene_push(const std::string &name, Logic *initial_logic) override;
 
         void doom_top_scene() override;
 
         Camera *get_camera() override;
-        //double fixed_delta_time() override;
-        bool is_shutting_down() override;
 
+        bool is_shutting_down() override;
 
         bool m_shutting_down_flag = false;
         //endregion

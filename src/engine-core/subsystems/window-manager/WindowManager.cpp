@@ -1,7 +1,3 @@
-//
-// Created by andrea on 5/3/19.
-//
-
 #include "WindowManager.hpp"
 
 using namespace sge::core;

@@ -1,0 +1,46 @@
+* SGE
+
+[Introduction to SGE]
+
+
+
+** Features
+*** Debug
+**** TODO Simple Profiler
+A very minimal profiler that just shows how much the main parts of the *game loop* take:
+- rendering
+- phisics stepping
+- logic
+- waiting for next loop
+**** TODO On Screen Information
+Some *togglable* visual information that can be useful when debugging:
+***** TODO Transform
+Displays position, scale and rotation through the somewhat usual approach.
+Two axis, with starting point at the origin of the GameObject, rotated by the rotation and scaled by the scale.
+***** TODO Path 
+Displays the points of a path
+**** DONE Console Logger
+A custom log system that displays some useful info about who the log comes from.
+
+*** Visual
+**** Camera
+This engine supports only one camera, which is an engine object, instead of a component like in Unity.
+***** TODO Movement
+****** TODO Zoom
+****** TODO Lateral movement
+****** TODO Smoothing
+**** TODO Screen scaling
+The view needs to change accordingly to window resizes.
+*** UI
+*** Input
+**** TODO Keyboard
+A simple input system that allows to query for keys:
+- pressed (they are pressed this frame)
+- down (they are oressed this frame and they weren't the frame before)
+- up (they were pressed the frame before, but they aren't now)
+**** TODO Mouse
+***** TODO State
+Up, down, pressed
+***** TODO Position
+*** Physics
+

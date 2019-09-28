@@ -122,6 +122,9 @@ namespace sge {
             return handle_vector;
         }
 
+        /**
+         * /brief Remove all the doomed Components of this ComponentMemoryLayer
+    */
         template<class ComponentT>
         void ComponentMemoryLayer<ComponentT>::doom_pass() {
             LOG_DEBUG(25) << "Doom pass";

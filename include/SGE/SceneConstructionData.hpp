@@ -38,7 +38,7 @@ namespace sge {
          */
         const std::string name;
         /*!
-         * \brief A pointer to the Logic that will be injected in the newly created scene
+         * \brief A pointer to the Logic that will be injected in the initial gameobject of the newly created scene
          */
         Logic* initial_logic;
     };

@@ -32,12 +32,15 @@ unsigned int ObjectManager::get_scene_stack_size() {
     return scene_stack.size();
 }
 
+/**
+ * \brief Destroy the GameObjects and Components of the top Scene which are doomed (flagged for destruction)
+ */
 void ObjectManager::doom_pass() {
     // TODO optimization: right now the whole top scene array is scrolled, could save the index of doomed objects on doom and work with that
     LOG_DEBUG(15) << "Starting doom pass";
+    // Every component attached to the doomed gameobject is doomed before the actual doom passes
     for (auto & gameobj : (*gameobj_layers_stack.top().get_gameobjects_vector())) {
         if (gameobj.is_doomed()) {
-            // Every component attached to the doomed gameobject is doomed
             for (int id_index = 0; id_index < TOTAL_POSSIBLE_COMPONENTS; ++id_index) {
                 int unspecified_index = gameobj.m_components_mapped_array[id_index];
                 if (unspecified_index != -1) {
@@ -56,6 +59,8 @@ void ObjectManager::doom_pass() {
     for (int i = 0; i < TOTAL_POSSIBLE_COMPONENTS; ++i) {
         component_memory_array[i]->doom_pass();
     }
+
+    // Doom pass for the GameObjects
     gameobj_layers_stack.top().doom_pass();
 
     LOG_DEBUG(15) << "Doom pass terminated";

@@ -19,6 +19,9 @@ void sge::cmp::Rigidbody::set_body_type(b2BodyType body_type) {
     m_body->SetType(body_type);
 }
 
+/**
+ * \brief Updates this GameObject's position and rotation according to simulated body's position and rotation
+ */
 void sge::cmp::Rigidbody::update_transform() {
     auto position = m_body->GetPosition();
     gameobject()->transform()->set_local_position(position.x, position.y);

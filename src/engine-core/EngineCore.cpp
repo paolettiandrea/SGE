@@ -23,7 +23,7 @@ bool EngineCore::game_loop() {
     LOG_DEBUG(20) << "Game_loop is starting |" << object_manager.get_top_scene()->get_log_id()
                   << " | stack_size:" << object_manager.get_scene_stack_size() << " | delta_time:"<< m_delta_time;
 
-    // Physics
+    // PHYSICS: consume the accumulated time executing phisics steps
     double fixed_delta = physics_manager.fixed_delta_time();
     while (m_physics_time_accumulator > fixed_delta) {
         LOG_DEBUG(30) << "Fixed Update";
@@ -32,24 +32,30 @@ bool EngineCore::game_loop() {
         physics_manager.step(*object_manager.get_top_scene()->get_b2World());
         m_physics_time_accumulator -= fixed_delta;
     }
+    // Updates the GameObjects with Rigidbodies' position and rotation according to their simulated body
     physics_manager.update_transform();
 
 
     logic_manager.on_update();
 
+    // Destroys the GameObjects and Components
     object_manager.doom_pass();
 
     visual_debug_pass();
 
+    // RENDER
     window_manager.handle_window_events();
     window_manager.clear_window();
     window_manager.draw();
     window_manager.display();
 
-    object_manager.scene_pass();        // Where the scene is changed if requested during this loop
+    // Modify the Scene stack if requested during this loop
+    object_manager.scene_pass();
 
     m_frame_counter++;
+
     LOG_DEBUG(20) << "Game_loop ended";
+
     return true;
 }
 
