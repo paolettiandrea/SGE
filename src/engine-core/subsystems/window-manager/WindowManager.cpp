@@ -19,9 +19,15 @@ void WindowManager::handle_window_events() {
     sf::Event event;
     while (m_window.pollEvent(event))
     {
-        // "close requested" event: close the window
-        if (event.type == sf::Event::Closed)
-            m_window.close();
+
+        switch (event.type){
+            case sf::Event::Closed:
+                m_window.close();
+                break;
+            case sf::Event::Resized:
+                m_camera.set_ratio(((float)m_window.getSize().x)/m_window.getSize().y);
+                break;
+        }
     }
 
     // TEMP Just some temporary input to change the zoom
