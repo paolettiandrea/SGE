@@ -29,7 +29,8 @@ namespace sge::core {
                 : Loggable("ENGINE CORE")
                 , object_manager((IEnvironment*)this)
                 , window_manager (data.window)
-                , physics_manager(data.physics){  }
+                , physics_manager(data.physics){
+        }
 
 
     public:
@@ -63,8 +64,6 @@ namespace sge::core {
 
         void doom_top_scene() override;
 
-        Camera *get_camera() override;
-
         bool is_shutting_down() override;
 
         bool m_shutting_down_flag = false;
@@ -81,7 +80,7 @@ namespace sge::core {
 
         double m_delta_time = 0;
         double m_physics_time_accumulator = 0;
-        std::chrono::time_point<std::chrono::steady_clock> last_toop_start_time;
+        std::chrono::time_point<std::chrono::steady_clock> last_loop_start_time;
 
         void debug_draw_point(const sge::Vec2<float>& point, float duration, const std::string& label, unsigned int digits, sf::Color color) override;
         void debug_draw_line(const sge::Vec2<float>& point1, const sge::Vec2<float>& point2, float duration, const std::string& label, unsigned int digits, sf::Color color) override;

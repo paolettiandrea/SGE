@@ -15,8 +15,8 @@ bool EngineCore::game_loop() {
     using namespace std::chrono;
     // Calculate the elapsed time since the last transfer to the accumulator and add it to the accumulator
     time_point<steady_clock> temp_now = steady_clock::now();
-    duration<double, std::ratio<1>> duration_since_last_loop_start = steady_clock::now() - last_toop_start_time;
-    last_toop_start_time = temp_now;
+    duration<double, std::ratio<1>> duration_since_last_loop_start = steady_clock::now() - last_loop_start_time;
+    last_loop_start_time = temp_now;
     m_delta_time = duration_since_last_loop_start.count();
     m_physics_time_accumulator += duration_since_last_loop_start.count();
 
@@ -50,7 +50,10 @@ bool EngineCore::game_loop() {
     window_manager.display();
 
     // Modify the Scene stack if requested during this loop
-    object_manager.scene_pass();
+    bool scene_stack_modified = object_manager.scene_pass();
+    if (scene_stack_modified) {
+        window_manager.update_active_camera(object_manager.get_top_scene()->get_camera());
+    }
 
     m_frame_counter++;
 
@@ -61,8 +64,9 @@ bool EngineCore::game_loop() {
 
 void EngineCore::initialize(cd::SceneConstructionData& initial_scene_cd) {
     LOG_INFO << "Initialization started";
-    Scene* scene = object_manager.push_new_scene(&initial_scene_cd);
-    last_toop_start_time = std::chrono::steady_clock::now();
+    Scene* initial_scene = object_manager.push_new_scene(&initial_scene_cd);
+    last_loop_start_time = std::chrono::steady_clock::now();
+    window_manager.update_active_camera(initial_scene->get_camera());
     LOG_INFO << "Initialization completed";
 }
 
@@ -94,11 +98,6 @@ EngineCore::~EngineCore() {
                       << " scenes remaining in the stack, popping top " << object_manager.get_top_scene()->get_log_id();
         object_manager.pop_top_scene();
     }
-}
-
-
-sge::Camera* sge::core::EngineCore::get_camera() {
-    return &window_manager.m_camera;
 }
 
 bool sge::core::EngineCore::is_shutting_down() {

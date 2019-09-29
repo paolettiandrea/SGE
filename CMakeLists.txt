@@ -3,9 +3,9 @@ project(SGE)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_library(SGE STATIC)
+add_library(SGE STATIC src/engine-core/subsystems/input-manager/InputManager.cpp src/engine-core/subsystems/input-manager/InputManager.hpp)
 
-add_executable(tester tester/main.cpp tester/BoxSpawner.cpp tester/BoxSpawner.hpp tester/PhysicsBox.cpp tester/PhysicsBox.hpp tester/Wiggler.hpp tester/TestLogic.hpp tester/TestLogic.cpp tester/PhysicsCircle.cpp tester/PhysicsCircle.hpp tester/Box.hpp tester/PhysicsPolygon.cpp tester/PhysicsPolygon.hpp)
+add_executable(tester tester/main.cpp tester/BoxSpawner.cpp tester/BoxSpawner.hpp tester/PhysicsBox.cpp tester/PhysicsBox.hpp tester/Wiggler.hpp tester/TestLogic.hpp tester/TestLogic.cpp tester/PhysicsCircle.cpp tester/PhysicsCircle.hpp tester/Box.hpp tester/PhysicsPolygon.cpp tester/PhysicsPolygon.hpp tester/CameraControls.cpp tester/CameraControls.hpp)
 target_link_libraries(tester PUBLIC SGE)
 
 

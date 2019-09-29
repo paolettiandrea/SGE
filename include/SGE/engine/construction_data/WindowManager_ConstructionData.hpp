@@ -38,8 +38,6 @@ namespace sge::cd {
 
         sf::ContextSettings context_settings;
 
-        float view_vertical_size = 1000.f;
-
         bool fullscreen_on = true;
 
     };

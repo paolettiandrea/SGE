@@ -24,10 +24,10 @@ namespace sge {
     public:
         /*!
          * \brief Constructor ONLY TO BE USED INTERNALLY
-         * \param scene_construction_data The data containing all the user defined data needed for constuction
+         * \param scene_construction_data The class containing all the user defined data needed for constuction
          * \param _gameobject_memory_layer A pointer to the GameObjectMemoryLayer assigned to this Scene
          * \param _component_memory_layer_array A pointer to the ComponentMemoryLayer array assigned to this Scene
-         * \param _env A pointer to the IEnvironment
+         * \param _env A pointer to the IEnvironment, the internal interface of the engine core
          */
         explicit Scene(cd::SceneConstructionData *scene_construction_data, core::GameObjectMemoryLayer *_gameobject_memory_layer,
                        core::IComponentMemoryLayer **_component_memory_layer_array, IEnvironment *_env);
@@ -60,6 +60,8 @@ namespace sge {
         void doom_scene() {m_doomed_flag = true; }
         bool is_doomed() {return m_doomed_flag; }
 
+        Camera* get_camera();
+
 
     private:
         /*!
@@ -76,6 +78,7 @@ namespace sge {
          */
         IEnvironment* env_p;
         b2World* m_b2_world;
+        Camera m_camera;
 
         bool m_doomed_flag = false;
     };

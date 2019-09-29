@@ -6,6 +6,7 @@
 #include "Box.hpp"
 #include "SGE/components/physics/ICollider.hpp"
 #include "PhysicsPolygon.hpp"
+#include "CameraControls.hpp"
 
 
 std::string BoxSpawner::get_logic_type_id() {
@@ -19,6 +20,9 @@ void BoxSpawner::on_start() {
     cmp::Transform::visual_debug_general_switch = true;
     //cmp::PathRenderer::visual_debug_general_switch=true;
     cmp::ICollider::visual_debug_general_switch = true;
+
+
+    gameobject()->logichub()->attach_logic(new CameraControls(10, 1));
 
 
     auto polygon = scene()->spawn_gameobject("polygon");

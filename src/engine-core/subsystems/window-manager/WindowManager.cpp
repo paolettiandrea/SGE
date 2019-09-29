@@ -7,12 +7,10 @@ WindowManager::WindowManager(const cd::WindowManager_ConstructionData &data)
     , m_window(sf::VideoMode(data.window_width, data.window_height), data.window_title,sf::Style::Default, data.context_settings)
     , vertarray_component_creator("VertArray")
     , path_component_creator("PathRenderer")
-    , m_camera(((float)data.window_width)/data.window_height, data.view_vertical_size)
     , m_render_states(sf::Transform::Identity)
     {
     m_window.setPosition(sf::Vector2i(data.window_pos_x, data.window_pos_y));
     m_window.setVerticalSyncEnabled(data.vsync_on);
-    m_window.setView(m_camera.get_view());
 }
 
 void WindowManager::handle_window_events() {
@@ -25,23 +23,15 @@ void WindowManager::handle_window_events() {
                 m_window.close();
                 break;
             case sf::Event::Resized:
-                m_camera.set_ratio(((float)m_window.getSize().x)/m_window.getSize().y);
+                update_camera_ratio();
                 break;
         }
     }
 
-    // TEMP Just some temporary input to change the zoom
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Period)) {
-        m_camera.add_zoom(10.f);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Comma)) {
-        m_camera.add_zoom(-10.f);
-    }
-
     // If some property of the camera has changed another setView is needed (since it makes an internal copy)
-    if (m_camera.changed_view_flag) {
-        m_window.setView(m_camera.m_view);
-        m_camera.changed_view_flag = false;
+    if (active_camera->changed_view_flag) {
+        m_window.setView(active_camera->m_view);
+        active_camera->changed_view_flag = false;
     }
 }
 
@@ -63,4 +53,14 @@ void WindowManager::visual_debug_pass() {
             path_renderer->visual_debug_pass();
         }
     }
+}
+
+void WindowManager::update_camera_ratio() {
+    active_camera->set_ratio(((float)m_window.getSize().x) / m_window.getSize().y);
+}
+
+void WindowManager::update_active_camera(sge::Camera *new_active_camera) {
+    active_camera = new_active_camera;
+    update_camera_ratio();
+    m_window.setView(active_camera->get_view());
 }

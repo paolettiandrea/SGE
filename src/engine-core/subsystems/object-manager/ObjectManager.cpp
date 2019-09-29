@@ -67,11 +67,13 @@ void ObjectManager::doom_pass() {
 
 }
 
-void ObjectManager::scene_pass() {
+bool ObjectManager::scene_pass() {
     LOG_DEBUG(15) << "Starting scene pass";
+    bool scene_stack_modified=false;
     if (scene_stack.top().is_doomed()) {
         LOG_DEBUG(15) << "Popping the top scene (since pop_top_scene_flag == true)";
         pop_top_scene();
+        scene_stack_modified=true;
     }
     if (new_scene_construction_data != nullptr) {
         LOG_DEBUG(15) << "Pushing a new scene (since new_scene_construction_data != nullptr)";
@@ -79,8 +81,10 @@ void ObjectManager::scene_pass() {
         new_scene_construction_data = nullptr;          // It's nulled before the push so that there's no conflict
         push_new_scene(temp_pointer);                   // if during scene creation some logic wants to book a push
         delete( temp_pointer );
+        scene_stack_modified=true;
     }
     LOG_DEBUG(15) << "Ending scene pass";
+    return scene_stack_modified;
 }
 
 bool ObjectManager::book_scene_push(const std::string &name, Logic *initial_logic) {

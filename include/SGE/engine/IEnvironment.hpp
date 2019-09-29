@@ -50,8 +50,6 @@ namespace sge {
         virtual void debug_draw_path(sge::Path path, float duration=0, const std::string& label="", unsigned int decimals=0, sf::Color color=SGE_DEFAULT_DEBUG_COLOR) = 0;
         virtual void debug_draw_circle(sge::Vec2<float> center_pos, float radius, float duration=0, const std::string& label="", unsigned int decimals=0, sf::Color color=SGE_DEFAULT_DEBUG_COLOR) = 0;
         virtual void debug_draw_direction(sge::Vec2<float> from, sge::Vec2<float> to, float duration=0, sf::Color color=SGE_DEFAULT_DEBUG_COLOR) = 0;
-        virtual Camera* get_camera() = 0;
-
         virtual bool is_shutting_down() = 0;
     };
 

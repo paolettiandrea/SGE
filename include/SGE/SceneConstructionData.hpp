@@ -41,6 +41,10 @@ namespace sge {
          * \brief A pointer to the Logic that will be injected in the initial gameobject of the newly created scene
          */
         Logic* initial_logic;
+        /**
+         * \brief Defines the zoom of the camera by the game world units of vertical space that the Camera should show in a given moment
+         */
+        float camera_vertical_zoom = 10;
     };
     }
 

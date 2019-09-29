@@ -1,7 +1,3 @@
-//
-// Created by andrea on 5/3/19.
-//
-
 #ifndef SGE_WINDOWMANAGER_HPP
 #define SGE_WINDOWMANAGER_HPP
 
@@ -49,7 +45,7 @@ namespace sge {
              * \brief Exposes the display method of the managed window
              */
             void display() {
-                debug_shapes_manager.normalize_shapes_to_screen_size(m_camera.m_vertical_size);
+                debug_shapes_manager.normalize_shapes_to_screen_size(active_camera->m_vertical_size);
                 m_window.draw(debug_shapes_manager,sf::RenderStates::Default);
 
                 m_window.display();
@@ -63,6 +59,12 @@ namespace sge {
 
             void draw();
 
+            /**
+             * \brief Changes the active camera from the perspective of the window manager
+             * @param new_active_camera A pointer to the new active camera
+             */
+            void update_active_camera(Camera* new_active_camera);
+
 
         private:
             sf::RenderWindow m_window;
@@ -73,17 +75,14 @@ namespace sge {
             sf::RenderStates m_render_states;
 
             DebugShapesManager debug_shapes_manager;
-            Camera m_camera;
+            Camera* active_camera;
+
+
+            void update_camera_ratio();
         };
     }
 }
-
-
-
-
 #endif //SGE_WINDOWMANAGER_HPP
-
-
 
 
 

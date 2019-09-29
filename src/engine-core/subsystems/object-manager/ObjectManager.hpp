@@ -19,7 +19,7 @@ namespace sge {
 /*!
  * \brief The object that manages Scenes, but also indirectly GameObject and Component generation and distruction.
  */
-        class ObjectManager : public Subsystem {
+class ObjectManager : public Subsystem {
         public:
             explicit ObjectManager(IEnvironment* _env)
                     : Subsystem("OBJECT MANAGER")
@@ -60,8 +60,9 @@ namespace sge {
             void doom_pass();
             /*!
              * \brief Checks if the scene stack needs to be modified and act accordingly
+             * \return true if the scene stack was modified, false otherwise
              */
-            void scene_pass();
+            bool scene_pass();
 
             void visual_debug_pass() override;
 

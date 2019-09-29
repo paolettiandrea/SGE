@@ -42,11 +42,11 @@ int main() {
 
     sge::cd::Engine_ConstructionData engine_cd;
     engine_cd.window.vsync_on = true;
-    engine_cd.window.view_vertical_size = 30;
     sge::Engine engine (engine_cd);
 
 
     sge::cd::SceneConstructionData initial_scene_cd("Wiggle wiggle", new BoxSpawner());
+
     engine.initialize(initial_scene_cd);
 
     while (engine.game_loop()) {
