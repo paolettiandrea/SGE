@@ -8,6 +8,7 @@
 
 #include "ObjectManager.hpp"
 #include <chrono>
+#include <subsystems/input-manager/InputManager.hpp>
 #include "LogicManager.hpp"
 #include "Loggable.hpp"
 #include "IEnvironment.hpp"
@@ -29,7 +30,8 @@ namespace sge::core {
                 : Loggable("ENGINE CORE")
                 , object_manager((IEnvironment*)this)
                 , window_manager (data.window)
-                , physics_manager(data.physics){
+                , physics_manager(data.physics)
+                , input_manager(){
         }
 
 
@@ -75,6 +77,7 @@ namespace sge::core {
         LogicManager logic_manager;
         WindowManager window_manager;
         PhysicsManager physics_manager;
+        InputManager input_manager;
 
         unsigned int m_frame_counter = 0;
 
@@ -88,6 +91,21 @@ namespace sge::core {
         void debug_draw_circle(sge::Vec2<float> center_pos, float radius, float duration, const std::string& label, unsigned int decimals, sf::Color color) override;
 
         void debug_draw_direction(sge::Vec2<float> from, sge::Vec2<float> to, float duration, sf::Color color) override;
+
+        bool is_mouse_down(sf::Mouse::Button button) override;
+
+        bool is_mouse_released(sf::Mouse::Button button) override;
+
+        bool is_mouse_pressed(sf::Mouse::Button button) override;
+
+        bool is_key_down(sf::Keyboard::Key key) override;
+
+        bool is_key_pressed(sf::Keyboard::Key key) override;
+
+        bool is_key_released(sf::Keyboard::Key key) override;
+
+
+        void handle_events();
     };
 
 

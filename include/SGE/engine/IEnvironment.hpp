@@ -51,11 +51,55 @@ namespace sge {
         virtual void debug_draw_circle(sge::Vec2<float> center_pos, float radius, float duration=0, const std::string& label="", unsigned int decimals=0, sf::Color color=SGE_DEFAULT_DEBUG_COLOR) = 0;
         virtual void debug_draw_direction(sge::Vec2<float> from, sge::Vec2<float> to, float duration=0, sf::Color color=SGE_DEFAULT_DEBUG_COLOR) = 0;
         virtual bool is_shutting_down() = 0;
+
+        /**
+         * \brief Check if the given button is down this frame
+         * @param button The mouse button that needs to be checked
+         * @return true if down this frame, false if not down this frame
+         */
+        virtual bool is_mouse_down(sf::Mouse::Button button) = 0;
+        /**
+         * \brief Check if the given button was released this frame.
+         * \details For a button to be released this frame it must have been down the frame before
+         * and not down this one.
+         * @param button The mouse button that needs to be checked
+         * @return true if released this frame, false if not released this frame
+         */
+        virtual bool is_mouse_released(sf::Mouse::Button button) = 0;
+        /**
+         * \brief Check if the given button was pressed this frame.
+         * \details For a button to be pressed this frame it must have been not down the frame before
+         * and down this one.
+         * @param button The mouse button that needs to be checked
+         * @return true if pressed this frame, false if not pressed this frame
+         */
+        virtual bool is_mouse_pressed(sf::Mouse::Button button) = 0;
+
+        /**
+         * \brief Check if the given key is down this frame
+         * @param key The keyboard key that needs to be checked
+         * @return true if down this frame, false if not down this frame
+         */
+        virtual bool is_key_down(sf::Keyboard::Key key) = 0;
+
+        /**
+         * \brief Check if the given key was pressed this frame.
+         * \details For a key to be pressed this frame it must have been not down the frame before
+         * and down this one.
+         * @param key The keyboard key that needs to be checked
+         * @return true if pressed this frame, false if not pressed this frame
+         */
+        virtual bool is_key_pressed(sf::Keyboard::Key key) = 0;
+        /**
+         * \brief Check if the given key was released this frame.
+         * \details For a key to be released this frame it must have been down the frame before
+         * and not down this one.
+         * @param key The keyboard key that needs to be checked
+         * @return true if released this frame, false if not released this frame
+         */
+        virtual bool is_key_released(sf::Keyboard::Key key) = 0;
     };
 
 }
-
-
-
 
 #endif //SGE_IENVIRONMENT_HPP

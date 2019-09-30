@@ -29,11 +29,35 @@ namespace sge {
              */
             bool is_mouse_released(sf::Mouse::Button button);
             bool is_mouse_pressed(sf::Mouse::Button button);
+            void print_mousemaps();
+
+
 
             bool is_key_down(sf::Keyboard::Key key);
             bool is_key_pressed(sf::Keyboard::Key key);
             bool is_key_released(sf::Keyboard::Key key);
 
+            /**
+             * \brief Resets the volatile properties, meaning the ones that last only one frame (pressed and released).
+             */
+            void reset_volatile();
+
+            void print_keymaps();
+
+            void pressed_key_callback(sf::Keyboard::Key key);
+            void released_key_callback(sf::Keyboard::Key key);
+            void pressed_mouse_callback(sf::Mouse::Button button);
+            void released_mouse_callback(sf::Mouse::Button button);
+
+
+        private:
+            bool down_keymap[sf::Keyboard::KeyCount] = {false};
+            bool pressed_keymap[sf::Keyboard::KeyCount] = {false};
+            bool released_keymap[sf::Keyboard::KeyCount] = {false};
+
+            bool down_mousemap[sf::Mouse::ButtonCount] = {false};
+            bool pressed_mousemap[sf::Mouse::ButtonCount] = {false};
+            bool released_mousemap[sf::Mouse::ButtonCount] = {false};
         };
     }
 }

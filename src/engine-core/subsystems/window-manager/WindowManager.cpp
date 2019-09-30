@@ -13,20 +13,8 @@ WindowManager::WindowManager(const cd::WindowManager_ConstructionData &data)
     m_window.setVerticalSyncEnabled(data.vsync_on);
 }
 
-void WindowManager::handle_window_events() {
-    sf::Event event;
-    while (m_window.pollEvent(event))
-    {
+void WindowManager::prepare_render() {
 
-        switch (event.type){
-            case sf::Event::Closed:
-                m_window.close();
-                break;
-            case sf::Event::Resized:
-                update_camera_ratio();
-                break;
-        }
-    }
 
     // If some property of the camera has changed another setView is needed (since it makes an internal copy)
     if (active_camera->changed_view_flag) {
@@ -64,3 +52,4 @@ void WindowManager::update_active_camera(sge::Camera *new_active_camera) {
     update_camera_ratio();
     m_window.setView(active_camera->get_view());
 }
+

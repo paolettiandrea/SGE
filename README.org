@@ -25,7 +25,7 @@ A custom log system that displays some useful info about who the log comes from.
 *** Visual
 **** Camera
 This engine supports only one camera, which is an engine object, instead of a component like in Unity.
-***** TODO Movement
+***** DONE Movement
 ****** TODO Zoom
 ****** TODO Lateral movement
 ****** TODO Smoothing

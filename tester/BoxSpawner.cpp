@@ -103,5 +103,8 @@ void BoxSpawner::on_update() {
 
 m_increaser += env()->fixed_delta_time();
 
+
+if (env()->is_key_pressed(sf::Keyboard::K))
+    LOG_INFO << "yooo";
 }
 

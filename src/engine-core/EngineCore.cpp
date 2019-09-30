@@ -13,7 +13,7 @@ bool EngineCore::game_loop() {
     if (object_manager.get_scene_stack_size()==0 || !window_manager.window_is_open()) return false;
 
     using namespace std::chrono;
-    // Calculate the elapsed time since the last transfer to the accumulator and add it to the accumulator
+    // Calculate the elapsed time since the last start of the game loop and add it to the accumulator
     time_point<steady_clock> temp_now = steady_clock::now();
     duration<double, std::ratio<1>> duration_since_last_loop_start = steady_clock::now() - last_loop_start_time;
     last_loop_start_time = temp_now;
@@ -22,6 +22,12 @@ bool EngineCore::game_loop() {
 
     LOG_DEBUG(20) << "Game_loop is starting |" << object_manager.get_top_scene()->get_log_id()
                   << " | stack_size:" << object_manager.get_scene_stack_size() << " | delta_time:"<< m_delta_time;
+
+    // INPUT: update the mouse and keyboard maps
+    input_manager.reset_volatile();
+    handle_events();
+
+    input_manager.print_keymaps();
 
     // PHYSICS: consume the accumulated time executing phisics steps
     double fixed_delta = physics_manager.fixed_delta_time();
@@ -44,7 +50,7 @@ bool EngineCore::game_loop() {
     visual_debug_pass();
 
     // RENDER
-    window_manager.handle_window_events();
+    window_manager.prepare_render();
     window_manager.clear_window();
     window_manager.draw();
     window_manager.display();
@@ -52,6 +58,8 @@ bool EngineCore::game_loop() {
     // Modify the Scene stack if requested during this loop
     bool scene_stack_modified = object_manager.scene_pass();
     if (scene_stack_modified) {
+        if (object_manager.get_scene_stack_size()==0) return false;
+        // Since the scene stack was modified update the pointer to the active camera for the window manager
         window_manager.update_active_camera(object_manager.get_top_scene()->get_camera());
     }
 
@@ -62,6 +70,7 @@ bool EngineCore::game_loop() {
     return true;
 }
 
+
 void EngineCore::initialize(cd::SceneConstructionData& initial_scene_cd) {
     LOG_INFO << "Initialization started";
     Scene* initial_scene = object_manager.push_new_scene(&initial_scene_cd);
@@ -71,24 +80,28 @@ void EngineCore::initialize(cd::SceneConstructionData& initial_scene_cd) {
 }
 
 
-
 //region IEnvironment definitions
+
 
 double EngineCore::delta_time() {
     return m_delta_time;
 }
 
+
 bool EngineCore::book_new_scene_push(const std::string &name, Logic *initial_logic) {
     return object_manager.book_scene_push(name, initial_logic);
 }
+
 
 void EngineCore::doom_top_scene() {
     object_manager.doom_top_scene();
 }
 
+
 unsigned int EngineCore::frame_count() {
     return  m_frame_counter;
 }
+
 
 EngineCore::~EngineCore() {
     m_shutting_down_flag = true;
@@ -100,40 +113,102 @@ EngineCore::~EngineCore() {
     }
 }
 
+
 bool sge::core::EngineCore::is_shutting_down() {
     return m_shutting_down_flag;
 }
+
 
 double sge::core::EngineCore::fixed_delta_time() {
     return physics_manager.fixed_delta_time();
 }
 
+
 void sge::core::EngineCore::debug_draw_point(const sge::Vec2<float>& point, float duration, const std::string& label, unsigned int digits, sf::Color color) {
     window_manager.debug_shapes_manager.add_debug_shape(new sge::debug::PointDebugShape(point.x,point.y,duration,label,digits,color));
 }
+
 
 void sge::core::EngineCore::debug_draw_line(const sge::Vec2<float>& point1, const sge::Vec2<float>& point2, float duration, const std::string& label, unsigned int digits, sf::Color color) {
     window_manager.debug_shapes_manager.add_debug_shape(new debug::LineDebugShape(point1.x,point1.y,point2.x,point2.y,duration,digits,label,color));
 }
 
+
 void sge::core::EngineCore::debug_draw_path(sge::Path path, float duration, const std::string& label, unsigned int decimals, sf::Color color) {
     window_manager.debug_shapes_manager.add_debug_shape(new debug::PathDebugShape(path,duration,label,decimals,color));
 }
 
+
 void sge::core::EngineCore::debug_draw_circle(sge::Vec2<float> center_pos, float radius, float duration, const std::string& label, unsigned int decimals, sf::Color color) {
     window_manager.debug_shapes_manager.add_debug_shape(new debug::CircleDebugShape(center_pos,radius,duration,label,decimals,color));
 }
+
 
 void sge::core::EngineCore::debug_draw_direction(sge::Vec2<float> from, sge::Vec2<float> to, float duration, sf::Color color) {
     window_manager.debug_shapes_manager.add_debug_shape(new debug::DirectionDebugShape(from,to,duration,color));
 
 }
 
+
 void sge::core::EngineCore::visual_debug_pass() {
     object_manager.visual_debug_pass();
     logic_manager.visual_debug_pass();
     window_manager.visual_debug_pass();
     physics_manager.visual_debug_pass();
+}
+
+bool sge::core::EngineCore::is_mouse_down(sf::Mouse::Button button) {
+    return input_manager.is_mouse_down(button);
+}
+
+bool sge::core::EngineCore::is_mouse_released(sf::Mouse::Button button) {
+    return input_manager.is_mouse_released(button);
+}
+
+bool sge::core::EngineCore::is_mouse_pressed(sf::Mouse::Button button) {
+    return input_manager.is_mouse_pressed(button);
+}
+
+bool sge::core::EngineCore::is_key_down(sf::Keyboard::Key key) {
+    return input_manager.is_key_down(key);
+}
+
+bool sge::core::EngineCore::is_key_pressed(sf::Keyboard::Key key) {
+    return input_manager.is_key_pressed(key);
+}
+
+bool sge::core::EngineCore::is_key_released(sf::Keyboard::Key key) {
+    return input_manager.is_key_released(key);
+}
+
+void sge::core::EngineCore::handle_events() {
+    sf::Event event;
+    while (window_manager.m_window.pollEvent(event))
+    {
+
+        switch (event.type){
+            case sf::Event::Closed:
+                window_manager.m_window.close();
+                break;
+            case sf::Event::Resized:
+                window_manager.update_camera_ratio();
+                break;
+
+            // Input events (mouse and keyboard presses and releases)
+            case sf::Event::MouseButtonPressed:
+                input_manager.pressed_mouse_callback(event.mouseButton.button);
+                break;
+            case sf::Event::MouseButtonReleased:
+                input_manager.released_mouse_callback(event.mouseButton.button);
+                break;
+            case sf::Event::KeyPressed:
+                input_manager.pressed_key_callback(event.key.code);
+                break;
+            case sf::Event::KeyReleased:
+                input_manager.released_key_callback(event.key.code);
+        }
+    }
+
 }
 //endregion
 
