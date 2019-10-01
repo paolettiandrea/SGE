@@ -1,14 +1,13 @@
 #include <iostream>
 #include "SGE/engine/Engine.hpp"
-#include "BoxSpawner.hpp"
-#include "Wiggler.hpp"
-#include "TestLogic.hpp"
+#include "old-test-logic/BoxSpawner.hpp"
+#include "old-test-logic/Wiggler.hpp"
+#include "old-test-logic/TestLogic.hpp"
 #include <unistd.h>
 #include "SFML/Graphics.hpp"
-#include "PhysicsBox.hpp"
+#include "old-test-logic/PhysicsBox.hpp"
 #include "SGE/utils/Matrix2D.hpp"
-
-
+#include "phisics-sandbox-logic/PhysicsSandboxEntry.hpp"
 
 
 int main() {
@@ -45,7 +44,7 @@ int main() {
     sge::Engine engine (engine_cd);
 
 
-    sge::cd::SceneConstructionData initial_scene_cd("Wiggle wiggle", new BoxSpawner());
+    sge::cd::SceneConstructionData initial_scene_cd("Wiggle wiggle", new PhysicsSandboxEntry());
 
     engine.initialize(initial_scene_cd);
 

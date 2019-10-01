@@ -1,7 +1,3 @@
-//
-// Created by andrea on 29/09/19.
-//
-
 #ifndef SGE_INPUTMANAGER_HPP
 #define SGE_INPUTMANAGER_HPP
 
@@ -18,17 +14,14 @@ namespace sge {
         public:
             InputManager();
 
-            /**
-             * \brief Check if the button is pressed this frame
-             * \param button The mouse button that needs to be checked
-             */
+
             bool is_mouse_down(sf::Mouse::Button button);
-            /**
-             * Check if the button was released this frame (it was pressed the frame before and now it's not)
-             * @param button
-             */
             bool is_mouse_released(sf::Mouse::Button button);
             bool is_mouse_pressed(sf::Mouse::Button button);
+
+            /**
+             * \brief Prints the three mouse button maps (down/pressed/released)
+             */
             void print_mousemaps();
 
 
@@ -42,8 +35,12 @@ namespace sge {
              */
             void reset_volatile();
 
+            /**
+             * \brief Prints the three keyboard maps (down/pressed/released)
+             */
             void print_keymaps();
 
+            // Callbacks for the sfml events to use at the start of the game loop
             void pressed_key_callback(sf::Keyboard::Key key);
             void released_key_callback(sf::Keyboard::Key key);
             void pressed_mouse_callback(sf::Mouse::Button button);

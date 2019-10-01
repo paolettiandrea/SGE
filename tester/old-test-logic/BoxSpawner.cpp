@@ -5,7 +5,7 @@
 #include "PhysicsCircle.hpp"
 #include "Box.hpp"
 #include "SGE/components/physics/ICollider.hpp"
-#include "PhysicsPolygon.hpp"
+#include "../phisics-sandbox-logic/PhysicsPolygon.hpp"
 #include "CameraControls.hpp"
 
 

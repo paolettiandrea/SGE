@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(SGE STATIC src/engine-core/subsystems/input-manager/InputManager.cpp src/engine-core/subsystems/input-manager/InputManager.hpp)
 
-add_executable(tester tester/main.cpp tester/BoxSpawner.cpp tester/BoxSpawner.hpp tester/PhysicsBox.cpp tester/PhysicsBox.hpp tester/Wiggler.hpp tester/TestLogic.hpp tester/TestLogic.cpp tester/PhysicsCircle.cpp tester/PhysicsCircle.hpp tester/Box.hpp tester/PhysicsPolygon.cpp tester/PhysicsPolygon.hpp tester/CameraControls.cpp tester/CameraControls.hpp)
+add_executable(tester tester/main.cpp tester/old-test-logic/BoxSpawner.cpp tester/old-test-logic/BoxSpawner.hpp tester/old-test-logic/PhysicsBox.cpp tester/old-test-logic/PhysicsBox.hpp tester/old-test-logic/Wiggler.hpp tester/old-test-logic/TestLogic.hpp tester/old-test-logic/TestLogic.cpp tester/old-test-logic/PhysicsCircle.cpp tester/old-test-logic/PhysicsCircle.hpp tester/old-test-logic/Box.hpp tester/phisics-sandbox-logic/PhysicsPolygon.cpp tester/phisics-sandbox-logic/PhysicsPolygon.hpp tester/old-test-logic/CameraControls.cpp tester/old-test-logic/CameraControls.hpp tester/phisics-sandbox-logic/PhysicsSandboxEntry.cpp tester/phisics-sandbox-logic/PhysicsSandboxEntry.hpp tester/phisics-sandbox-logic/StaticPolygon.cpp tester/phisics-sandbox-logic/StaticPolygon.hpp)
 target_link_libraries(tester PUBLIC SGE)
 
 

@@ -23,11 +23,9 @@ bool EngineCore::game_loop() {
     LOG_DEBUG(20) << "Game_loop is starting |" << object_manager.get_top_scene()->get_log_id()
                   << " | stack_size:" << object_manager.get_scene_stack_size() << " | delta_time:"<< m_delta_time;
 
-    // INPUT: update the mouse and keyboard maps
+    // EVENTS
     input_manager.reset_volatile();
     handle_events();
-
-    input_manager.print_keymaps();
 
     // PHYSICS: consume the accumulated time executing phisics steps
     double fixed_delta = physics_manager.fixed_delta_time();
