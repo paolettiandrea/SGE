@@ -10,10 +10,6 @@
 using sge::cmp::PathRenderer;
 using sge::Vec2;
 
-bool sge::cmp::PathRenderer::visual_debug_general_switch = false;
-bool sge::cmp::PathRenderer::visual_debug_show_path = true;
-bool sge::cmp::PathRenderer::visual_debug_show_triangle_strip = false;
-
 PathRenderer::PathRenderer(const utils::Handle<sge::GameObject> &_gameobject)
         : Component(_gameobject, "PathRenderer") {
 
@@ -296,19 +292,18 @@ void sge::cmp::PathRenderer::set_path_as_circle(float radius, unsigned int segme
     set_path(path);
 }
 
-void sge::cmp::PathRenderer::visual_debug_pass() {
+void sge::cmp::PathRenderer::visual_debug_draw_path() {
     clean_pass();
-    if(visual_debug_show_triangle_strip) {
-        Path temp_path;
-        for (int i = 0; i < m_vert_array.getVertexCount(); ++i) {
-            temp_path.append_point(sge::Vec2<float>(m_vert_array[i].position.x, m_vert_array[i].position.y));
-        }
-        gameobject()->get_scene()->env()->debug_draw_path(temp_path,0,"",0);
-    }
+    gameobject()->get_scene()->env()->debug_draw_path(m_world_path,0,"",0,sf::Color(42,199,69));
+}
 
-    if (visual_debug_show_path) {
-        gameobject()->get_scene()->env()->debug_draw_path(m_world_path,0,"",0,sf::Color(42,199,69));
+void sge::cmp::PathRenderer::visual_debug_draw_triangle_strip() {
+    clean_pass();
+    Path temp_path;
+    for (int i = 0; i < m_vert_array.getVertexCount(); ++i) {
+        temp_path.append_point(sge::Vec2<float>(m_vert_array[i].position.x, m_vert_array[i].position.y));
     }
+    gameobject()->get_scene()->env()->debug_draw_path(temp_path,0,"",0);
 }
 
 

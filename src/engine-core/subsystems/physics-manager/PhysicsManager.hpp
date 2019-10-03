@@ -27,12 +27,16 @@ namespace sge::core {
 
         void visual_debug_pass() override;
 
+        void toggle_visual_debug_collider();
+
     private:
         ComponentCreator<cmp::Rigidbody> m_rigidbody_component_creator;
         ComponentCreator<cmp::BoxCollider> m_box_collider_component_creator;
         ComponentCreator<cmp::CircleCollider> m_circle_collider_component_creator;
         ComponentCreator<cmp::PolygonCollider> m_polygon_collider_componet_creator;
         double m_fixed_delta_time;
+
+        bool visual_debug_collider_switch = false;
     };
 
 }

@@ -19,7 +19,7 @@ namespace sge {
             void set_center_offset(sge::Vec2<float> new_pos);
             sge::Vec2<float> get_center_offset();
 
-            void visual_debug_pass() override;
+            void visual_debug_draw_collider() override;
 
         protected:
             void clean_shape() override;

@@ -27,7 +27,8 @@ namespace sge::cmp {
 
         explicit Transform(const utils::Handle<GameObject> &gameobject);
 
-        void visual_debug_pass() override;
+        void visual_debug_draw_transform();
+        void visual_debug_draw_names();
 
         //region Hierarchy management
         /*!
@@ -43,9 +44,6 @@ namespace sge::cmp {
         void remove_child(utils::Handle<Transform> target_child);
         std::list<utils::Handle<Transform>> get_children_list();
         //endregion
-
-        static bool visual_debug_general_switch;
-        static bool visual_debug_show_names;
 
         //region Spacial
 

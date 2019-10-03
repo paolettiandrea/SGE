@@ -39,16 +39,21 @@ void sge::core::PhysicsManager::clean_pass() {
 }
 
 void sge::core::PhysicsManager::visual_debug_pass() {
-    if (cmp::ICollider::visual_debug_general_switch) {
+    if (visual_debug_collider_switch) {
         for (auto circle_collider : m_circle_collider_component_creator.get_top_layer()->get_component_vector()) {
-            circle_collider->visual_debug_pass();
+            circle_collider->visual_debug_draw_collider();
         }
         for (auto box_collider : m_box_collider_component_creator.get_top_layer()->get_component_vector()) {
-            box_collider->visual_debug_pass();
+            box_collider->visual_debug_draw_collider();
         }
         for (auto polygon_collider : m_polygon_collider_componet_creator.get_top_layer()->get_component_vector()) {
-            polygon_collider->visual_debug_pass();
+            polygon_collider->visual_debug_draw_collider();
         }
     }
 
+}
+
+void sge::core::PhysicsManager::toggle_visual_debug_collider() {
+    visual_debug_collider_switch = !visual_debug_collider_switch;
+    LOG_DEBUG(1) << "Toggled visual debug for Colliders -> " << visual_debug_collider_switch;
 }

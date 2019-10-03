@@ -147,7 +147,6 @@ void sge::core::EngineCore::debug_draw_direction(sge::Vec2<float> from, sge::Vec
 
 }
 
-
 void sge::core::EngineCore::visual_debug_pass() {
     object_manager.visual_debug_pass();
     logic_manager.visual_debug_pass();
@@ -206,6 +205,20 @@ void sge::core::EngineCore::handle_events() {
                 input_manager.released_key_callback(event.key.code);
         }
     }
+
+
+    // VISUAL DEBUG toggles
+#if DEBUG
+    if (input_manager.is_key_down(sf::Keyboard::LShift) || input_manager.is_key_down(sf::Keyboard::RShift)){
+        if (input_manager.is_key_pressed(sf::Keyboard::T)) object_manager.toggle_visual_debug_transform();
+        if (input_manager.is_key_pressed(sf::Keyboard::N)) object_manager.toggle_visual_debug_names();
+
+        if (input_manager.is_key_pressed(sf::Keyboard::P)) window_manager.toggle_visual_debug_path();
+        if (input_manager.is_key_pressed(sf::Keyboard::S)) window_manager.toggle_visual_debug_triangle_strip();
+
+        if (input_manager.is_key_pressed(sf::Keyboard::C)) physics_manager.toggle_visual_debug_collider();
+    }
+#endif
 
 }
 //endregion

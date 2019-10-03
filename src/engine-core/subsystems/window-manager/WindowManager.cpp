@@ -36,9 +36,15 @@ void WindowManager::draw() {
 }
 
 void WindowManager::visual_debug_pass() {
-    if (cmp::PathRenderer::visual_debug_general_switch) {
+    if (visual_debug_path_switch) {
         for (auto path_renderer : path_component_creator.get_top_layer()->get_component_vector()) {
-            path_renderer->visual_debug_pass();
+            path_renderer->visual_debug_draw_path();
+        }
+    }
+
+    if (visual_debug_triangle_strip_switch) {
+        for (auto path_renderer : path_component_creator.get_top_layer()->get_component_vector()) {
+            path_renderer->visual_debug_draw_triangle_strip();
         }
     }
 }

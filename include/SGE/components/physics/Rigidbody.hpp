@@ -28,7 +28,7 @@ namespace sge {
             void set_body_type(b2BodyType body_type);
 
             /*!
-             * \brief Get the body type of this Rigidbody
+             * \brief Get the b2 body of this Rigidbody
              */
             b2Body* get_b2_body() { return m_body; }
 

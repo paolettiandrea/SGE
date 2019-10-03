@@ -54,12 +54,8 @@ namespace sge {
              */
             void doom();
 
-
-            virtual void visual_debug_pass() {}
-
         private:
             utils::Handle<sge::GameObject> gameobject_handle;
-
             bool is_doomed_flag = false;
 
             template <class T>

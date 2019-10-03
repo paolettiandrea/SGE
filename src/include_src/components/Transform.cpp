@@ -7,9 +7,6 @@
 using sge::cmp::Transform;
 using utils::Handle;
 
-bool sge::cmp::Transform::visual_debug_general_switch = false;
-bool sge::cmp::Transform::visual_debug_show_names = false;
-
 
 Transform::Transform(const Handle<GameObject> &gameobject)
     : Component(gameobject, "Transform")
@@ -212,12 +209,16 @@ float sge::cmp::Transform::get_world_rotation_euler() {
 }
 
 
-void sge::cmp::Transform::visual_debug_pass() {
+void sge::cmp::Transform::visual_debug_draw_transform() {
     auto env_h = gameobject()->get_scene()->env();
     env_h->debug_draw_direction(m_world_position_vector, local_to_world_point(sge::Vec2<float>(0,1)),0.f,sf::Color(199,19,29));
     env_h->debug_draw_direction(m_world_position_vector, local_to_world_point(sge::Vec2<float>(1,0)), 0.f, sf::Color(199,193,23));
-    if (visual_debug_show_names)
-        env_h->debug_draw_point(m_world_position_vector,0.f,gameobject()->get_log_id(),0,sf::Color(200,200,200));
+
+}
+
+void sge::cmp::Transform::visual_debug_draw_names() {
+    gameobject()->get_scene()->env()->debug_draw_point(m_world_position_vector,0.f,
+            gameobject()->get_log_id(),0,sf::Color(200,200,200));
 }
 
 

@@ -39,7 +39,6 @@ namespace sge {
                 placeholder_shape.m_radius = 1.f;
                 def.shape = &placeholder_shape;
 
-                clean_rigidbody();
                 m_fixture = m_rigidbody->get_b2_body()->CreateFixture(&def);
             }
 
@@ -57,7 +56,7 @@ namespace sge {
             bool m_dirty_fixture_shape = true;
 
 
-            void  update_shape(b2Shape* shape) {
+            void  set_shape(b2Shape* shape) {
                 b2FixtureDef def;
                 def.density = m_fixture->GetDensity();
                 def.restitution = m_fixture->GetRestitution();
@@ -67,6 +66,8 @@ namespace sge {
                 def.shape = shape;
                 m_fixture = m_rigidbody->get_b2_body()->CreateFixture(&def);
             }
+
+            virtual void visual_debug_draw_collider() = 0;
 
             virtual void clean_shape() = 0;
 

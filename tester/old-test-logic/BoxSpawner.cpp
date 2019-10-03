@@ -17,11 +17,6 @@ void BoxSpawner::on_start() {
     LOG(10) << "on_start";
 
 
-    cmp::Transform::visual_debug_general_switch = true;
-    //cmp::PathRenderer::visual_debug_general_switch=true;
-    cmp::ICollider::visual_debug_general_switch = true;
-
-
     gameobject()->logichub()->attach_logic(new CameraControls(10, 1));
 
 

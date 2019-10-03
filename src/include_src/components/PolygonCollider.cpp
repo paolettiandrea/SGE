@@ -21,7 +21,7 @@ void sge::cmp::PolygonCollider::clean_shape() {
     poly_shape.Set(vertices, m_path.get_size());
     poly_shape.m_centroid.SetZero();
 
-    update_shape(&poly_shape);
+    set_shape(&poly_shape);
 
     m_dirty_fixture_shape = false;
 }
@@ -31,7 +31,7 @@ void sge::cmp::PolygonCollider::set_path(sge::Path path) {
     m_dirty_fixture_shape = true;
 }
 
-void sge::cmp::PolygonCollider::visual_debug_pass() {
+void sge::cmp::PolygonCollider::visual_debug_draw_collider() {
     Path world_path;
     for (int i = 0; i < m_path.get_size(); ++i) {
         world_path.append_point(gameobject()->transform()->local_to_world_point(m_path[i]));

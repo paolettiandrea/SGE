@@ -15,7 +15,7 @@ void sge::cmp::BoxCollider::clean_shape() {
     shape.SetAsBox(m_width/2*world_scale.x, m_height/2*world_scale.y);
 
 
-    update_shape(&shape);
+    set_shape(&shape);
     m_dirty_fixture_shape = false;
 }
 
@@ -33,6 +33,6 @@ float sge::cmp::BoxCollider::get_height() { return m_height; }
 
 float sge::cmp::BoxCollider::get_width() { return m_width; }
 
-void sge::cmp::BoxCollider::visual_debug_pass() {
-
+void sge::cmp::BoxCollider::visual_debug_draw_collider() {
+    // TODO
 }

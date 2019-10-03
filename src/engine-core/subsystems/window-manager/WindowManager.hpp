@@ -78,13 +78,20 @@ namespace sge {
              */
             void update_active_camera(Camera* new_active_camera);
 
+            void toggle_visual_debug_triangle_strip(){
+                visual_debug_triangle_strip_switch = ! visual_debug_triangle_strip_switch;
+                LOG_DEBUG(1) << "Toggled visual debug for triangle strips ->" << visual_debug_triangle_strip_switch;
+            }
+
+            void toggle_visual_debug_path(){
+                visual_debug_path_switch = ! visual_debug_path_switch;
+                LOG_DEBUG(1) << "Toggled visual debug for paths ->" << visual_debug_triangle_strip_switch;
+
+            }
+
 
         private:
             sf::RenderWindow m_window;
-        public:
-            sf::RenderWindow &get_window() const;
-
-        private:
 
             ComponentCreator<cmp::VertArray> vertarray_component_creator;
             ComponentCreator<cmp::PathRenderer> path_component_creator;
@@ -96,6 +103,10 @@ namespace sge {
 
 
             void update_camera_ratio();
+
+
+            bool visual_debug_triangle_strip_switch = false;
+            bool visual_debug_path_switch = false;
         };
     }
 }

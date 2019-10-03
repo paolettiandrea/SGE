@@ -111,10 +111,26 @@ ObjectManager::~ObjectManager() {
 
 void sge::core::ObjectManager::visual_debug_pass() {
     Subsystem::visual_debug_pass();
-    if (cmp::Transform::visual_debug_general_switch) {
+    if (visual_debug_transform_switch) {
         for (auto trans : transform_creator.get_top_layer()->get_component_vector()) {
-            trans->visual_debug_pass();
+            trans->visual_debug_draw_transform();
         }
     }
 
+    if (visual_debug_names_switch) {
+        for (auto trans : transform_creator.get_top_layer()->get_component_vector()) {
+            trans->visual_debug_draw_names();
+        }
+    }
+
+}
+
+void sge::core::ObjectManager::toggle_visual_debug_transform() {
+    visual_debug_transform_switch = !visual_debug_transform_switch;
+    LOG_DEBUG(1) << "Toggled visual debug for Transforms -> " << visual_debug_transform_switch;
+}
+
+void sge::core::ObjectManager::toggle_visual_debug_names() {
+    visual_debug_names_switch = !visual_debug_names_switch;
+    LOG_DEBUG(1) << "Toggled visual debug for Gameobject names -> " << visual_debug_transform_switch;
 }

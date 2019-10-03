@@ -26,7 +26,7 @@ void PhysicsSandboxEntry::on_start() {
     path1.append_point(sge::Vec2<float> (-10, -5));
     path1.set_closed(true);
     auto static_wall = scene()->spawn_gameobject("Static wall 1");
-    static_wall->transform()->set_local_position(10, 0);
+    static_wall->transform()->set_local_position(-10, 0);
     static_wall->logichub()->attach_logic(new StaticPolygon(path1));
 
 
@@ -34,4 +34,8 @@ void PhysicsSandboxEntry::on_start() {
 
     gameobject()->logichub()->attach_logic(new CameraControls(10, 1));
 
+}
+
+void PhysicsSandboxEntry::on_update() {
+    Logic::on_update();
 }

@@ -17,7 +17,7 @@ void sge::cmp::CircleCollider::clean_shape() {
         exit(1);
     }
 
-    update_shape(&shape);
+    set_shape(&shape);
     m_dirty_fixture_shape = false;
 }
 
@@ -42,6 +42,6 @@ void sge::cmp::CircleCollider::set_center_offset(sge::Vec2<float> new_pos) {
 
 sge::Vec2<float> sge::cmp::CircleCollider::get_center_offset() { return  m_local_center_offset; }
 
-void sge::cmp::CircleCollider::visual_debug_pass() {
+void sge::cmp::CircleCollider::visual_debug_draw_collider() {
     gameobject()->get_scene()->env()->debug_draw_circle(gameobject()->transform()->local_to_world_point(m_local_center_offset),m_radius*gameobject()->transform()->get_world_scale().x,0.f,"",0);
 }

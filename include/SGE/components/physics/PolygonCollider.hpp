@@ -18,7 +18,7 @@ namespace sge::cmp {
 
         void set_path(sge::Path path);
 
-        void visual_debug_pass() override;
+        void visual_debug_draw_collider() override;
 
     protected:
         void clean_shape() override;

@@ -82,10 +82,14 @@ class ObjectManager : public Subsystem {
             cd::SceneConstructionData* new_scene_construction_data = nullptr;
 
 
+            bool visual_debug_transform_switch = false;
+            bool visual_debug_names_switch = false;
+public:
+    void toggle_visual_debug_transform();
+    void toggle_visual_debug_names();
 
 
-
-        };
+};
     }
 }
 
