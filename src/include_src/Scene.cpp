@@ -22,8 +22,7 @@ Scene::Scene(cd::SceneConstructionData *scene_construction_data, GameObjectMemor
                 component_memory_layer_array[i] = _component_memory_layer_array[i];
             }
 
-            b2Vec2 gravity (0,-10.f);
-
+            b2Vec2 gravity (scene_construction_data->gravity.x,scene_construction_data->gravity.y);
             m_b2_world = new b2World(gravity);
 
             auto initial_gameobj = spawn_gameobject("Initial GameObject");

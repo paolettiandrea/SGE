@@ -21,7 +21,7 @@ namespace sge {
          */
         class GameObjectMemoryLayer : public utils::log::Loggable {
         public:
-            explicit GameObjectMemoryLayer(unsigned int initial_reserved_spaces = 2);  // TODO: change default to a reasonable number
+            explicit GameObjectMemoryLayer(unsigned int initial_reserved_spaces = 16);  // TODO: change default to a reasonable number
             /*!
              * \brief Creates a new GameObject in this memory layer
              * \return a handle to the created GameObject

@@ -10,6 +10,12 @@ public:
     void on_start() override;
 
     void on_update() override;
+
+private:
+    void spawn_bouncer(const std::string& name);
+
+    float accumulator;
+    int bouncer_counter;
 };
 
 

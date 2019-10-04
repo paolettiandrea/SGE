@@ -16,9 +16,8 @@ namespace sge {
          */
         class LogicHub : public Component<LogicHub>, public ILogicCallbacks {
         public:
-            LogicHub(const utils::Handle<GameObject> &gameobject);
+            explicit LogicHub(const utils::Handle<GameObject> &gameobject);
 
-            virtual ~LogicHub();
             /*!
              * \brief Attaches a new Logic object to this LogicHub, making it the owner of the Logic
              * \param new_logic A pointer to the new Logic object
@@ -59,8 +58,17 @@ namespace sge {
             //endregion
 
 
+
+
+
+
+
+
+
         private:
-            std::list<Logic*> attached_logic_list;
+            std::vector<Logic*> attached_logic_list;
+
+
             Logic* get_unspecificed_logic(const std::string& logic_id); // Used internally to allow forward declaration of Logic
         };
 
@@ -71,8 +79,6 @@ namespace sge {
         }
 
     }
-
-
 }
 
 

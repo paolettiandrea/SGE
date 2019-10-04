@@ -121,9 +121,12 @@ namespace utils {
             if (!this->is_valid()) {
                 std::cerr << "Tried to update the value of a pointer from a handle that isn't valid anymore" << std::endl;
             } else {
+                printf("\nUpdate handle pointer from %p to %p\n", handle_entries[index].pointer, pointer);
                 handle_entries[index].pointer = pointer;
             }
         }
+
+
         /*!
          * The operator used to access the object the handle is referencing as it was a pointer, BUT IT'S NOT!
          * \return A pointer to the object this handle is referencing.
@@ -136,6 +139,7 @@ namespace utils {
                 exit(1);
             }
 #endif
+            Handle<T>::print_entries_array_info();
             return this->get_pointer();
         }
 
@@ -162,8 +166,17 @@ namespace utils {
          * \return A pointer to the object this handle is referencing to
          */
         T* get_pointer() {
+            printf("\nget_pointer(): returns %p\n", handle_entries[index].pointer);
             if (!this->is_valid()) return nullptr;
             else return  handle_entries[index].pointer;
+        }
+
+        T* get_yo()  {
+            if (!this->is_valid()) return nullptr;
+            else{
+                int i=0;
+                return  handle_entries[index].pointer;
+            }
         }
 
         T* get_pointer() const {
@@ -192,6 +205,7 @@ namespace utils {
         static Handle new_entry(T *pointer) {
 
             if (invalidated_indexes.empty()) {
+
                 Handle handle(first_untouched_index, 0);
                 handle_entries[first_untouched_index].pointer = pointer;
                 first_untouched_index++;

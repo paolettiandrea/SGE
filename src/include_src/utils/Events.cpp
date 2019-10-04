@@ -1,7 +1,3 @@
-//
-// Created by andrea on 5/8/19.
-//
-
 #include "SGE/utils/events/Events.hpp"
 
 using  namespace utils::event;
@@ -19,16 +15,15 @@ void Event::notifyHandlers() {
     }
 }
 
-void Event::addHandler(const EventHandler &handler) {
+int Event::addHandler(const EventHandler &handler) {
     this->subscribers.emplace_back(handler);
+    return handler.get_id();
 }
 
 void Event::removeHandler(const EventHandler &handler_to_remove) {
     bool found = false;
     auto target = this->subscribers.begin();
     for(; target != this->subscribers.end(); ++target) {
-        auto yo = (*target).get_id();
-        auto yo2 = handler_to_remove.get_id();
         if((*target) == handler_to_remove) {
             this->subscribers.erase(target);
             found = true;
@@ -38,8 +33,20 @@ void Event::removeHandler(const EventHandler &handler_to_remove) {
     if (!found) std::cerr << "Tried to remove an EventHandler from an event but it wasn't found";
 }
 
+void Event::removeHandler(int handler_id) {
+    bool found = false;
+    auto target = this->subscribers.begin();
+    for(; target != this->subscribers.end(); ++target) {
+        if((*target).get_id() == handler_id) {
+            this->subscribers.erase(target);
+            found = true;
+            break;
+        }
+    }
+    if (!found) std::cerr << "Tried to remove an EventHandler from an event but it wasn't found";
+}
+
 void Event::operator()() {
-    auto yo = totalHandlers();
     this->notifyHandlers();
 }
 

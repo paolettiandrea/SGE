@@ -24,7 +24,7 @@ namespace sge {
              */
             utils::Handle<ComponentT> create_new_component(utils::Handle<GameObject> gameobject);
 
-            const std::vector<utils::Handle<ComponentT>> &get_component_vector() const;
+            std::vector<utils::Handle<ComponentT>> get_component_vector();
 
             void doom_pass() override;
 
@@ -118,7 +118,7 @@ namespace sge {
         }
 
         template<class ComponentT>
-        const std::vector<utils::Handle<ComponentT>> &ComponentMemoryLayer<ComponentT>::get_component_vector() const {
+        std::vector<utils::Handle<ComponentT>> ComponentMemoryLayer<ComponentT>::get_component_vector() {
             return handle_vector;
         }
 

@@ -16,13 +16,32 @@ Rigidbody::Rigidbody(const utils::Handle<sge::GameObject>& _gameobject)
 }
 
 void sge::cmp::Rigidbody::set_body_type(b2BodyType body_type) {
-    m_body->SetType(body_type);
+    if (body_type!=m_body->GetType()){
+
+
+        if (body_type==b2BodyType::b2_kinematicBody){
+            // TODO subscribe to event in order to update body position accordingly to the transform
+
+            //utils::event::EventHandler ev;
+            //ev = []() {
+
+           // };
+        }
+
+        // TODO also unsubscribe if it's not going to be a kinematic from now on
+
+        m_body->SetType(body_type);
+
+
+    }
+
 }
 
 /**
  * \brief Updates this GameObject's position and rotation according to simulated body's position and rotation
  */
 void sge::cmp::Rigidbody::update_transform() {
+    // TODO does a kinematic body need this update?
     auto position = m_body->GetPosition();
     gameobject()->transform()->set_local_position(position.x, position.y);
     auto rotation = m_body->GetAngle();

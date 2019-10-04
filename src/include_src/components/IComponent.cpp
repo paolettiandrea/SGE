@@ -21,4 +21,9 @@ void IComponent::doom() {
     is_doomed_flag = true;
 }
 
+utils::Handle<sge::GameObject> sge::cmp::IComponent::gameobject() const {
+    return gameobject_handle;
+}
+
+
 

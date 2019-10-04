@@ -28,11 +28,12 @@ namespace utils {
             /*!
              * \brief Adds a EventHandler as subscriber of the event.
              */
-            void addHandler(const EventHandler &handler);
+            int addHandler(const EventHandler &handler);
             /*!
              * \brief Removes the handler from the subscriber list
              */
             void removeHandler(const EventHandler &handler_to_remove);
+            void removeHandler(int handler_id);
             /*!
              * \brief Used to notify every subscriber, causes the call of every function in every EventHandler subscriber.
              */

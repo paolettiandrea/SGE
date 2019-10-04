@@ -33,3 +33,7 @@ void CameraControls::on_update() {
         scene()->get_camera()->offset_center(0,zoom_dependent_lateral_speed);
     }
 }
+
+void CameraControls::on_start() {
+    Logic::on_start();
+}

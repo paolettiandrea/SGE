@@ -31,7 +31,8 @@ namespace sge {
          */
         SceneConstructionData(const std::string& _name, Logic* _initial_logic)
                 : name(_name)
-                , initial_logic(_initial_logic){  }
+                , initial_logic(_initial_logic)
+                , gravity(0,9.8) {  }
 
         /*!
          * \brief The name of the Scene
@@ -45,6 +46,8 @@ namespace sge {
          * \brief Defines the zoom of the camera by the game world units of vertical space that the Camera should show in a given moment
          */
         float camera_vertical_zoom = 10;
+
+        sge::Vec2<float> gravity;
     };
     }
 

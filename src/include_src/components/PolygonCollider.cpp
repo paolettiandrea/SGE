@@ -1,7 +1,3 @@
-//
-// Created by andrea on 6/16/19.
-//
-
 #include "PolygonCollider.hpp"
 #include "Scene.hpp"
 

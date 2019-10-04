@@ -10,7 +10,12 @@ using utils::Handle;
 
 LogicHub::LogicHub(const Handle<GameObject> &gameobject)
     : Component(gameobject, "LogicHub") {
+    int i = 0;
 }
+
+
+
+
 
 void LogicHub::attach_logic(Logic *new_logic) {
     LOG_DEBUG(18) << "Attaching new logic with logic id (" << new_logic->get_logic_type_id() << ")";
@@ -30,14 +35,13 @@ bool LogicHub::has_logic(const std::string &logic_type_id) {
 
 
 void LogicHub::remove_logic(Logic *target_logic) {
-    attached_logic_list.remove(target_logic);
+    //attached_logic_list.remove(target_logic);
     delete(target_logic);
     // TODO some sort of removal callback here, probably also an Event for other object to subscribe
 }
 
-LogicHub::~LogicHub() {
 
-}
+
 
 Logic *LogicHub::get_unspecificed_logic(const std::string &logic_id) {
     for (auto attached_logic : attached_logic_list) {
@@ -61,9 +65,23 @@ void LogicHub::on_destruction() {
 }
 
 void LogicHub::on_update() {
+    std::string yo = gameobject()->get_log_id();
+
+    LOG_INFO << get_log_id();
+    LOG_INFO << gameobject()->get_log_id();
+        printf("\n%d\n", attached_logic_list.size());
+
+
+
+        for (auto logic : attached_logic_list) {
+            printf("%p\n", logic);
+
+        }
+
     for (auto logic : attached_logic_list) {
         logic->on_update();
     }
+
 }
 
 void LogicHub::on_fixed_update() {
@@ -79,6 +97,8 @@ void LogicHub::destruction_callback() {
         delete(logic);
     }
 }
+
+
 
 
 //endregion

@@ -45,6 +45,7 @@ int main() {
 
 
     sge::cd::SceneConstructionData initial_scene_cd("Wiggle wiggle", new PhysicsSandboxEntry());
+    initial_scene_cd.camera_vertical_zoom = 30;
 
     engine.initialize(initial_scene_cd);
 
