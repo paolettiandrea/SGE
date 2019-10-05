@@ -75,7 +75,6 @@ namespace sge {
             if (new_capacity>component_vector.capacity()) {
 
                 component_vector.reserve(new_capacity);
-
                 // Updates the handle entries of every IComponent in the reallocated vector
                 for (int i = 0; i < component_vector.size(); ++i) {
                     handle_vector[i].update_origin_pointer(&component_vector[i]);

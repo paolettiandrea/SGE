@@ -23,6 +23,8 @@ bool EngineCore::game_loop() {
     LOG_DEBUG(20) << "Game_loop is starting |" << object_manager.get_top_scene()->get_log_id()
                   << " | stack_size:" << object_manager.get_scene_stack_size() << " | delta_time:"<< m_delta_time;
 
+    logic_manager.ensure_logichub_free_space();
+    
     // EVENTS
     input_manager.reset_volatile();
     handle_events();
@@ -52,8 +54,6 @@ bool EngineCore::game_loop() {
     window_manager.clear_window();
     window_manager.draw();
     window_manager.display();
-
-    logic_manager.ensure_logichub_free_space();
 
     // Modify the Scene stack if requested during this loop
     bool scene_stack_modified = object_manager.scene_pass();
