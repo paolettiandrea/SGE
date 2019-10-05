@@ -28,6 +28,8 @@ namespace sge {
 
             void doom_pass() override;
 
+            void ensure_free_space(unsigned int amount) override;
+
             unsigned int create_unspecified_component(utils::Handle<GameObject> gameobject) override;
             void remove_unspecified_component(unsigned int index) override;
 
@@ -39,7 +41,7 @@ namespace sge {
             std::vector<ComponentT> component_vector;
             std::vector<utils::Handle<ComponentT>> handle_vector;
 
-            void custom_realloc();
+            void custom_realloc(unsigned int new_capacity);
 
             /*!
              * \brief Removes a Component from this ComponentArray
@@ -61,7 +63,7 @@ namespace sge {
         template<class ComponentT>
         utils::Handle<ComponentT> ComponentMemoryLayer<ComponentT>::create_new_component(utils::Handle<GameObject> gameobject) {
             if (component_vector.size()==component_vector.capacity())
-                custom_realloc();
+                custom_realloc(component_vector.capacity()*2);
             component_vector.emplace_back(gameobject);            // IComponent CONSTRUCTION at the back of the vector
             handle_vector.push_back(component_vector.back().get_handle());     // The pointer will be updated on Component construction
 
@@ -69,15 +71,23 @@ namespace sge {
         }
 
         template<class ComponentT>
-        void ComponentMemoryLayer<ComponentT>::custom_realloc() {
-            component_vector.reserve(component_vector.capacity()*2);
+        void ComponentMemoryLayer<ComponentT>::custom_realloc(unsigned int new_capacity) {
+            if (new_capacity>component_vector.capacity()) {
 
-            // Updates the handle entries of every IComponent in the reallocated vector
-            for (int i = 0; i < component_vector.size(); ++i) {
-                handle_vector[i].update_origin_pointer(&component_vector[i]);
+                component_vector.reserve(new_capacity);
+
+                // Updates the handle entries of every IComponent in the reallocated vector
+                for (int i = 0; i < component_vector.size(); ++i) {
+                    handle_vector[i].update_origin_pointer(&component_vector[i]);
+                }
+
+                LOG_DEBUG(18) << "Reallocation happened";
+            } else {
+                LOG_ERROR << "On custom reallocation the new_capacity value that was given ["
+                          << new_capacity << "] is smaller than the current component vector capacity ["
+                          << component_vector.capacity() << "]";
+                exit(1);
             }
-
-            LOG_DEBUG(18) << "Reallocation happened";
         }
 
         template<class ComponentT>
@@ -141,6 +151,14 @@ namespace sge {
         template<class ComponentT>
         void ComponentMemoryLayer<ComponentT>::doom_unspecified_component(unsigned int index) {
             utils::Handle<ComponentT>::get_handle_from_index(index)->doom();
+        }
+
+        template<class ComponentT>
+        void ComponentMemoryLayer<ComponentT>::ensure_free_space(unsigned int amount) {
+            int space = component_vector.capacity() - component_vector.size();
+            if (space < amount){
+                custom_realloc(component_vector.capacity()*2+amount);
+            }
         }
     }
 }

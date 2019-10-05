@@ -32,7 +32,7 @@ namespace sge {
         SceneConstructionData(const std::string& _name, Logic* _initial_logic)
                 : name(_name)
                 , initial_logic(_initial_logic)
-                , gravity(0,9.8) {  }
+                , gravity(0,-9.8) {  }
 
         /*!
          * \brief The name of the Scene

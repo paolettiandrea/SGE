@@ -66,7 +66,7 @@ namespace sge {
 
 
         private:
-            std::vector<Logic*> attached_logic_list;
+            std::list<Logic*> attached_logic_list;
 
 
             Logic* get_unspecificed_logic(const std::string& logic_id); // Used internally to allow forward declaration of Logic

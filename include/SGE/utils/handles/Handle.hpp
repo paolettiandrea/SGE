@@ -121,7 +121,6 @@ namespace utils {
             if (!this->is_valid()) {
                 std::cerr << "Tried to update the value of a pointer from a handle that isn't valid anymore" << std::endl;
             } else {
-                printf("\nUpdate handle pointer from %p to %p\n", handle_entries[index].pointer, pointer);
                 handle_entries[index].pointer = pointer;
             }
         }
@@ -139,7 +138,6 @@ namespace utils {
                 exit(1);
             }
 #endif
-            Handle<T>::print_entries_array_info();
             return this->get_pointer();
         }
 
@@ -147,7 +145,6 @@ namespace utils {
 #ifdef DEBUG
             if (!this->is_valid()) {
                 std::cout << "ERROR: Tried to use the -> operator on an invalid handle" << std::endl;
-                Handle<T>::print_entries_array_info();
                 exit(1);
             }
 #endif
@@ -166,7 +163,6 @@ namespace utils {
          * \return A pointer to the object this handle is referencing to
          */
         T* get_pointer() {
-            printf("\nget_pointer(): returns %p\n", handle_entries[index].pointer);
             if (!this->is_valid()) return nullptr;
             else return  handle_entries[index].pointer;
         }

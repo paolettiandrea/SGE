@@ -53,6 +53,8 @@ bool EngineCore::game_loop() {
     window_manager.draw();
     window_manager.display();
 
+    logic_manager.ensure_logichub_free_space();
+
     // Modify the Scene stack if requested during this loop
     bool scene_stack_modified = object_manager.scene_pass();
     if (scene_stack_modified) {

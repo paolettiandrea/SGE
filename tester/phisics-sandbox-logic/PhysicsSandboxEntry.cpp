@@ -54,8 +54,11 @@ void PhysicsSandboxEntry::on_update() {
 
     if (accumulator>1){
         accumulator -= 1;
-        spawn_bouncer("Bouncer " + std::to_string(bouncer_counter));
-        bouncer_counter++;
+        for (int i = 0; i < 3; ++i) {
+
+            spawn_bouncer("Bouncer " + std::to_string(bouncer_counter));
+            bouncer_counter++;
+        }
     }
 }
 

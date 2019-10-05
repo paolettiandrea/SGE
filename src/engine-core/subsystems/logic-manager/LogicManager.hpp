@@ -1,6 +1,11 @@
 #ifndef SGE_LOGICMANAGER_HPP
 #define SGE_LOGICMANAGER_HPP
 
+
+#ifndef SGE_LOGICHUB_BUFFER_SIZE
+#define SGE_LOGICHUB_BUFFER_SIZE 10000
+#endif
+
 #include "Subsystem.hpp"
 #include "LogicHub.hpp"
 
@@ -20,6 +25,8 @@ namespace sge {
              * \brief Calls on_fixed_update on every Logic attached to every GameObject of the top Scene.
              */
             void on_fixed_update();
+
+            void ensure_logichub_free_space();
 
             virtual ~LogicManager();
 

@@ -60,6 +60,10 @@ namespace sge {
                 componentmemorylayer_stack.pop();
             }
 
+            void ensure_space_comp_vector(unsigned int amount) {
+                componentmemorylayer_stack.top().ensure_free_space(amount);
+            }
+
         private:
             std::stack<ComponentMemoryLayer<T>> componentmemorylayer_stack;
             std::string id;

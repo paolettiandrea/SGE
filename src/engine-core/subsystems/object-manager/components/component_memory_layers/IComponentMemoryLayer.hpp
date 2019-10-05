@@ -28,6 +28,8 @@ namespace sge::core {
          * \brief Destroy every doomed component
          */
         virtual void doom_pass() = 0;
+
+        virtual void ensure_free_space(unsigned int amount) = 0;
     };
 }
 
