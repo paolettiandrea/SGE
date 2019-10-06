@@ -17,7 +17,9 @@ namespace sge {
         public:
             Subsystem (const std::string& subsystem_name);
 
-            virtual void visual_debug_pass() {};
+            virtual void visual_debug_pass() {}
+
+            virtual void memory_buffer_pass() = 0;
         };
     }
 }

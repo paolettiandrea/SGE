@@ -59,3 +59,8 @@ void WindowManager::update_active_camera(sge::Camera *new_active_camera) {
     m_window.setView(active_camera->get_view());
 }
 
+void WindowManager::memory_buffer_pass() {
+    path_component_creator.memory_buffer_pass();
+    vertarray_component_creator.memory_buffer_pass();
+}
+

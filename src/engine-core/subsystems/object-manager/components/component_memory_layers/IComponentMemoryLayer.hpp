@@ -29,7 +29,8 @@ namespace sge::core {
          */
         virtual void doom_pass() = 0;
 
-        virtual void ensure_free_space(unsigned int amount) = 0;
+        virtual void memory_buffer_pass() = 0;
+
     };
 }
 

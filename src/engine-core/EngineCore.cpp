@@ -23,7 +23,9 @@ bool EngineCore::game_loop() {
     LOG_DEBUG(20) << "Game_loop is starting |" << object_manager.get_top_scene()->get_log_id()
                   << " | stack_size:" << object_manager.get_scene_stack_size() << " | delta_time:"<< m_delta_time;
 
-    logic_manager.ensure_logichub_free_space();
+    // Ensure plenty of space in the component vectors in order to avoid reallocation in awkward moments
+    // and to ensure pointer validity during a given frame
+    memory_buffer_pass();
     
     // EVENTS
     input_manager.reset_volatile();
@@ -221,6 +223,15 @@ void sge::core::EngineCore::handle_events() {
         if (input_manager.is_key_pressed(sf::Keyboard::C)) physics_manager.toggle_visual_debug_collider();
     }
 #endif
+
+}
+
+void sge::core::EngineCore::memory_buffer_pass() {
+    input_manager.memory_buffer_pass();
+    logic_manager.memory_buffer_pass();
+    object_manager.memory_buffer_pass();
+    window_manager.memory_buffer_pass();
+    physics_manager.memory_buffer_pass();
 
 }
 //endregion

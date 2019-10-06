@@ -27,7 +27,6 @@ void LogicManager::on_update() {
     LOG_DEBUG(15) << "Terminating on_update";
 }
 
-void sge::core::LogicManager::ensure_logichub_free_space() {
-    logichub_creator.ensure_space_comp_vector(SGE_LOGICHUB_BUFFER_SIZE);
-
+void LogicManager::memory_buffer_pass() {
+    logichub_creator.memory_buffer_pass();
 }

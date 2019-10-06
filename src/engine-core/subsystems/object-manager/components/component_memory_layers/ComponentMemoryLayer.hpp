@@ -11,13 +11,15 @@
 namespace sge {
     namespace core {
 
+
+
         /*!
          * \brief Manages a list of Components keeping them contiguous in memory while allowing for creation and removal
          */
         template <class ComponentT>
         class ComponentMemoryLayer : public IComponentMemoryLayer, public utils::log::Loggable {
         public:
-            explicit ComponentMemoryLayer(const std::string& id, unsigned int initial_reserved_space = INITIAL_RESERVED_SPACE_FOR_COMPONENTS);
+            explicit ComponentMemoryLayer(const std::string& id);
             /*!
              * \brief Creates a new Component in this ComponentArray
              * \return a handle to the created Component
@@ -28,7 +30,8 @@ namespace sge {
 
             void doom_pass() override;
 
-            void ensure_free_space(unsigned int amount) override;
+            void memory_buffer_pass() override;
+
 
             unsigned int create_unspecified_component(utils::Handle<GameObject> gameobject) override;
             void remove_unspecified_component(unsigned int index) override;
@@ -53,20 +56,26 @@ namespace sge {
 
 
         template<class ComponentT>
-        ComponentMemoryLayer<ComponentT>::ComponentMemoryLayer(const std::string& _id, unsigned int initial_reserved_space)
+        ComponentMemoryLayer<ComponentT>::ComponentMemoryLayer(const std::string& _id)
                 : Loggable("[" + _id + "] COMPONENT MEMORY LAYER")
                 , id (_id){
-            component_vector.reserve(initial_reserved_space);
-            handle_vector.reserve(initial_reserved_space);
+            component_vector.reserve(SGE_COMPONENT_MEMORY_BUFFER_SIZE);
+            handle_vector.reserve(SGE_COMPONENT_MEMORY_BUFFER_SIZE);
         }
 
         template<class ComponentT>
         utils::Handle<ComponentT> ComponentMemoryLayer<ComponentT>::create_new_component(utils::Handle<GameObject> gameobject) {
-            if (component_vector.size()==component_vector.capacity())
-                custom_realloc(component_vector.capacity()*2);
-            component_vector.emplace_back(gameobject);            // IComponent CONSTRUCTION at the back of the vector
-            handle_vector.push_back(component_vector.back().get_handle());     // The pointer will be updated on Component construction
 
+            if (component_vector.capacity()>component_vector.size()){
+                component_vector.emplace_back(gameobject);            // IComponent CONSTRUCTION at the back of the vector
+                handle_vector.push_back(component_vector.back().get_handle());     // The pointer will be updated on Component construction
+            } else {
+                LOG_ERROR << "Tried to create a new component but the memory buffer( for this frame ()"
+                          << SGE_COMPONENT_MEMORY_BUFFER_SIZE << ") for this frame is full.\n"
+                          << "A new addition would cause a reallocation, which could be fatal if performed during some"
+                             "component callback (like on_update)";
+                exit(1);
+            }
             return handle_vector.back();
         }
 
@@ -153,12 +162,13 @@ namespace sge {
         }
 
         template<class ComponentT>
-        void ComponentMemoryLayer<ComponentT>::ensure_free_space(unsigned int amount) {
-            int space = component_vector.capacity() - component_vector.size();
-            if (space < amount){
-                custom_realloc(component_vector.capacity()*2+amount);
+        void ComponentMemoryLayer<ComponentT>::memory_buffer_pass() {
+            if ((component_vector.capacity()-component_vector.size())<SGE_COMPONENT_MEMORY_BUFFER_SIZE){
+                custom_realloc(component_vector.capacity()*2);
             }
         }
+
+
     }
 }
 

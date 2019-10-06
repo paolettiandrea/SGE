@@ -26,9 +26,9 @@ namespace sge {
              */
             void on_fixed_update();
 
-            void ensure_logichub_free_space();
-
             virtual ~LogicManager();
+
+            void memory_buffer_pass() override;
 
         private:
             ComponentCreator<cmp::LogicHub> logichub_creator;

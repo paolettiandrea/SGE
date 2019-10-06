@@ -46,6 +46,8 @@ namespace sge {
             void pressed_mouse_callback(sf::Mouse::Button button);
             void released_mouse_callback(sf::Mouse::Button button);
 
+            void memory_buffer_pass() override;
+
 
         private:
             bool down_keymap[sf::Keyboard::KeyCount] = {false};
@@ -56,6 +58,8 @@ namespace sge {
             bool pressed_mousemap[sf::Mouse::ButtonCount] = {false};
             bool released_mousemap[sf::Mouse::ButtonCount] = {false};
         };
+
+
     }
 }
 

@@ -89,6 +89,8 @@ namespace sge {
 
             }
 
+            void memory_buffer_pass() override;
+
 
         private:
             sf::RenderWindow m_window;

@@ -134,3 +134,9 @@ void sge::core::ObjectManager::toggle_visual_debug_names() {
     visual_debug_names_switch = !visual_debug_names_switch;
     LOG_DEBUG(1) << "Toggled visual debug for Gameobject names -> " << visual_debug_transform_switch;
 }
+
+void sge::core::ObjectManager::memory_buffer_pass() {
+    transform_creator.memory_buffer_pass();
+
+}
+

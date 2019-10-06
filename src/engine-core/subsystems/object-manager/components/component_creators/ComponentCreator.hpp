@@ -60,9 +60,13 @@ namespace sge {
                 componentmemorylayer_stack.pop();
             }
 
-            void ensure_space_comp_vector(unsigned int amount) {
-                componentmemorylayer_stack.top().ensure_free_space(amount);
+            /*!
+             * \brief Ensures that there's enough free space in the top ComponentMemoryLayer, reallocates the vector otherwise.
+             */
+            void memory_buffer_pass(){
+                componentmemorylayer_stack.top().memory_buffer_pass();
             }
+
 
         private:
             std::stack<ComponentMemoryLayer<T>> componentmemorylayer_stack;

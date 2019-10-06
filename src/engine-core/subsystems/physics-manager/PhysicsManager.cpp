@@ -57,3 +57,10 @@ void sge::core::PhysicsManager::toggle_visual_debug_collider() {
     visual_debug_collider_switch = !visual_debug_collider_switch;
     LOG_DEBUG(1) << "Toggled visual debug for Colliders -> " << visual_debug_collider_switch;
 }
+
+void sge::core::PhysicsManager::memory_buffer_pass() {
+    m_box_collider_component_creator.memory_buffer_pass();
+    m_circle_collider_component_creator.memory_buffer_pass();
+    m_polygon_collider_componet_creator.memory_buffer_pass();
+    m_rigidbody_component_creator.memory_buffer_pass();
+}

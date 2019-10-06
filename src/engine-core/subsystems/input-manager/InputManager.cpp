@@ -103,3 +103,5 @@ void sge::core::InputManager::released_mouse_callback(sf::Mouse::Button button) 
     down_mousemap[(int) button] = false;
 }
 
+void sge::core::InputManager::memory_buffer_pass() {}
+

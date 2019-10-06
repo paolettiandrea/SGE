@@ -15,6 +15,8 @@
 */
 namespace sge::core {
 
+
+
     class PhysicsManager : public Subsystem {
     public:
         explicit PhysicsManager(cd::PhysicsManager_ConstructionData data);
@@ -28,6 +30,8 @@ namespace sge::core {
         void visual_debug_pass() override;
 
         void toggle_visual_debug_collider();
+
+        void memory_buffer_pass() override;
 
     private:
         ComponentCreator<cmp::Rigidbody> m_rigidbody_component_creator;

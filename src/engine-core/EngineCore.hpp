@@ -71,7 +71,6 @@ namespace sge::core {
         bool m_shutting_down_flag = false;
         //endregion
 
-
     private:
         ObjectManager object_manager;
         LogicManager logic_manager;
@@ -106,6 +105,8 @@ namespace sge::core {
 
 
         void handle_events();
+
+        void memory_buffer_pass();
     };
 
 
