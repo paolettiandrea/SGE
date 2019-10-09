@@ -31,7 +31,7 @@ void Transform::set_parent(Handle<Transform> new_parent) {
         while (!target_parent.is_null()) {
             if (target_parent == this->get_handle()) {
                 LOG_ERROR << "Detected circular hierarchy while trying to set " << new_parent->gameobject()->get_log_id()
-                          << " as m_parent. This object's local hierarchy before this operation looks as follows:\n"
+                          << " as parent. This object's local hierarchy before this operation looks as follows:\n"
                           << gameobject()->get_string_local_hierarchy();
                 exit(1);
             }

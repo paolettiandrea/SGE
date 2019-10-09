@@ -6,7 +6,7 @@
 /*!
  * \brief Defines the maximum number of handles of some type that can be used in a given moment
  */
-#define MAXIMUM_HANDLES_PER_TYPE 128000
+#define MAXIMUM_HANDLES_PER_TYPE 32768
 #endif
 
 
@@ -99,7 +99,6 @@ namespace utils {
         bool is_valid() {
             if (is_null()) return false;
             else {
-                //print_entries_array_info();
                 return ((handle_entries[index].counter == counter));
             }
         }

@@ -14,6 +14,9 @@ namespace sge {
         class PhysicsManager;
     }
     namespace cmp {
+
+        // TODO: warning when user moves a transform when also a Dynamic or Static Rigidbody.
+
         /*!
          * \brief Component that model a phisically simulated object. It expects Collider components attached to the same GameObject or down the hierarchy.
          */
@@ -37,10 +40,15 @@ namespace sge {
         private:
             b2Body* m_body;
 
+            utils::event::EventHandler transform_changed_callback;
+            bool dirty_body_position_flag;
+
             /*!
              * \brief Updates this object's transform position and rotation accordingly to the state of the simulated body
              */
-            void update_transform();
+            void body_position_to_transform();
+
+            void transform_to_body_position();
         };
     }
 }

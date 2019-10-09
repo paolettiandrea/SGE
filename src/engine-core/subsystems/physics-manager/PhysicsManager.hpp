@@ -21,9 +21,10 @@ namespace sge::core {
     public:
         explicit PhysicsManager(cd::PhysicsManager_ConstructionData data);
 
-        void clean_pass();
+        void collider_clean_pass();
         void step(b2World& world);
-        void update_transform();
+        void dynamic_body_to_transform_update();
+        void kinematic_transform_to_body();
 
         double fixed_delta_time() { return  m_fixed_delta_time; }
 

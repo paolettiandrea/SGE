@@ -13,35 +13,35 @@ Rigidbody::Rigidbody(const utils::Handle<sge::GameObject>& _gameobject)
     body_def.type = b2_dynamicBody;
     auto world = gameobject()->get_scene()->get_b2World();
     m_body = world->CreateBody(&body_def);
+
+    auto handle = get_handle();
+    transform_changed_callback = [=]() {
+        handle->dirty_body_position_flag = true;
+    };
 }
 
 void sge::cmp::Rigidbody::set_body_type(b2BodyType body_type) {
     if (body_type!=m_body->GetType()){
 
-
-        if (body_type==b2BodyType::b2_kinematicBody){
-            // TODO subscribe to event in order to update body position accordingly to the transform
-
-            //utils::event::EventHandler ev;
-            //ev = []() {
-
-           // };
+        // If the body WAS a kinematic one, unsubscribe from the transform changed event (no need to update the body position anymore)
+        if (m_body->GetType()==b2BodyType::b2_kinematicBody) {
+            gameobject()->transform()->transform_changed_event.removeHandler(transform_changed_callback);
         }
-
-        // TODO also unsubscribe if it's not going to be a kinematic from now on
 
         m_body->SetType(body_type);
 
-
+        // If the body NOW IS a kinematic one, we need to subscribe to the transform changed event
+        if (m_body->GetType()==b2BodyType::b2_kinematicBody) {
+            gameobject()->transform()->transform_changed_event.addHandler(transform_changed_callback);
+            transform_to_body_position();
+        }
     }
-
 }
 
 /**
  * \brief Updates this GameObject's position and rotation according to simulated body's position and rotation
  */
-void sge::cmp::Rigidbody::update_transform() {
-    // TODO does a kinematic body need this update?
+void sge::cmp::Rigidbody::body_position_to_transform() {
     auto position = m_body->GetPosition();
     gameobject()->transform()->set_local_position(position.x, position.y);
     auto rotation = m_body->GetAngle();
@@ -55,5 +55,12 @@ void sge::cmp::Rigidbody::destruction_callback() {
         world->DestroyBody(m_body);
     }
 
+    if (m_body->GetType()==b2_kinematicBody)
+        gameobject()->transform()->transform_changed_event.removeHandler(transform_changed_callback);
+}
 
+void sge::cmp::Rigidbody::transform_to_body_position() {
+    auto pos = gameobject()->transform()->get_world_position();
+    auto rot = gameobject()->transform()->get_world_rotation();
+    m_body->SetTransform(b2Vec2(pos.x, pos.y), rot);
 }

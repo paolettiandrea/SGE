@@ -486,7 +486,7 @@ void sge::cmp::PathRenderer::set_color_all(sf::Color color) {
     }
 }
 
-void sge::cmp::PathRenderer::clean_pass() {
+void sge::cmp::PathRenderer::collider_clean_pass() {
     for (int i = 0; i < m_dirty_points.size(); ++i) {
         if (m_dirty_points[i]==true) {
             clean_point_by_index(i);

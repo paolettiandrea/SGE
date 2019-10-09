@@ -36,12 +36,13 @@ bool EngineCore::game_loop() {
     while (m_physics_time_accumulator > fixed_delta) {
         LOG_DEBUG(30) << "Fixed Update";
         logic_manager.on_fixed_update();
-        physics_manager.clean_pass();
+        physics_manager.collider_clean_pass();
+        physics_manager.kinematic_transform_to_body();
         physics_manager.step(*object_manager.get_top_scene()->get_b2World());
+        physics_manager.dynamic_body_to_transform_update();                 // Updates the GameObjects with Rigidbodies' position and rotation according to their simulated body
         m_physics_time_accumulator -= fixed_delta;
     }
-    // Updates the GameObjects with Rigidbodies' position and rotation according to their simulated body
-    physics_manager.update_transform();
+
 
 
     logic_manager.on_update();

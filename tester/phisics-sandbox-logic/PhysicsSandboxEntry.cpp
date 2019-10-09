@@ -18,10 +18,12 @@ void PhysicsSandboxEntry::on_start() {
     path1.append_point(sge::Vec2<float> (10, 1));
     path1.append_point(sge::Vec2<float> (-10, 1));
     path1.set_closed(true);
-    auto static_wall = scene()->spawn_gameobject("Static wall 1");
+    static_wall = scene()->spawn_gameobject("Static wall 1");
     static_wall->transform()->set_local_position(5, -10);
     static_wall->transform()->set_local_rotation(M_PI_2/4);
     static_wall->logichub()->attach_logic(new StaticPolygon(path1));
+    rb = static_wall->get_component<sge::cmp::Rigidbody>("Rigidbody");
+    rb->set_body_type(b2_kinematicBody);
 
 
     auto static_wall2 = scene()->spawn_gameobject("Static wall 2");
@@ -45,6 +47,12 @@ void PhysicsSandboxEntry::on_start() {
         spawn_bouncer("Initial bouncer " + std::to_string(i));
     }
 
+}
+
+void PhysicsSandboxEntry::on_fixed_update() {
+    Logic::on_fixed_update();
+    auto pos = static_wall->transform()->get_local_position();
+    static_wall->transform()->set_local_position(pos.x, pos.y+0.01);
 }
 
 void PhysicsSandboxEntry::on_update() {
