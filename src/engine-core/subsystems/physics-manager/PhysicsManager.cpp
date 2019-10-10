@@ -7,7 +7,10 @@ sge::core::PhysicsManager::PhysicsManager(cd::PhysicsManager_ConstructionData da
     , m_circle_collider_component_creator("CircleCollider")
     , m_polygon_collider_componet_creator("PolygonCollider")
     , m_fixed_delta_time(data.fixed_delta_time)
-    {}
+    {
+
+
+    }
 
 void sge::core::PhysicsManager::step(b2World& world) {
     LOG_DEBUG(35) << "Physics Step";
@@ -72,6 +75,10 @@ void sge::core::PhysicsManager::memory_buffer_pass() {
     m_circle_collider_component_creator.memory_buffer_pass();
     m_polygon_collider_componet_creator.memory_buffer_pass();
     m_rigidbody_component_creator.memory_buffer_pass();
+}
+
+void sge::core::PhysicsManager::update_active_world(b2World* world) {
+    world->SetContactListener(&contactListener);
 }
 
 

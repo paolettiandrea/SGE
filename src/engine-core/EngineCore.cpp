@@ -64,6 +64,7 @@ bool EngineCore::game_loop() {
         if (object_manager.get_scene_stack_size()==0) return false;
         // Since the scene stack was modified update the pointer to the active camera for the window manager
         window_manager.update_active_camera(object_manager.get_top_scene()->get_camera());
+
     }
 
     m_frame_counter++;
@@ -79,6 +80,7 @@ void EngineCore::initialize(cd::SceneConstructionData& initial_scene_cd) {
     Scene* initial_scene = object_manager.push_new_scene(&initial_scene_cd);
     last_loop_start_time = std::chrono::steady_clock::now();
     window_manager.update_active_camera(initial_scene->get_camera());
+    physics_manager.update_active_world(object_manager.get_top_scene()->get_b2World());
     LOG_INFO << "Initialization completed";
 }
 

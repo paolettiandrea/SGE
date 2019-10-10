@@ -12,7 +12,8 @@ IComponent::IComponent(Handle<GameObject> gameobject, const std::string &id)
 }
 
 
-Handle<GameObject> &IComponent::gameobject() {
+Handle<GameObject> IComponent::gameobject() {
+    LOG_INFO << gameobject_handle.get_index();
     return gameobject_handle;
 }
 

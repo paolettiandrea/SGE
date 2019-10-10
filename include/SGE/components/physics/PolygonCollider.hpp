@@ -23,6 +23,7 @@ namespace sge::cmp {
     protected:
         void clean_shape() override;
 
+
     private:
         Path m_path;
         Path m_world_path;

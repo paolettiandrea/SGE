@@ -59,8 +59,8 @@ namespace sge {
         ComponentMemoryLayer<ComponentT>::ComponentMemoryLayer(const std::string& _id)
                 : Loggable("[" + _id + "] COMPONENT MEMORY LAYER")
                 , id (_id){
-            component_vector.reserve(SGE_COMPONENT_MEMORY_BUFFER_SIZE);
-            handle_vector.reserve(SGE_COMPONENT_MEMORY_BUFFER_SIZE);
+            component_vector.reserve(SGE_COMPONENT_MEMORY_BUFFER_SIZE*2);
+            handle_vector.reserve(SGE_COMPONENT_MEMORY_BUFFER_SIZE*2);
         }
 
         template<class ComponentT>
@@ -87,6 +87,7 @@ namespace sge {
                 // Updates the handle entries of every IComponent in the reallocated vector
                 for (int i = 0; i < component_vector.size(); ++i) {
                     handle_vector[i].update_origin_pointer(&component_vector[i]);
+                    component_vector[i].reallocation_callback();
                 }
 
                 LOG_DEBUG(18) << "Reallocation happened";
