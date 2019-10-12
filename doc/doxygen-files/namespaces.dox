@@ -1,0 +1,17 @@
+/*!
+\namespace sge
+\brief The namespace containing all the classes strictly related to the project.
+
+\namespace sge::core
+\brief Contains all the internal classes of the engine
+
+\namespace sge::cmp
+\brief Contains all the Component classes
+
+\namespace sge::cd
+\brief Contains the data classes used to hold the uder dependent information necessary for construction of complex objects
+
+\namespace utils
+\brief Contains generic utility classes. Not strictly related to this project and somewhat reusable.
+
+*/

@@ -1,0 +1,34 @@
+/*!
+
+\dir ./include
+\brief Contains all the exposed headers of the library
+
+\dir ./include/SGE
+\brief Just used to force the specification of the project name in includes
+
+\dir ./include/SGE/components
+\brief Contains all the Components headers
+
+\dir ./include/SGE/engine
+\brief Contains all the headers related to the exposed parts of the Engine
+
+\dir ./include/SGE/logic
+\brief Contains all the exposed headers related to Logic
+
+
+\dir ./include/SGE/utils
+\brief Contains somewhat generic and non project-specific functionality
+
+\dir ./include/SGE/utils/handles
+\brief Contains the exposed handle functionality
+
+\dir ./include/SGE/utils/log
+\brief COntains the headers for the log functionality
+
+\dir ./include/SGE/utils/terminal
+\brief Contains headers related to the terminal
+
+\dir ./include/SGE/utils/time
+\brief Contains a few functions and classes related to time
+
+*/

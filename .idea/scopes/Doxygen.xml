@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Doxygen" pattern="file:*/*.dox||file:*/*.doxygen" />
+</component>

@@ -1,0 +1,2 @@
+add_subdirectory(engine-core)
+add_subdirectory(include_src)
