@@ -37,7 +37,7 @@ namespace sge {
             /*!
              * \brief Gets an handle to the GameObject this Component is attached to
              */
-            utils::Handle<sge::GameObject> &gameobject();
+            utils::Handle<sge::GameObject> gameobject();
 
             /*!
              * \brief Gets an handle to the GameObject this Component is attached to

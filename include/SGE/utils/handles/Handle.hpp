@@ -64,6 +64,20 @@ namespace utils {
             counter = temp.counter;
         }
 
+        Handle<T>& operator=(const Handle<T>& that) {
+            this->index = that.index;
+            this->counter = counter;
+            return *this;
+        }
+
+        virtual ~Handle() {
+
+        }
+
+        Handle(const Handle<T>& that){
+            this->index = that.index;
+            this->counter = that.counter;
+        }
 
         bool operator==(const Handle &rhs) const {
             return index == rhs.index &&
@@ -166,14 +180,6 @@ namespace utils {
             else return  handle_entries[index].pointer;
         }
 
-        T* get_yo()  {
-            if (!this->is_valid()) return nullptr;
-            else{
-                int i=0;
-                return  handle_entries[index].pointer;
-            }
-        }
-
         T* get_pointer() const {
             if (!this->is_valid()) return nullptr;
             else return  handle_entries[index].pointer;
@@ -195,6 +201,8 @@ namespace utils {
         static HandleEntry<T> handle_entries[];
         static int first_untouched_index;
         static std::queue<int> invalidated_indexes;
+
+
 
     public:
         static Handle new_entry(T *pointer) {

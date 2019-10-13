@@ -40,10 +40,9 @@ bool EngineCore::game_loop() {
         physics_manager.kinematic_transform_to_body();
         physics_manager.step(*object_manager.get_top_scene()->get_b2World());
         physics_manager.dynamic_body_to_transform_update();                 // Updates the GameObjects with Rigidbodies' position and rotation according to their simulated body
+        physics_manager.trigger_collision_callbacks();
         m_physics_time_accumulator -= fixed_delta;
     }
-
-
 
     logic_manager.on_update();
 
@@ -64,6 +63,7 @@ bool EngineCore::game_loop() {
         if (object_manager.get_scene_stack_size()==0) return false;
         // Since the scene stack was modified update the pointer to the active camera for the window manager
         window_manager.update_active_camera(object_manager.get_top_scene()->get_camera());
+
     }
 
     m_frame_counter++;
@@ -79,6 +79,7 @@ void EngineCore::initialize(cd::SceneConstructionData& initial_scene_cd) {
     Scene* initial_scene = object_manager.push_new_scene(&initial_scene_cd);
     last_loop_start_time = std::chrono::steady_clock::now();
     window_manager.update_active_camera(initial_scene->get_camera());
+    physics_manager.update_active_world(object_manager.get_top_scene()->get_b2World());
     LOG_INFO << "Initialization completed";
 }
 

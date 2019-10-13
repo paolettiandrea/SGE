@@ -1,6 +1,9 @@
 #ifndef SGE_ILOGICCALLBACKS_HPP
 #define SGE_ILOGICCALLBACKS_HPP
 
+#include "SGE/components/physics/CollisionInfo.hpp"
+#include "Box2D/Box2D.h"
+
 namespace sge {
     /*!
  * \brief Interface that contains all the callback that a Logic object can have.
@@ -25,6 +28,12 @@ namespace sge {
          *  Could happen 0, 1 or multiple times in a game_loop pass depending on the relation between delta_time and fixed_delta_time
          */
         virtual void on_fixed_update() = 0;
+
+        virtual void on_collision_begin(CollisionInfo &collision_info) = 0;
+        virtual void on_collision_end(CollisionInfo &collision_info) = 0;
+
+        virtual void pre_solve(b2Contact *contact, const b2Manifold *oldManifold) = 0;
+        virtual void post_solve(b2Contact *contact, const b2ContactImpulse *impulse) = 0;
 
     };
 }

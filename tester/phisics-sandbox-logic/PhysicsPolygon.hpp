@@ -20,6 +20,14 @@ public:
 
     void on_start() override;
 
+    void on_collision_begin(sge::CollisionInfo &collision_info) override;
+
+    void on_collision_end(sge::CollisionInfo &collision_info) override;
+
+    void pre_solve(b2Contact *contact, const b2Manifold *oldManifold) override;
+
+    void post_solve(b2Contact *contact, const b2ContactImpulse *impulse) override;
+
 private:
     sge::Path m_path;
 
