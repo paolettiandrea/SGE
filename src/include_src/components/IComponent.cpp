@@ -6,14 +6,13 @@ using sge::GameObject;
 using utils::Handle;
 
 IComponent::IComponent(Handle<GameObject> gameobject, const std::string &id)
-    : Loggable( "[" + id + "] of " + gameobject->get_log_id())
-    , gameobject_handle(gameobject) {
+        : Loggable( "[" + id + "] of " + gameobject->get_log_id())
+        , gameobject_handle(gameobject) {
 
 }
 
 
 Handle<GameObject> IComponent::gameobject() {
-    LOG_INFO << gameobject_handle.get_index();
     return gameobject_handle;
 }
 
@@ -25,6 +24,3 @@ void IComponent::doom() {
 utils::Handle<sge::GameObject> sge::cmp::IComponent::gameobject() const {
     return gameobject_handle;
 }
-
-
-

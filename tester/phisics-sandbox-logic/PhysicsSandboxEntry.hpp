@@ -15,7 +15,6 @@ public:
 
     void on_fixed_update() override;
 
-
 private:
     void spawn_bouncer(const std::string& name);
     utils::Handle<sge::GameObject> static_wall;

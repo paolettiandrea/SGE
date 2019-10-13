@@ -3,14 +3,6 @@
 using namespace sge;
 using utils::Handle;
 
-void Logic::on_start() { }
-
-void Logic::on_destruction() { }
-
-void Logic::on_update() { }
-
-void Logic::on_fixed_update() { }
-
 Logic::~Logic() {
     LOG_DEBUG(25) << "Destructor";
 }
@@ -34,4 +26,10 @@ Scene *Logic::scene() {
 IEnvironment *Logic::env() {
     return m_env;
 }
+
+
+
+
+
+
 

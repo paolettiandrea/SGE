@@ -4,6 +4,7 @@
 #include "../old-test-logic/CameraControls.hpp"
 #include "StaticPolygon.hpp"
 #include "AnotherScript.hpp"
+#include "SGE/components/physics/PolygonCollider.hpp"
 
 std::string PhysicsSandboxEntry::get_logic_type_id() {
     return "PhysicsSandboxEntry";
@@ -64,6 +65,8 @@ void PhysicsSandboxEntry::on_update() {
             bouncer_counter++;
     }
 }
+
+
 
 void PhysicsSandboxEntry::spawn_bouncer(const std::string& name) {
     sge::Path path;

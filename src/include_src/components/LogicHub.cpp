@@ -80,6 +80,32 @@ void LogicHub::destruction_callback() {
     }
 }
 
+void sge::cmp::LogicHub::on_collision_end(CollisionInfo &collision_info) {
+    for (auto logic : attached_logic_list) {
+        logic->on_collision_end(collision_info);
+    }
+}
+
+void sge::cmp::LogicHub::on_collision_begin(CollisionInfo &collision_info) {
+    for (auto logic : attached_logic_list) {
+        logic->on_collision_begin(collision_info);
+    }
+}
+
+void sge::cmp::LogicHub::pre_solve(b2Contact *contact, const b2Manifold *oldManifold) {
+    for (auto logic : attached_logic_list) {
+        logic->pre_solve(contact, oldManifold);
+    }
+}
+
+void sge::cmp::LogicHub::post_solve(b2Contact *contact, const b2ContactImpulse *impulse) {
+    for (auto logic : attached_logic_list) {
+        logic->post_solve(contact, impulse);
+    }
+}
+
+
+
 
 
 

@@ -40,10 +40,9 @@ bool EngineCore::game_loop() {
         physics_manager.kinematic_transform_to_body();
         physics_manager.step(*object_manager.get_top_scene()->get_b2World());
         physics_manager.dynamic_body_to_transform_update();                 // Updates the GameObjects with Rigidbodies' position and rotation according to their simulated body
+        physics_manager.trigger_collision_callbacks();
         m_physics_time_accumulator -= fixed_delta;
     }
-
-
 
     logic_manager.on_update();
 
