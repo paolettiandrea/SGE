@@ -1,8 +1,10 @@
-import bpy;
+import bpy
 
-# SCRIPT FOR BLENDER ONLY: allows for the registration in Blender of an operator that exports the data of a "Simple Path" into a file
-# Simple Path means a list of points representing a path where one point is connected only to the next and to the previous point in the list.
-# The path can be closed, that is represented in the output with an "*" in the last line of the file
+# This is a script for blender that exports every mesh in a .blend file as a format readable for the SGE game engine
+
+TRIANGLE_MESH_EXTENSION = "smesh"
+SIMPLE_PATH_EXTENSION = "spath"
+
 
 def look_for_vert_occurrence(target_vert_index, edges, exclude_edge_index=-1):
     index = 0
@@ -14,7 +16,6 @@ def look_for_vert_occurrence(target_vert_index, edges, exclude_edge_index=-1):
 
 
 def make_ordered_path(edges,vertices):
-    
     ordered_path = []
     already_inverted_flag = False
     loop_detected = False
@@ -53,68 +54,74 @@ def make_ordered_path(edges,vertices):
                     target_vertex_index = target_edge[1]
                 else:
                     target_vertex_index = target_edge[0]
-                    
+
     if ((len(ordered_path) == len(vertices)) and (loop_detected==False)) or ((len(ordered_path) == len(vertices)+1) and (loop_detected== True)):
         print("The path seems to be correctly formed: Verts:{} | Looping:{}".format(len(ordered_path),loop_detected))
         return ordered_path
     else:
         print("Returning -1")
         return -1
-    
-def export_ordered_path_from_active_object(filepath):
-    m=bpy.context.mode
-    if bpy.context.mode!='OBJECT':
-        bpy.ops.object.mode_set(mode='OBJECT')
-    obj = bpy.context.active_object
 
+def export_simple_path(object, export_file_path):
     edges = []
-    for edge in obj.data.edges:
+    for edge in object.edges:
         edges.append( (edge.vertices[0], edge.vertices[1]) )
-        
+
     vertices = []
-    for vert in obj.data.vertices:
+    for vert in object.vertices:
         vertices.append( (vert.co.x,vert.co.y) )
-        
-    print("EXPORTING SIMPLE PATH FROM ACTIVE OBJECT: {} | Verts:{} | Edges:{} |".format(obj.name,len(vertices),len(edges)))
-             
+
+    print("EXPORTING SIMPLE PATH FROM ACTIVE OBJECT: {} | Verts:{} | Edges:{} |".format(object.name,len(vertices),len(edges)))
+
     ordered_path = make_ordered_path(edges, vertices)
-    
-    if (ordered_path==-1):
+
+    if ordered_path==-1:
         print("Error: the path wasn't simple")
     else:
-        file = open(filepath, 'w')
+        file = open(export_file_path, 'w')
         for vert in ordered_path:
-            file.write("{0}\n{1}\n\n".format(vert[0],vert[1]))
+            file.write("{0} {1}\n".format(vert[0],vert[1]))
         file.close()
-        print("Ordered path successfully exported to: {} \n".format(filepath))
+        print("Ordered path successfully exported to: {} \n".format(export_file_path))
 
 
 
 
-class ExportSomeData(bpy.types.Operator):
-    bl_idname = "export.simple_path"
-    bl_label = "Export Simple Path"
-
-    filepath = bpy.props.StringProperty(subtype="FILE_PATH")
-
-    @classmethod
-    def poll(cls, context):
-        return context.object is not None
-
-    def execute(self, context):
-        export_ordered_path_from_active_object(self.filepath)
-        return {'FINISHED'}
-
-    def invoke(self, context, event):
-        context.window_manager.fileselect_add(self)
-        return {'RUNNING_MODAL'}
 
 
-# Only needed if you want to add into a dynamic menu
-def menu_func(self, context):
-    self.layout.operator_context = 'INVOKE_DEFAULT'
-    self.layout.operator(ExportSomeData.bl_idname, text="Text Export Operator")
+# Get the dir path of the opened blend file
+dir_path = bpy.path.abspath("//")
+file_name = bpy.path.basename(bpy.context.blend_data.filepath)[:-6]     # without extension
 
-# Register and add to the file selector
-bpy.utils.register_class(ExportSomeData)
-bpy.types.INFO_MT_file_export.append(menu_func)
+# For every mesh in the blend file, export it in a separate file in the same dir of the original
+for object in bpy.data.meshes:
+    if len(object.polygons)>0:
+        # The object has faces, it must be exported as a triangle mesh
+        print("Exporting object [" + object.name + "] as a triangle mesh")
+        export_file = open(dir_path + file_name + "__" + object.name + "." + TRIANGLE_MESH_EXTENSION, "w")
+        # Write in the export file a line for every vertex of this mesh
+        for vertex in object.vertices:
+            export_file.write(str(vertex.co.x) + " " + str(vertex.co.y) + "\n")
+        export_file.write("\n")
+        # For every face in the mesh write in the export file a line with the indices to the right vertices
+        for face in object.polygons:
+            vert_counter = 0
+            for vert_index in face.vertices:
+                export_file.write(str(vert_index))
+                vert_counter += 1
+                if (vert_counter<3):
+                    export_file.write(" ")
+                else:
+                    if vert_counter>3:
+                        print("WARNING: found a face with more than 3 vertices, only triangle meshes are supported")
+                        exit(1)
+
+            export_file.write("\n")
+        export_file.close()
+    else:
+        # The object has no faces, it must be exported as a simple path
+        print("Exporting object [" + object.name + "] as a simple path")
+        export_simple_path(object, dir_path + file_name + "__" + object.name + "." + SIMPLE_PATH_EXTENSION)
+
+
+
