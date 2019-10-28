@@ -22,7 +22,7 @@ namespace sge {
         class DebugShapesManager : public sf::Drawable {
         public:
             DebugShapesManager() {
-                debug_font.loadFromFile("resources/fonts/ProggyTinySZ.ttf");
+                debug_font.loadFromFile("SGE_res/fonts/ProggyTinySZ.ttf");
             }
             virtual ~DebugShapesManager();
 

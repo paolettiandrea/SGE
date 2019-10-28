@@ -31,7 +31,7 @@ else
         export_blend_file "$file"
       done < <(find "$1" -name "*.blend" -print0)
   else
-    echo "ERROR: the given argument wasn't a file or a directory"
+    echo "ERROR: the given argument wasn't a path to a file or a directory"
   fi
 fi
 

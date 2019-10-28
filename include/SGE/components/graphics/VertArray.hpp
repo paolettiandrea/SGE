@@ -1,7 +1,3 @@
-//
-// Created by andrea on 5/21/19.
-//
-
 #ifndef SGE_VERTARRAY_HPP
 #define SGE_VERTARRAY_HPP
 
@@ -22,6 +18,16 @@ namespace sge {
             void append_local_point(const Vec2<float>& new_local_point);
             void set_primitive(sf::PrimitiveType primitive_type);
             void set_color(sf::Color color);
+            void set_vertex_color(unsigned int index, sf::Color color);
+            void set_vertex_position(unsigned int index, float x, float y);
+
+            /*!
+             * \brief Build the vertex array from a .smesh file, erasing all previous data
+             * @param filename The path to the .smesh file
+             * \details Since .smesh files describe triangle meshes the primitive tipe of this VertArray
+             * is automatically switched to sf::PrimitiveType::Triangles
+             */
+            void import_smesh(const std::string& filename);
 
             void destruction_callback() override;
 

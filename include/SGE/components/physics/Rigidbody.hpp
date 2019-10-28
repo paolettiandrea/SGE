@@ -37,6 +37,12 @@ namespace sge {
 
             void destruction_callback() override;
 
+            void apply_force(sge::Vec2<float> force_vec, sge::Vec2<float> apply_pos, bool wake);
+            void apply_force_center(sge::Vec2<float> force_vec, bool wake);
+            void apply_torque(float torque, bool wake);
+            void apply_linear_impulse(const Vec2<float> &impulse_vec, const Vec2<float> &impulse_point, bool wake);
+            void apply_angular_impulse(float impulse, bool wake);
+
         private:
             b2Body* m_body;
 

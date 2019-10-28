@@ -25,13 +25,17 @@ void WindowManager::prepare_render() {
 
 void WindowManager::draw() {
     for (auto vertarray : vertarray_component_creator.get_top_layer()->get_component_vector()) {
-        vertarray->clean_if_dirty();
-        m_window.draw(*vertarray.get_pointer(), m_render_states);
+        if (vertarray->is_active()){
+            vertarray->clean_if_dirty();
+            m_window.draw(*vertarray.get_pointer(), m_render_states);
+        }
     }
 
     for (auto path : path_component_creator.get_top_layer()->get_component_vector()) {
-        path->clean_pass();
-        m_window.draw(*path.get_pointer(), m_render_states);
+        if (path->is_active()){
+            path->clean_pass();
+            m_window.draw(*path.get_pointer(), m_render_states);
+        }
     }
 }
 

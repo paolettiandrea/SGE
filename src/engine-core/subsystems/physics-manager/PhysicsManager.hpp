@@ -1,7 +1,7 @@
 #ifndef SGE_PHYSICSMANAGER_HPP
 #define SGE_PHYSICSMANAGER_HPP
 
-#include "PolygonCollider.hpp"
+#include "Collider.hpp"
 #include "Subsystem.hpp"
 #include "Rigidbody.hpp"
 #include "PhysicsManager_ConstructionData.hpp"
@@ -39,14 +39,13 @@ namespace sge::core {
 
     private:
         ComponentCreator<cmp::Rigidbody> m_rigidbody_component_creator;
-        ComponentCreator<cmp::PolygonCollider> m_polygon_collider_componet_creator;
+        ComponentCreator<cmp::Collider> m_collider_componet_creator;
         double m_fixed_delta_time;
 
         cmp::CustomB2ContactListener contactListener;
 
         bool visual_debug_collider_switch = false;
     };
-
 
 
 

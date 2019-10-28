@@ -21,7 +21,7 @@ PathRenderer::PathRenderer(const utils::Handle<sge::GameObject> &_gameobject)
         }
     };
 
-    gameobject()->transform()->transform_changed_event += transform_changed_evhandler;
+    gameobject()->transform()->world_transform_changed_event += transform_changed_evhandler;
 }
 
 void PathRenderer::elaborate_inner_point(Vec2<float> target_point, Vec2<float> prev_point, Vec2<float> next_point,
@@ -266,7 +266,7 @@ void PathRenderer::set_point(unsigned int index, sge::Vec2<float> new_point) {
 void sge::cmp::PathRenderer::destruction_callback() {
     IComponent::destruction_callback();
     if ( !gameobject()->get_scene()->env()->is_shutting_down())
-        gameobject()->transform()->transform_changed_event -= transform_changed_evhandler;
+        gameobject()->transform()->world_transform_changed_event -= transform_changed_evhandler;
 }
 
 void sge::cmp::PathRenderer::set_closed(bool closed) {

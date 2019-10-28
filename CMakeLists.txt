@@ -5,9 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(SGE STATIC src/engine-core/subsystems/input-manager/InputManager.cpp src/engine-core/subsystems/input-manager/InputManager.hpp)
 
-add_executable(tester tester/main.cpp tester/phisics-sandbox-logic/PhysicsPolygon.cpp tester/phisics-sandbox-logic/PhysicsPolygon.hpp tester/old-test-logic/CameraControls.cpp tester/old-test-logic/CameraControls.hpp tester/phisics-sandbox-logic/PhysicsSandboxEntry.cpp tester/phisics-sandbox-logic/PhysicsSandboxEntry.hpp tester/phisics-sandbox-logic/StaticPolygon.cpp tester/phisics-sandbox-logic/StaticPolygon.hpp tester/phisics-sandbox-logic/AnotherScript.cpp tester/phisics-sandbox-logic/AnotherScript.hpp)
-target_link_libraries(tester PUBLIC SGE)
-
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
@@ -23,7 +20,6 @@ endif()
 
 add_subdirectory(src)
 add_subdirectory(include)
-add_subdirectory(resources)
 
 
 
@@ -63,6 +59,10 @@ if(MINGW)
             sfml-main
             )
 endif()
+
+
+# Copy SGE_res folder to top level binary directory
+file(COPY ./SGE_res DESTINATION ${CMAKE_BINARY_DIR})
 
 
 

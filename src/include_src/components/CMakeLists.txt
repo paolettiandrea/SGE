@@ -10,7 +10,7 @@ target_sources(SGE PRIVATE
         VertArray.cpp
 
         Rigidbody.cpp
-        PolygonCollider.cpp
+        Collider.cpp
 
         CollisionInfo.cpp
         )

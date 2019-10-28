@@ -24,6 +24,8 @@ namespace sge {
         float get_vertical_size() { return m_vertical_size; }
 
         void set_center(float x, float y);
+        void set_center(const sge::Vec2<float>& point);
+
         void offset_center(float x_offset, float y_offset);
 
 

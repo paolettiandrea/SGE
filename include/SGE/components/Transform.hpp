@@ -19,7 +19,8 @@ namespace sge::cmp {
         /*!
          * \brief Event that is called when this transform is made dirty.
          */
-        utils::event::Event transform_changed_event;
+        utils::event::Event world_transform_changed_event;
+        utils::event::Event local_transform_changed_event;
         /*!
          * \brief Event called when the parent of this Transform is modified.
          */
@@ -41,13 +42,14 @@ namespace sge::cmp {
          */
         utils::Handle<Transform> get_parent();
 
-        void remove_child(utils::Handle<Transform> target_child);
+
         std::list<utils::Handle<Transform>> get_children_list();
         //endregion
 
         //region Spacial
 
         void set_local_position(float x, float y);
+        void set_local_position(const Vec2<float>& new_local_position);
         Vec2<float> get_local_position();
         Vec2<float> get_world_position();
 
@@ -84,7 +86,7 @@ namespace sge::cmp {
         Matrix2D<float> m_world_scale_matrix;
         bool is_dirty = true;
 
-        void make_dirty();
+        void recursive_change_pulse();
         void update_world_data();
         void compose_with_parent();
         void add_child(utils::Handle<Transform> new_child);

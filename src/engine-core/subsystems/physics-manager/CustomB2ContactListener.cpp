@@ -1,5 +1,5 @@
 #include "CustomB2ContactListener.hpp"
-#include <SGE/components/physics/PolygonCollider.hpp>
+#include <SGE/components/physics/Collider.hpp>
 #include "SGE/GameObject.hpp"
 
 void sge::cmp::CustomB2ContactListener::BeginContact(b2Contact *contact) {
@@ -8,8 +8,8 @@ void sge::cmp::CustomB2ContactListener::BeginContact(b2Contact *contact) {
     auto fixtureA = contact->GetFixtureA();
     auto fixtureB = contact->GetFixtureB();
 
-    auto col1 = (sge::cmp::PolygonCollider*)fixtureA->GetUserData();
-    auto col2 = (sge::cmp::PolygonCollider*)fixtureB->GetUserData();
+    auto col1 = (sge::cmp::Collider*)fixtureA->GetUserData();
+    auto col2 = (sge::cmp::Collider*)fixtureB->GetUserData();
 
     b2WorldManifold world_manifold;
     contact->GetWorldManifold(&world_manifold);
@@ -30,8 +30,8 @@ void sge::cmp::CustomB2ContactListener::EndContact(b2Contact *contact) {
     auto fixtureA = contact->GetFixtureA();
     auto fixtureB = contact->GetFixtureB();
 
-    auto col1 = (sge::cmp::PolygonCollider*)fixtureA->GetUserData();
-    auto col2 = (sge::cmp::PolygonCollider*)fixtureB->GetUserData();
+    auto col1 = (sge::cmp::Collider*)fixtureA->GetUserData();
+    auto col2 = (sge::cmp::Collider*)fixtureB->GetUserData();
 
     b2WorldManifold world_manifold;
     contact->GetWorldManifold(&world_manifold);
@@ -63,8 +63,8 @@ void sge::cmp::CustomB2ContactListener::PreSolve(b2Contact *contact, const b2Man
     auto fixtureA = contact->GetFixtureA();
     auto fixtureB = contact->GetFixtureB();
 
-    auto col1 = (sge::cmp::PolygonCollider*)fixtureA->GetUserData();
-    auto col2 = (sge::cmp::PolygonCollider*)fixtureB->GetUserData();
+    auto col1 = (sge::cmp::Collider*)fixtureA->GetUserData();
+    auto col2 = (sge::cmp::Collider*)fixtureB->GetUserData();
 
     col1->gameobject()->logichub()->pre_solve(contact, oldManifold);
     col2->gameobject()->logichub()->pre_solve(contact, oldManifold);
@@ -76,8 +76,8 @@ void sge::cmp::CustomB2ContactListener::PostSolve(b2Contact *contact, const b2Co
     auto fixtureA = contact->GetFixtureA();
     auto fixtureB = contact->GetFixtureB();
 
-    auto col1 = (sge::cmp::PolygonCollider*)fixtureA->GetUserData();
-    auto col2 = (sge::cmp::PolygonCollider*)fixtureB->GetUserData();
+    auto col1 = (sge::cmp::Collider*)fixtureA->GetUserData();
+    auto col2 = (sge::cmp::Collider*)fixtureB->GetUserData();
 
     col1->gameobject()->logichub()->post_solve(contact, impulse);
     col2->gameobject()->logichub()->post_solve(contact, impulse);

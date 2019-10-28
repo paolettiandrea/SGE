@@ -1,7 +1,3 @@
-//
-// Created by andrea on 5/23/19.
-//
-
 #ifndef SGE_PATHRENDERER_HPP
 #define SGE_PATHRENDERER_HPP
 

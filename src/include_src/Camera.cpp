@@ -1,3 +1,4 @@
+#include <SGE/Vec2.hpp>
 #include "Camera.hpp"
 
 sge::Camera::Camera(float vertical_size)
@@ -37,7 +38,7 @@ void sge::Camera::update_view_size() {
 }
 
 void sge::Camera::set_center(float x, float y) {
-    m_view.setCenter(x,y);
+    m_view.setCenter(x,-y);
     changed_view_flag = true;
 }
 
@@ -47,6 +48,10 @@ void sge::Camera::offset_center(float x_offset, float y_offset) {
 
 float sge::Camera::get_zoom() {
     return m_vertical_size;
+}
+
+void sge::Camera::set_center(const sge::Vec2<float>& point) {
+    set_center(point.x, point.y);
 }
 
 

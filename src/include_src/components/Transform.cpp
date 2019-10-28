@@ -1,7 +1,6 @@
 #include "Transform.hpp"
 #include "GameObject.hpp"
 #include "Scene.hpp"
-#include <math.h>
 #include <vector>
 
 using sge::cmp::Transform;
@@ -22,9 +21,12 @@ Transform::Transform(const Handle<GameObject> &gameobject)
     }
 
 void Transform::set_parent(Handle<Transform> new_parent) {
+    // Null parent
     if (!this->m_parent.is_null() && this->m_parent!=new_parent) {
-        this->m_parent->remove_child(this->get_handle());
+        this->m_parent->m_children.remove(this->get_handle());
     }
+
+    // Non-null parent
     if (!new_parent.is_null()) {
         // Check for circular hierarchy
         Handle<Transform> target_parent = new_parent;
@@ -43,7 +45,7 @@ void Transform::set_parent(Handle<Transform> new_parent) {
     }
 
     this->m_parent = new_parent;
-    this->make_dirty();
+    this->recursive_change_pulse();
 
     parent_changed_event();
 }
@@ -53,17 +55,13 @@ utils::Handle<Transform> sge::cmp::Transform::get_parent() {
 }
 
 void sge::cmp::Transform::add_child(utils::Handle<Transform> new_child) {
-    for (auto child : m_children) {
+    for (const auto& child : m_children) {
         if (child==new_child) {
             LOG_WARNING << "Tried to add a child that was already present in the child list";
             return;
         }
     }
     m_children.push_back(new_child);
-}
-
-void sge::cmp::Transform::remove_child(utils::Handle<Transform> target_child) {
-    m_children.remove(target_child);
 }
 
 std::list<utils::Handle<Transform>> sge::cmp::Transform::get_children_list() {
@@ -77,7 +75,8 @@ sge::Vec2<float> sge::cmp::Transform::get_local_position() {
 void sge::cmp::Transform::set_local_position(float x, float y) {
     m_local_position_vector.x = x;
     m_local_position_vector.y = y;
-    make_dirty();
+    local_transform_changed_event();
+    recursive_change_pulse();
 }
 
 void sge::cmp::Transform::set_local_scale(float scale) {
@@ -88,7 +87,8 @@ void sge::cmp::Transform::set_local_scale(float scale) {
     if (m_local_scale_matrix[0][0]!=scale || m_local_scale_matrix[1][1]!=scale) {
         m_local_scale_matrix[0][0] = scale;
         m_local_scale_matrix[1][1] = scale;
-        make_dirty();
+        local_transform_changed_event();
+        recursive_change_pulse();
     }
 }
 
@@ -102,7 +102,8 @@ void sge::cmp::Transform::set_local_rotation(float rads) {
         m_local_rotation_matrix[1][1] = cos;
         m_local_rotation_matrix[0][1] = -sin;
         m_local_rotation_matrix[1][0] = sin;
-        make_dirty();
+        local_transform_changed_event();
+        recursive_change_pulse();
     }
 }
 
@@ -125,15 +126,14 @@ sge::Vec2<float> sge::cmp::Transform::world_to_local_point(sge::Vec2<float> worl
     return sge::Vec2<float>(yo[0][0], yo[1][0]);
 }
 
-void sge::cmp::Transform::make_dirty() {
-    transform_changed_event();
+void sge::cmp::Transform::recursive_change_pulse() {
+    world_transform_changed_event();
     if (!is_dirty) {
         is_dirty = true;
         for (auto child : m_children) {     // OPTIMIZE: maybe we can stop when we encounter already dirty transforms
-            child->make_dirty();
+            child->recursive_change_pulse();
         }
     }
-
 }
 
 void sge::cmp::Transform::update_world_data() {
@@ -219,6 +219,10 @@ void sge::cmp::Transform::visual_debug_draw_transform() {
 void sge::cmp::Transform::visual_debug_draw_names() {
     gameobject()->get_scene()->env()->debug_draw_point(m_world_position_vector,0.f,
             gameobject()->get_log_id(),0,sf::Color(200,200,200));
+}
+
+void sge::cmp::Transform::set_local_position(const sge::Vec2<float>& new_local_position) {
+    set_local_position(new_local_position.x, new_local_position.y);
 }
 
 

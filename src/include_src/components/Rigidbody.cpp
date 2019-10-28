@@ -25,14 +25,14 @@ void sge::cmp::Rigidbody::set_body_type(b2BodyType body_type) {
 
         // If the body WAS a kinematic one, unsubscribe from the transform changed event (no need to update the body position anymore)
         if (m_body->GetType()==b2BodyType::b2_kinematicBody) {
-            gameobject()->transform()->transform_changed_event.removeHandler(transform_changed_callback);
+            gameobject()->transform()->world_transform_changed_event.removeHandler(transform_changed_callback);
         }
 
         m_body->SetType(body_type);
 
         // If the body NOW IS a kinematic one, we need to subscribe to the transform changed event
         if (m_body->GetType()==b2BodyType::b2_kinematicBody) {
-            gameobject()->transform()->transform_changed_event.addHandler(transform_changed_callback);
+            gameobject()->transform()->world_transform_changed_event.addHandler(transform_changed_callback);
             transform_to_body_position();
         }
     }
@@ -42,10 +42,16 @@ void sge::cmp::Rigidbody::set_body_type(b2BodyType body_type) {
  * \brief Updates this GameObject's position and rotation according to simulated body's position and rotation
  */
 void sge::cmp::Rigidbody::body_position_to_transform() {
-    auto position = m_body->GetPosition();
-    gameobject()->transform()->set_local_position(position.x, position.y);
-    auto rotation = m_body->GetAngle();
-    gameobject()->transform()->set_local_rotation(rotation);
+    auto body_position = sge::Vec2<float>(m_body->GetPosition().x, m_body->GetPosition().y);
+    auto transform_position = gameobject()->transform()->get_local_position();
+    if (body_position!= transform_position) {
+        gameobject()->transform()->set_local_position(body_position);
+    }
+
+    auto body_rotation = m_body->GetAngle();
+    if (body_rotation!=gameobject()->transform()->get_local_rotation()){
+        gameobject()->transform()->set_local_rotation(body_rotation);
+    }
 }
 
 void sge::cmp::Rigidbody::destruction_callback() {
@@ -56,7 +62,7 @@ void sge::cmp::Rigidbody::destruction_callback() {
     }
 
     if (m_body->GetType()==b2_kinematicBody)
-        gameobject()->transform()->transform_changed_event.removeHandler(transform_changed_callback);
+        gameobject()->transform()->world_transform_changed_event.removeHandler(transform_changed_callback);
 }
 
 void sge::cmp::Rigidbody::transform_to_body_position() {
@@ -64,3 +70,24 @@ void sge::cmp::Rigidbody::transform_to_body_position() {
     auto rot = gameobject()->transform()->get_world_rotation();
     m_body->SetTransform(b2Vec2(pos.x, pos.y), rot);
 }
+
+void sge::cmp::Rigidbody::apply_force(sge::Vec2<float> force_vec, sge::Vec2<float> apply_pos, bool wake) {
+    m_body->ApplyForce(b2Vec2(force_vec.x, force_vec.y), b2Vec2(apply_pos.x, apply_pos.y), wake);
+}
+
+void sge::cmp::Rigidbody::apply_force_center(sge::Vec2<float> force_vec, bool wake) {
+    m_body->ApplyForceToCenter(b2Vec2(force_vec.x, force_vec.y), wake);
+}
+
+void sge::cmp::Rigidbody::apply_torque(float torque, bool wake) {
+    m_body->ApplyTorque(torque, wake);
+}
+
+void sge::cmp::Rigidbody::apply_angular_impulse(float impulse, bool wake) {
+    m_body->ApplyAngularImpulse(impulse, wake);
+}
+
+void sge::cmp::Rigidbody::apply_linear_impulse(const Vec2<float> &impulse_vec, const Vec2<float> &impulse_point, bool wake) {
+    m_body->ApplyLinearImpulse(b2Vec2(impulse_vec.x, impulse_vec.y), b2Vec2(impulse_point.x, impulse_point.y), wake);
+}
+
