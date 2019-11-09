@@ -30,6 +30,9 @@ namespace sge {
              */
             bool has_logic(const std::string& logic_type_id);
 
+            template <class T>
+            T* get_logic();
+
             /*!
              * \brief Returns the first occurrence of a Logic object identified with the given id
              * \tparam T The type associated with the id (the logic will be downcasted to this type)
@@ -37,7 +40,7 @@ namespace sge {
              * \return a pointer to the first Logic object having the given id if at least one is present, nullptr otherwise
              */
             template <class T>
-            T* get_logic(const std::string& logic_id);
+            T* get_logic_by_id(const std::string& logic_id);
             void remove_logic(Logic* target_logic);
 
             // TODO: get_logics and remove_logics (multiple logics with same id)
@@ -59,9 +62,9 @@ namespace sge {
 
             void on_collision_end(CollisionInfo &collision_info) override;
 
-            void pre_solve(b2Contact *contact, const b2Manifold *oldManifold) override;
+            void pre_solve(b2Contact *contact, const b2Manifold *oldManifold, const CollisionInfo &info) override;
 
-            void post_solve(b2Contact *contact, const b2ContactImpulse *impulse) override;
+            void post_solve(b2Contact *contact, const b2ContactImpulse *impulse, const CollisionInfo &info) override;
 
 
 
@@ -84,8 +87,16 @@ namespace sge {
 
 
         template<class T>
-        T* LogicHub::get_logic(const std::string &logic_id) {
+        T* LogicHub::get_logic_by_id(const std::string &logic_id) {
             return (T*)get_unspecificed_logic(logic_id);
+        }
+
+        template<class T>
+        T *sge::cmp::LogicHub::get_logic() {
+            for (Logic *attached_logic : attached_logic_list) {
+                if (dynamic_cast<T*>(attached_logic)) return  attached_logic;
+            }
+            return nullptr;
         }
 
     }

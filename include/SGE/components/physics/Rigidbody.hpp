@@ -30,6 +30,8 @@ namespace sge {
              */
             void set_body_type(b2BodyType body_type);
 
+            void set_fixed_rotation(bool fixed_rotation);
+
             /*!
              * \brief Get the b2 body of this Rigidbody
              */
@@ -42,6 +44,7 @@ namespace sge {
             void apply_torque(float torque, bool wake);
             void apply_linear_impulse(const Vec2<float> &impulse_vec, const Vec2<float> &impulse_point, bool wake);
             void apply_angular_impulse(float impulse, bool wake);
+            float get_mass();
 
         private:
             b2Body* m_body;

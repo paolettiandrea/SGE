@@ -40,6 +40,8 @@ namespace sge {
         void load_from_file(std::string path);
 
         void print();
+
+        void clear();
     private:
         std::vector<Vec2<float>> m_points;
         bool m_is_closed = false;

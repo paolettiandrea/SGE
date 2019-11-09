@@ -34,6 +34,8 @@ void GameObjectMemoryLayer::custom_realloc() {
 void GameObjectMemoryLayer::remove_gameobject(Handle<GameObject> target_handle) {
     // If we're removing the last element there's no need of memory swapping shenanigans
     // else the last element is swapped in the gap created by the removal and the corresponfing handle origin pointer is updated
+
+    LOG_INFO << " Removing Gameobject " << target_handle->get_log_id();
     auto target_pointer = target_handle.get_pointer();
     if (target_pointer != &gameobjects_vector.back()) {
         GameObject* last_element_pointer = &gameobjects_vector.back();

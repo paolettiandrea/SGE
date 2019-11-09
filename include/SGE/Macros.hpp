@@ -8,7 +8,7 @@
  * The free space in the vectors holding the components that is reserved at the beginning of each game loop
  * in order to avoid reallocation in critical phases of the loop
  */
-    #define SGE_COMPONENT_MEMORY_BUFFER_SIZE 16
+    #define SGE_COMPONENT_MEMORY_BUFFER_SIZE 32
 #endif
 
 

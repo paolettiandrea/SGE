@@ -60,8 +60,8 @@ namespace sge {
         void on_collision_begin(CollisionInfo &collision_info) override {}
         void on_collision_end(CollisionInfo &collision_info) override {}
 
-        void pre_solve(b2Contact *contact, const b2Manifold *oldManifold) override {}
-        void post_solve(b2Contact *contact, const b2ContactImpulse *impulse) override {}
+        void pre_solve(b2Contact *contact, const b2Manifold *oldManifold, const CollisionInfo &info) override {}
+        void post_solve(b2Contact *contact, const b2ContactImpulse *impulse, const CollisionInfo &info) override {}
 
     private:
         utils::Handle<GameObject> m_gameobject_handle;

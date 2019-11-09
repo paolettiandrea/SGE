@@ -31,9 +31,11 @@ namespace sge {
         public:
             explicit Collider(const utils::Handle<GameObject>& _gameobject);
 
-            enum ColliderType {Polygon, Circle};
+            enum ColliderType {Polygon, Circle, Chain};
 
             void set_as_polygon(sge::Path path);
+
+            void set_as_chain(sge::Path path);
 
             void set_as_circle(float radius);
 
@@ -54,6 +56,8 @@ namespace sge {
             void set_density(float density);
             void set_friction(float friction);
             void sed_restitution(float restitution);
+
+            void destruction_callback() override;
 
 
         protected:
@@ -86,7 +90,7 @@ namespace sge {
 
         private:
             Path m_path;
-            Path m_world_path;
+            Path m_relative_path;
 
             ColliderType m_type;
 
@@ -95,6 +99,8 @@ namespace sge {
              * that keeps track of all the hierarchy to the rigidbody)
             */
             void update_upstream_handles();
+
+            void update_relative_path();
         };
     }
 }

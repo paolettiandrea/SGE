@@ -110,3 +110,8 @@ void Path::load_from_file(std::string path) {
         exit(1);
     }
 }
+
+void Path::clear() {
+    m_points.clear();
+    m_is_closed = false;
+}

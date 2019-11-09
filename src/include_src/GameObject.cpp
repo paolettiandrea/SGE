@@ -21,8 +21,8 @@ GameObject::GameObject(Scene* _scene, const std::string& _name)
     for (int &val : m_components_mapped_array) {
         val = -1;
     }
-
-    transform_handle = add_component<Transform>("Transform");
+    auto yo = add_component<Transform>("Transform");
+    transform_handle = yo;
     logichub_handle = add_component<LogicHub>("LogicHub");
 }
 

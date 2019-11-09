@@ -59,11 +59,12 @@ void sge::cmp::Rigidbody::destruction_callback() {
     if (!gameobject()->get_scene()->is_doomed()) {
         auto world = m_body->GetWorld();
         world->DestroyBody(m_body);
+        if (m_body->GetType()==b2_kinematicBody)
+            gameobject()->transform()->world_transform_changed_event.removeHandler(transform_changed_callback);
+
     }
 
-    if (m_body->GetType()==b2_kinematicBody)
-        gameobject()->transform()->world_transform_changed_event.removeHandler(transform_changed_callback);
-}
+    }
 
 void sge::cmp::Rigidbody::transform_to_body_position() {
     auto pos = gameobject()->transform()->get_world_position();
@@ -89,5 +90,13 @@ void sge::cmp::Rigidbody::apply_angular_impulse(float impulse, bool wake) {
 
 void sge::cmp::Rigidbody::apply_linear_impulse(const Vec2<float> &impulse_vec, const Vec2<float> &impulse_point, bool wake) {
     m_body->ApplyLinearImpulse(b2Vec2(impulse_vec.x, impulse_vec.y), b2Vec2(impulse_point.x, impulse_point.y), wake);
+}
+
+void sge::cmp::Rigidbody::set_fixed_rotation(bool fixed_rotation) {
+    m_body->SetFixedRotation(fixed_rotation);
+}
+
+float sge::cmp::Rigidbody::get_mass() {
+    return m_body->GetMass();
 }
 

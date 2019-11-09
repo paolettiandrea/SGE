@@ -11,6 +11,21 @@ WindowManager::WindowManager(const cd::WindowManager_ConstructionData &data)
     {
     m_window.setPosition(sf::Vector2i(data.window_pos_x, data.window_pos_y));
     m_window.setVerticalSyncEnabled(data.vsync_on);
+
+    layer_count = data.layers.size();
+    if (layer_count<=0) {
+        LOG_ERROR << "There must be at least one layer!";
+        exit(1);
+    }
+    for (unsigned int i = 0; i < data.layers.size(); ++i) {
+        if (layers_map.count(data.layers[i])==0) {
+            layers_map[data.layers[i]] = i;
+        } else {
+            LOG_ERROR << "The string [" << data.layers[i] << "was used to define more than one layer";
+            exit(1);
+
+        }
+    }
 }
 
 void WindowManager::prepare_render() {
@@ -24,13 +39,24 @@ void WindowManager::prepare_render() {
 }
 
 void WindowManager::draw() {
+
+    // Divide the vertarrays based on the layer and draw them in order
+    std::vector<sge::cmp::VertArray*> ordered_pointers[layer_count];
     for (auto vertarray : vertarray_component_creator.get_top_layer()->get_component_vector()) {
         if (vertarray->is_active()){
+            vertarray->clean_layer_index_if_dirty(layers_map);
             vertarray->clean_if_dirty();
-            m_window.draw(*vertarray.get_pointer(), m_render_states);
+            ordered_pointers[vertarray->layer_index].push_back(vertarray.get_pointer());
+        }
+    }
+    for (int i = layer_count-1; i >= 0; i--) {
+        for (int j = 0; j < ordered_pointers[i].size(); ++j) {
+            m_window.draw(*ordered_pointers[i][j], m_render_states);
         }
     }
 
+
+    // TODO remove path component entirely
     for (auto path : path_component_creator.get_top_layer()->get_component_vector()) {
         if (path->is_active()){
             path->clean_pass();

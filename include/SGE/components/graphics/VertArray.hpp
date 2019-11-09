@@ -10,6 +10,7 @@
 namespace sge {
     namespace core { class WindowManager; }
     namespace cmp {
+
         class VertArray : public Component<VertArray>, public sf::Drawable {
             friend class core::WindowManager;
         public:
@@ -31,6 +32,13 @@ namespace sge {
 
             void destruction_callback() override;
 
+            void set_layer(const std::string& layer_id);
+            const std::string& get_layer_id();
+
+            const sf::VertexArray& get_vert_array() const;
+
+            sf::PrimitiveType get_primitive_type() const;
+
         protected:
             void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
@@ -41,6 +49,11 @@ namespace sge {
 
             bool is_dirty = true;
             void clean_if_dirty();
+            void clean_layer_index_if_dirty(std::map<std::string, unsigned int>& layer_map);
+
+            unsigned int layer_index;
+            bool dirty_layer_index = true;
+            std::string layer_id;
 
         };
     }

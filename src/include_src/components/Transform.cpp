@@ -225,6 +225,10 @@ void sge::cmp::Transform::set_local_position(const sge::Vec2<float>& new_local_p
     set_local_position(new_local_position.x, new_local_position.y);
 }
 
+void sge::cmp::Transform::reallocation_callback() {
+    Component::reallocation_callback();
+}
+
 
 
 

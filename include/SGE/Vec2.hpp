@@ -40,6 +40,15 @@ namespace sge {
         Vec2 operator-(const Vec2& that) {
             return Vec2<T>(this->x-that.x, this->y-that.y);
         }
+        Vec2 operator-(const Vec2& that) const {
+            return Vec2<T>(this->x-that.x, this->y-that.y);
+        }
+        Vec2 operator*(const T& that) {
+            return Vec2<T>(this->x*that, this->y*that);
+        }
+        Vec2 operator/(const T& that) {
+            return Vec2<T>(this->x/that, this->y/that);
+        }
 
         static Vec2<T> rotate(const Vec2<T>& vec, const T& radians) {
             Vec2<T> temp (cos(radians)*vec.x-sin(radians)*vec.y, sin(radians)*vec.x+cos(radians)*vec.y);
@@ -62,6 +71,10 @@ namespace sge {
             y = sin(angle)*new_magnitude;
         }
         T get_magnitude() {
+            return sqrt(powf(x,2) + powf(y,2));
+        }
+
+        const T get_magnitude() const {
             return sqrt(powf(x,2) + powf(y,2));
         }
 

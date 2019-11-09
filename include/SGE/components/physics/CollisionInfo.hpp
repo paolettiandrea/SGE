@@ -3,6 +3,7 @@
 
 #include "SGE/utils/handles/Handle.hpp"
 #include "SGE/Vec2.hpp"
+#include <Box2D/Box2D.h>
 
 namespace sge{
     namespace cmp { class Collider; }
@@ -13,12 +14,8 @@ namespace sge{
                       const sge::Vec2<float> &m_its_velocity);
 
     public:
-        utils::Handle<sge::cmp::Collider> get_my_collider();
-        utils::Handle<sge::cmp::Collider> get_its_collider();
-        sge::Vec2<float> get_my_velocity();
-        sge::Vec2<float> get_its_velocity();
+        sge::Vec2<float> get_impact_velocity() const;
 
-    private:
         cmp::Collider* m_its_collider;
         cmp::Collider* m_my_collider;
 

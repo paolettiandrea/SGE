@@ -42,6 +42,8 @@ namespace sge::cmp {
          */
         utils::Handle<Transform> get_parent();
 
+        void reallocation_callback() override;
+
 
         std::list<utils::Handle<Transform>> get_children_list();
         //endregion

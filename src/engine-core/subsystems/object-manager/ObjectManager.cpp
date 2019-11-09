@@ -23,6 +23,12 @@ Scene *ObjectManager::get_top_scene() {
 }
 
 void ObjectManager::pop_top_scene() {
+
+    for (auto go : *gameobj_layers_stack.top().get_gameobjects_vector()) {
+        go.doom();
+    }
+    scene_stack.top().doom_scene();
+
     component_factory.pop_top_component_memory_layer();
     gameobj_layers_stack.pop();
     scene_stack.pop();
@@ -56,6 +62,9 @@ void ObjectManager::doom_pass() {
 
     // Doom pass for the Components
     auto component_memory_array = scene_stack.top().get_component_memorylayer_array();
+    for (int i = 0; i < TOTAL_POSSIBLE_COMPONENTS; ++i) {
+        component_memory_array[i]->destruction_callback_pass();
+    }
     for (int i = 0; i < TOTAL_POSSIBLE_COMPONENTS; ++i) {
         component_memory_array[i]->doom_pass();
     }

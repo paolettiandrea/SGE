@@ -41,11 +41,9 @@ void sge::cmp::Collider::clean_shape() {
             b2PolygonShape poly_shape;
             unsigned int count = m_path.get_size();
             b2Vec2 vertices[count];
+            update_relative_path();
             for (unsigned int i = 0; i < count; ++i) {
-                auto res = Transform::change_reference_frame(gameobject()->transform(),
-                                                             m_rigidbody->gameobject()->transform(), m_path[i]);
-                vertices[i].Set(res.x*m_rigidbody->gameobject()->transform()->get_world_scale().x,
-                                res.y*m_rigidbody->gameobject()->transform()->get_world_scale().y);
+                vertices[i].Set(m_relative_path[i].x,m_relative_path[i].y);
             }
             poly_shape.Set(vertices, count);
             poly_shape.m_centroid.SetZero();
@@ -56,10 +54,28 @@ void sge::cmp::Collider::clean_shape() {
 
         case ColliderType::Circle: {
             b2CircleShape circle;
-            circle.m_radius = m_radius;     // TODO apply transform
-            set_shape(&circle);
+            auto scale = gameobject()->transform()->get_world_scale();
+            if (scale.x == scale.y) {
+                circle.m_radius = m_radius * scale.x;
+                set_shape(&circle);
+            } else {
+                LOG_ERROR << "Doesn't make a sense to have a Circle Collider in an object with different scaling for x and y axis";
+                exit(1);
+            }
             break;
         }
+
+        case Chain:
+            b2Vec2 vs[m_path.get_size()];
+            update_relative_path();
+            for (int i = 0; i < m_relative_path.get_size(); i++) {
+                auto yo = gameobject()->transform()->local_to_world_point(m_path[i]);
+                vs[i].Set(yo.x, yo.y);
+            }
+            b2ChainShape chain_shape;
+            chain_shape.CreateChain(vs, m_path.get_size());
+            set_shape(&chain_shape);
+            break;
     }
 
     m_dirty_fixture_shape = false;
@@ -70,7 +86,7 @@ void sge::cmp::Collider::set_as_polygon(sge::Path path) {
     assert(path.is_closed());
 
     m_path = path;
-    m_type = ColliderType ::Polygon;
+    m_type = ColliderType::Polygon;
     m_dirty_fixture_shape = true;
 }
 
@@ -83,17 +99,32 @@ void sge::cmp::Collider::visual_debug_draw_collider() {
             Path world_path;
             auto poly_shape = ((b2PolygonShape*)m_fixture->GetShape());
             for (int i = 0; i < poly_shape->m_count; ++i) {
-                world_path.append_point(rigidbody_transform->local_to_world_point(Vec2<float>( poly_shape->m_vertices[i].x, poly_shape->m_vertices[i].y)));
+                world_path.append_point(rigidbody_transform->local_to_world_point(Vec2<float>( poly_shape->m_vertices[i].x/rigidbody_transform->get_world_scale().x, poly_shape->m_vertices[i].y/rigidbody_transform->get_world_scale().y)));
             }
-            world_path.append_point(rigidbody_transform->local_to_world_point(Vec2<float>( poly_shape->m_vertices[0].x, poly_shape->m_vertices[0].y)));
+            world_path.append_point(rigidbody_transform->local_to_world_point(Vec2<float>( poly_shape->m_vertices[0].x/rigidbody_transform->get_world_scale().x, poly_shape->m_vertices[0].y/rigidbody_transform->get_world_scale().y)));
             gameobject()->get_scene()->env()->debug_draw_path(world_path);
             break;
         }
         case ColliderType::Circle: {
-            gameobject()->get_scene()->env()->debug_draw_circle(gameobject()->transform()->get_world_position(), m_radius);
+            gameobject()->get_scene()->env()->debug_draw_circle(gameobject()->transform()->get_world_position(), m_radius*gameobject()->transform()->get_world_scale().x);
         }
+
+        case Chain:
+            Path world_path;
+            auto chain_shape = ((b2ChainShape*)m_fixture->GetShape());
+            for (int j = 0; j < chain_shape->m_count; ++j) {
+                world_path.append_point(rigidbody_transform->local_to_world_point(m_path[j]));
+            }
+            gameobject()->get_scene()->env()->debug_draw_path(world_path);
     }
 
+}
+
+void sge::cmp::Collider::destruction_callback() {
+    IComponent::destruction_callback();
+    if (!gameobject()->get_scene()->is_doomed() && !get_rigidbody()->gameobject()->is_doomed()) {
+        get_rigidbody()->get_b2_body()->DestroyFixture(m_fixture);
+    }
 }
 
 void sge::cmp::Collider::reallocation_callback() {
@@ -195,6 +226,23 @@ void sge::cmp::Collider::set_friction(float friction) {
 void sge::cmp::Collider::set_density(float density) {
     m_fixture->SetDensity(density);
     m_rigidbody->get_b2_body()->ResetMassData();
+}
+
+void sge::cmp::Collider::set_as_chain(sge::Path path) {
+    m_path = path;
+    m_type = ColliderType::Chain;
+    m_dirty_fixture_shape = true;
+}
+
+void sge::cmp::Collider::update_relative_path() {
+    m_relative_path.clear();
+    for (int i = 0; i < m_path.get_size(); ++i) {
+        auto res = Transform::change_reference_frame(gameobject()->transform(),
+                                                     m_rigidbody->gameobject()->transform(), m_path[i]);
+        m_relative_path.append_point(sge::Vec2<float>(res.x*m_rigidbody->gameobject()->transform()->get_world_scale().x,
+                                                      res.y*m_rigidbody->gameobject()->transform()->get_world_scale().y));
+    }
+
 }
 
 

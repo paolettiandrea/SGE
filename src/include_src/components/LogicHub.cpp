@@ -92,23 +92,17 @@ void sge::cmp::LogicHub::on_collision_begin(CollisionInfo &collision_info) {
     }
 }
 
-void sge::cmp::LogicHub::pre_solve(b2Contact *contact, const b2Manifold *oldManifold) {
+void sge::cmp::LogicHub::pre_solve(b2Contact *contact, const b2Manifold *oldManifold, const CollisionInfo &info) {
     for (auto logic : attached_logic_list) {
-        logic->pre_solve(contact, oldManifold);
+        logic->pre_solve(contact, oldManifold, info);
     }
 }
 
-void sge::cmp::LogicHub::post_solve(b2Contact *contact, const b2ContactImpulse *impulse) {
+void sge::cmp::LogicHub::post_solve(b2Contact *contact, const b2ContactImpulse *impulse, const CollisionInfo &info) {
     for (auto logic : attached_logic_list) {
-        logic->post_solve(contact, impulse);
+        logic->post_solve(contact, impulse, info);
     }
 }
-
-
-
-
-
-
 //endregion
 
 

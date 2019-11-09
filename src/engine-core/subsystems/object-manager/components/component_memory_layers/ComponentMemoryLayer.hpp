@@ -29,6 +29,7 @@ namespace sge {
             std::vector<utils::Handle<ComponentT>> get_component_vector();
 
             void doom_pass() override;
+            void destruction_callback_pass() override;
 
             void memory_buffer_pass() override;
 
@@ -52,8 +53,6 @@ namespace sge {
              */
             void remove_component(utils::Handle<ComponentT> target_handle);
         };
-
-
 
         template<class ComponentT>
         ComponentMemoryLayer<ComponentT>::ComponentMemoryLayer(const std::string& _id)
@@ -101,9 +100,9 @@ namespace sge {
 
         template<class ComponentT>
         void ComponentMemoryLayer<ComponentT>::remove_component(utils::Handle<ComponentT> target_handle) {
+            LOG_INFO << "Removing " << target_handle.get_pointer();
             LOG_DEBUG(25) << "Removing component " << target_handle->get_log_id();
-            target_handle->destruction_callback();
-            // Sets the correspondent value in the mapped array to -1 (representing absence of the component)
+             // Sets the correspondent value in the mapped array to -1 (representing absence of the component)
             target_handle->gameobject()->m_components_mapped_array[ComponentFactory::id_to_index(id)] = -1;
             // If we're removing the last element there's no need of memory swapping shenanigans
             // else the last element is swapped in the gap created by the removal and the corresponding handle origin pointer is updated
@@ -117,11 +116,11 @@ namespace sge {
 
                 // Updates the pointer of the IComponent moved to fill the gap
                 handle_vector[target_internal_index].update_origin_pointer(&component_vector[target_internal_index]);
+                handle_vector[target_internal_index]->reallocation_callback();          // Trigger on the moved object a realloc callback
             }
             target_handle.make_origin_expired();
             component_vector.pop_back();
             handle_vector.pop_back();
-
         }
 
         template<class ComponentT>
@@ -147,12 +146,9 @@ namespace sge {
         template<class ComponentT>
         void ComponentMemoryLayer<ComponentT>::doom_pass() {
             LOG_DEBUG(25) << "Doom pass";
-            unsigned int target_index = 0;
             for (int i = 0; i < handle_vector.size(); ++i) {
-                if (handle_vector[target_index]->is_doomed()) {         // IComponent removal
-                    remove_component(handle_vector[target_index]);
-                } else {
-                    target_index++;
+                if (handle_vector[i]->is_doomed()) {         // IComponent removal
+                    remove_component(handle_vector[i]);
                 }
             }
         }
@@ -164,19 +160,20 @@ namespace sge {
 
         template<class ComponentT>
         void ComponentMemoryLayer<ComponentT>::memory_buffer_pass() {
-            if ((component_vector.capacity()-component_vector.size())<SGE_COMPONENT_MEMORY_BUFFER_SIZE){
-                custom_realloc(component_vector.capacity()*2);
+            if ((component_vector.capacity() - component_vector.size()) < SGE_COMPONENT_MEMORY_BUFFER_SIZE) {
+                custom_realloc(component_vector.capacity() * 2);
             }
         }
 
-
+        template<class ComponentT>
+        void ComponentMemoryLayer<ComponentT>::destruction_callback_pass() {
+            for (int i = 0; i < handle_vector.size(); ++i) {
+                if (handle_vector[i]->is_doomed()) {
+                    handle_vector[i]->destruction_callback();
+                }
+            }
+        }
     }
 }
 
 #endif //SGE_COMPONENTARRAY_HPP
-
-
-/*!
-\file
-\brief Header file.
-*/

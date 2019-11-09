@@ -7,8 +7,9 @@ sge::cmp::VertArray::VertArray(const utils::Handle<sge::GameObject> &_gameobject
     : Component(_gameobject, "VertArray") {
 
     // Subscribing to the dirty_transform_event
-    dirty_transform_handler = [&](){
-        this->is_dirty = true;
+    auto handle = get_handle();
+    dirty_transform_handler = [=](){
+        handle->is_dirty = true;
     };
 
     gameobject()->transform()->world_transform_changed_event+= dirty_transform_handler;
@@ -17,7 +18,7 @@ sge::cmp::VertArray::VertArray(const utils::Handle<sge::GameObject> &_gameobject
 void sge::cmp::VertArray::append_local_point(const sge::Vec2<float>& new_local_point) {
     m_local_points.push_back(new_local_point);
     auto new_world_point = Vec2<float>(0,0);
-    m_vertex_array.append(sf::Vertex(sf::Vector2f(new_world_point.x, new_world_point.y)));
+    m_vertex_array.append(sf::Vertex(sf::Vector2f(new_world_point.x, -new_world_point.y)));
     is_dirty = true;
 }
 
@@ -73,7 +74,6 @@ void sge::cmp::VertArray::import_smesh(const std::string &filename) {
                 else {
                     temp_vertices.emplace_back(x,y);
                 }
-
             } else {
                 // Phase 2: for every line 3 int values are expected, the indices for the built vertex vector
                 std::stringstream iss(line);
@@ -85,7 +85,6 @@ void sge::cmp::VertArray::import_smesh(const std::string &filename) {
                     append_local_point(temp_vertices[a]);
                     append_local_point(temp_vertices[b]);
                     append_local_point(temp_vertices[c]);
-
                 }
             }
         }
@@ -111,6 +110,39 @@ void sge::cmp::VertArray::set_vertex_color(unsigned int index, sf::Color color) 
     } else {
         LOG_ERROR << "Index given in set_vertex_position [" << index << "] is out of bounds";
     }
+}
+
+void sge::cmp::VertArray::clean_layer_index_if_dirty(std::map<std::string, unsigned int> &layer_map) {
+    if (dirty_layer_index) {
+        if (layer_id.empty()) {
+            layer_index = 0;
+            dirty_layer_index = false;
+        } else {
+            if (layer_map.count(layer_id) == 1) {
+                layer_index = layer_map[layer_id];
+                dirty_layer_index = false;
+            } else {
+                LOG_ERROR << "The layer id [" << layer_id << "] isn't valid";
+            }
+        }
+    }
+}
+
+void sge::cmp::VertArray::set_layer(const std::string &layer_id) {
+    this->layer_id = layer_id;
+    dirty_layer_index = true;
+}
+
+const std::string& sge::cmp::VertArray::get_layer_id() {
+    return layer_id;
+}
+
+const sf::VertexArray &sge::cmp::VertArray::get_vert_array() const {
+    return m_vertex_array;
+}
+
+sf::PrimitiveType sge::cmp::VertArray::get_primitive_type() const {
+    return m_vertex_array.getPrimitiveType();
 }
 
 

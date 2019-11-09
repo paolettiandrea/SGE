@@ -47,11 +47,15 @@ void sge::cmp::CustomB2ContactListener::EndContact(b2Contact *contact) {
 void sge::cmp::CustomB2ContactListener::trigger_collision_callbacks() {
 
     for (int i = 0; i < m_begin_collision_info_buffer.size(); ++i) {
-        m_begin_collision_info_buffer[i].get_my_collider()->gameobject()->logichub()->on_collision_begin(m_begin_collision_info_buffer[i]);
+        m_begin_collision_info_buffer[i].m_my_collider->gameobject()->logichub()->on_collision_begin(m_begin_collision_info_buffer[i]);
     }
 
     for (int i = 0; i < m_end_collision_info_buffer.size(); ++i) {
-        m_end_collision_info_buffer[i].get_my_collider()->gameobject()->logichub()->on_collision_end(m_end_collision_info_buffer[i]);
+        auto collider_gameobject = m_end_collision_info_buffer[i].m_my_collider->gameobject();
+        if (collider_gameobject.is_valid()) {
+            collider_gameobject->logichub()->on_collision_end(m_end_collision_info_buffer[i]);
+        }
+
     }
 
     m_begin_collision_info_buffer.clear();
@@ -66,8 +70,16 @@ void sge::cmp::CustomB2ContactListener::PreSolve(b2Contact *contact, const b2Man
     auto col1 = (sge::cmp::Collider*)fixtureA->GetUserData();
     auto col2 = (sge::cmp::Collider*)fixtureB->GetUserData();
 
-    col1->gameobject()->logichub()->pre_solve(contact, oldManifold);
-    col2->gameobject()->logichub()->pre_solve(contact, oldManifold);
+    b2WorldManifold world_manifold;
+    contact->GetWorldManifold(&world_manifold);
+    b2Vec2 vel1 = fixtureA->GetBody()->GetLinearVelocityFromWorldPoint(world_manifold.points[0] );
+    b2Vec2 vel2 = fixtureB->GetBody()->GetLinearVelocityFromWorldPoint(world_manifold.points[0] );
+
+    auto data1 = CollisionInfo(col1, col2, sge::Vec2<float>(vel1.x, vel1.y), sge::Vec2<float>(vel2.x, vel2.y));
+    auto data2 = CollisionInfo(col2, col1, sge::Vec2<float>(vel2.x, vel2.y), sge::Vec2<float>(vel1.x, vel1.y));
+
+    col1->gameobject()->logichub()->pre_solve(contact, oldManifold, data1);
+    col2->gameobject()->logichub()->pre_solve(contact, oldManifold, data2);
 }
 
 void sge::cmp::CustomB2ContactListener::PostSolve(b2Contact *contact, const b2ContactImpulse *impulse) {
@@ -79,7 +91,16 @@ void sge::cmp::CustomB2ContactListener::PostSolve(b2Contact *contact, const b2Co
     auto col1 = (sge::cmp::Collider*)fixtureA->GetUserData();
     auto col2 = (sge::cmp::Collider*)fixtureB->GetUserData();
 
-    col1->gameobject()->logichub()->post_solve(contact, impulse);
-    col2->gameobject()->logichub()->post_solve(contact, impulse);
+    b2WorldManifold world_manifold;
+    contact->GetWorldManifold(&world_manifold);
+    b2Vec2 vel1 = fixtureA->GetBody()->GetLinearVelocityFromWorldPoint(world_manifold.points[0] );
+    b2Vec2 vel2 = fixtureB->GetBody()->GetLinearVelocityFromWorldPoint(world_manifold.points[0] );
+
+    auto data1 = CollisionInfo(col1, col2, sge::Vec2<float>(vel1.x, vel1.y), sge::Vec2<float>(vel2.x, vel2.y));
+    auto data2 = CollisionInfo(col2, col1, sge::Vec2<float>(vel2.x, vel2.y), sge::Vec2<float>(vel1.x, vel1.y));
+
+
+    col1->gameobject()->logichub()->post_solve(contact, impulse, data1);
+    col2->gameobject()->logichub()->post_solve(contact, impulse, data2);
 }
 

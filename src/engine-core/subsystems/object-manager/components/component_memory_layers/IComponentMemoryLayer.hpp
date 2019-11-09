@@ -31,6 +31,8 @@ namespace sge::core {
 
         virtual void memory_buffer_pass() = 0;
 
+        virtual void destruction_callback_pass() = 0;
+
     };
 }
 

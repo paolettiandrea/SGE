@@ -109,6 +109,9 @@ namespace sge {
 
             bool visual_debug_triangle_strip_switch = false;
             bool visual_debug_path_switch = false;
+
+            std::map<std::string, unsigned int> layers_map;
+            int layer_count;
         };
     }
 }
