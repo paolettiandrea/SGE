@@ -18,6 +18,8 @@ Rigidbody::Rigidbody(const utils::Handle<sge::GameObject>& _gameobject)
     transform_changed_callback = [=]() {
         handle->dirty_body_position_flag = true;
     };
+
+
 }
 
 void sge::cmp::Rigidbody::set_body_type(b2BodyType body_type) {
@@ -65,6 +67,7 @@ void sge::cmp::Rigidbody::destruction_callback() {
     }
 
     }
+
 
 void sge::cmp::Rigidbody::transform_to_body_position() {
     auto pos = gameobject()->transform()->get_world_position();

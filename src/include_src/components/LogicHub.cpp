@@ -14,7 +14,7 @@ LogicHub::LogicHub(const Handle<GameObject> &gameobject)
 
 
 void LogicHub::attach_logic(Logic *new_logic) {
-    LOG_DEBUG(18) << "Attaching new logic with logic id (" << new_logic->get_logic_type_id() << ")";
+    LOG_DEBUG(18) << "Attaching new logic with logic id (" << new_logic->get_logic_id() << ")";
 
     attached_logic_list.push_back(new_logic);
     new_logic->update_references(this->gameobject());
@@ -24,14 +24,22 @@ void LogicHub::attach_logic(Logic *new_logic) {
 
 bool LogicHub::has_logic(const std::string &logic_type_id) {
     for (auto attached_logic : attached_logic_list) {
-        if (attached_logic->get_logic_type_id() == logic_type_id) return true;
+        if (attached_logic->get_logic_id() == logic_type_id) return true;
     }
     return false;
 }
 
 
 void LogicHub::remove_logic(Logic *target_logic) {
-    attached_logic_list.remove(target_logic);
+    for (int i = 0; i < attached_logic_list.size(); ++i) {
+        if (attached_logic_list[i] == target_logic) {
+            if (attached_logic_list.size()>1) {
+                attached_logic_list[i] = attached_logic_list[attached_logic_list.size() - 1];
+            }
+            break;
+        }
+    }
+    attached_logic_list.pop_back();
     delete(target_logic);
     // TODO some sort of removal callback here, probably also an Event for other object to subscribe
 }
@@ -41,7 +49,7 @@ void LogicHub::remove_logic(Logic *target_logic) {
 
 Logic *LogicHub::get_unspecificed_logic(const std::string &logic_id) {
     for (auto attached_logic : attached_logic_list) {
-        if (attached_logic->get_logic_type_id() == logic_id) return attached_logic;
+        if (attached_logic->get_logic_id() == logic_id) return attached_logic;
     }
     return nullptr;
 }

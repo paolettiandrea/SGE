@@ -17,9 +17,8 @@ sge::cmp::VertArray::VertArray(const utils::Handle<sge::GameObject> &_gameobject
 
 void sge::cmp::VertArray::append_local_point(const sge::Vec2<float>& new_local_point) {
     m_local_points.push_back(new_local_point);
-    auto new_world_point = Vec2<float>(0,0);
+    auto new_world_point = gameobject()->transform()->local_to_world_point(new_local_point);
     m_vertex_array.append(sf::Vertex(sf::Vector2f(new_world_point.x, -new_world_point.y)));
-    is_dirty = true;
 }
 
 void sge::cmp::VertArray::draw(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -144,6 +143,32 @@ const sf::VertexArray &sge::cmp::VertArray::get_vert_array() const {
 sf::PrimitiveType sge::cmp::VertArray::get_primitive_type() const {
     return m_vertex_array.getPrimitiveType();
 }
+
+void sge::cmp::VertArray::append_vertex_as_local(const sf::Vertex &local_vertex) {
+    m_local_points.emplace_back(local_vertex.position.x, -local_vertex.position.y);
+    auto new_world_point = gameobject()->transform()->local_to_world_point(m_local_points.back());
+    m_vertex_array.append(sf::Vertex(sf::Vector2f(new_world_point.x, -new_world_point.y), local_vertex.color));
+}
+
+void sge::cmp::VertArray::append_vertex_as_world(const sf::Vertex &world_vertex) {
+    m_local_points.push_back(gameobject()->transform()->world_to_local_point(
+            sge::Vec2<float>(world_vertex.position.x, -world_vertex.position.y)));
+    m_vertex_array.append(world_vertex);
+}
+
+void sge::cmp::VertArray::set_vertex_array(const sf::VertexArray &vertex_array) {
+    m_vertex_array.clear();
+    m_vertex_array.setPrimitiveType(vertex_array.getPrimitiveType());
+    for (int i = 0; i < vertex_array.getVertexCount(); ++i) {
+        m_vertex_array.append(vertex_array[i]);
+    }
+    is_dirty = true;
+}
+
+const std::vector<sge::Vec2<float>> &sge::cmp::VertArray::get_local_points() const {
+    return m_local_points;
+}
+
 
 
 

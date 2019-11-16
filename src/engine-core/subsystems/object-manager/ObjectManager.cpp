@@ -56,6 +56,8 @@ void ObjectManager::doom_pass() {
             }
             // on_destruction is called on every Logic object attached to the doomed gameobject right before
             // the actual removal pass is started
+            auto yo = &gameobj;
+            auto ya = gameobj.logichub();
             gameobj.logichub()->on_destruction();
         }
     }

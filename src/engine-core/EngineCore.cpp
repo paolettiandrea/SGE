@@ -45,11 +45,11 @@ bool EngineCore::game_loop() {
     }
 
     logic_manager.on_update();
+    visual_debug_pass();
 
     // Destroys the GameObjects and Components
     object_manager.doom_pass();
 
-    visual_debug_pass();
 
     // RENDER
     window_manager.prepare_render();

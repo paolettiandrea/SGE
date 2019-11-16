@@ -51,11 +51,10 @@ void sge::cmp::CustomB2ContactListener::trigger_collision_callbacks() {
     }
 
     for (int i = 0; i < m_end_collision_info_buffer.size(); ++i) {
-        auto collider_gameobject = m_end_collision_info_buffer[i].m_my_collider->gameobject();
-        if (collider_gameobject.is_valid()) {
+        if (m_end_collision_info_buffer[i].m_my_collider.is_valid()) {
+            auto collider_gameobject = m_end_collision_info_buffer[i].m_my_collider->gameobject();
             collider_gameobject->logichub()->on_collision_end(m_end_collision_info_buffer[i]);
         }
-
     }
 
     m_begin_collision_info_buffer.clear();

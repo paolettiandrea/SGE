@@ -55,20 +55,20 @@ namespace sge {
 
             void set_density(float density);
             void set_friction(float friction);
-            void sed_restitution(float restitution);
+            void set_restitution(float restitution);
 
             void destruction_callback() override;
-
 
         protected:
             b2Fixture* m_fixture;
             utils::Handle<sge::cmp::Rigidbody> m_rigidbody;
             bool m_dirty_rigidbody = true;
             bool m_dirty_fixture_shape = true;
-            float m_radius;
 
+            float m_radius;
             utils::event::EventHandler relative_transform_changed_event;
             utils::event::EventHandler relative_hierarchy_changed_event;
+
             /*!
              * \brief Vector containing all the transforms from this gameobject's (included)
              * to the gameobject containing the Rigidbody upstream (excluded)

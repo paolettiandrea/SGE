@@ -1,7 +1,3 @@
-//
-// Created by andrea on 5/8/19.
-//
-
 #ifndef SGE_EVENTS_HPP
 #define SGE_EVENTS_HPP
 

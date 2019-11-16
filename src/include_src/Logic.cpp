@@ -8,7 +8,7 @@ Logic::~Logic() {
 }
 
 void Logic::update_references(Handle<GameObject> gameobj) {
-    this->set_log_id("(" + this->get_logic_type_id() + ") of " + gameobj->get_log_id());
+    this->set_log_id("(" + this->get_logic_id() + ") of " + gameobj->get_log_id());
 
     m_gameobject_handle = gameobj;
     m_scene = m_gameobject_handle->get_scene();

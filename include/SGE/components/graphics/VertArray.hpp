@@ -17,6 +17,10 @@ namespace sge {
             explicit VertArray(const utils::Handle<GameObject> &gameobject);
 
             void append_local_point(const Vec2<float>& new_local_point);
+
+            void append_vertex_as_local(const sf::Vertex &local_vertex);
+
+            void append_vertex_as_world(const sf::Vertex &world_vertex);
             void set_primitive(sf::PrimitiveType primitive_type);
             void set_color(sf::Color color);
             void set_vertex_color(unsigned int index, sf::Color color);
@@ -35,7 +39,9 @@ namespace sge {
             void set_layer(const std::string& layer_id);
             const std::string& get_layer_id();
 
+            void set_vertex_array(const sf::VertexArray& vertex_array);
             const sf::VertexArray& get_vert_array() const;
+            const std::vector<sge::Vec2<float>>& get_local_points() const;
 
             sf::PrimitiveType get_primitive_type() const;
 

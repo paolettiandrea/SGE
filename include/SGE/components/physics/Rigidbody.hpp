@@ -50,6 +50,7 @@ namespace sge {
             b2Body* m_body;
 
             utils::event::EventHandler transform_changed_callback;
+            utils::event::EventHandler parent_changed_callback;
             bool dirty_body_position_flag;
 
             /*!

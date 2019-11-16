@@ -12,12 +12,6 @@
 
 #include "SGE/utils/events/Events.hpp"
 
-
-
-
-
-
-
 namespace sge {
     namespace core {
         class ObjectManager;
@@ -145,6 +139,9 @@ namespace sge {
         template <class T>
         friend class core::ComponentMemoryLayer;
         friend class core::ObjectManager;
+
+    private:
+        void recursive_doom(utils::Handle<GameObject> pointed);
     };
 
 
@@ -173,12 +170,11 @@ namespace sge {
     }
 
 
+
+
 //endregion
 
 }
-
-
-
 
 #endif //SGE_GAMEOBJECT_HPP
 

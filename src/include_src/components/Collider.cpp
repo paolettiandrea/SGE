@@ -3,7 +3,6 @@
 #include "Scene.hpp"
 
 
-
 sge::cmp::Collider::Collider(const utils::Handle<sge::GameObject>& _gameobject)
         : Component(_gameobject, "Collider") {
 
@@ -16,7 +15,7 @@ sge::cmp::Collider::Collider(const utils::Handle<sge::GameObject>& _gameobject)
         this_handle->m_dirty_rigidbody = true;
     };
 
-    clean_rigidbody();
+     clean_rigidbody();
 
     b2FixtureDef def;
     def.density = SGE_COLLIDER_DEFAULT_DENSITY;
@@ -29,8 +28,10 @@ sge::cmp::Collider::Collider(const utils::Handle<sge::GameObject>& _gameobject)
     def.userData = this;
 
     m_fixture = m_rigidbody->get_b2_body()->CreateFixture(&def);
-}
 
+    gameobject()->transform()->parent_changed_event += relative_transform_changed_event;
+
+}
 
 
 void sge::cmp::Collider::clean_shape() {
@@ -215,7 +216,7 @@ void sge::cmp::Collider::set_as_circle(float radius) {
     m_dirty_fixture_shape = true;
 }
 
-void sge::cmp::Collider::sed_restitution(float restitution) {
+void sge::cmp::Collider::set_restitution(float restitution) {
     m_fixture->SetRestitution(restitution);
 }
 

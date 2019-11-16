@@ -79,7 +79,7 @@ namespace sge {
 
 
         private:
-            std::list<Logic*> attached_logic_list;
+            std::vector<Logic*> attached_logic_list;
 
 
             Logic* get_unspecificed_logic(const std::string& logic_id); // Used internally to allow forward declaration of Logic
@@ -94,7 +94,8 @@ namespace sge {
         template<class T>
         T *sge::cmp::LogicHub::get_logic() {
             for (Logic *attached_logic : attached_logic_list) {
-                if (dynamic_cast<T*>(attached_logic)) return  attached_logic;
+                auto cast = dynamic_cast<T*>(attached_logic);
+                if (cast) return cast;
             }
             return nullptr;
         }

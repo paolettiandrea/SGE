@@ -31,7 +31,7 @@ namespace sge {
          * \brief Method that effectivelly defines the unique logic_type_id for a Logic object
          * \return The unique logic_type_id
          */
-        virtual std::string get_logic_type_id() = 0;
+        virtual std::string get_logic_id() = 0;
         /*!
          * \brief Gets an handle to the GameObject this Logic is attached to
          * \return An Handle to the GameObject

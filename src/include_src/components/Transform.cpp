@@ -39,7 +39,6 @@ void Transform::set_parent(Handle<Transform> new_parent) {
             }
             target_parent = target_parent->get_parent();
         }
-
         // Add this as child to the new parent
         new_parent->add_child(this->get_handle());
     }
@@ -52,6 +51,10 @@ void Transform::set_parent(Handle<Transform> new_parent) {
 
 utils::Handle<Transform> sge::cmp::Transform::get_parent() {
     return m_parent;
+}
+
+bool sge::cmp::Transform::has_parent() {
+    return m_parent.is_valid();
 }
 
 void sge::cmp::Transform::add_child(utils::Handle<Transform> new_child) {
@@ -80,18 +83,8 @@ void sge::cmp::Transform::set_local_position(float x, float y) {
 }
 
 void sge::cmp::Transform::set_local_scale(float scale) {
-    if (scale==0.f) {
-        LOG_ERROR << "Scale cannot be 0";
-        exit(1);
-    }
-    if (m_local_scale_matrix[0][0]!=scale || m_local_scale_matrix[1][1]!=scale) {
-        m_local_scale_matrix[0][0] = scale;
-        m_local_scale_matrix[1][1] = scale;
-        local_transform_changed_event();
-        recursive_change_pulse();
-    }
+    set_local_scale(scale, scale);
 }
-
 
 void sge::cmp::Transform::set_local_rotation(float rads) {
     auto diff = rads - get_local_rotation();
@@ -107,6 +100,7 @@ void sge::cmp::Transform::set_local_rotation(float rads) {
     }
 }
 
+
 sge::Vec2<float> sge::cmp::Transform::local_to_world_point(sge::Vec2<float> point) {
     if (is_dirty) update_world_data();
     Matrix2D<float> point_matrix(2,1);
@@ -115,7 +109,6 @@ sge::Vec2<float> sge::cmp::Transform::local_to_world_point(sge::Vec2<float> poin
     auto yo = m_world_rotation_matrix*m_world_scale_matrix*point_matrix;
     return sge::Vec2<float>(yo[0][0]+m_world_position_vector.x, yo[1][0]+m_world_position_vector.y);
 }
-
 
 sge::Vec2<float> sge::cmp::Transform::world_to_local_point(sge::Vec2<float> world_pos) {
     if (is_dirty) update_world_data();
@@ -189,7 +182,6 @@ float sge::cmp::Transform::get_local_rotation() {
     if (asin(m_local_rotation_matrix[0][1])<0)
         return acos(m_local_rotation_matrix[0][0]);
     else return acos(-m_local_rotation_matrix[0][0]) + M_PI;
-
 }
 
 float sge::cmp::Transform::get_local_rotation_euler() {
@@ -203,17 +195,16 @@ float sge::cmp::Transform::get_world_rotation() {
     else return acos(-m_world_rotation_matrix[0][0]) + M_PI;
 }
 
+
 float sge::cmp::Transform::get_world_rotation_euler() {
     if (is_dirty) update_world_data();
     return  get_world_rotation() * 180 / M_PI;
 }
 
-
 void sge::cmp::Transform::visual_debug_draw_transform() {
     auto env_h = gameobject()->get_scene()->env();
     env_h->debug_draw_direction(m_world_position_vector, local_to_world_point(sge::Vec2<float>(0,1)),0.f,sf::Color(199,19,29));
     env_h->debug_draw_direction(m_world_position_vector, local_to_world_point(sge::Vec2<float>(1,0)), 0.f, sf::Color(199,193,23));
-
 }
 
 void sge::cmp::Transform::visual_debug_draw_names() {
@@ -228,6 +219,28 @@ void sge::cmp::Transform::set_local_position(const sge::Vec2<float>& new_local_p
 void sge::cmp::Transform::reallocation_callback() {
     Component::reallocation_callback();
 }
+
+void sge::cmp::Transform::set_local_scale(float x, float y) {
+    if (x==0.f || y==0.f) {
+        LOG_ERROR << "Scale cannot be 0";
+        exit(1);
+    }
+    if (m_local_scale_matrix[0][0]!=x || m_local_scale_matrix[1][1]!=y) {
+        m_local_scale_matrix[0][0] = x;
+        m_local_scale_matrix[1][1] = y;
+        local_transform_changed_event();
+        recursive_change_pulse();
+    }
+}
+
+void sge::cmp::Transform::set_local_scale(sge::Vec2<float> scale_vec) {
+    set_local_scale(scale_vec.x, scale_vec.y);
+}
+
+const std::list<utils::Handle<sge::cmp::Transform>> &sge::cmp::Transform::get_children() {
+    return m_children;
+}
+
 
 
 

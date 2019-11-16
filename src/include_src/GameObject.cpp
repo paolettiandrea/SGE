@@ -33,7 +33,7 @@ GameObject::~GameObject() {
 
 void GameObject::doom() {
     LOG_DEBUG(32) << "Doomed";
-    is_doomed_flag = true;
+    recursive_doom(get_handle());
 }
 
 
@@ -153,6 +153,13 @@ std::string sge::GameObject::recursive_get_string_local_hierarchy(std::string &o
         child->gameobject()->recursive_get_string_local_hierarchy(out_str, indentation+1, print_components);
     }
     return out_str;
+}
+
+void GameObject::recursive_doom(utils::Handle<GameObject> pointed) {
+    for (auto child: pointed->transform()->get_children()) {
+        recursive_doom(child->gameobject());
+    }
+    pointed->is_doomed_flag = true;
 }
 
 

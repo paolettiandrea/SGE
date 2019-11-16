@@ -112,7 +112,7 @@ namespace utils {
         bool is_valid() {
             if (is_null()) return false;
             else {
-                return ((handle_entries[index].counter == counter));
+                return ((index < MAXIMUM_HANDLES_PER_TYPE && handle_entries[index].counter == counter));
             }
         }
 

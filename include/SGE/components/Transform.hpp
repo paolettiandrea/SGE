@@ -41,6 +41,10 @@ namespace sge::cmp {
          * \brief Gets an handle to the parent of this object, null handle if base
          */
         utils::Handle<Transform> get_parent();
+        bool has_parent();
+
+        const std::list<utils::Handle<sge::cmp::Transform>> &get_children();
+
 
         void reallocation_callback() override;
 
@@ -56,6 +60,9 @@ namespace sge::cmp {
         Vec2<float> get_world_position();
 
         void set_local_scale(float scale);
+        void set_local_scale(float x, float y);
+        void set_local_scale(sge::Vec2<float> scale_vec);
+
         Vec2<float> get_local_scale();
         Vec2<float> get_world_scale();
 
