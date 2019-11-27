@@ -32,6 +32,8 @@ namespace sge {
 
             void set_fixed_rotation(bool fixed_rotation);
 
+            void set_transform(const sge::Vec2<float>& position, float rotation);
+
             /*!
              * \brief Get the b2 body of this Rigidbody
              */
@@ -45,6 +47,8 @@ namespace sge {
             void apply_linear_impulse(const Vec2<float> &impulse_vec, const Vec2<float> &impulse_point, bool wake);
             void apply_angular_impulse(float impulse, bool wake);
             float get_mass();
+
+            std::string get_debug_string() override;
 
         private:
             b2Body* m_body;

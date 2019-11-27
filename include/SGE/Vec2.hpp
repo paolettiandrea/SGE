@@ -37,6 +37,9 @@ namespace sge {
         Vec2 operator+(const Vec2& that) {
             return Vec2<T>(this->x+that.x, this->y+that.y);
         }
+        Vec2 operator+(const Vec2& that) const {
+            return Vec2<T>(this->x+that.x, this->y+that.y);
+        }
         Vec2 operator-(const Vec2& that) {
             return Vec2<T>(this->x-that.x, this->y-that.y);
         }

@@ -45,6 +45,8 @@ namespace sge::cmp {
 
         const std::list<utils::Handle<sge::cmp::Transform>> &get_children();
 
+        std::string get_debug_string() override;
+
 
         void reallocation_callback() override;
 
@@ -81,6 +83,8 @@ namespace sge::cmp {
         }
         //endregion
 
+        bool is_root();
+
 
     private:
         utils::Handle<sge::cmp::Transform> m_parent;
@@ -104,13 +108,4 @@ namespace sge::cmp {
 
 }
 
-
-
 #endif //SGE_TRANSFORM_HPP
-
-
-
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/

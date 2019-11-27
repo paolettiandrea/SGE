@@ -169,6 +169,40 @@ const std::vector<sge::Vec2<float>> &sge::cmp::VertArray::get_local_points() con
     return m_local_points;
 }
 
+std::string sge::cmp::VertArray::get_debug_string() {
+    auto s =  IComponent::get_debug_string();
+
+    s += "Type: ";
+    switch (m_vertex_array.getPrimitiveType()) {
+
+        case sf::Points:
+            s += "POINTS\n";
+            break;
+        case sf::Lines:
+            s += "LINES\n";
+            break;
+        case sf::LineStrip:
+            s += "LINESTRIP\n";
+            break;
+        case sf::Triangles:
+            s += "TRIANGLES\n";
+            break;
+        case sf::TriangleStrip:
+            s += "TRIANGLESTRIP\n";
+            break;
+        case sf::TriangleFan:
+            s += "TRIANGLEFAN\n";
+            break;
+        case sf::Quads:
+            s += "QUADS\n";
+            break;
+    }
+
+    s += "Vert count: " + std::to_string(m_vertex_array.getVertexCount()) + "";
+
+    return s;
+}
+
 
 
 

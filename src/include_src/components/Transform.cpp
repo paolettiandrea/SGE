@@ -241,6 +241,25 @@ const std::list<utils::Handle<sge::cmp::Transform>> &sge::cmp::Transform::get_ch
     return m_children;
 }
 
+bool sge::cmp::Transform::is_root() {
+    return get_parent().is_null();
+
+}
+
+std::string sge::cmp::Transform::get_debug_string() {
+    auto s = IComponent::get_debug_string();
+
+    s += "Local Position: " + m_local_position_vector.to_string() + "\n";
+    s += "Local Rotation: " + std::to_string(get_local_rotation()) + "\n";
+    s += "Local Scale: " + get_local_scale().to_string() + "\n";
+    s += "---\n";
+    s += "World Position: " + get_world_position().to_string() + "\n";
+    s += "World Rotation: " + std::to_string(get_world_rotation()) + "\n";
+    s += "World Scale: " + get_world_scale().to_string() + "";
+
+    return s;
+}
+
 
 
 

@@ -23,6 +23,8 @@ namespace sge::cmp {
         std::vector<sge::CollisionInfo> m_begin_collision_info_buffer;
         std::vector<sge::CollisionInfo> m_end_collision_info_buffer;
 
+        std::vector<sge::CollisionInfo> m_disabled_collision_info_buffer;
+
     };
 }
 

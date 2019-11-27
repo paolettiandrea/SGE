@@ -31,30 +31,21 @@ void GameObjectMemoryLayer::custom_realloc() {
     //Handle<GameObject>::print_entries_array_info();
 }
 
-void GameObjectMemoryLayer::remove_gameobject(Handle<GameObject> target_handle) {
+bool GameObjectMemoryLayer::remove_gameobject(Handle<GameObject> target_handle) {
     // If we're removing the last element there's no need of memory swapping shenanigans
     // else the last element is swapped in the gap created by the removal and the corresponfing handle origin pointer is updated
-
-    LOG_INFO << " Removing Gameobject " << target_handle->get_log_id();
-
-    // Find the last not doomed gameobject and swap it
-    GameObject* last_element_pointer = nullptr;
-    for (int i = gameobjects_vector.size()-1; i >=0 ; ++i) {
-        if (gameobjects_vector[i].get_handle() == target_handle) break;
-        
-        if (!gameobjects_vector[i].is_doomed()) {
-            last_element_pointer = &gameobjects_vector[i];
-            break;
-        }
-    }
+    bool swap_happened = false;
 
     auto target_pointer = target_handle.get_pointer();
     if (target_pointer != &gameobjects_vector.back()) {
-        last_element_pointer->get_handle().update_origin_pointer(target_pointer);
-        target_pointer->swap(gameobjects_vector.back());
+        gameobjects_vector.back().get_handle().update_origin_pointer(target_handle.get_pointer());
+        int target_internal_index = target_handle.get_pointer() - &gameobjects_vector[0];
+        std::swap(gameobjects_vector[target_internal_index], gameobjects_vector[gameobjects_vector.size() - 1]);
+        swap_happened = true;
     }
     target_handle.make_origin_expired();
     gameobjects_vector.pop_back();
+    return swap_happened;
 }
 
 std::vector<GameObject>* GameObjectMemoryLayer::get_gameobjects_vector() {
@@ -70,7 +61,7 @@ void GameObjectMemoryLayer:: doom_pass() {
         GameObject* target_gameobj_p = &gameobjects_vector[i];
         if (target_gameobj_p->is_doomed()) {
             Handle<GameObject> go = target_gameobj_p->get_handle();
-            remove_gameobject(go);
+            if (remove_gameobject(go)) i--;
             LOG_DEBUG(30) << "Removed " << target_gameobj_p;
         }
     }

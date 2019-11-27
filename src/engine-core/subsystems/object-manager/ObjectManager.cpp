@@ -14,6 +14,7 @@ Scene* ObjectManager::push_new_scene(SceneConstructionData *scene_construction_d
     component_factory.push_new_component_memory_layer(comp_mem_layer_array);
 
     scene_stack.emplace(scene_construction_data, gameobj_mem_layer, comp_mem_layer_array, env);
+    scene_cd_vec.push_back(*scene_construction_data);
     return &scene_stack.top();
 
 }
@@ -32,6 +33,7 @@ void ObjectManager::pop_top_scene() {
     component_factory.pop_top_component_memory_layer();
     gameobj_layers_stack.pop();
     scene_stack.pop();
+    scene_cd_vec.pop_back();
 }
 
 unsigned int ObjectManager::get_scene_stack_size() {
@@ -149,5 +151,51 @@ void sge::core::ObjectManager::toggle_visual_debug_names() {
 void sge::core::ObjectManager::memory_buffer_pass() {
     transform_creator.memory_buffer_pass();
 
+}
+
+std::string sge::core::ObjectManager::get_hierarchy_string() {
+    std::string s;
+    for (auto transform : transform_creator.get_top_layer()->get_component_vector()) {
+        if (transform->get_parent().is_null()) {
+            s += transform->gameobject()->get_log_id() + "\n";
+        }
+    }
+
+    return s;
+}
+
+std::vector<utils::Handle<sge::cmp::Transform>> sge::core::ObjectManager::get_root_transforms() {
+    std::vector<utils::Handle<sge::cmp::Transform>> transforms;
+
+    for(auto transform : transform_creator.get_top_layer()->get_component_vector()) {
+        if (transform->get_parent().is_null()) {
+            transforms.emplace_back(transform);
+        }
+    }
+
+    return transforms;
+}
+
+std::vector<utils::Handle<sge::cmp::Transform>> sge::core::ObjectManager::get_siblings(utils::Handle<sge::cmp::Transform> target, bool include_target) {
+    if (target->gameobject()->get_scene() == &scene_stack.top()) {
+        if (target->get_parent().is_null()) {
+            return get_root_transforms();
+        } else {
+            auto parent = target->get_parent();
+
+            std::vector<utils::Handle<sge::cmp::Transform>> vec;
+            for (auto child : parent->get_children()) {
+                if (include_target) {
+                    vec.emplace_back(child);
+                } else {
+                    if (child!=target) {
+                        vec.emplace_back(child);
+                    }
+                }
+            }
+            return vec;
+        }
+    }
+    return std::vector<utils::Handle<sge::cmp::Transform>>();
 }
 

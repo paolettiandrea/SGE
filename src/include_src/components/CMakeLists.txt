@@ -13,4 +13,9 @@ target_sources(SGE PRIVATE
         Collider.cpp
 
         CollisionInfo.cpp
+
+        UI.cpp
+        UIContent.cpp
+        UIText.cpp
+        UIBar.cpp
         )

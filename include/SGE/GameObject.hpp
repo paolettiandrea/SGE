@@ -108,7 +108,6 @@ namespace sge {
 
         std::string get_string_attached_components();
         std::string get_string_local_hierarchy(bool print_components = false);
-
     private:
         /*!
          * Pointer to the scene this GameObject is in

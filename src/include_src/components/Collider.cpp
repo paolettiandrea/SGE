@@ -204,6 +204,17 @@ utils::Handle<sge::cmp::Rigidbody> sge::cmp::Collider::get_rigidbody() {
 
 void sge::cmp::Collider::set_sensor(bool is_sensor) {
     m_fixture->SetSensor(is_sensor);
+
+    if (is_sensor) {
+        previous_density = m_fixture->GetDensity();
+        m_fixture->SetDensity(0.0000001);
+    } else {
+        if (previous_density != -1) {
+            m_fixture->SetDensity(previous_density);
+        } else {
+            LOG_ERROR << "No previous density!";
+        }
+    }
 }
 
 bool sge::cmp::Collider::is_sensor() {
@@ -244,6 +255,29 @@ void sge::cmp::Collider::update_relative_path() {
                                                       res.y*m_rigidbody->gameobject()->transform()->get_world_scale().y));
     }
 
+}
+
+std::string sge::cmp::Collider::get_debug_string() {
+    auto s =  IComponent::get_debug_string();
+
+    s += "Type: ";
+    switch (m_type) {
+
+        case Polygon:
+            s += "POLYGON\n";
+            s += "Points: " + std::to_string(m_path.get_size()) + "";
+            break;
+        case Circle:
+            s += "CIRCLE\n";
+            s += "Radius: " + std::to_string(m_radius) + "";
+            break;
+        case Chain:
+            s += "CHAIN\n";
+            s += "Points: " + std::to_string(m_path.get_size()) + "";
+            break;
+    }
+
+    return s;
 }
 
 

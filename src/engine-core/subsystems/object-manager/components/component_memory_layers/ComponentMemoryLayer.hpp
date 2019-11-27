@@ -51,7 +51,7 @@ namespace sge {
              * \brief Removes a Component from this ComponentArray
              * \param target_handle An handle referencing to the Component that needs to be removed
              */
-            void remove_component(utils::Handle<ComponentT> target_handle);
+            bool remove_component(utils::Handle<ComponentT> target_handle);
         };
 
         template<class ComponentT>
@@ -68,6 +68,7 @@ namespace sge {
             if (component_vector.capacity()>component_vector.size()){
                 component_vector.emplace_back(gameobject);            // IComponent CONSTRUCTION at the back of the vector
                 handle_vector.push_back(component_vector.back().get_handle());     // The pointer will be updated on Component construction
+                component_vector.back().initialization_callback();
             } else {
                 LOG_ERROR << "Tried to create a new component but the memory buffer( for this frame ()"
                           << SGE_COMPONENT_MEMORY_BUFFER_SIZE << ") for this frame is full.\n"
@@ -99,26 +100,15 @@ namespace sge {
         }
 
         template<class ComponentT>
-        void ComponentMemoryLayer<ComponentT>::remove_component(utils::Handle<ComponentT> target_handle) {
-            LOG_INFO << "Removing " << target_handle.get_pointer();
+        bool ComponentMemoryLayer<ComponentT>::remove_component(utils::Handle<ComponentT> target_handle) {
+            bool swap_happened = false;
             LOG_DEBUG(25) << "Removing component " << target_handle->get_log_id();
              // Sets the correspondent value in the mapped array to -1 (representing absence of the component)
             target_handle->gameobject()->m_components_mapped_array[ComponentFactory::id_to_index(id)] = -1;
 
-            // Find the firts non-doomed component from the back of the vector
-            int swap_index = -1;
-            for (int i = component_vector.size() - 1; i >= 0; ++i) {
-                // Stop if the target component is reached because it means that it will be popped during this EngineCore::doom_pass
-                if (&component_vector[i] == target_handle.get_pointer()) break;
-                if (!component_vector[i].is_doomed()) {
-                    swap_index = i;
-                    break;
-                }
-            }
-
             // If we're removing the last element there's no need of memory swapping shenanigans
             // else the last element is swapped in the gap created by the removal and the corresponding handle origin pointer is updated
-            if (swap_index != -1 && target_handle.get_pointer() != &component_vector.back()) {
+            if (target_handle.get_pointer() != &component_vector.back()) {
                 LOG_DEBUG(32) << "Removing in the middle of the vector, so the element at the back ["
                               << &component_vector.back() << "] was moved to [" << target_handle.get_pointer() << "]";
 
@@ -126,16 +116,19 @@ namespace sge {
                 int target_internal_index = target_handle.get_pointer() - &component_vector[0];
 
                 // Swap the last element with the one to remove (for both the vectors since their indexes correspond)
-                std::swap(component_vector[target_internal_index], component_vector[component_vector.size() - 1]);
-                std::swap(handle_vector[target_internal_index], handle_vector[handle_vector.size() - 1]);
+                std::swap(component_vector[target_internal_index], component_vector[component_vector.size()-1]);
+                std::swap(handle_vector[target_internal_index], handle_vector[handle_vector.size()-1]);
 
                 // Updates the pointer of the IComponent moved to fill the gap
                 handle_vector[target_internal_index].update_origin_pointer(&component_vector[target_internal_index]);
                 handle_vector[target_internal_index]->reallocation_callback();          // Trigger on the moved object a realloc callback
+
+                swap_happened = true;
             }
             target_handle.make_origin_expired();
             component_vector.pop_back();
             handle_vector.pop_back();
+            return swap_happened;
         }
 
         template<class ComponentT>
@@ -163,7 +156,8 @@ namespace sge {
             LOG_DEBUG(25) << "Doom pass";
             for (int i = 0; i < handle_vector.size(); ++i) {
                 if (handle_vector[i]->is_doomed()) {         // IComponent removal
-                    remove_component(handle_vector[i]);
+                    auto comp_removed = remove_component(handle_vector[i]);
+                    if (comp_removed) i--;
                 }
             }
         }

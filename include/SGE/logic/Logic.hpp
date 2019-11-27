@@ -48,6 +48,8 @@ namespace sge {
          */
         IEnvironment* env();
 
+        virtual std::string debug_string() { return std::string(); }
+
 
         // Logic Callbacks ------------------------------------------------------------------------------------------------
 

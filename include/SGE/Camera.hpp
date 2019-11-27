@@ -1,6 +1,7 @@
 #ifndef SGE_CAMERA_HPP
 #define SGE_CAMERA_HPP
 
+#include <SGE/utils/events/Events.hpp>
 #include "SFML/Graphics.hpp"
 
 
@@ -31,6 +32,13 @@ namespace sge {
 
         const sf::View &get_view() const;
 
+        // Event called after the ratio of the camera has been changed
+        utils::event::Event ratio_changed_event;
+
+        void set_viewport(sf::FloatRect float_rect);
+
+        void set_background_color(sf::Color color);
+
     private:
         sf::View m_view;
         float m_screen_ratio;
@@ -39,6 +47,8 @@ namespace sge {
 
         void update_view_size();
         void set_ratio(float screen_ratio);
+
+        sf::Color background_color = sf::Color::Black;
     };
 }
 

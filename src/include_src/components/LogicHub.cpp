@@ -113,6 +113,18 @@ void sge::cmp::LogicHub::post_solve(b2Contact *contact, const b2ContactImpulse *
 }
 //endregion
 
+std::string sge::cmp::LogicHub::get_debug_string() {
+    std::string s;
+
+    s += "Attached Logics: " + std::to_string(attached_logic_list.size()) + "";
+
+    return s;
+}
+
+const std::vector<Logic *> &sge::cmp::LogicHub::get_attached_logic_list() const {
+    return attached_logic_list;
+}
+
 
 
 

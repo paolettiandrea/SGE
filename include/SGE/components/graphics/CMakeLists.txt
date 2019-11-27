@@ -4,3 +4,5 @@ target_sources(SGE PUBLIC
         VertArray.hpp
         PathRenderer.hpp
         )
+
+add_subdirectory(ui)

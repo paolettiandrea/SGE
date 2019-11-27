@@ -42,11 +42,15 @@ Handle<GameObject> GameObject::get_handle() {
 }
 
 void GameObject::swap(GameObject& other_gameobj) {
+
     for (int i = 0; i < TOTAL_POSSIBLE_COMPONENTS; ++i) {
         auto temp = m_components_mapped_array[i];
         m_components_mapped_array[i] = other_gameobj.m_components_mapped_array[i];
         other_gameobj.m_components_mapped_array[i] = temp;
     }
+
+    auto temp_id = get_log_id();
+
 
     bool temp_flag = is_doomed_flag;
     is_doomed_flag = other_gameobj.is_doomed_flag;
@@ -67,6 +71,10 @@ void GameObject::swap(GameObject& other_gameobj) {
     std::string temp_string = get_log_id();
     set_log_id(other_gameobj.get_log_id());
     other_gameobj.set_log_id(temp_string);
+
+    //update handles
+    gameobject_handle.update_origin_pointer(&other_gameobj);
+    other_gameobj.gameobject_handle.update_origin_pointer(this);
 
 }
 
@@ -161,6 +169,7 @@ void GameObject::recursive_doom(utils::Handle<GameObject> pointed) {
     }
     pointed->is_doomed_flag = true;
 }
+
 
 
 

@@ -6,9 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 add_library(SGE STATIC src/engine-core/subsystems/input-manager/InputManager.cpp src/engine-core/subsystems/input-manager/InputManager.hpp)
 
 
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug)
-endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
     target_compile_definitions(SGE PUBLIC DEBUG=1)
@@ -20,7 +17,6 @@ endif()
 
 add_subdirectory(src)
 add_subdirectory(include)
-
 
 
 SET(BOX2D_BUILD_EXAMPLES OFF CACHE BOOL "This setting has been overridden" FORCE)

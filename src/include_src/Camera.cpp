@@ -18,6 +18,7 @@ void sge::Camera::set_zoom(float vertical_size) {
 void sge::Camera::set_ratio(float screen_ratio) {
     m_screen_ratio = screen_ratio;
     update_view_size();
+    ratio_changed_event();
     changed_view_flag = true;
 }
 
@@ -53,5 +54,15 @@ float sge::Camera::get_zoom() {
 void sge::Camera::set_center(const sge::Vec2<float>& point) {
     set_center(point.x, point.y);
 }
+
+void sge::Camera::set_viewport(sf::FloatRect float_rect) {
+    m_view.setViewport(float_rect);
+}
+
+void sge::Camera::set_background_color(sf::Color color) {
+    background_color = color;
+}
+
+
 
 

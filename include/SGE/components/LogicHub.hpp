@@ -66,6 +66,8 @@ namespace sge {
 
             void post_solve(b2Contact *contact, const b2ContactImpulse *impulse, const CollisionInfo &info) override;
 
+            std::string get_debug_string() override;
+
 
 
             //endregion
@@ -80,6 +82,10 @@ namespace sge {
 
         private:
             std::vector<Logic*> attached_logic_list;
+        public:
+            const std::vector<Logic *> &get_attached_logic_list() const;
+
+        private:
 
 
             Logic* get_unspecificed_logic(const std::string& logic_id); // Used internally to allow forward declaration of Logic
@@ -101,6 +107,8 @@ namespace sge {
         }
 
     }
+
+
 }
 
 

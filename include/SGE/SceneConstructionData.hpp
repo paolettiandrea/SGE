@@ -1,12 +1,9 @@
-//
-// Created by andrea on 5/2/19.
-//
-
 #ifndef SGE_SCENECONSTRUCTIONDATA_HPP
 #define SGE_SCENECONSTRUCTIONDATA_HPP
 
 #include "Macros.hpp"
 #include <string>
+#include "SGE/Vec2.hpp"
 
 namespace sge {
 

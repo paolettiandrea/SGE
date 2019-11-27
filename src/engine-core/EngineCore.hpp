@@ -57,7 +57,7 @@ namespace sge::core {
 
         void visual_debug_pass();
 
-    private:
+    protected:
         double fixed_delta_time() override;
 
         unsigned int frame_count() override;
@@ -71,7 +71,10 @@ namespace sge::core {
         bool m_shutting_down_flag = false;
         //endregion
 
-    private:
+        virtual void update_accumulator();
+        virtual void physics_routine();
+        virtual void render_routine();
+
         ObjectManager object_manager;
         LogicManager logic_manager;
         WindowManager window_manager;

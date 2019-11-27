@@ -103,3 +103,40 @@ float sge::cmp::Rigidbody::get_mass() {
     return m_body->GetMass();
 }
 
+void sge::cmp::Rigidbody::set_transform(const sge::Vec2<float>& position, float rotation) {
+    if (m_body!= nullptr) {
+        m_body->SetTransform(b2Vec2(position.x, position.y), rotation);
+    } else {
+        LOG_ERROR << "m_body == nullptr";
+        exit(1);
+    }
+}
+
+std::string sge::cmp::Rigidbody::get_debug_string() {
+    auto s = IComponent::get_debug_string();
+
+    s += "Body type: ";
+    switch (m_body->GetType()) {
+
+        case b2_staticBody:
+            s += "STATIC";
+            break;
+        case b2_kinematicBody:
+            s += "KINEMATIC";
+            break;
+        case b2_dynamicBody:
+            s += "DYNAMIC";
+            break;
+    }
+    s += "\n";
+
+    s += "Mass: " + std::to_string(get_mass()) + "\n";
+    s += "Linear vel: " + std::to_string(m_body->GetLinearVelocity().Length()) + "\n";
+    s += "Angular vel: " + std::to_string(m_body->GetAngularVelocity()) + "\n";
+    s += "Fixed rotation: " + std::to_string(m_body->IsFixedRotation()) + "\n";
+    s += "Is bullet: " + std::to_string(m_body->IsBullet()) + "";
+
+    return s;
+}
+
+

@@ -11,14 +11,8 @@ using sge::cd::SceneConstructionData;
 
 bool EngineCore::game_loop() {
     if (object_manager.get_scene_stack_size()==0 || !window_manager.window_is_open()) return false;
-
-    using namespace std::chrono;
     // Calculate the elapsed time since the last start of the game loop and add it to the accumulator
-    time_point<steady_clock> temp_now = steady_clock::now();
-    duration<double, std::ratio<1>> duration_since_last_loop_start = steady_clock::now() - last_loop_start_time;
-    last_loop_start_time = temp_now;
-    m_delta_time = duration_since_last_loop_start.count();
-    m_physics_time_accumulator += duration_since_last_loop_start.count();
+    update_accumulator();
 
     LOG_DEBUG(20) << "Game_loop is starting |" << object_manager.get_top_scene()->get_log_id()
                   << " | stack_size:" << object_manager.get_scene_stack_size() << " | delta_time:"<< m_delta_time;
@@ -26,23 +20,13 @@ bool EngineCore::game_loop() {
     // Ensure plenty of space in the component vectors in order to avoid reallocation in awkward moments
     // and to ensure pointer validity during a given frame
     memory_buffer_pass();
-    
+
     // EVENTS
     input_manager.reset_volatile();
     handle_events();
 
     // PHYSICS: consume the accumulated time executing phisics steps
-    double fixed_delta = physics_manager.fixed_delta_time();
-    while (m_physics_time_accumulator > fixed_delta) {
-        LOG_DEBUG(30) << "Fixed Update";
-        logic_manager.on_fixed_update();
-        physics_manager.collider_clean_pass();
-        physics_manager.kinematic_transform_to_body();
-        physics_manager.step(*object_manager.get_top_scene()->get_b2World());
-        physics_manager.dynamic_body_to_transform_update();                 // Updates the GameObjects with Rigidbodies' position and rotation according to their simulated body
-        physics_manager.trigger_collision_callbacks();
-        m_physics_time_accumulator -= fixed_delta;
-    }
+    physics_routine();
 
     logic_manager.on_update();
     visual_debug_pass();
@@ -52,10 +36,7 @@ bool EngineCore::game_loop() {
 
 
     // RENDER
-    window_manager.prepare_render();
-    window_manager.clear_window();
-    window_manager.draw();
-    window_manager.display();
+    render_routine();
 
     // Modify the Scene stack if requested during this loop
     bool scene_stack_modified = object_manager.scene_pass();
@@ -68,9 +49,41 @@ bool EngineCore::game_loop() {
 
     m_frame_counter++;
 
-    LOG_DEBUG(20) << "Game_loop ended";
+    LOG_DEBUG(20) << "Game_loop ended\n\n";
 
     return true;
+}
+
+
+void sge::core::EngineCore::update_accumulator() {
+    using namespace std::chrono;
+    time_point<steady_clock> temp_now = steady_clock::now();
+    duration<double, std::ratio<1>> duration_since_last_loop_start = steady_clock::now() - last_loop_start_time;
+    last_loop_start_time = temp_now;
+    m_delta_time = duration_since_last_loop_start.count();
+    m_physics_time_accumulator += duration_since_last_loop_start.count();
+}
+
+
+void sge::core::EngineCore::render_routine() {
+    window_manager.prepare_render();
+    window_manager.draw();
+    window_manager.display();
+}
+
+
+void sge::core::EngineCore::physics_routine() {
+    double fixed_delta = physics_manager.fixed_delta_time();
+    while (m_physics_time_accumulator > fixed_delta) {
+        LOG_DEBUG(30) << "Fixed Update";
+        logic_manager.on_fixed_update();
+        physics_manager.collider_clean_pass();
+        physics_manager.kinematic_transform_to_body();
+        physics_manager.step(*object_manager.get_top_scene()->get_b2World());
+        physics_manager.dynamic_body_to_transform_update();                 // Updates the GameObjects with Rigidbodies' position and rotation according to their simulated body
+        physics_manager.trigger_collision_callbacks();
+        m_physics_time_accumulator -= fixed_delta;
+    }
 }
 
 
@@ -137,16 +150,13 @@ void sge::core::EngineCore::debug_draw_line(const sge::Vec2<float>& point1, cons
     window_manager.debug_shapes_manager.add_debug_shape(new debug::LineDebugShape(point1.x,point1.y,point2.x,point2.y,duration,digits,label,color));
 }
 
-
 void sge::core::EngineCore::debug_draw_path(sge::Path path, float duration, const std::string& label, unsigned int decimals, sf::Color color) {
     window_manager.debug_shapes_manager.add_debug_shape(new debug::PathDebugShape(path,duration,label,decimals,color));
 }
 
-
 void sge::core::EngineCore::debug_draw_circle(sge::Vec2<float> center_pos, float radius, float duration, const std::string& label, unsigned int decimals, sf::Color color) {
     window_manager.debug_shapes_manager.add_debug_shape(new debug::CircleDebugShape(center_pos,radius,duration,label,decimals,color));
 }
-
 
 void sge::core::EngineCore::debug_draw_direction(sge::Vec2<float> from, sge::Vec2<float> to, float duration, sf::Color color) {
     window_manager.debug_shapes_manager.add_debug_shape(new debug::DirectionDebugShape(from,to,duration,color));

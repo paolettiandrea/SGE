@@ -45,6 +45,8 @@ namespace sge {
 
             sf::PrimitiveType get_primitive_type() const;
 
+            std::string get_debug_string() override;
+
         protected:
             void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 

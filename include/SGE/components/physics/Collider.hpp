@@ -59,6 +59,10 @@ namespace sge {
 
             void destruction_callback() override;
 
+            void force_clean_pass() { clean_pass(); }
+
+            std::string get_debug_string() override;
+
         protected:
             b2Fixture* m_fixture;
             utils::Handle<sge::cmp::Rigidbody> m_rigidbody;
@@ -93,6 +97,8 @@ namespace sge {
             Path m_relative_path;
 
             ColliderType m_type;
+
+            float previous_density;
 
             /*!
             * \brief Updates the upstream references (meaning the handle to the Rigidbody and the vector of handles
