@@ -6,3 +6,4 @@ target_sources(SGE PRIVATE
         )
 
 add_subdirectory(hierarchy_panel)
+add_subdirectory(profiler)

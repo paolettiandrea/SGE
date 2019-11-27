@@ -1,11 +1,6 @@
 #ifndef SGE_ENGINECORE_HPP
 #define SGE_ENGINECORE_HPP
 
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/
-
 #include "ObjectManager.hpp"
 #include <chrono>
 #include <subsystems/input-manager/InputManager.hpp>
@@ -15,6 +10,8 @@
 #include "Engine_ConstructionData.hpp"
 #include "WindowManager.hpp"
 #include "PhysicsManager.hpp"
+
+
 
 namespace sge::core {
     /*!
@@ -43,7 +40,7 @@ namespace sge::core {
          * \brief The actual method containing the game loop
          * \return true if the core is still running, false otherwise
          */
-        bool game_loop();
+        virtual bool game_loop();
 
         /*!
          * \brief The initialization method of the core

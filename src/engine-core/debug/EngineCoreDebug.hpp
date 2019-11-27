@@ -1,6 +1,7 @@
 #ifndef NON_GRAVITAR_ENGINECOREDEBUG_HPP
 #define NON_GRAVITAR_ENGINECOREDEBUG_HPP
 
+#include <debug/profiler/Profiler.hpp>
 #include "EngineCore.hpp"
 #include "HierarchyPanel.hpp"
 
@@ -25,9 +26,15 @@ namespace sge {
 
         private:
             debug::HierarchyPanel hierarchy_panel;
+            //Profiler profiler;
+        public:
+
+        private:
 
             void handle_debug_input();
 
+        public:
+            bool game_loop() override;
         };
     }
 }

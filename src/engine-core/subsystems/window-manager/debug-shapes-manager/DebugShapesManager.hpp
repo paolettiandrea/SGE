@@ -1,7 +1,3 @@
-//
-// Created by andrea on 5/14/19.
-//
-
 #ifndef SGE_DEBUGSHAPESMANAGER_HPP
 #define SGE_DEBUGSHAPESMANAGER_HPP
 

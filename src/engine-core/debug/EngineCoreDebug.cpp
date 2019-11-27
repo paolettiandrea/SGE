@@ -4,9 +4,13 @@ sge::core::EngineCoreDebug::EngineCoreDebug(sge::cd::Engine_ConstructionData &da
     hierarchy_panel.initialize(window_manager.font_manager);
 }
 
+
+
 void sge::core::EngineCoreDebug::render_routine() {
     window_manager.prepare_render();
+    //profiler.start("Draw");
     window_manager.draw();
+    //profiler.stop("Draw");
 
     handle_debug_input();
 
@@ -31,7 +35,9 @@ void sge::core::EngineCoreDebug::render_routine() {
     sprite.setPosition(camera_pos.x - window_manager.active_camera->get_view().getSize().x/2, camera_pos.y - window_manager.active_camera->get_view().getSize().y/2);
     window_manager.m_window.draw(sprite);
 
+    //profiler.start("Display");
     window_manager.display();
+    //profiler.stop("Display");
 }
 
 void sge::core::EngineCoreDebug::handle_debug_input() {
@@ -59,6 +65,12 @@ void sge::core::EngineCoreDebug::handle_debug_input() {
 
     }
 }
+
+bool sge::core::EngineCoreDebug::game_loop() {
+    return EngineCore::game_loop();
+}
+
+
 
 
 

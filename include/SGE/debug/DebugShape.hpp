@@ -1,7 +1,3 @@
-//
-// Created by andrea on 5/14/19.
-//
-
 #ifndef SGE_DEBUGSHAPE_HPP
 #define SGE_DEBUGSHAPE_HPP
 
@@ -11,10 +7,6 @@
 #include "SFML/Graphics.hpp"
 #include <chrono>
 
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/
 namespace sge {
     namespace core {
         class DebugShapesManager;
