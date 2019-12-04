@@ -17,7 +17,7 @@ namespace sge::core {
     /*!
      * \brief The internal part of the Engine
      */
-    class EngineCore : utils::log::Loggable, IEnvironment {
+    class EngineCore : public utils::log::Loggable, public IEnvironment {
     public:
         /*!
          * \brief Constructs the core

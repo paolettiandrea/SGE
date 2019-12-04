@@ -8,21 +8,28 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+#define SGE_DEBUG_PROFILER_ORDER { "Fixed Update", "Physics", "Update", "Draw", "Display", "Debug"}
+#define SGE_DEBUG_PROFILER_SAMPLE_FRAMES_NUMBER 3
+#define SGE_DEBUG_PROFILER_BAR_HEIGHT 10
 
-
-            class Profiler : sf::Drawable {
+namespace sge {
+    namespace core {
+        namespace debug {
+            class Profiler {
             public:
                 Profiler();
                 void start(const std::string& id);
                 void stop(const std::string& id);
-                void dump ();
+                void increase_dump_counter();
 
                 std::string get_string();
 
                 std::vector<std::pair<std::string, int>> get_count();
 
+                void draw(sf::RenderTarget& target, sf::RenderStates states, int screen_width,int screen_height);
+
             private:
-                void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+                unsigned int m_dump_counter;
 
                 std::chrono::time_point<std::chrono::steady_clock> last_dump_time;
 
@@ -32,6 +39,10 @@
                 int total_dump_time;        // in microsecs, comprehensive of the not recorded time
 
             };
+        }
+    }
+}
+
 
 
 

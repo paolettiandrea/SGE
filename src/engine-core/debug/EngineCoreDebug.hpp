@@ -1,8 +1,8 @@
 #ifndef NON_GRAVITAR_ENGINECOREDEBUG_HPP
 #define NON_GRAVITAR_ENGINECOREDEBUG_HPP
 
-#include <debug/profiler/Profiler.hpp>
 #include "EngineCore.hpp"
+#include <Profiler.hpp>
 #include "HierarchyPanel.hpp"
 
 #define SGE_DEBUG_FONT "braciola-bold"
@@ -24,14 +24,17 @@ namespace sge {
         protected:
             void render_routine() override;
 
+            void physics_routine() override;
+
         private:
             debug::HierarchyPanel hierarchy_panel;
-            //Profiler profiler;
-        public:
+            debug::Profiler profiler;
 
-        private:
 
             void handle_debug_input();
+
+            bool hierarchy_active = true;
+            bool profiler_active = false;
 
         public:
             bool game_loop() override;
