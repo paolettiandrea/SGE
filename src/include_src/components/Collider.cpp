@@ -84,7 +84,8 @@ void sge::cmp::Collider::clean_shape() {
 
 void sge::cmp::Collider::set_as_polygon(sge::Path path) {
 
-    assert(path.is_closed());
+    if (!path.is_closed())
+        path.set_closed(true);
 
     m_path = path;
     m_type = ColliderType::Polygon;
@@ -142,12 +143,13 @@ void sge::cmp::Collider::set_shape(b2Shape *shape) {
 
 b2FixtureDef sge::cmp::Collider::clone_fixture_def(b2Fixture *fixture) {
     b2FixtureDef def;
-    def.shape = m_fixture->GetShape();
-    def.density = m_fixture->GetDensity();
-    def.restitution = m_fixture->GetRestitution();
-    def.friction = m_fixture->GetFriction();
-    def.isSensor = m_fixture->IsSensor();
-    def.userData = m_fixture->GetUserData();
+    def.shape = fixture->GetShape();
+    def.density = fixture->GetDensity();
+    def.restitution = fixture->GetRestitution();
+    def.friction = fixture->GetFriction();
+    def.isSensor = fixture->IsSensor();
+    def.userData = fixture->GetUserData();
+    def.filter = fixture->GetFilterData();
     return def;
 }
 
@@ -279,6 +281,57 @@ std::string sge::cmp::Collider::get_debug_string() {
 
     return s;
 }
+
+void sge::cmp::Collider::set_collision_category(const std::string &id) {
+    int index = gameobject()->get_scene()->env()->get_collision_layer_index_from_id(id);
+
+    if (index>=0 && index < 16) {
+        b2Filter filter(m_fixture->GetFilterData());
+
+        filter.categoryBits = 1<<index;
+
+        m_fixture->SetFilterData(filter);
+    } else {
+        LOG_ERROR << "Couldn't find the collision layer id: " << id;
+        exit(1);
+    }
+
+}
+
+void sge::cmp::Collider::set_collision_enabled_with(const std::string &id, bool enabled) {
+    int index = gameobject()->get_scene()->env()->get_collision_layer_index_from_id(id);
+
+    if (index>=0 && index < 16) {
+        b2Filter filter(m_fixture->GetFilterData());
+
+        if (enabled) filter.maskBits = filter.maskBits | (1<<index);
+        else filter.maskBits = filter.maskBits & ~(1<<index);
+
+        m_fixture->SetFilterData(filter);
+    } else {
+        LOG_ERROR << "Couldn't find the collision layer id: " << id;
+        exit(1);
+    }
+}
+
+b2Filter sge::cmp::Collider::get_filter_data() {
+    return m_fixture->GetFilterData();
+}
+
+void sge::cmp::Collider::set_collision_with_all_layers(bool enabled) {
+    b2Filter filter(m_fixture->GetFilterData());
+    uint16 i = 0;
+    filter.maskBits = ~i;
+    m_fixture->SetFilterData(filter);
+}
+
+void sge::cmp::Collider::set_material(const PhysicsMaterial &physics_material) {
+    set_density(physics_material.density);
+    set_restitution(physics_material.restitution);
+    set_friction(physics_material.friction);
+}
+
+
 
 
 

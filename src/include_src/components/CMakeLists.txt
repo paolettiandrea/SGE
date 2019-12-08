@@ -11,7 +11,6 @@ target_sources(SGE PRIVATE
 
         Rigidbody.cpp
         Collider.cpp
-
         CollisionInfo.cpp
 
         UI.cpp

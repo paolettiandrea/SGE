@@ -37,6 +37,8 @@ namespace sge::core {
 
         void trigger_collision_callbacks();
 
+        int get_collision_layer_index_from_id(const std::string &id);
+
     private:
         ComponentCreator<cmp::Rigidbody> m_rigidbody_component_creator;
         ComponentCreator<cmp::Collider> m_collider_componet_creator;
@@ -45,6 +47,8 @@ namespace sge::core {
         cmp::CustomB2ContactListener contactListener;
 
         bool visual_debug_collider_switch = false;
+
+        std::vector<std::string> collision_layer_ids;
     };
 
 

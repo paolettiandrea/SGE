@@ -20,6 +20,7 @@
 #include "SGE/Path.hpp"
 #include "Rigidbody.hpp"
 #include "CollisionInfo.hpp"
+#include "PhysicsMaterial.hpp"
 
 namespace sge {
     namespace core {class PhysicsManager;  }
@@ -41,7 +42,11 @@ namespace sge {
 
             void visual_debug_draw_collider();
 
+            void set_collision_category(const std::string &id);
 
+            void set_collision_enabled_with(const std::string &id, bool enabled);
+
+            void set_collision_with_all_layers(bool enabled);
 
 
             void reallocation_callback() override;
@@ -56,6 +61,7 @@ namespace sge {
             void set_density(float density);
             void set_friction(float friction);
             void set_restitution(float restitution);
+            void set_material(const PhysicsMaterial &physics_material);
 
             void destruction_callback() override;
 
@@ -63,15 +69,18 @@ namespace sge {
 
             std::string get_debug_string() override;
 
+            b2Filter get_filter_data();
         protected:
             b2Fixture* m_fixture;
             utils::Handle<sge::cmp::Rigidbody> m_rigidbody;
             bool m_dirty_rigidbody = true;
-            bool m_dirty_fixture_shape = true;
 
+            bool m_dirty_fixture_shape = true;
             float m_radius;
             utils::event::EventHandler relative_transform_changed_event;
+
             utils::event::EventHandler relative_hierarchy_changed_event;
+
 
             /*!
              * \brief Vector containing all the transforms from this gameobject's (included)
@@ -79,13 +88,12 @@ namespace sge {
              */
             std::vector<utils::Handle<sge::cmp::Transform>> relative_hierarchy_vector;
 
-
             void clean_shape();
 
             void set_shape(b2Shape* shape);
 
-            b2FixtureDef clone_fixture_def(b2Fixture* fixture);
 
+            b2FixtureDef clone_fixture_def(b2Fixture* fixture);
 
             void clean_rigidbody();
 

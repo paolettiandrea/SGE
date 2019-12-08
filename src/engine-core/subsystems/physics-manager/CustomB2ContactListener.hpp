@@ -23,6 +23,9 @@ namespace sge::cmp {
         std::vector<sge::CollisionInfo> m_begin_collision_info_buffer;
         std::vector<sge::CollisionInfo> m_end_collision_info_buffer;
 
+        // Contains the first disabled presolve collision
+        std::vector<sge::CollisionInfo> m_collision_limbo;
+
         std::vector<sge::CollisionInfo> m_disabled_collision_info_buffer;
 
     };

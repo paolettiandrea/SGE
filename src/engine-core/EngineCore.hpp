@@ -103,6 +103,11 @@ namespace sge::core {
 
         bool is_key_released(sf::Keyboard::Key key) override;
 
+    public:
+        int get_collision_layer_index_from_id(const std::string &id) override;
+
+    protected:
+
 
         void handle_events();
 

@@ -246,6 +246,10 @@ void sge::core::EngineCore::memory_buffer_pass() {
     physics_manager.memory_buffer_pass();
 
 }
+
+int sge::core::EngineCore::get_collision_layer_index_from_id(const std::string &id) {
+    return physics_manager.get_collision_layer_index_from_id(id);
+}
 //endregion
 
 

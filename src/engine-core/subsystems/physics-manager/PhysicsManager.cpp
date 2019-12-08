@@ -6,7 +6,17 @@ sge::core::PhysicsManager::PhysicsManager(cd::PhysicsManager_ConstructionData da
     , m_collider_componet_creator("Collider")
     , m_fixed_delta_time(data.fixed_delta_time)
     {
-
+    if (data.collision_layer_ids.size()<=16) {
+        for (int i = 0; i < data.collision_layer_ids.size(); ++i) {
+            auto id = data.collision_layer_ids[i];
+            if (!id.empty()) {
+                collision_layer_ids.push_back(id);
+            }
+        }
+    } else {
+        LOG_ERROR << "SGE doesn't support more than 16 collision layers";
+        exit(1);
+    }
 
     }
 
@@ -68,6 +78,13 @@ void sge::core::PhysicsManager::update_active_world(b2World* world) {
 
 void sge::core::PhysicsManager::trigger_collision_callbacks() {
     contactListener.trigger_collision_callbacks();
+}
+
+int sge::core::PhysicsManager::get_collision_layer_index_from_id(const std::string &id) {
+    for (int i = 0; i < collision_layer_ids.size(); ++i) {
+        if (collision_layer_ids[i]==id) return i;
+    }
+    return -1;
 }
 
 

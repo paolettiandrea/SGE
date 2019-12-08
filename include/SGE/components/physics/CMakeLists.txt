@@ -5,4 +5,5 @@ target_sources(SGE PUBLIC
         Collider.hpp
 
         CollisionInfo.hpp
+        PhysicsMaterial.hpp
         )

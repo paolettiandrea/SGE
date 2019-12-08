@@ -26,6 +26,9 @@ namespace sge {
             void set_vertex_color(unsigned int index, sf::Color color);
             void set_vertex_position(unsigned int index, float x, float y);
 
+            float get_alpha();
+            void set_alpha(float alpha);
+
             /*!
              * \brief Build the vertex array from a .smesh file, erasing all previous data
              * @param filename The path to the .smesh file

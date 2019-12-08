@@ -203,6 +203,24 @@ std::string sge::cmp::VertArray::get_debug_string() {
     return s;
 }
 
+float sge::cmp::VertArray::get_alpha() {
+    auto found_alpha = m_vertex_array[0].color.a;
+    for (int i = 0; i < m_vertex_array.getVertexCount(); ++i) {
+        if (m_vertex_array[i].color.a != found_alpha) {
+            LOG_ERROR << "The alpha of this VertArray isn't unifom";
+        }
+    }
+    return found_alpha;
+}
+
+void sge::cmp::VertArray::set_alpha(float alpha) {
+    for (int i = 0; i < m_vertex_array.getVertexCount(); ++i) {
+        LOG_INFO << alpha;
+        auto col = m_vertex_array[i].color;
+        m_vertex_array[i].color = sf::Color(col.r, col.g, col.b, alpha);
+    }
+}
+
 
 
 

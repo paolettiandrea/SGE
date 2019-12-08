@@ -98,6 +98,9 @@ namespace sge {
          * @return true if released this frame, false if not released this frame
          */
         virtual bool is_key_released(sf::Keyboard::Key key) = 0;
+
+
+        virtual int get_collision_layer_index_from_id(const std::string &id) = 0;
     };
 
 }
