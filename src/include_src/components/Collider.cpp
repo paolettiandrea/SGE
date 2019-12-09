@@ -3,7 +3,7 @@
 #include "Scene.hpp"
 
 
-sge::cmp::Collider::Collider(const utils::Handle<sge::GameObject>& _gameobject)
+sge::cmp::Collider::Collider(const GameObject_H& _gameobject)
         : Component(_gameobject, "Collider") {
 
     auto this_handle = get_handle();
@@ -200,7 +200,7 @@ void sge::cmp::Collider::load_spath(const std::string &filename) {
 
 }
 
-utils::Handle<sge::cmp::Rigidbody> sge::cmp::Collider::get_rigidbody() {
+Rigidbody_H sge::cmp::Collider::get_rigidbody() {
     return m_rigidbody;
 }
 

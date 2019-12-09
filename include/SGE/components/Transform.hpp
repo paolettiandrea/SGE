@@ -108,4 +108,6 @@ namespace sge::cmp {
 
 }
 
+typedef utils::Handle<sge::cmp::Transform> Transform_H;
+
 #endif //SGE_TRANSFORM_HPP

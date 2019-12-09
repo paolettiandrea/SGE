@@ -69,9 +69,9 @@ namespace sge {
 
             std::string get_hierarchy_string();
 
-            std::vector<utils::Handle<sge::cmp::Transform>> get_root_transforms();
+            std::vector<Transform_H> get_root_transforms();
 
-            std::vector<utils::Handle<sge::cmp::Transform>> get_siblings(utils::Handle<sge::cmp::Transform> target, bool include_target = false);
+            std::vector<Transform_H> get_siblings(Transform_H target, bool include_target = false);
 
             void toggle_visual_debug_transform();
             void toggle_visual_debug_names();

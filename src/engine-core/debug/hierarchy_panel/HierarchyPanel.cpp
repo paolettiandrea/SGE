@@ -11,7 +11,7 @@ void sge::core::debug::HierarchyPanel::reset() {
     focused_object = get_root_transforms(m_scene_transform_vector)[0];
 }
 
-void sge::core::debug::HierarchyPanel::update_state(std::vector<utils::Handle<sge::cmp::Transform>> scene_transform_vector, std::vector<cd::SceneConstructionData>& scene_cds) {
+void sge::core::debug::HierarchyPanel::update_state(std::vector<Transform_H> scene_transform_vector, std::vector<cd::SceneConstructionData>& scene_cds) {
 
     m_scene_transform_vector.clear();
     for (int i = 0; i < scene_transform_vector.size(); ++i) {
@@ -26,10 +26,10 @@ void sge::core::debug::HierarchyPanel::update_state(std::vector<utils::Handle<sg
 }
 
 
-std::vector<utils::Handle<sge::cmp::Transform>> sge::core::debug::HierarchyPanel::get_root_transforms(
-        std::vector<utils::Handle<sge::cmp::Transform>> transform_vector) {
+std::vector<Transform_H> sge::core::debug::HierarchyPanel::get_root_transforms(
+        std::vector<Transform_H> transform_vector) {
 
-    std::vector<utils::Handle<sge::cmp::Transform>> vec;
+    std::vector<Transform_H> vec;
     for (auto transform : transform_vector) {
         if (transform->get_parent().is_null()) vec.emplace_back(transform);
     }
@@ -56,7 +56,7 @@ void sge::core::debug::HierarchyPanel::draw(sf::RenderTarget &target, sf::Render
 
     // Draw UPSTREAM HIERARCHY from root of the top scene to pointed object
     auto temp_point = focused_object;
-    std::vector<utils::Handle<sge::cmp::Transform>> parents;
+    std::vector<Transform_H> parents;
     while (!temp_point->is_root()) {
         parents.emplace_back(temp_point->get_parent());
         temp_point = temp_point->get_parent();
@@ -91,14 +91,20 @@ void sge::core::debug::HierarchyPanel::draw(sf::RenderTarget &target, sf::Render
         exit(1);
     }
 
+
+
     // Draw the siblings of the pointed object (from the one after the pointed to end, and from beginning to one before)
     for (int j = pointed_index+1; j < siblings.size(); ++j) {
-        draw_sibling(target, states, siblings[j], &vertical_anchor, hotizontal_anchor, 0, SGE_DEBUG_HIERARCHY_NOT_FOCUSED_COLOR);
-        vertical_anchor += SGE_DEBUG_HIERARCHY_SIBLINGS_PADDING;
+        if (vertical_anchor < SGE_DEBUG_HIERARCHY_MAX_VERTICAL_ANCHOR) {
+            draw_sibling(target, states, siblings[j], &vertical_anchor, hotizontal_anchor, 0, SGE_DEBUG_HIERARCHY_NOT_FOCUSED_COLOR);
+            vertical_anchor += SGE_DEBUG_HIERARCHY_SIBLINGS_PADDING;
+        }
     }
     for (int j = 0; j < pointed_index; ++j) {
-        draw_sibling(target, states, siblings[j], &vertical_anchor, hotizontal_anchor, 0, SGE_DEBUG_HIERARCHY_NOT_FOCUSED_COLOR);
-        vertical_anchor += SGE_DEBUG_HIERARCHY_SIBLINGS_PADDING;
+        if (vertical_anchor < SGE_DEBUG_HIERARCHY_MAX_VERTICAL_ANCHOR) {
+            draw_sibling(target, states, siblings[j], &vertical_anchor, hotizontal_anchor, 0, SGE_DEBUG_HIERARCHY_NOT_FOCUSED_COLOR);
+            vertical_anchor += SGE_DEBUG_HIERARCHY_SIBLINGS_PADDING;
+        }
     }
 }
 
@@ -120,7 +126,7 @@ void sge::core::debug::HierarchyPanel::initialize(sge::core::FontManager &font_m
     italic_font = font_manager.get_font(SGE_DEBUG_HIERARCHY_ITALIC_FONT);
 }
 
-void sge::core::debug::HierarchyPanel::draw_sibling(sf::RenderTarget &target, sf::RenderStates states, utils::Handle<sge::cmp::Transform> transform, int *vertical_anchor,
+void sge::core::debug::HierarchyPanel::draw_sibling(sf::RenderTarget &target, sf::RenderStates states, Transform_H transform, int *vertical_anchor,
                                                     int horizontal_anchor, int level, sf::Color fill) const {
     int char_size;
     auto obj_log_id = transform->gameobject()->get_log_id();
@@ -247,9 +253,9 @@ void sge::core::debug::HierarchyPanel::focus_previous() {
     }
 }
 
-std::vector<utils::Handle<sge::cmp::Transform>>
-sge::core::debug::HierarchyPanel::get_siblings(std::vector<utils::Handle<sge::cmp::Transform>> transform_vector, utils::Handle<sge::cmp::Transform> target_transform) {
-    std::vector<utils::Handle<sge::cmp::Transform>> siblings;
+std::vector<Transform_H>
+sge::core::debug::HierarchyPanel::get_siblings(std::vector<Transform_H> transform_vector, Transform_H target_transform) {
+    std::vector<Transform_H> siblings;
     if (target_transform->is_root()) {
         siblings = get_root_transforms(transform_vector);
     } else {

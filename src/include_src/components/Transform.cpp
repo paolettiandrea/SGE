@@ -237,7 +237,7 @@ void sge::cmp::Transform::set_local_scale(sge::Vec2<float> scale_vec) {
     set_local_scale(scale_vec.x, scale_vec.y);
 }
 
-const std::list<utils::Handle<sge::cmp::Transform>> &sge::cmp::Transform::get_children() {
+const std::list<Transform_H> &sge::cmp::Transform::get_children() {
     return m_children;
 }
 

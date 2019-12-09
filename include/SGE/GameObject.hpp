@@ -167,13 +167,10 @@ namespace sge {
             return utils::Handle<T>();     // Returns a null handle.
         }
     }
-
-
-
-
 //endregion
-
 }
+
+typedef utils::Handle<sge::GameObject> GameObject_H;
 
 #endif //SGE_GAMEOBJECT_HPP
 

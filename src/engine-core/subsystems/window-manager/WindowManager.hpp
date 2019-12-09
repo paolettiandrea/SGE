@@ -9,7 +9,6 @@
 #include "SFML/Graphics.hpp"
 
 #include "SGE/components/graphics/VertArray.hpp"
-#include "SGE/components/graphics/PathRenderer.hpp"
 #include "SGE/Camera.hpp"
 
 #include "WindowManager_ConstructionData.hpp"
@@ -115,10 +114,3 @@ namespace sge {
     }
 }
 #endif //SGE_WINDOWMANAGER_HPP
-
-
-
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/

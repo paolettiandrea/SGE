@@ -3,7 +3,7 @@
 #include "GameObject.hpp"
 #include "Scene.hpp"
 
-sge::cmp::VertArray::VertArray(const utils::Handle<sge::GameObject> &_gameobject)
+sge::cmp::VertArray::VertArray(const GameObject_H &_gameobject)
     : Component(_gameobject, "VertArray") {
 
     // Subscribing to the dirty_transform_event

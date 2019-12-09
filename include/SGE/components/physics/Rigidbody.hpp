@@ -67,6 +67,6 @@ namespace sge {
     }
 }
 
-
+typedef utils::Handle<sge::cmp::Rigidbody> Rigidbody_H;
 
 #endif //SGE_RIGIDBODY_HPP

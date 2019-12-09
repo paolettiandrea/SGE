@@ -6,7 +6,6 @@
 #include <SGE/Vec2.hpp>
 #include "SGE/components/Component.hpp"
 
-
 namespace sge {
     namespace core { class WindowManager; }
     namespace cmp {
@@ -43,10 +42,10 @@ namespace sge {
             const std::string& get_layer_id();
 
             void set_vertex_array(const sf::VertexArray& vertex_array);
-            const sf::VertexArray& get_vert_array() const;
-            const std::vector<sge::Vec2<float>>& get_local_points() const;
+            [[nodiscard]] const sf::VertexArray& get_vert_array() const;
+            [[nodiscard]] const std::vector<sge::Vec2<float>>& get_local_points() const;
 
-            sf::PrimitiveType get_primitive_type() const;
+            [[nodiscard]] sf::PrimitiveType get_primitive_type() const;
 
             std::string get_debug_string() override;
 
@@ -70,9 +69,10 @@ namespace sge {
     }
 }
 
+typedef utils::Handle<sge::cmp::VertArray> VertArray_H;
+
 
 #endif //SGE_VERTARRAY_HPP
-
 
 
 

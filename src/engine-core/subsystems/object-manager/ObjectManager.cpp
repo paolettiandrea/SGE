@@ -164,8 +164,8 @@ std::string sge::core::ObjectManager::get_hierarchy_string() {
     return s;
 }
 
-std::vector<utils::Handle<sge::cmp::Transform>> sge::core::ObjectManager::get_root_transforms() {
-    std::vector<utils::Handle<sge::cmp::Transform>> transforms;
+std::vector<Transform_H> sge::core::ObjectManager::get_root_transforms() {
+    std::vector<Transform_H> transforms;
 
     for(auto transform : transform_creator.get_top_layer()->get_component_vector()) {
         if (transform->get_parent().is_null()) {
@@ -176,14 +176,14 @@ std::vector<utils::Handle<sge::cmp::Transform>> sge::core::ObjectManager::get_ro
     return transforms;
 }
 
-std::vector<utils::Handle<sge::cmp::Transform>> sge::core::ObjectManager::get_siblings(utils::Handle<sge::cmp::Transform> target, bool include_target) {
+std::vector<Transform_H> sge::core::ObjectManager::get_siblings(Transform_H target, bool include_target) {
     if (target->gameobject()->get_scene() == &scene_stack.top()) {
         if (target->get_parent().is_null()) {
             return get_root_transforms();
         } else {
             auto parent = target->get_parent();
 
-            std::vector<utils::Handle<sge::cmp::Transform>> vec;
+            std::vector<Transform_H> vec;
             for (auto child : parent->get_children()) {
                 if (include_target) {
                     vec.emplace_back(child);
@@ -196,6 +196,6 @@ std::vector<utils::Handle<sge::cmp::Transform>> sge::core::ObjectManager::get_si
             return vec;
         }
     }
-    return std::vector<utils::Handle<sge::cmp::Transform>>();
+    return std::vector<Transform_H>();
 }
 

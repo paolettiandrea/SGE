@@ -72,6 +72,8 @@ namespace sge {
     }
 }
 
+typedef utils::Handle<sge::cmp::UI> UI_H;
+
 
 
 #endif //NON_GRAVITAR_UI_HPP

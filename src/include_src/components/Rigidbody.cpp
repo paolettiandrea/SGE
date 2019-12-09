@@ -4,7 +4,7 @@
 
 using sge::cmp::Rigidbody;
 
-Rigidbody::Rigidbody(const utils::Handle<sge::GameObject>& _gameobject)
+Rigidbody::Rigidbody(const GameObject_H& _gameobject)
     : sge::cmp::Component<Rigidbody>( _gameobject, "Rigidbody") {
     b2BodyDef body_def;
     auto world_pos = gameobject()->transform()->get_world_position();

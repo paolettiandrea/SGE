@@ -53,7 +53,7 @@ namespace sge {
 
             void load_spath(const std::string& filaname);
 
-            utils::Handle<sge::cmp::Rigidbody> get_rigidbody();
+            Rigidbody_H get_rigidbody();
 
             void set_sensor(bool is_sensor);
             bool is_sensor();
@@ -72,7 +72,7 @@ namespace sge {
             b2Filter get_filter_data();
         protected:
             b2Fixture* m_fixture;
-            utils::Handle<sge::cmp::Rigidbody> m_rigidbody;
+            Rigidbody_H m_rigidbody;
             bool m_dirty_rigidbody = true;
 
             bool m_dirty_fixture_shape = true;
@@ -86,7 +86,7 @@ namespace sge {
              * \brief Vector containing all the transforms from this gameobject's (included)
              * to the gameobject containing the Rigidbody upstream (excluded)
              */
-            std::vector<utils::Handle<sge::cmp::Transform>> relative_hierarchy_vector;
+            std::vector<Transform_H> relative_hierarchy_vector;
 
             void clean_shape();
 
@@ -119,6 +119,6 @@ namespace sge {
     }
 }
 
-
+typedef utils::Handle<sge::cmp::Collider> Collider_H;
 
 #endif //SGE_COLLIDER_HPP

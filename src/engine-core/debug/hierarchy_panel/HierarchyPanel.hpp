@@ -42,7 +42,7 @@
 #define SGE_DEBUG_LOGIC_INFO_CHAR_SIZE 11
 #define SGE_DEBUG_LOGIC_PADDING 3
 
-
+#define SGE_DEBUG_HIERARCHY_MAX_VERTICAL_ANCHOR 4000
 
 
 
@@ -53,7 +53,7 @@ namespace sge::core::debug {
     public:
         void initialize(FontManager& font_manager);
 
-        void update_state(std::vector<utils::Handle<sge::cmp::Transform>> scene_transform_vector, std::vector<cd::SceneConstructionData>& scene_cds);
+        void update_state(std::vector<Transform_H> scene_transform_vector, std::vector<cd::SceneConstructionData>& scene_cds);
 
         void reset();
 
@@ -66,8 +66,8 @@ namespace sge::core::debug {
         void prev_mode();
 
     private:
-        utils::Handle<sge::cmp::Transform> focused_object;
-        std::vector<utils::Handle<sge::cmp::Transform>> m_scene_transform_vector;
+        Transform_H focused_object;
+        std::vector<Transform_H> m_scene_transform_vector;
 
         sf::Font* font;
         sf::Font* italic_font;
@@ -76,14 +76,14 @@ namespace sge::core::debug {
 
         std::vector<cd::SceneConstructionData>* scene_cds;
 
-        static std::vector<utils::Handle<sge::cmp::Transform>> get_root_transforms(std::vector<utils::Handle<sge::cmp::Transform>> transform_vector);
-        static std::vector<utils::Handle<sge::cmp::Transform>> get_siblings(std::vector<utils::Handle<sge::cmp::Transform>> transform_vector, utils::Handle<sge::cmp::Transform> target_transform);
+        static std::vector<Transform_H> get_root_transforms(std::vector<Transform_H> transform_vector);
+        static std::vector<Transform_H> get_siblings(std::vector<Transform_H> transform_vector, Transform_H target_transform);
 
         void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
         [[nodiscard]] sf::Text make_text(const std::string &string, unsigned int char_size = 20, sf::Color fill_color = sf::Color::White) const;
 
-        void draw_sibling(sf::RenderTarget &target, sf::RenderStates states, utils::Handle<sge::cmp::Transform> transform, int *vertical_anchor, int horizontal_anchor, int level, sf::Color fill) const;
+        void draw_sibling(sf::RenderTarget &target, sf::RenderStates states, Transform_H transform, int *vertical_anchor, int horizontal_anchor, int level, sf::Color fill) const;
 
         void draw_component(sf::RenderTarget &target, sf::RenderStates states,
                             const std::string &header, sge::cmp::IComponent *component,

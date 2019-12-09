@@ -33,7 +33,7 @@ namespace sge {
 
             void handle_debug_input();
 
-            bool hierarchy_active = true;
+            bool hierarchy_active = false;
             bool profiler_active = false;
 
         public:

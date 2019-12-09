@@ -111,7 +111,7 @@ namespace sge {
 
 }
 
-
+typedef utils::Handle<sge::cmp::LogicHub> LogicHub_H;
 
 #endif //SGE_LOGIC_HUB_HPP
 

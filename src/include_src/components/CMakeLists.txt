@@ -6,7 +6,6 @@ target_sources(SGE PRIVATE
         LogicHub.cpp
         Transform.cpp
 
-        PathRenderer.cpp
         VertArray.cpp
 
         Rigidbody.cpp
