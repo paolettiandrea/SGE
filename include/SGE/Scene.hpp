@@ -62,6 +62,8 @@ namespace sge {
 
         Camera* get_camera();
 
+        void set_gravity(sge::Vec2<float> gravity_vec);
+
 
     private:
         /*!

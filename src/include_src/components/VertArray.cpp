@@ -15,10 +15,10 @@ sge::cmp::VertArray::VertArray(const GameObject_H &_gameobject)
     gameobject()->transform()->world_transform_changed_event+= dirty_transform_handler;
 }
 
-void sge::cmp::VertArray::append_local_point(const sge::Vec2<float>& new_local_point) {
+void sge::cmp::VertArray::append_local_point(const sge::Vec2<float>& new_local_point, sf::Color color) {
     m_local_points.push_back(new_local_point);
     auto new_world_point = gameobject()->transform()->local_to_world_point(new_local_point);
-    m_vertex_array.append(sf::Vertex(sf::Vector2f(new_world_point.x, -new_world_point.y)));
+    m_vertex_array.append(sf::Vertex(sf::Vector2f(new_world_point.x, -new_world_point.y), color));
 }
 
 void sge::cmp::VertArray::draw(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -27,7 +27,7 @@ void sge::cmp::VertArray::draw(sf::RenderTarget &target, sf::RenderStates states
 
 void sge::cmp::VertArray::destruction_callback() {
     IComponent::destruction_callback();
-    if ( !gameobject()->get_scene()->env()->is_shutting_down())
+    if ( !gameobject()->get_scene()->is_doomed())
         gameobject()->transform()->world_transform_changed_event -= dirty_transform_handler;
 }
 
@@ -215,7 +215,6 @@ float sge::cmp::VertArray::get_alpha() {
 
 void sge::cmp::VertArray::set_alpha(float alpha) {
     for (int i = 0; i < m_vertex_array.getVertexCount(); ++i) {
-        LOG_INFO << alpha;
         auto col = m_vertex_array[i].color;
         m_vertex_array[i].color = sf::Color(col.r, col.g, col.b, alpha);
     }

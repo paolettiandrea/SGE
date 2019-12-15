@@ -29,11 +29,16 @@ namespace sge {
 
         void append_point(Vec2<float> new_point);
 
-        bool is_closed() { return m_is_closed; }
+        bool is_closed() const { return m_is_closed; }
         void set_closed(bool closed) { m_is_closed = closed; }
 
         void set_size(unsigned int size);
         unsigned int get_size() const;
+        /*!
+         * @return the size of the path, comprised of the repeated point at the beginning/end if the path is closed.
+         * /details If the path is open returns the same result as get_size()
+         */
+        unsigned int get_closed_size() const;
 
         Vec2<float>& get_relative(unsigned int base_index, int offset);
 

@@ -9,27 +9,27 @@
 
 namespace sge {
     namespace core { class WindowManager; }
+
+    enum VerticalAlignment {TOP, CENTER, BOTTOM};
+    enum HotizontalAlignment {LEFT, MIDDLE, RIGHT};
+
+    struct Alignment {
+        Alignment() {
+            this->horizontal = MIDDLE;
+            this->vertical = CENTER;
+        }
+        Alignment(HotizontalAlignment horizontal, VerticalAlignment vertical) {
+            this->horizontal = horizontal;
+            this->vertical = vertical;
+        }
+
+        VerticalAlignment vertical;
+        HotizontalAlignment horizontal;
+    };
+
     namespace cmp {
         class UI : public Component<UI> , public sf::Drawable{
         public:
-
-            enum VerticalAlignment {TOP, CENTER, BOTTOM};
-            enum HotizontalAlignment {LEFT, MIDDLE, RIGHT};
-
-            struct Alignment {
-                Alignment() {
-                    this->horizontal = MIDDLE;
-                    this->vertical = CENTER;
-                }
-                Alignment(HotizontalAlignment horizontal, VerticalAlignment vertical) {
-                    this->horizontal = horizontal;
-                    this->vertical = vertical;
-                }
-                VerticalAlignment vertical;
-                HotizontalAlignment horizontal;
-            };
-
-
             explicit UI (const utils::Handle<GameObject> &gameobject);
 
             void set_anchor_alignment(Alignment alignment);
@@ -49,6 +49,7 @@ namespace sge {
         protected:
             void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
+            void clean_routine();
             void clean_dirty_origin_alignment();
             void clean_dirty_anchor_alignment(sf::FloatRect new_rect);
             void clean_font(core::FontManager& font_manager);

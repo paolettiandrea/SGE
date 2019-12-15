@@ -15,6 +15,8 @@ namespace sge::cmp {
 
         void trigger_collision_callbacks();
 
+        void clean_collision_buffers();
+
         void PreSolve(b2Contact *contact, const b2Manifold *oldManifold) override;
 
         void PostSolve(b2Contact *contact, const b2ContactImpulse *impulse) override;
@@ -22,12 +24,6 @@ namespace sge::cmp {
     private:
         std::vector<sge::CollisionInfo> m_begin_collision_info_buffer;
         std::vector<sge::CollisionInfo> m_end_collision_info_buffer;
-
-        // Contains the first disabled presolve collision
-        std::vector<sge::CollisionInfo> m_collision_limbo;
-
-        std::vector<sge::CollisionInfo> m_disabled_collision_info_buffer;
-
     };
 }
 

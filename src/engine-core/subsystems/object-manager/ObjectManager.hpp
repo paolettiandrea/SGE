@@ -20,6 +20,7 @@ namespace sge {
          * \brief The object that manages Scenes, but also indirectly GameObject and Component generation and distruction.
          */
         class ObjectManager : public Subsystem {
+            friend class EngineCore;
             friend class EngineCoreDebug;
         public:
             explicit ObjectManager(IEnvironment* _env)

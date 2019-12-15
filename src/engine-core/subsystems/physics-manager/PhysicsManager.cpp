@@ -57,9 +57,6 @@ void sge::core::PhysicsManager::visual_debug_pass() {
             polygon_collider->visual_debug_draw_collider();
         }
     }
-
-
-
 }
 
 void sge::core::PhysicsManager::toggle_visual_debug_collider() {
@@ -73,6 +70,7 @@ void sge::core::PhysicsManager::memory_buffer_pass() {
 }
 
 void sge::core::PhysicsManager::update_active_world(b2World* world) {
+    contactListener.clean_collision_buffers();
     world->SetContactListener(&contactListener);
 }
 

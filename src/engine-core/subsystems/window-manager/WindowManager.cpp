@@ -65,6 +65,7 @@ void WindowManager::draw() {
     render_texture.clear(sf::Color::Transparent);
     for (auto ui : ui_component_creator.get_top_layer()->get_component_vector()) {
         ui->clean_font(font_manager);
+        ui->m_content->prepare_for_draw();
         ui->clean_dirty_anchor_alignment(sf::FloatRect(rect));
         ui->clean_dirty_origin_alignment();
         render_texture.draw(*ui.get_pointer(), m_render_states);

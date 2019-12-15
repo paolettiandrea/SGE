@@ -35,6 +35,10 @@ namespace sge {
 
             bool hierarchy_active = false;
             bool profiler_active = false;
+            bool axis_active = false;
+
+
+            void draw_axis();
 
         public:
             bool game_loop() override;

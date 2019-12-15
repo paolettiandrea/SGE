@@ -10,9 +10,6 @@
 
 namespace sge {
     namespace core {
-
-
-
         /*!
          * \brief Manages a list of Components keeping them contiguous in memory while allowing for creation and removal
          */

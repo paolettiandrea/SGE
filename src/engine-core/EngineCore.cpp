@@ -44,6 +44,7 @@ bool EngineCore::game_loop() {
         if (object_manager.get_scene_stack_size()==0) return false;
         // Since the scene stack was modified update the pointer to the active camera for the window manager
         window_manager.update_active_camera(object_manager.get_top_scene()->get_camera());
+        physics_manager.update_active_world(object_manager.scene_stack.top().get_b2World());
 
     }
 

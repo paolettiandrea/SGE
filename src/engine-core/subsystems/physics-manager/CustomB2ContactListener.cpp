@@ -103,3 +103,8 @@ void sge::cmp::CustomB2ContactListener::PostSolve(b2Contact *contact, const b2Co
     col2->gameobject()->logichub()->post_solve(contact, impulse, data2);
 }
 
+void sge::cmp::CustomB2ContactListener::clean_collision_buffers() {
+    m_begin_collision_info_buffer.clear();
+    m_end_collision_info_buffer.clear();
+}
+

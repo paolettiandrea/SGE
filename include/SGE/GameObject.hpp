@@ -139,6 +139,7 @@ namespace sge {
         friend class core::ComponentMemoryLayer;
         friend class core::ObjectManager;
 
+
     private:
         void recursive_doom(utils::Handle<GameObject> pointed);
     };

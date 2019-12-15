@@ -48,4 +48,8 @@ Camera *Scene::get_camera() {
     return &m_camera;
 }
 
+void Scene::set_gravity(sge::Vec2<float> gravity_vec) {
+    m_b2_world->SetGravity(b2Vec2(gravity_vec.x, gravity_vec.y));
+}
+
 

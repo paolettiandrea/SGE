@@ -115,3 +115,9 @@ void Path::clear() {
     m_points.clear();
     m_is_closed = false;
 }
+
+unsigned int Path::get_closed_size() const {
+    unsigned int size = get_size();
+    if (this->is_closed()) size++;
+    return size;
+}

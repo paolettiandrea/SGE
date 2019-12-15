@@ -40,7 +40,6 @@ void sge::cmp::UI::clean_dirty_anchor_alignment(sf::FloatRect new_rect) {
 }
 
 void sge::cmp::UI::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    m_content->prepare_for_draw();
     target.draw(*m_content, states);
 }
 
@@ -82,7 +81,7 @@ void sge::cmp::UI::clean_dirty_origin_alignment() {
 
 }
 
-void sge::cmp::UI::set_anchor_alignment(sge::cmp::UI::Alignment alignment) {
+void sge::cmp::UI::set_anchor_alignment(sge::Alignment alignment) {
     if (anchor_align.vertical != alignment.vertical) {
         anchor_align.vertical = alignment.vertical;
         dirty_origin_alignment = true;
@@ -93,7 +92,7 @@ void sge::cmp::UI::set_anchor_alignment(sge::cmp::UI::Alignment alignment) {
     }
 }
 
-void sge::cmp::UI::set_origin_alignment(sge::cmp::UI::Alignment alignment) {
+void sge::cmp::UI::set_origin_alignment(sge::Alignment alignment) {
     if (origin_align.vertical != alignment.vertical) {
         origin_align.vertical = alignment.vertical;
         dirty_origin_alignment = true;
@@ -124,15 +123,15 @@ void sge::cmp::UI::clean_font(core::FontManager &font_manager) {
     m_content->clean_font(font_manager);
 }
 
-void sge::cmp::UI::set_anchor_alignment(sge::cmp::UI::HotizontalAlignment horizontal,
-                                        sge::cmp::UI::VerticalAlignment vertical_alignment) {
+void sge::cmp::UI::set_anchor_alignment(sge::HotizontalAlignment horizontal,
+                                        sge::VerticalAlignment vertical_alignment) {
     anchor_align.horizontal = horizontal;
     anchor_align.vertical = vertical_alignment;
     dirty_anchor_alignment = true;
 }
 
-void sge::cmp::UI::set_origin_alignment(sge::cmp::UI::HotizontalAlignment horizontal,
-                                        sge::cmp::UI::VerticalAlignment vertical_alignment) {
+void sge::cmp::UI::set_origin_alignment(sge::HotizontalAlignment horizontal,
+                                        sge::VerticalAlignment vertical_alignment) {
    origin_align.horizontal = horizontal;
     origin_align.vertical = vertical_alignment;
     dirty_origin_alignment = true;

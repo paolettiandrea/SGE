@@ -45,6 +45,10 @@ void sge::core::EngineCoreDebug::render_routine() {
         profiler.draw(render_texture, sf::RenderStates(), rect.width, rect.height);
     }
 
+    if (axis_active) {
+        draw_axis();
+    }
+
     render_texture.display();
 
 
@@ -94,6 +98,10 @@ void sge::core::EngineCoreDebug::handle_debug_input() {
         if (input_manager.is_key_pressed(sf::Keyboard::P)) {
             profiler_active = !profiler_active;
         }
+
+        if (input_manager.is_key_pressed(sf::Keyboard::A)) {
+            axis_active = !axis_active;
+        }
     }
 }
 
@@ -137,7 +145,7 @@ bool sge::core::EngineCoreDebug::game_loop() {
         if (object_manager.get_scene_stack_size()==0) return false;
         // Since the scene stack was modified update the pointer to the active camera for the window manager
         window_manager.update_active_camera(object_manager.get_top_scene()->get_camera());
-
+        physics_manager.update_active_world(object_manager.scene_stack.top().get_b2World());
     }
 
     m_frame_counter++;
@@ -147,6 +155,30 @@ bool sge::core::EngineCoreDebug::game_loop() {
     profiler.increase_dump_counter();
 
     return true;
+}
+
+void sge::core::EngineCoreDebug::draw_axis() {
+    sf::Color axis_color(100, 100, 100, 100);
+
+
+    debug_draw_line(sge::Vec2<float>(-1000, 0), sge::Vec2<float>(1000, 0), 0, "", 0, axis_color);
+    debug_draw_line(sge::Vec2<float>(0, 1000), sge::Vec2<float>(0, -1000), -1, "", 0, axis_color);
+
+    // Unit mark
+    sge::Path path;
+    path.append_point(sge::Vec2<float>(1, 1));
+    path.append_point(sge::Vec2<float>(-1, 1));
+    path.append_point(sge::Vec2<float>(-1, -1));
+    path.append_point(sge::Vec2<float>(1, -1));
+    path.set_closed(true);
+    debug_draw_path(path, 0, "", 0, axis_color);
+
+    for (int i = 0; i < path.get_size(); ++i) {
+        path[i] = path[i] * 10.0;
+    }
+    debug_draw_path(path, 0, "", 0, axis_color);
+
+
 }
 
 

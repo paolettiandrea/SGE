@@ -15,7 +15,7 @@ namespace sge {
         public:
             explicit VertArray(const utils::Handle<GameObject> &gameobject);
 
-            void append_local_point(const Vec2<float>& new_local_point);
+            void append_local_point(const Vec2<float> &new_local_point, sf::Color color = sf::Color::White);
 
             void append_vertex_as_local(const sf::Vertex &local_vertex);
 
