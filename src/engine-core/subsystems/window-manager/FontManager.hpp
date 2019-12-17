@@ -5,6 +5,8 @@
 #include <map>
 #include <SGE/utils/log/Loggable.hpp>
 
+#define SGE_FONT_MANAGER_LOAD_PATH "./res/fonts"
+
 namespace  sge {
     namespace  core {
     class FontManager : public utils::log::Loggable {
@@ -17,7 +19,7 @@ namespace  sge {
             void load_fonts();
 
         private:
-            void load_font(const std::string& font_path);
+            void load_font(const std::string &font_path, const std::string &id);
 
             std::map<std::string, sf::Font*> loaded_fonts;
         };

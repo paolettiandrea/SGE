@@ -170,12 +170,12 @@ sge::Vec2<float> sge::cmp::Transform::get_world_position() {
 }
 
 sge::Vec2<float> sge::cmp::Transform::get_local_scale() {
-    return Vec2(m_local_scale_matrix[0][0], m_local_scale_matrix[1][1]);
+    return Vec2<float>(m_local_scale_matrix[0][0], m_local_scale_matrix[1][1]);
 }
 
 sge::Vec2<float> sge::cmp::Transform::get_world_scale() {
     if (is_dirty) update_world_data();
-    return Vec2(m_world_scale_matrix[0][0], m_world_scale_matrix[1][1]);
+    return Vec2<float>(m_world_scale_matrix[0][0], m_world_scale_matrix[1][1]);
 }
 
 float sge::cmp::Transform::get_local_rotation() {
