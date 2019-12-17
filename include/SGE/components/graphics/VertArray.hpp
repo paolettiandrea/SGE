@@ -49,6 +49,8 @@ namespace sge {
 
             std::string get_debug_string() override;
 
+            void clear();
+
         protected:
             void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 

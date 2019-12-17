@@ -220,6 +220,12 @@ void sge::cmp::VertArray::set_alpha(float alpha) {
     }
 }
 
+void sge::cmp::VertArray::clear() {
+    m_vertex_array.clear();
+    m_local_points.clear();
+    is_dirty = true;
+}
+
 
 
 

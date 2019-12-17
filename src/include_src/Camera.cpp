@@ -63,6 +63,10 @@ void sge::Camera::set_background_color(sf::Color color) {
     background_color = color;
 }
 
+sge::Vec2<float> sge::Camera::get_center() {
+    return sge::Vec2<float>(m_view.getCenter().x, -m_view.getCenter().y);
+}
+
 
 
 

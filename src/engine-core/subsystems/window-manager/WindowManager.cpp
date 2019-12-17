@@ -31,8 +31,6 @@ WindowManager::WindowManager(const cd::WindowManager_ConstructionData &data)
 }
 
 void WindowManager::prepare_render() {
-
-
     // If some property of the camera has changed another setView is needed (since it makes an internal copy)
     if (active_camera->changed_view_flag) {
         m_window.setView(active_camera->m_view);
@@ -113,7 +111,7 @@ void WindowManager::update_active_camera(sge::Camera *new_active_camera) {
     active_camera = new_active_camera;
     update_camera_ratio();
 
-    m_window.setView(active_camera->get_view());
+    active_camera->changed_view_flag = true;
 }
 
 void WindowManager::memory_buffer_pass() {
