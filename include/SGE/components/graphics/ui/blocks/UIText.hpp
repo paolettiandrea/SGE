@@ -21,6 +21,8 @@ namespace  sge {
         void clean_font(core::FontManager &font_manager) override;
         void set_spacing(float factor);
 
+        void set_string(const std::string &new_string);
+
     protected:
         void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 

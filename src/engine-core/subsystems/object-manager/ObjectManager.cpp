@@ -6,6 +6,12 @@ using sge::Scene;
 using sge::cd::SceneConstructionData;
 
 Scene* ObjectManager::push_new_scene(SceneConstructionData *scene_construction_data) {
+    if (gameobj_layers_stack.size()>0) {
+        for (auto go : *gameobj_layers_stack.top().get_gameobjects_vector()) {
+            go.logichub()->on_scene_pause();
+        }
+    }
+
     gameobj_layers_stack.emplace();
     LOG_DEBUG(30) << "Pushing a new GameObjectMemoryLayer on top of the stack";
     auto gameobj_mem_layer = &gameobj_layers_stack.top();
@@ -27,6 +33,7 @@ void ObjectManager::pop_top_scene() {
 
     for (auto go : *gameobj_layers_stack.top().get_gameobjects_vector()) {
         go.doom();
+        go.logichub()->on_scene_destruction();
     }
     scene_stack.top().doom_scene();
 
@@ -34,6 +41,12 @@ void ObjectManager::pop_top_scene() {
     gameobj_layers_stack.pop();
     scene_stack.pop();
     scene_cd_vec.pop_back();
+
+    if (gameobj_layers_stack.size() > 0) {
+        for (auto go : *gameobj_layers_stack.top().get_gameobjects_vector()) {
+            go.logichub()->on_scene_resume();
+        }
+    }
 }
 
 unsigned int ObjectManager::get_scene_stack_size() {
@@ -87,6 +100,8 @@ bool ObjectManager::scene_pass() {
         scene_stack_modified=true;
     }
     if (new_scene_construction_data != nullptr) {
+        // on_scene_pause pulse on the top scene and then spawn the new scene on the stack
+
         LOG_DEBUG(15) << "Pushing a new scene (since new_scene_construction_data != nullptr)";
         SceneConstructionData* temp_pointer = new_scene_construction_data;
         new_scene_construction_data = nullptr;          // It's nulled before the push so that there's no conflict

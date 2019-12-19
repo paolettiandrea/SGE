@@ -57,6 +57,6 @@ float sge::Animation::get_val() {
 }
 
 bool sge::Animation::is_done() {
-    return m_elapsed_seconds > m_duration;
+    return !m_active;
 }
 

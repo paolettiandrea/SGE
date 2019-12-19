@@ -72,12 +72,11 @@ void WindowManager::draw() {
 
 
     sf::Sprite sprite(render_texture.getTexture(), rect);
-    //sprite.getTexture()->copyToImage().saveToFile("../out/zzz.png");
     auto temp = sf::Vector2<float>(active_camera->get_view().getSize().x/rect.width, active_camera->get_view().getSize().y/rect.height);
     sprite.setScale(temp);
 
     auto camera_pos = active_camera->get_view().getCenter();
-    sprite.setPosition(camera_pos.x - active_camera->get_view().getSize().x/2, camera_pos.y - active_camera->get_view().getSize().y/2);
+    sprite.setPosition(camera_pos.x - active_camera->get_view().getSize().x/2.0, camera_pos.y - active_camera->get_view().getSize().y/2.0);
     m_window.draw(sprite, m_render_states);
 
 }

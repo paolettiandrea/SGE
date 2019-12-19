@@ -56,6 +56,12 @@ namespace sge {
 
             void on_fixed_update() override;
 
+            void on_scene_destruction() override;
+
+            void on_scene_pause() override;
+
+            void on_scene_resume() override;
+
             void destruction_callback() override;
 
             void on_collision_begin(CollisionInfo &collision_info) override;

@@ -51,6 +51,9 @@ namespace sge {
 
             void clear();
 
+            static void append_smesh_to_sf_vertex_array(sf::VertexArray &vertex_array, const std::string &filename,
+                    sf::Vector2f offset = sf::Vector2f (0,0), float scale = 1.0, sf::Color color = sf::Color::White);
+
         protected:
             void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 

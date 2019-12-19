@@ -57,7 +57,9 @@ namespace sge {
             return  m_b2_world;
         }
 
-        void doom_scene() {m_doomed_flag = true; }
+        void doom_scene() {
+            m_doomed_flag = true;
+        }
         bool is_doomed() {return m_doomed_flag; }
 
         Camera* get_camera();

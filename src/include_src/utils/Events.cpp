@@ -29,9 +29,9 @@ void Event::removeHandler(const EventHandler &handler_to_remove) {
             found = true;
             break;
         }
-        if (!found) {
-            std::cerr << "Tried to remove an EventHandler from an event but it wasn't found";
-        }
+    }
+    if (!found) {
+        std::cerr << "Tried to remove an EventHandler from an event but it wasn't found\n";
     }
 }
 

@@ -48,5 +48,10 @@ namespace sge {
         m_text.setLetterSpacing(factor);
         make_bounds_dirty();
     }
+
+    void UIText::set_string(const std::string &new_string) {
+        m_text.setString(new_string);
+        make_bounds_dirty();
+    }
 }
 

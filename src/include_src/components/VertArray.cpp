@@ -122,6 +122,7 @@ void sge::cmp::VertArray::clean_layer_index_if_dirty(std::map<std::string, unsig
                 dirty_layer_index = false;
             } else {
                 LOG_ERROR << "The layer id [" << layer_id << "] isn't valid";
+                exit(1);
             }
         }
     }
@@ -176,26 +177,19 @@ std::string sge::cmp::VertArray::get_debug_string() {
     switch (m_vertex_array.getPrimitiveType()) {
 
         case sf::Points:
-            s += "POINTS\n";
-            break;
+            s += "POINTS\n"; break;
         case sf::Lines:
-            s += "LINES\n";
-            break;
+            s += "LINES\n"; break;
         case sf::LineStrip:
-            s += "LINESTRIP\n";
-            break;
+            s += "LINESTRIP\n"; break;
         case sf::Triangles:
-            s += "TRIANGLES\n";
-            break;
+            s += "TRIANGLES\n"; break;
         case sf::TriangleStrip:
-            s += "TRIANGLESTRIP\n";
-            break;
+            s += "TRIANGLESTRIP\n"; break;
         case sf::TriangleFan:
-            s += "TRIANGLEFAN\n";
-            break;
+            s += "TRIANGLEFAN\n"; break;
         case sf::Quads:
-            s += "QUADS\n";
-            break;
+            s += "QUADS\n"; break;
     }
 
     s += "Vert count: " + std::to_string(m_vertex_array.getVertexCount()) + "";
@@ -224,6 +218,49 @@ void sge::cmp::VertArray::clear() {
     m_vertex_array.clear();
     m_local_points.clear();
     is_dirty = true;
+}
+
+void
+sge::cmp::VertArray::append_smesh_to_sf_vertex_array(sf::VertexArray &vertex_array, const std::string &filename, sf::Vector2f offset, float scale, sf::Color color) {
+    std::string line;
+    std::ifstream mesh_file (filename);
+    if (mesh_file.is_open())
+    {
+        vertex_array.setPrimitiveType(sf::PrimitiveType::Triangles);
+
+        bool empty_line_encounter = false;
+        std::vector<sge::Vec2<float>> temp_vertices;
+        while ( getline (mesh_file, line) )
+        {
+            if (!empty_line_encounter){
+                // Phase 1: for every line two float values expected (x,y), build the vertex vector
+                std::stringstream iss(line);
+                float x,y;
+                if (!(iss >> x >> y)) {
+                    empty_line_encounter = true;
+                }
+                else {
+                    temp_vertices.emplace_back(x,y);
+                }
+            } else {
+                // Phase 2: for every line 3 int values are expected, the indices for the built vertex vector
+                std::stringstream iss(line);
+                int a,b,c;
+                if (!(iss >> a >> b >> c)) {
+                    break;
+                }
+                else {
+                    vertex_array.append(sf::Vertex(sf::Vector2f(temp_vertices[a].x*scale, -temp_vertices[a].y*scale) + offset, color));
+                    vertex_array.append(sf::Vertex(sf::Vector2f(temp_vertices[b].x*scale, -temp_vertices[b].y*scale) + offset, color));
+                    vertex_array.append(sf::Vertex(sf::Vector2f(temp_vertices[c].x*scale, -temp_vertices[c].y*scale) + offset, color));
+                }
+            }
+        }
+        mesh_file.close();
+    }
+    else {
+        std::cerr << "Unable to open the file during smesh import [" + filename + "]" << std::endl;
+    }
 }
 
 

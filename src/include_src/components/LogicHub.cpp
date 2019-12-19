@@ -125,6 +125,24 @@ const std::vector<Logic *> &sge::cmp::LogicHub::get_attached_logic_list() const 
     return attached_logic_list;
 }
 
+void sge::cmp::LogicHub::on_scene_destruction() {
+    for (auto logic : attached_logic_list) {
+        logic->on_scene_destruction();
+    }
+}
+
+void sge::cmp::LogicHub::on_scene_pause() {
+    for (auto logic : attached_logic_list) {
+        logic->on_scene_pause();
+    }
+}
+
+void sge::cmp::LogicHub::on_scene_resume() {
+    for (auto logic : attached_logic_list) {
+        logic->on_scene_resume();
+    }
+}
+
 
 
 

@@ -18,6 +18,10 @@ namespace sge {
          */
         virtual void on_destruction() = 0;
 
+        virtual void on_scene_destruction() = 0;
+        virtual void on_scene_pause() = 0;
+        virtual void on_scene_resume() = 0;
+
         /*!
          * \brief Callbacks called right before render
          */
