@@ -29,7 +29,7 @@ namespace sge {
                 void draw(sf::RenderTarget& target, sf::RenderStates states, int screen_width,int screen_height);
 
             private:
-                unsigned int m_dump_counter;
+                unsigned int m_dump_counter = 0;
 
                 std::chrono::time_point<std::chrono::steady_clock> last_dump_time;
 
