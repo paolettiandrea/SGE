@@ -52,6 +52,8 @@ namespace sge {
         virtual void debug_draw_direction(sge::Vec2<float> from, sge::Vec2<float> to, float duration=0, sf::Color color=SGE_DEFAULT_DEBUG_COLOR) = 0;
         virtual bool is_shutting_down() = 0;
 
+        virtual sf::Vector2u get_window_size() = 0;
+
         /**
          * \brief Check if the given button is down this frame
          * @param button The mouse button that needs to be checked

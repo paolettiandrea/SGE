@@ -30,6 +30,8 @@ namespace sge {
 
         bool is_done();
 
+        bool is_active();
+
     private:
         float m_elapsed_seconds = 0;
         float m_duration;

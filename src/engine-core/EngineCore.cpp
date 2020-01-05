@@ -251,6 +251,10 @@ void sge::core::EngineCore::memory_buffer_pass() {
 int sge::core::EngineCore::get_collision_layer_index_from_id(const std::string &id) {
     return physics_manager.get_collision_layer_index_from_id(id);
 }
+
+sf::Vector2u sge::core::EngineCore::get_window_size() {
+    return window_manager.get_window_size();
+}
 //endregion
 
 

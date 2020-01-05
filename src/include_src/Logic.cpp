@@ -27,6 +27,14 @@ IEnvironment *Logic::env() {
     return m_env;
 }
 
+void Logic::doom() {
+    is_doomed_flag = true;
+}
+
+bool Logic::is_doomed() {
+    return is_doomed_flag;
+}
+
 
 
 

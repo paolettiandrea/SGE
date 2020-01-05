@@ -1,7 +1,3 @@
-//
-// Created by andrea on 5/8/19.
-//
-
 #include "SGE/utils/events/EventHandler.hpp"
 
 using namespace utils::event;

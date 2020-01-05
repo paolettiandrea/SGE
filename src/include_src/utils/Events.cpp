@@ -70,3 +70,7 @@ Event &Event::operator-=(const EventHandler &handler) {
     return *this;
 }
 
+void Event::clearSubscribers() {
+    this->subscribers.clear();
+}
+

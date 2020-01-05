@@ -33,7 +33,7 @@ bool LogicHub::has_logic(const std::string &logic_type_id) {
 void LogicHub::remove_logic(Logic *target_logic) {
     for (int i = 0; i < attached_logic_list.size(); ++i) {
         if (attached_logic_list[i] == target_logic) {
-            if (attached_logic_list.size()>1) {
+            if (i!=attached_logic_list.size()-1 && attached_logic_list.size()>1) {
                 attached_logic_list[i] = attached_logic_list[attached_logic_list.size() - 1];
             }
             break;
@@ -43,6 +43,8 @@ void LogicHub::remove_logic(Logic *target_logic) {
     delete(target_logic);
     // TODO some sort of removal callback here, probably also an Event for other object to subscribe
 }
+
+
 
 
 
@@ -141,6 +143,19 @@ void sge::cmp::LogicHub::on_scene_resume() {
     for (auto logic : attached_logic_list) {
         logic->on_scene_resume();
     }
+}
+
+void sge::cmp::LogicHub::doom_pass() {
+    std::vector<Logic*> new_vec;
+    for (auto logic : attached_logic_list) {
+        if (logic->is_doomed()) {
+            delete (logic);
+        } else {
+            new_vec.push_back(logic);
+        }
+    }
+
+    attached_logic_list = new_vec;
 }
 
 

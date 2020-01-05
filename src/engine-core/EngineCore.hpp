@@ -66,6 +66,11 @@ namespace sge::core {
         bool is_shutting_down() override;
 
         bool m_shutting_down_flag = false;
+
+    public:
+        sf::Vector2u get_window_size() override;
+
+    protected:
         //endregion
 
         virtual void update_accumulator();

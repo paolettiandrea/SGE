@@ -70,10 +70,14 @@ namespace sge {
         void pre_solve(b2Contact *contact, const b2Manifold *oldManifold, const CollisionInfo &info) override {}
         void post_solve(b2Contact *contact, const b2ContactImpulse *impulse, const CollisionInfo &info) override {}
 
+        void doom();
+        bool is_doomed();
+
     private:
         utils::Handle<GameObject> m_gameobject_handle;
         Scene* m_scene;
         IEnvironment* m_env;
+        bool is_doomed_flag = false;
 
     };
 }

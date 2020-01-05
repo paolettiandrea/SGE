@@ -78,13 +78,7 @@ namespace sge {
 
             //endregion
 
-
-
-
-
-
-
-
+            void doom_pass();
 
         private:
             std::vector<Logic*> attached_logic_list;

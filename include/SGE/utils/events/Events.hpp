@@ -30,6 +30,7 @@ namespace utils {
              */
             void removeHandler(const EventHandler &handler_to_remove);
             void removeHandler(int handler_id);
+            void clearSubscribers();
             /*!
              * \brief Used to notify every subscriber, causes the call of every function in every EventHandler subscriber.
              */

@@ -47,7 +47,9 @@ namespace sge {
              */
             bool window_is_open() { return m_window.isOpen(); }
 
-
+            sf::Vector2u get_window_size() {
+                return m_window.getSize();
+            }
 
             /*!
              * \brief Exposes the display method of the managed window

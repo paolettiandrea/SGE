@@ -61,6 +61,7 @@ void ObjectManager::doom_pass() {
     LOG_DEBUG(15) << "Starting doom pass";
     // Every component attached to the doomed gameobject is doomed before the actual doom passes
     for (auto & gameobj : (*gameobj_layers_stack.top().get_gameobjects_vector())) {
+        gameobj.logichub()->doom_pass();
         if (gameobj.is_doomed()) {
             for (int id_index = 0; id_index < TOTAL_POSSIBLE_COMPONENTS; ++id_index) {
                 int unspecified_index = gameobj.m_components_mapped_array[id_index];

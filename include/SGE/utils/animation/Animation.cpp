@@ -60,3 +60,7 @@ bool sge::Animation::is_done() {
     return !m_active;
 }
 
+bool sge::Animation::is_active() {
+    return m_active;
+}
+
