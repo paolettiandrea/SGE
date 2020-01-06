@@ -260,6 +260,29 @@ std::string sge::cmp::Transform::get_debug_string() {
     return s;
 }
 
+utils::Handle<sge::cmp::Transform> sge::cmp::Transform::get_child(const std::string &gameobj_name) {
+    for(auto child : m_children) {
+        if (child->gameobject()->get_log_id()==std::string("{" + gameobj_name + "}"))
+            return child;
+    }
+    return utils::Handle<sge::cmp::Transform>();
+}
+
+unsigned int sge::cmp::Transform::get_child_count(bool recursive) {
+    if (recursive) {
+        unsigned int count;
+        recursive_child_count(count);
+        return count;
+    } else { return m_children.size(); }
+}
+
+void sge::cmp::Transform::recursive_child_count(unsigned int &count) {
+    count += m_children.size();
+    for (auto child : m_children) {
+        child->recursive_child_count(count);
+    }
+}
+
 
 
 

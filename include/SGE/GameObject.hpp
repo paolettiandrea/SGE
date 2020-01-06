@@ -19,6 +19,7 @@ namespace sge {
 
     class Scene;
 
+
     /*!
      * \brief An object that holds an assortment of components that define its behaviour
      */
@@ -108,6 +109,7 @@ namespace sge {
 
         std::string get_string_attached_components();
         std::string get_string_local_hierarchy(bool print_components = false);
+
     private:
         /*!
          * Pointer to the scene this GameObject is in
@@ -172,6 +174,7 @@ namespace sge {
 }
 
 typedef utils::Handle<sge::GameObject> GameObject_H;
+
 
 #endif //SGE_GAMEOBJECT_HPP
 

@@ -85,6 +85,9 @@ namespace sge::cmp {
 
         bool is_root();
 
+        utils::Handle<sge::cmp::Transform> get_child(const std::string& gameobj_name);
+        unsigned int get_child_count(bool recursive = false);
+
 
     private:
         utils::Handle<sge::cmp::Transform> m_parent;
@@ -104,10 +107,10 @@ namespace sge::cmp {
         void compose_with_parent();
         void add_child(utils::Handle<Transform> new_child);
 
+        void recursive_child_count(unsigned int& count);
+
     };
-
 }
-
 typedef utils::Handle<sge::cmp::Transform> Transform_H;
 
 #endif //SGE_TRANSFORM_HPP
