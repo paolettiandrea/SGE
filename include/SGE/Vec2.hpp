@@ -1,16 +1,7 @@
-//
-// Created by andrea on 5/5/19.
-//
-
 #ifndef SGE_VEC2_HPP
 #define SGE_VEC2_HPP
 
 #include <algorithm>
-
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/
 #include <string>
 #include <cmath>
 
