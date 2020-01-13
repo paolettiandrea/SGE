@@ -6,6 +6,8 @@
 #include "SGE/Macros.hpp"
 #include "SGE/utils/handles/Handle.hpp"
 #include "SGE/SceneConstructionData.hpp"
+#include <SGE/components/physics/RayCastHandler.hpp>
+
 
 class b2World;
 
@@ -49,22 +51,18 @@ namespace sge {
          * \brief Gets the IEnvironment interface
          * \return A pointer to the IEnvironment, not expected to move in memory during the application lifetime
          */
-        IEnvironment* env() {
-            return env_p;
-        }
+        IEnvironment* env();
 
-        b2World* get_b2World()  {
-            return  m_b2_world;
-        }
+        b2World* get_b2World();
 
-        void doom_scene() {
-            m_doomed_flag = true;
-        }
-        bool is_doomed() {return m_doomed_flag; }
+        void doom_scene();
+        bool is_doomed();
 
         Camera* get_camera();
 
         void set_gravity(sge::Vec2<float> gravity_vec);
+
+        void raycast(RayCastHandler* handler);
 
 
     private:

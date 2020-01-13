@@ -52,4 +52,25 @@ void Scene::set_gravity(sge::Vec2<float> gravity_vec) {
     m_b2_world->SetGravity(b2Vec2(gravity_vec.x, gravity_vec.y));
 }
 
+void Scene::raycast(RayCastHandler* handler) {
+    b2Vec2 pointA = b2Vec2(handler->get_point_a().x, handler->get_point_a().y);
+    b2Vec2 pointB = b2Vec2(handler->get_point_b().x, handler->get_point_b().y);
+    handler->prepare_for_raycast();
+    m_b2_world->RayCast(handler, pointA, pointB);
+}
+
+b2World *Scene::get_b2World() {
+    return  m_b2_world;
+}
+
+IEnvironment *Scene::env() {
+    return env_p;
+}
+
+void Scene::doom_scene() {
+    m_doomed_flag = true;
+}
+
+bool Scene::is_doomed() {return m_doomed_flag; }
+
 

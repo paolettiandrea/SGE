@@ -46,6 +46,8 @@ namespace sge {
 
             void set_collision_enabled_with(const std::string &id, bool enabled);
 
+            void set_filter_collision_enabled_with(b2Filter &filter, const std::string &id, bool enabled);
+
             void set_collision_with_all_layers(bool enabled);
 
 

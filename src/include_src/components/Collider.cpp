@@ -305,19 +305,9 @@ void sge::cmp::Collider::set_collision_category(const std::string &id) {
 }
 
 void sge::cmp::Collider::set_collision_enabled_with(const std::string &id, bool enabled) {
-    int index = gameobject()->get_scene()->env()->get_collision_layer_index_from_id(id);
-
-    if (index>=0 && index < 16) {
-        b2Filter filter(m_fixture->GetFilterData());
-
-        if (enabled) filter.maskBits = filter.maskBits | (1<<index);
-        else filter.maskBits = filter.maskBits & ~(1<<index);
-
-        m_fixture->SetFilterData(filter);
-    } else {
-        LOG_ERROR << "Couldn't find the collision layer id: " << id;
-        exit(1);
-    }
+    b2Filter filter(m_fixture->GetFilterData());
+    set_filter_collision_enabled_with(filter, id, enabled);
+    m_fixture->SetFilterData(filter);
 }
 
 b2Filter sge::cmp::Collider::get_filter_data() {
@@ -335,6 +325,18 @@ void sge::cmp::Collider::set_material(const PhysicsMaterial &physics_material) {
     set_density(physics_material.density);
     set_restitution(physics_material.restitution);
     set_friction(physics_material.friction);
+}
+
+void sge::cmp::Collider::set_filter_collision_enabled_with(b2Filter &filter, const std::string &id, bool enabled) {
+    int index = gameobject()->get_scene()->env()->get_collision_layer_index_from_id(id);
+
+    if (index>=0 && index < 16) {
+        if (enabled) filter.maskBits = filter.maskBits | (1<<index);
+        else filter.maskBits = filter.maskBits & ~(1<<index);
+    } else {
+        LOG_ERROR << "Couldn't find the collision layer id: " << id;
+        exit(1);
+    }
 }
 
 

@@ -6,4 +6,6 @@ target_sources(SGE PUBLIC
 
         CollisionInfo.hpp
         PhysicsMaterial.hpp
+
+        RayCastHandler.hpp
         )

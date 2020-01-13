@@ -24,6 +24,8 @@ namespace sge {
             void set_color(sf::Color color);
             void set_vertex_color(unsigned int index, sf::Color color);
             void set_vertex_position(unsigned int index, float x, float y);
+            void set_vertex_position(unsigned int index, sge::Vec2<float> pos);
+
 
             float get_alpha();
             void set_alpha(float alpha);

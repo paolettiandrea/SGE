@@ -26,6 +26,8 @@ namespace sge {
 
         float get_val();
 
+        float get_timer();
+
         utils::event::Event on_animation_ended;
 
         bool is_done();

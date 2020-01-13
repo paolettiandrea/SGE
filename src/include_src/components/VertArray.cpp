@@ -263,6 +263,10 @@ sge::cmp::VertArray::append_smesh_to_sf_vertex_array(sf::VertexArray &vertex_arr
     }
 }
 
+void sge::cmp::VertArray::set_vertex_position(unsigned int index, sge::Vec2<float> pos) {
+    set_vertex_position(index, pos.x, pos.y);
+}
+
 
 
 

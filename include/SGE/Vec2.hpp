@@ -59,10 +59,11 @@ namespace sge {
             return *this;
         }
 
-        void set_magnitude(const T& new_magnitude) {
+        Vec2<T>& set_magnitude(const T& new_magnitude) {
             T angle = atan2(y,x);
             x = cos(angle)*new_magnitude;
             y = sin(angle)*new_magnitude;
+            return *this;
         }
         T get_magnitude() {
             return sqrt(powf(x,2) + powf(y,2));
