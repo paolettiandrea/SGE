@@ -47,6 +47,7 @@ namespace sge {
             void apply_linear_impulse(const Vec2<float> &impulse_vec, const Vec2<float> &impulse_point, bool wake);
             void apply_angular_impulse(float impulse, bool wake);
             float get_mass();
+            sge::Vec2<float> get_linear_velocity();
 
             std::string get_debug_string() override;
 

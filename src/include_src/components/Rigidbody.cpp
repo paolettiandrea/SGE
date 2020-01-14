@@ -139,4 +139,9 @@ std::string sge::cmp::Rigidbody::get_debug_string() {
     return s;
 }
 
+sge::Vec2<float> sge::cmp::Rigidbody::get_linear_velocity() {
+    auto b2vel = m_body->GetLinearVelocity();
+    return sge::Vec2<float>(b2vel.x, b2vel.y);
+}
+
 

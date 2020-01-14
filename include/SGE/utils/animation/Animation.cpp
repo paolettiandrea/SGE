@@ -69,3 +69,7 @@ float sge::Animation::get_timer() {
     return m_elapsed_seconds;
 }
 
+float sge::Animation::get_from_val() { return m_from_val; }
+
+float sge::Animation::get_to_val() { return m_to_val; }
+
