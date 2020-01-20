@@ -270,7 +270,7 @@ utils::Handle<sge::cmp::Transform> sge::cmp::Transform::get_child(const std::str
 
 unsigned int sge::cmp::Transform::get_child_count(bool recursive) {
     if (recursive) {
-        unsigned int count;
+        unsigned int count = 0;
         recursive_child_count(count);
         return count;
     } else { return m_children.size(); }
