@@ -5,11 +5,6 @@
 #include <Profiler.hpp>
 #include "HierarchyPanel.hpp"
 
-#define SGE_DEBUG_FONT "braciola-bold"
-
-#define SGE_DEBUG_COLLIDER_COLOR sf::Color::Green
-#define SGE_DEBUG_TRANSFORM_COLOR sf::Color::Red
-#define SGE_DEBUG_UI_COLOR sf::Color::Purple
 
 
 #define SGE_DEBUG_MAIN_KEY1 sf::Keyboard::LControl

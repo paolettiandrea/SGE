@@ -95,10 +95,11 @@ void ObjectManager::doom_pass() {
 bool ObjectManager::scene_pass() {
     LOG_DEBUG(15) << "Starting scene pass";
     bool scene_stack_modified=false;
-    if (scene_stack.top().is_doomed()) {
+    while (scene_stack.size()>0 && doom_counter > 0) {
         LOG_DEBUG(15) << "Popping the top scene (since pop_top_scene_flag == true)";
         pop_top_scene();
         scene_stack_modified=true;
+        doom_counter--;
     }
     if (new_scene_construction_data != nullptr) {
         // on_scene_pause pulse on the top scene and then spawn the new scene on the stack
@@ -125,6 +126,7 @@ bool ObjectManager::book_scene_push(const std::string &name, Logic *initial_logi
 
 void ObjectManager::doom_top_scene() {
     scene_stack.top().doom_scene();
+    doom_counter = 1;
 }
 
 ObjectManager::~ObjectManager() {
@@ -211,5 +213,15 @@ std::vector<Transform_H> sge::core::ObjectManager::get_siblings(Transform_H targ
         }
     }
     return std::vector<Transform_H>();
+}
+
+void sge::core::ObjectManager::doom_scenes(unsigned int number) {
+    if (scene_stack.top().is_doomed() || doom_counter>0) {
+        LOG_ERROR << "The top scene seem to be already doomed";
+        exit(1);
+    } else {
+        doom_top_scene();
+        doom_counter = number;
+    }
 }
 

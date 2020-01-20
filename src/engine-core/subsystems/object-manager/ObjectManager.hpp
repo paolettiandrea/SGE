@@ -79,7 +79,12 @@ namespace sge {
 
             void memory_buffer_pass() override;
 
+            void doom_scenes(unsigned int number);
+
+
         private:
+            // counts the number of top scenes that are doomed other than the topmost one
+            unsigned int doom_counter;
             std::stack<Scene> scene_stack;
             std::vector<cd::SceneConstructionData> scene_cd_vec;
             std::stack<GameObjectMemoryLayer> gameobj_layers_stack;

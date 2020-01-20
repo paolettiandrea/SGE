@@ -70,6 +70,8 @@ namespace sge::core {
     public:
         sf::Vector2u get_window_size() override;
 
+        void doom_scenes(unsigned int number) override;
+
     protected:
         //endregion
 
