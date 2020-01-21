@@ -56,6 +56,8 @@ namespace sge {
         virtual sf::Vector2u get_window_size() = 0;
 
         virtual void doom_scenes(unsigned int number) = 0;
+        virtual int get_scene_number() = 0;
+        virtual void quit() = 0;
 
         /**
          * \brief Check if the given button is down this frame

@@ -72,6 +72,11 @@ namespace sge::core {
 
         void doom_scenes(unsigned int number) override;
 
+        int get_scene_number() override;
+
+        void quit() override;
+
+
     protected:
         //endregion
 

@@ -263,6 +263,14 @@ void sge::core::EngineCore::doom_scenes(unsigned int number) {
 bool sge::core::EngineCore::is_top_scene_doomed() {
     return object_manager.doom_counter>0;
 }
+
+int sge::core::EngineCore::get_scene_number() {
+    return object_manager.scene_stack.size();
+}
+
+void sge::core::EngineCore::quit() {
+    doom_scenes(get_scene_number());
+}
 //endregion
 
 
