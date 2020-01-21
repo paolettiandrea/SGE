@@ -112,7 +112,7 @@ bool EngineCore::book_new_scene_push(const std::string &name, Logic *initial_log
 
 
 void EngineCore::doom_top_scene() {
-    object_manager.doom_top_scene();
+    object_manager.doom_scenes(1);
 }
 
 
@@ -258,6 +258,10 @@ sf::Vector2u sge::core::EngineCore::get_window_size() {
 
 void sge::core::EngineCore::doom_scenes(unsigned int number) {
     object_manager.doom_scenes(number);
+}
+
+bool sge::core::EngineCore::is_top_scene_doomed() {
+    return object_manager.doom_counter>0;
 }
 //endregion
 

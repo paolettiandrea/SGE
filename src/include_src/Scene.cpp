@@ -68,9 +68,9 @@ IEnvironment *Scene::env() {
 }
 
 void Scene::doom_scene() {
-    m_doomed_flag = true;
+    env()->doom_scenes(1);
 }
 
-bool Scene::is_doomed() {return m_doomed_flag; }
+bool Scene::is_doomed() {return env()->is_top_scene_doomed(); }
 
 

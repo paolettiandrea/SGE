@@ -38,7 +38,6 @@ namespace sge {
              */
             bool book_scene_push(const std::string &name, Logic *initial_logic);
 
-            void doom_top_scene();
             /*!
              * Builds a new scene at the top of the scene stack
              * \return the index of the built scene in the stack index
@@ -84,7 +83,7 @@ namespace sge {
 
         private:
             // counts the number of top scenes that are doomed other than the topmost one
-            unsigned int doom_counter;
+            unsigned int doom_counter = 0;
             std::stack<Scene> scene_stack;
             std::vector<cd::SceneConstructionData> scene_cd_vec;
             std::stack<GameObjectMemoryLayer> gameobj_layers_stack;

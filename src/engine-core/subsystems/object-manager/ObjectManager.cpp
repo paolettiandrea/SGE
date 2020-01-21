@@ -35,7 +35,6 @@ void ObjectManager::pop_top_scene() {
         go.doom();
         go.logichub()->on_scene_destruction();
     }
-    scene_stack.top().doom_scene();
 
     component_factory.pop_top_component_memory_layer();
     gameobj_layers_stack.pop();
@@ -124,10 +123,6 @@ bool ObjectManager::book_scene_push(const std::string &name, Logic *initial_logi
     return  book_successfull;
 }
 
-void ObjectManager::doom_top_scene() {
-    scene_stack.top().doom_scene();
-    doom_counter = 1;
-}
 
 ObjectManager::~ObjectManager() {
     LOG_DEBUG(30) << "Destructor";
@@ -220,7 +215,6 @@ void sge::core::ObjectManager::doom_scenes(unsigned int number) {
         LOG_ERROR << "The top scene seem to be already doomed";
         exit(1);
     } else {
-        doom_top_scene();
         doom_counter = number;
     }
 }

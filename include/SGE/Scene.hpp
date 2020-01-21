@@ -81,8 +81,6 @@ namespace sge {
         IEnvironment* env_p;
         b2World* m_b2_world;
         Camera m_camera;
-
-        bool m_doomed_flag = false;
     };
 }
 

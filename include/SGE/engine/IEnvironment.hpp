@@ -106,6 +106,8 @@ namespace sge {
 
 
         virtual int get_collision_layer_index_from_id(const std::string &id) = 0;
+
+        virtual bool is_top_scene_doomed() = 0;
     };
 
 }

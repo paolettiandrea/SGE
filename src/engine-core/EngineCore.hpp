@@ -113,6 +113,8 @@ namespace sge::core {
     public:
         int get_collision_layer_index_from_id(const std::string &id) override;
 
+        bool is_top_scene_doomed() override;
+
     protected:
 
 

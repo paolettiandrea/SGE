@@ -16,7 +16,7 @@ Engine::Engine(cd::Engine_ConstructionData& data)
     LOG_DEBUG(10) << "Initiating construction";
 
 #if DEBUG
-    core = new EngineCoreDebug(data);
+        core = new EngineCoreDebug(data);
 #else
     core = new EngineCore(data);
 #endif
