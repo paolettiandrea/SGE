@@ -1,6 +1,6 @@
 #include "EngineCoreDebug.hpp"
 
-sge::core::EngineCoreDebug::EngineCoreDebug(sge::cd::Engine_ConstructionData &data) : EngineCore(data) {
+sge::core::EngineCoreDebug::EngineCoreDebug(sge::cd::Engine_ConstructionData &data) : EngineCore(data), fps_counter(window_manager.font_manager) {
     hierarchy_panel.initialize(window_manager.font_manager);
 }
 
@@ -45,9 +45,13 @@ void sge::core::EngineCoreDebug::render_routine() {
         profiler.draw(render_texture, sf::RenderStates(), rect.width, rect.height);
     }
 
+    fps_counter.update_x_pos(render_texture);
+    render_texture.draw(fps_counter);
+
     if (axis_active) {
         draw_axis();
     }
+
 
     render_texture.display();
 
@@ -106,6 +110,9 @@ void sge::core::EngineCoreDebug::handle_debug_input() {
 }
 
 bool sge::core::EngineCoreDebug::game_loop() {
+
+    fps_counter.count_frame();
+
     if (object_manager.get_scene_stack_size()==0 || !window_manager.window_is_open()) return false;
     // Calculate the elapsed time since the last start of the game loop and add it to the accumulator
     update_accumulator();

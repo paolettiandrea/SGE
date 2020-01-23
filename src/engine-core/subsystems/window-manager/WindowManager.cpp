@@ -49,6 +49,7 @@ void WindowManager::draw() {
             ordered_pointers[vertarray->layer_index].push_back(vertarray.get_pointer());
         }
     }
+
     for (int i = layer_count-1; i >= 0; i--) {
         for (int j = 0; j < ordered_pointers[i].size(); ++j) {
             m_window.draw(*ordered_pointers[i][j], m_render_states);

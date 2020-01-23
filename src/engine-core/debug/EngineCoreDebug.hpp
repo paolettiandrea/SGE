@@ -3,6 +3,7 @@
 
 #include "EngineCore.hpp"
 #include <Profiler.hpp>
+#include <debug/fps-counter/FpsCounter.hpp>
 #include "HierarchyPanel.hpp"
 
 
@@ -24,6 +25,7 @@ namespace sge {
         private:
             debug::HierarchyPanel hierarchy_panel;
             debug::Profiler profiler;
+            debug::FpsCounter fps_counter;
 
 
             void handle_debug_input();

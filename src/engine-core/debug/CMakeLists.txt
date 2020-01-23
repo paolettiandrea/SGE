@@ -7,3 +7,4 @@ target_sources(SGE PRIVATE
 
 add_subdirectory(hierarchy_panel)
 add_subdirectory(profiler)
+add_subdirectory(fps-counter)

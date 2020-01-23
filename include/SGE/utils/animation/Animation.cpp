@@ -32,7 +32,6 @@ float sge::Animation::step(float delta_time) {
     if (m_active) {
         m_elapsed_seconds += delta_time;
         if (m_elapsed_seconds>m_duration) {
-            std::cout << "Ending animation\n";
             on_animation_ended();
             m_active = false;
             return m_to_val;
