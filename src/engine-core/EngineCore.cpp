@@ -123,6 +123,7 @@ unsigned int EngineCore::frame_count() {
 
 EngineCore::~EngineCore() {
     m_shutting_down_flag = true;
+    object_manager.doom_counter = object_manager.scene_stack.size();
     LOG_DEBUG(20) << "Destructor";
     while (object_manager.get_scene_stack_size() > 0){
         LOG_DEBUG(20) << "Still " << object_manager.get_scene_stack_size()

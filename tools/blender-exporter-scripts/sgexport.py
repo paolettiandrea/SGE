@@ -45,7 +45,7 @@ def make_ordered_path(edges,vertices):
                 # We're back considering the initial edge, so
                 ordered_path.append(ordered_path[0])
                 loop_detected = True
-                print("Detected looping")
+                #print("Detected looping")
                 break
             else:
                 # This is legit, so we just need to set the vertex target to the correct value of the tuple
@@ -56,10 +56,10 @@ def make_ordered_path(edges,vertices):
                     target_vertex_index = target_edge[0]
 
     if ((len(ordered_path) == len(vertices)) and (loop_detected==False)) or ((len(ordered_path) == len(vertices)+1) and (loop_detected== True)):
-        print("The path seems to be correctly formed: Verts:{} | Looping:{}".format(len(ordered_path),loop_detected))
+        #print("The path seems to be correctly formed: Verts:{} | Looping:{}".format(len(ordered_path),loop_detected))
         return ordered_path
     else:
-        print("Returning -1")
+        print("The path doesn't seem to be correctly formed: Verts:{} | Looping:{}".format(len(ordered_path),loop_detected))
         return -1
 
 def export_simple_path(object, export_file_path):
@@ -71,7 +71,7 @@ def export_simple_path(object, export_file_path):
     for vert in object.vertices:
         vertices.append( (vert.co.x,vert.co.y) )
 
-    print("EXPORTING SIMPLE PATH FROM ACTIVE OBJECT: {} | Verts:{} | Edges:{} |".format(object.name,len(vertices),len(edges)))
+    #print("EXPORTING SIMPLE PATH FROM ACTIVE OBJECT: {} | Verts:{} | Edges:{} |".format(object.name,len(vertices),len(edges)))
 
     ordered_path = make_ordered_path(edges, vertices)
 
@@ -82,7 +82,7 @@ def export_simple_path(object, export_file_path):
         for vert in ordered_path:
             file.write("{0} {1}\n".format(vert[0],vert[1]))
         file.close()
-        print("Ordered path successfully exported to: {} \n".format(export_file_path))
+        #print("Ordered path successfully exported to: {} \n".format(export_file_path))
 
 
 

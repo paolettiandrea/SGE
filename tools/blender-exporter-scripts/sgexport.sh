@@ -2,8 +2,8 @@
 
 # Simple script for exporting SGE readable objects from blender files
 # Takes only one argument, a path to a .blend file or to a directory:
-# - if the path is of a file exports it in its same dir
-# - if the path is of a directory explore recursivelly down the folder exporting in the same way every .blend file found
+# - if the path points to a file exports it in its same dir
+# - if the path points to a directory explore recursivelly down the folder exporting in the same way every .blend file found
 
 
 # Function that opens the given blender file and executes the python script where the actual export logic is
