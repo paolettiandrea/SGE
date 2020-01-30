@@ -23,6 +23,7 @@ namespace sge {
 
         float get_ratio() { return m_screen_ratio; }
         float get_vertical_size() { return m_vertical_size; }
+        float get_horizontal_size() {return m_vertical_size*m_screen_ratio;}
 
         void set_center(float x, float y);
         void set_center(const sge::Vec2<float>& point);
