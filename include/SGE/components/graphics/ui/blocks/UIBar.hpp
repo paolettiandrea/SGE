@@ -22,6 +22,10 @@ namespace sge {
         void set_background_color(sf::Color color);
         void set_bar_color(sf::Color color);
 
+        void set_size(float width, float height);
+        float get_height() { return height; }
+        float get_width() { return width; }
+
     protected:
 
         void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

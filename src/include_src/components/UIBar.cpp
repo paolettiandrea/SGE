@@ -83,3 +83,10 @@ void sge::UIBar::set_bar_color(sf::Color color) {
         bar_rectangle[i].color = color;
     }
 }
+
+void sge::UIBar::set_size(float width, float height) {
+    this->width = width;
+    this->height = height;
+    dirty_geometry = true;
+    make_bounds_dirty();
+}
