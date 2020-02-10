@@ -3,7 +3,7 @@
 
 
 #define SGE_DEBUG_FPS_COUNTER_CHAR_SIZE 25
-#define SGE_DEBUG_FPS_COUNTER_RIGHT_OFFSET 100
+#define SGE_DEBUG_FPS_COUNTER_RIGHT_OFFSET 70
 #define SGE_DEBUG_FPS_COUNTER_TOP_PADDING 20
 #define SGE_DEBUG_FPS_COUNTER_REFRESH_PERIOD 0.3
 
@@ -15,10 +15,12 @@ namespace sge { namespace core { namespace debug {
     public:
         FpsCounter(FontManager& font_manager){
             font = font_manager.get_font("RobotoMono-Medium");
-            text.setString("Yoo");
+            text.setString("0.0");
             text.setFont(*font);
             text.setCharacterSize(SGE_DEBUG_FPS_COUNTER_CHAR_SIZE);
             text.setFillColor(sf::Color::White);
+            text.setOutlineThickness(2);
+            text.setOutlineColor(sf::Color::Black);
 
             last_count_tp = std::chrono::steady_clock::now();
             last_flush_tp = std::chrono::steady_clock::now();
@@ -37,7 +39,6 @@ namespace sge { namespace core { namespace debug {
         sf::Text text;
 
         unsigned int frame_counter = 0;
-        float time_buffer;
         std::chrono::time_point<std::chrono::steady_clock> last_flush_tp;
         std::chrono::time_point<std::chrono::steady_clock> last_count_tp;
     };

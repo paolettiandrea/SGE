@@ -267,6 +267,14 @@ void sge::cmp::VertArray::set_vertex_position(unsigned int index, sge::Vec2<floa
     set_vertex_position(index, pos.x, pos.y);
 }
 
+void sge::cmp::VertArray::set_vertex_alpha(unsigned int index, int alpha) {
+    if (m_vertex_array.getVertexCount()>index) {
+        m_vertex_array[index].color.a = alpha;
+    } else {
+        LOG_ERROR << "Index given in set_vertex_position [" << index << "] is out of bounds";
+    }
+}
+
 
 
 
