@@ -22,7 +22,6 @@ void sge::core::FontManager::load_fonts() {
                 s += "/";
                 s += de->d_name;
 
-                std::cout << s << std::endl;
                 load_font(s, std::string(de->d_name, 0, len-4));
             }
         }

@@ -67,14 +67,14 @@ void sge::cmp::Collider::clean_shape() {
         }
 
         case Chain:
-            b2Vec2 vs[m_path.get_closed_size()];
+            b2Vec2 vs[m_path.get_closed_size()+1];
             update_relative_path();
             for (int i = 0; i < m_relative_path.get_size(); i++) {
                 auto yo = gameobject()->transform()->local_to_world_point(m_path[i]);
                 vs[i].Set(yo.x, yo.y);
             }
             if (m_path.is_closed()) {
-                vs[m_path.get_closed_size() - 1] = vs[0];
+                vs[m_path.get_closed_size()] = vs[0];
             }
             b2ChainShape chain_shape;
             chain_shape.CreateChain(vs, m_path.get_closed_size());
@@ -117,7 +117,6 @@ void sge::cmp::Collider::visual_debug_draw_collider() {
 
         case Chain:
             Path world_path;
-            auto chain_shape = ((b2ChainShape*)m_fixture->GetShape());
             for (int j = 0; j < m_path.get_size(); ++j) {
                 world_path.append_point(rigidbody_transform->local_to_world_point(m_path[j]));
             }

@@ -34,7 +34,6 @@ bool EngineCore::game_loop() {
     // Destroys the GameObjects and Components
     object_manager.doom_pass();
 
-
     // RENDER
     render_routine();
 
