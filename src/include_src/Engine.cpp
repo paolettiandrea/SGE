@@ -31,7 +31,7 @@ bool Engine::game_loop() {
     return core->game_loop();
 }
 
-void Engine::initialize(cd::SceneConstructionData& initial_scene_cd) {
+void Engine::initialize(cd::Scene_ConstructionData& initial_scene_cd) {
     core->initialize(initial_scene_cd);
 }
 

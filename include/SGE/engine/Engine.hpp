@@ -37,7 +37,7 @@ namespace sge {
          * \brief Initializes the engine, getting it ready for game_loop execution
          * \param initial_scene_cd The construction data for the initial Scene the Engine will be initialized with.
          */
-        void initialize(cd::SceneConstructionData& initial_scene_cd);
+        void initialize(cd::Scene_ConstructionData& initial_scene_cd);
 
     private:
         core::EngineCore* core;

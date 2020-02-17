@@ -1,4 +1,4 @@
-#include <SGE/SceneConstructionData.hpp>
+#include <SGE/Scene_ConstructionData.hpp>
 #include <SGE/components/graphics/VertArray.hpp>
 #include <SGE/components/physics/Rigidbody.hpp>
 #include <SGE/components/physics/Collider.hpp>
@@ -11,7 +11,7 @@ void sge::core::debug::HierarchyPanel::reset() {
     focused_object = get_root_transforms(m_scene_transform_vector)[0];
 }
 
-void sge::core::debug::HierarchyPanel::update_state(std::vector<Transform_H> scene_transform_vector, std::vector<cd::SceneConstructionData>& scene_cds) {
+void sge::core::debug::HierarchyPanel::update_state(std::vector<Transform_H> scene_transform_vector, std::vector<cd::Scene_ConstructionData>& scene_cds) {
 
     m_scene_transform_vector.clear();
     for (int i = 0; i < scene_transform_vector.size(); ++i) {

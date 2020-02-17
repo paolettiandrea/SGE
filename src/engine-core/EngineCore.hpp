@@ -46,7 +46,7 @@ namespace sge::core {
          * \brief The initialization method of the core
          * \param initial_scene_cd The construction data for the initial Scene the core needs to be initialized with
          */
-        void initialize(cd::SceneConstructionData& initial_scene_cd);
+        void initialize(cd::Scene_ConstructionData& initial_scene_cd);
 
         //region IEnvironment declarations
 

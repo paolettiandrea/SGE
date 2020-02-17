@@ -20,13 +20,13 @@ namespace sge {
     /*!
      * \brief Object that holds all the user dependent information necessary in order to build a Scene
      */
-    struct SceneConstructionData {
+    struct Scene_ConstructionData {
         /*!
          * \brief Constructor
          * \param _name The name of the Scene
          * \param _initial_logic A pointer to the initial Logic that will be injected in the Scene on creation
          */
-        SceneConstructionData(const std::string& _name, Logic* _initial_logic)
+        Scene_ConstructionData(const std::string& _name, Logic* _initial_logic)
                 : name(_name)
                 , initial_logic(_initial_logic)
                 , gravity(0,-9.8) {  }

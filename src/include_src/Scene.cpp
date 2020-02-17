@@ -10,7 +10,7 @@ using namespace sge::core;
 using namespace sge::cmp;
 using utils::Handle;
 
-Scene::Scene(cd::SceneConstructionData *scene_construction_data, GameObjectMemoryLayer *_gameobject_memory_layer,
+Scene::Scene(cd::Scene_ConstructionData *scene_construction_data, GameObjectMemoryLayer *_gameobject_memory_layer,
              core::IComponentMemoryLayer **_component_memory_layer_array, IEnvironment *_env)
         : Loggable ("SCENE <" + scene_construction_data->name + ">")
         , gameobject_memory_layer(_gameobject_memory_layer)

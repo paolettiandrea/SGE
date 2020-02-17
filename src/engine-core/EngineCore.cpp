@@ -6,7 +6,7 @@
 #include "SGE/debug/DirectionDebugShape.hpp"
 
 using sge::core::EngineCore;
-using sge::cd::SceneConstructionData;
+using sge::cd::Scene_ConstructionData;
 
 
 bool EngineCore::game_loop() {
@@ -87,7 +87,7 @@ void sge::core::EngineCore::physics_routine() {
 }
 
 
-void EngineCore::initialize(cd::SceneConstructionData& initial_scene_cd) {
+void EngineCore::initialize(cd::Scene_ConstructionData& initial_scene_cd) {
     LOG_INFO << "Initialization started";
     Scene* initial_scene = object_manager.push_new_scene(&initial_scene_cd);
     last_loop_start_time = std::chrono::steady_clock::now();

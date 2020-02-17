@@ -3,9 +3,9 @@
 
 using sge::core::ObjectManager;
 using sge::Scene;
-using sge::cd::SceneConstructionData;
+using sge::cd::Scene_ConstructionData;
 
-Scene* ObjectManager::push_new_scene(SceneConstructionData *scene_construction_data) {
+Scene* ObjectManager::push_new_scene(Scene_ConstructionData *scene_construction_data) {
     if (gameobj_layers_stack.size()>0) {
         for (auto go : *gameobj_layers_stack.top().get_gameobjects_vector()) {
             go.logichub()->on_scene_pause();
@@ -104,7 +104,7 @@ bool ObjectManager::scene_pass() {
         // on_scene_pause pulse on the top scene and then spawn the new scene on the stack
 
         LOG_DEBUG(15) << "Pushing a new scene (since new_scene_construction_data != nullptr)";
-        SceneConstructionData* temp_pointer = new_scene_construction_data;
+        Scene_ConstructionData* temp_pointer = new_scene_construction_data;
         new_scene_construction_data = nullptr;          // It's nulled before the push so that there's no conflict
         push_new_scene(temp_pointer);                   // if during scene creation some logic wants to book a push
         delete( temp_pointer );
@@ -117,7 +117,7 @@ bool ObjectManager::scene_pass() {
 bool ObjectManager::book_scene_push(const std::string &name, Logic *initial_logic) {
     bool book_successfull = false;
     if (new_scene_construction_data == nullptr) {
-        new_scene_construction_data = new SceneConstructionData(name, initial_logic);
+        new_scene_construction_data = new Scene_ConstructionData(name, initial_logic);
         book_successfull = true;
     }
     return  book_successfull;

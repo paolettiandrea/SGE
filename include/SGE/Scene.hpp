@@ -5,7 +5,7 @@
 #include "SGE/GameObject.hpp"
 #include "SGE/Macros.hpp"
 #include "SGE/utils/handles/Handle.hpp"
-#include "SGE/SceneConstructionData.hpp"
+#include "SGE/Scene_ConstructionData.hpp"
 #include <SGE/components/physics/RayCastHandler.hpp>
 
 
@@ -31,7 +31,7 @@ namespace sge {
          * \param _component_memory_layer_array A pointer to the ComponentMemoryLayer array assigned to this Scene
          * \param _env A pointer to the IEnvironment, the internal interface of the engine core
          */
-        explicit Scene(cd::SceneConstructionData *scene_construction_data, core::GameObjectMemoryLayer *_gameobject_memory_layer,
+        explicit Scene(cd::Scene_ConstructionData *scene_construction_data, core::GameObjectMemoryLayer *_gameobject_memory_layer,
                        core::IComponentMemoryLayer **_component_memory_layer_array, IEnvironment *_env);
 
         virtual ~Scene();

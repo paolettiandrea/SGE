@@ -53,7 +53,7 @@ namespace sge::core::debug {
     public:
         void initialize(FontManager& font_manager);
 
-        void update_state(std::vector<Transform_H> scene_transform_vector, std::vector<cd::SceneConstructionData>& scene_cds);
+        void update_state(std::vector<Transform_H> scene_transform_vector, std::vector<cd::Scene_ConstructionData>& scene_cds);
 
         void reset();
 
@@ -74,7 +74,7 @@ namespace sge::core::debug {
 
         HierarchyDisplayMode display_mode = HIERARCHY;
 
-        std::vector<cd::SceneConstructionData>* scene_cds;
+        std::vector<cd::Scene_ConstructionData>* scene_cds;
 
         static std::vector<Transform_H> get_root_transforms(std::vector<Transform_H> transform_vector);
         static std::vector<Transform_H> get_siblings(std::vector<Transform_H> transform_vector, Transform_H target_transform);

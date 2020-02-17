@@ -9,7 +9,7 @@
 #include "Subsystem.hpp"
 
 #include "Scene.hpp"
-#include "SceneConstructionData.hpp"
+#include "Scene_ConstructionData.hpp"
 
 #include "Transform.hpp"
 
@@ -42,7 +42,7 @@ namespace sge {
              * Builds a new scene at the top of the scene stack
              * \return the index of the built scene in the stack index
              */
-            Scene* push_new_scene(cd::SceneConstructionData *scene_construction_data);
+            Scene* push_new_scene(cd::Scene_ConstructionData *scene_construction_data);
             /*!
              * \brief Get the Scene that is currently at the top of the stack
              * \return A pointer to the top Scene.
@@ -85,7 +85,7 @@ namespace sge {
             // counts the number of top scenes that are doomed other than the topmost one
             unsigned int doom_counter = 0;
             std::stack<Scene> scene_stack;
-            std::vector<cd::SceneConstructionData> scene_cd_vec;
+            std::vector<cd::Scene_ConstructionData> scene_cd_vec;
             std::stack<GameObjectMemoryLayer> gameobj_layers_stack;
             ComponentFactory component_factory;
 
@@ -95,7 +95,7 @@ namespace sge {
             IEnvironment* env;
 
             // Acts as a flag that signals if the push of a new scene was requested during the last gameloop
-            cd::SceneConstructionData* new_scene_construction_data = nullptr;
+            cd::Scene_ConstructionData* new_scene_construction_data = nullptr;
 
 
             bool visual_debug_transform_switch = false;
