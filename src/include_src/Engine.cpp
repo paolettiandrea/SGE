@@ -23,7 +23,7 @@ Engine::Engine(cd::Engine_ConstructionData& data)
 }
 
 Engine::~Engine() {
-    LOG_INFO << "Starting engine deletion";
+    LOG_DEBUG(1) << "Starting engine deletion";
     delete core;
 }
 

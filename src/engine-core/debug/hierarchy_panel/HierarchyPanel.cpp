@@ -19,8 +19,12 @@ void sge::core::debug::HierarchyPanel::update_state(std::vector<Transform_H> sce
     }
 
     // Check if the pointed object is still valid
-    if (!focused_object.is_valid() || focused_object->gameobject()->get_scene() != scene_transform_vector[0]->gameobject()->get_scene()) {
+    if (!focused_object.is_valid()) {
         reset();
+    } else {
+        if (focused_object->gameobject()->get_scene() != scene_transform_vector[0]->gameobject()->get_scene()) {
+            reset();
+        }
     }
     this->scene_cds = &scene_cds;
 }
@@ -139,6 +143,8 @@ void sge::core::debug::HierarchyPanel::draw_sibling(sf::RenderTarget &target, sf
     }
 
     auto text = make_text(s, char_size, fill);
+    text.setOutlineThickness(2);
+    text.setOutlineColor(sf::Color::Black);
     text.setPosition(horizontal_anchor, *vertical_anchor);
     target.draw(text, states);
 

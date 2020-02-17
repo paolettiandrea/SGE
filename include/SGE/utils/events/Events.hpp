@@ -5,6 +5,8 @@
 #include <memory>
 #include "EventHandler.hpp"
 
+#define EVENTS_WARNING_ON_MISSED_REMOVAL        false
+
 
 namespace utils {
     namespace event {

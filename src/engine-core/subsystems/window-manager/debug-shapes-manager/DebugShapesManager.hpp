@@ -18,7 +18,7 @@ namespace sge {
         class DebugShapesManager : public sf::Drawable {
         public:
             DebugShapesManager() {
-                debug_font.loadFromFile("SGE_res/fonts/ProggyTinySZ.ttf");
+                debug_font.loadFromFile("res/fonts/RobotoMono-Medium.ttf");
             }
             virtual ~DebugShapesManager();
 

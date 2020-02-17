@@ -3,7 +3,7 @@ project(SGE)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_library(SGE STATIC src/engine-core/subsystems/input-manager/InputManager.cpp src/engine-core/subsystems/input-manager/InputManager.hpp)
+add_library(SGE STATIC)
 
 
 
@@ -56,9 +56,6 @@ if(MINGW)
             )
 endif()
 
-
-# Copy SGE_res folder to top level binary directory
-file(COPY ./SGE_res DESTINATION ${CMAKE_BINARY_DIR})
 
 
 

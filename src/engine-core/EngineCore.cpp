@@ -88,12 +88,12 @@ void sge::core::EngineCore::physics_routine() {
 
 
 void EngineCore::initialize(cd::Scene_ConstructionData& initial_scene_cd) {
-    LOG_INFO << "Initialization started";
+    LOG_DEBUG(1) << "Initialization started";
     Scene* initial_scene = object_manager.push_new_scene(&initial_scene_cd);
     last_loop_start_time = std::chrono::steady_clock::now();
     window_manager.update_active_camera(initial_scene->get_camera());
     physics_manager.update_active_world(object_manager.get_top_scene()->get_b2World());
-    LOG_INFO << "Initialization completed";
+    LOG_DEBUG(1) << "Initialization completed";
 }
 
 
@@ -226,12 +226,9 @@ void sge::core::EngineCore::handle_events() {
 
     // VISUAL DEBUG toggles
 #if DEBUG
-    if (input_manager.is_key_down(sf::Keyboard::LShift) || input_manager.is_key_down(sf::Keyboard::RShift)){
+    if (input_manager.is_key_down(sf::Keyboard::LControl) || input_manager.is_key_down(sf::Keyboard::RControl)){
         if (input_manager.is_key_pressed(sf::Keyboard::T)) object_manager.toggle_visual_debug_transform();
         if (input_manager.is_key_pressed(sf::Keyboard::N)) object_manager.toggle_visual_debug_names();
-
-        if (input_manager.is_key_pressed(sf::Keyboard::P)) window_manager.toggle_visual_debug_path();
-        if (input_manager.is_key_pressed(sf::Keyboard::S)) window_manager.toggle_visual_debug_triangle_strip();
 
         if (input_manager.is_key_pressed(sf::Keyboard::C)) physics_manager.toggle_visual_debug_collider();
     }
@@ -245,7 +242,6 @@ void sge::core::EngineCore::memory_buffer_pass() {
     object_manager.memory_buffer_pass();
     window_manager.memory_buffer_pass();
     physics_manager.memory_buffer_pass();
-
 }
 
 int sge::core::EngineCore::get_collision_layer_index_from_id(const std::string &id) {
