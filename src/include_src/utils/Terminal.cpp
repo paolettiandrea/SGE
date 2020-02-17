@@ -1,7 +1,3 @@
-//
-// Created by andrea on 4/9/19.
-//
-
 #include "Terminal.hpp"
 #if __linux__
 #include <sys/ioctl.h>
