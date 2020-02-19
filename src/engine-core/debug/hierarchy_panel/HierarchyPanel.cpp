@@ -213,10 +213,10 @@ void sge::core::debug::HierarchyPanel::draw_sibling(sf::RenderTarget &target, sf
                 target.draw(name_text, states);
                 *vertical_anchor += SGE_DEBUG_LOGIC_HEADER_CHAR_SIZE;
 
-                auto s = logic->debug_string();
-                if (s.empty()) s = "No debug info.";
+                auto si = logic->debug_string();
+                if (si.empty()) si = "No debug info.";
 
-                auto logic_text = make_text(s, SGE_DEBUG_LOGIC_INFO_CHAR_SIZE, fill);
+                auto logic_text = make_text(si, SGE_DEBUG_LOGIC_INFO_CHAR_SIZE, fill);
                 logic_text.setPosition(horizontal_anchor + SGE_DEBUG_HIERARCHY_CHILD_INDENT, *vertical_anchor);
                 target.draw(logic_text, states);
                 *vertical_anchor += logic_text.getLocalBounds().height + SGE_DEBUG_LOGIC_PADDING;

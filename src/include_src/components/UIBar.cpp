@@ -43,8 +43,6 @@ void sge::UIBar::set_bar(float filled_factor) {
         std::cerr << "UIBar received a factor ouside of range [0,1]: " << filled_factor << std::endl;
     }
 #endif
-
-
 }
 
 void sge::UIBar::draw(sf::RenderTarget &target, sf::RenderStates states) const {
