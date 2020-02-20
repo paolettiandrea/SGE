@@ -45,12 +45,19 @@ namespace sge {
          */
         virtual void doom_top_scene() = 0;
 
+
         virtual void debug_draw_point(const sge::Vec2<float>& point, float duration=0.f, const std::string& label="", unsigned int digits=1, sf::Color color=SGE_DEFAULT_DEBUG_COLOR) = 0;
         virtual void debug_draw_line(const sge::Vec2<float>& point1, const sge::Vec2<float>& point2, float duration=0.f, const std::string& label="", unsigned int digits=1, sf::Color color=SGE_DEFAULT_DEBUG_COLOR) = 0;
         virtual void debug_draw_path(sge::Path path, float duration=0, const std::string& label="", unsigned int decimals=0, sf::Color color=SGE_DEFAULT_DEBUG_COLOR) = 0;
         virtual void debug_draw_circle(sge::Vec2<float> center_pos, float radius, float duration=0, const std::string& label="", unsigned int decimals=0, sf::Color color=SGE_DEFAULT_DEBUG_COLOR) = 0;
         virtual void debug_draw_direction(sge::Vec2<float> from, sge::Vec2<float> to, float duration=0, sf::Color color=SGE_DEFAULT_DEBUG_COLOR) = 0;
         virtual bool is_shutting_down() = 0;
+
+        virtual sf::Vector2u get_window_size() = 0;
+
+        virtual void doom_scenes(unsigned int number) = 0;
+        virtual int get_scene_number() = 0;
+        virtual void quit() = 0;
 
         /**
          * \brief Check if the given button is down this frame
@@ -98,6 +105,11 @@ namespace sge {
          * @return true if released this frame, false if not released this frame
          */
         virtual bool is_key_released(sf::Keyboard::Key key) = 0;
+
+
+        virtual int get_collision_layer_index_from_id(const std::string &id) = 0;
+
+        virtual bool is_top_scene_doomed() = 0;
     };
 
 }

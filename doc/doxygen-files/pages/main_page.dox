@@ -28,19 +28,6 @@ The main objects the user will work with and their purpose:
 - *Scenes* - Game states that can be pushed in a stack-like structure, only the top one is executed through the game loop
 - *GameObjects* - In this kind of design their function is basically just to hold Components
 - *Components* - Object that specify the behaviour of a GameObject on some
-    - *Transform*: defines the spacial properties of the GameObject and it's position in the hierarchy (parent, childs)
-    - *Logic*: holds user-defined logic and executes it's callbacks at the appropriate moments of the game-loop
-    - *Path*: holds the information that defines a path
-    - *Shape*: defines how a Path is drawn
-    - *Body*: lets the object to be phisically simulated (uses info from path and affect the Transform)
-- *Scripts* - Object that have a series of overridable callbacks guaranteed to be called in a specific moment of the
+- *Logic* - Object that have a series of overridable callbacks guaranteed to be called in a specific moment of the
 game loop, it's the main mean through which the user can define his game logic doing so from a GameObject perspective
-
-The main concepts that SGE is build on top of:
-- Game loop -
-- Game hierarchy -
-
-
-
-
 */

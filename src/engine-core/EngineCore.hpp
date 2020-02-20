@@ -1,11 +1,6 @@
 #ifndef SGE_ENGINECORE_HPP
 #define SGE_ENGINECORE_HPP
 
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/
-
 #include "ObjectManager.hpp"
 #include <chrono>
 #include <subsystems/input-manager/InputManager.hpp>
@@ -16,11 +11,13 @@
 #include "WindowManager.hpp"
 #include "PhysicsManager.hpp"
 
+
+
 namespace sge::core {
     /*!
      * \brief The internal part of the Engine
      */
-    class EngineCore : utils::log::Loggable, IEnvironment {
+    class EngineCore : public utils::log::Loggable, public IEnvironment {
     public:
         /*!
          * \brief Constructs the core
@@ -43,13 +40,13 @@ namespace sge::core {
          * \brief The actual method containing the game loop
          * \return true if the core is still running, false otherwise
          */
-        bool game_loop();
+        virtual bool game_loop();
 
         /*!
          * \brief The initialization method of the core
          * \param initial_scene_cd The construction data for the initial Scene the core needs to be initialized with
          */
-        void initialize(cd::SceneConstructionData& initial_scene_cd);
+        void initialize(cd::Scene_ConstructionData& initial_scene_cd);
 
         //region IEnvironment declarations
 
@@ -57,7 +54,7 @@ namespace sge::core {
 
         void visual_debug_pass();
 
-    private:
+    protected:
         double fixed_delta_time() override;
 
         unsigned int frame_count() override;
@@ -69,9 +66,24 @@ namespace sge::core {
         bool is_shutting_down() override;
 
         bool m_shutting_down_flag = false;
+
+    public:
+        sf::Vector2u get_window_size() override;
+
+        void doom_scenes(unsigned int number) override;
+
+        int get_scene_number() override;
+
+        void quit() override;
+
+
+    protected:
         //endregion
 
-    private:
+        virtual void update_accumulator();
+        virtual void physics_routine();
+        virtual void render_routine();
+
         ObjectManager object_manager;
         LogicManager logic_manager;
         WindowManager window_manager;
@@ -102,6 +114,13 @@ namespace sge::core {
         bool is_key_pressed(sf::Keyboard::Key key) override;
 
         bool is_key_released(sf::Keyboard::Key key) override;
+
+    public:
+        int get_collision_layer_index_from_id(const std::string &id) override;
+
+        bool is_top_scene_doomed() override;
+
+    protected:
 
 
         void handle_events();

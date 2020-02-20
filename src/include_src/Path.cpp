@@ -1,7 +1,3 @@
-//
-// Created by andrea on 5/24/19.
-//
-
 #include "Path.hpp"
 
 #include <iostream>
@@ -94,26 +90,34 @@ void Path::load_from_file(std::string path) {
     {
         while ( getline (myfile,line) )
         {
-            auto x = std::stof(line)*100;
-            getline(myfile,line);
-            auto y = std::stof(line)*100;
-            getline(myfile,line);
-
-            m_points.emplace_back(x,y);
+            std::stringstream iss(line);
+            float x,y;
+            if (!(iss >> x >> y)) {
+                break;
+            }
+            else {
+                m_points.emplace_back(x,y);
+            }
         }
         myfile.close();
+
+        if (m_points[0]==m_points.back()) {
+            m_points.pop_back();
+            set_closed(true);
+        }
     } else {
         std::cout << "Unable to open the file at the path: " << path << std::endl;
         exit(1);
     }
 }
 
+void Path::clear() {
+    m_points.clear();
+    m_is_closed = false;
+}
 
-
-
-
-
-
-
-
-
+unsigned int Path::get_closed_size() const {
+    unsigned int size = get_size();
+    if (this->is_closed()) size++;
+    return size;
+}

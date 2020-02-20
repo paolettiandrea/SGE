@@ -30,6 +30,9 @@ namespace sge {
              */
             bool has_logic(const std::string& logic_type_id);
 
+            template <class T>
+            T* get_logic();
+
             /*!
              * \brief Returns the first occurrence of a Logic object identified with the given id
              * \tparam T The type associated with the id (the logic will be downcasted to this type)
@@ -37,7 +40,7 @@ namespace sge {
              * \return a pointer to the first Logic object having the given id if at least one is present, nullptr otherwise
              */
             template <class T>
-            T* get_logic(const std::string& logic_id);
+            T* get_logic_by_id(const std::string& logic_id);
             void remove_logic(Logic* target_logic);
 
             // TODO: get_logics and remove_logics (multiple logics with same id)
@@ -53,30 +56,36 @@ namespace sge {
 
             void on_fixed_update() override;
 
+            void on_scene_destruction() override;
+
+            void on_scene_pause() override;
+
+            void on_scene_resume() override;
+
             void destruction_callback() override;
 
             void on_collision_begin(CollisionInfo &collision_info) override;
 
             void on_collision_end(CollisionInfo &collision_info) override;
 
-            void pre_solve(b2Contact *contact, const b2Manifold *oldManifold) override;
+            void pre_solve(b2Contact *contact, const b2Manifold *oldManifold, const CollisionInfo &info) override;
 
-            void post_solve(b2Contact *contact, const b2ContactImpulse *impulse) override;
+            void post_solve(b2Contact *contact, const b2ContactImpulse *impulse, const CollisionInfo &info) override;
+
+            std::string get_debug_string() override;
 
 
 
             //endregion
 
-
-
-
-
-
-
-
+            void doom_pass();
 
         private:
-            std::list<Logic*> attached_logic_list;
+            std::vector<Logic*> attached_logic_list;
+        public:
+            const std::vector<Logic *> &get_attached_logic_list() const;
+
+        private:
 
 
             Logic* get_unspecificed_logic(const std::string& logic_id); // Used internally to allow forward declaration of Logic
@@ -84,14 +93,25 @@ namespace sge {
 
 
         template<class T>
-        T* LogicHub::get_logic(const std::string &logic_id) {
+        T* LogicHub::get_logic_by_id(const std::string &logic_id) {
             return (T*)get_unspecificed_logic(logic_id);
         }
 
+        template<class T>
+        T *sge::cmp::LogicHub::get_logic() {
+            for (Logic *attached_logic : attached_logic_list) {
+                auto cast = dynamic_cast<T*>(attached_logic);
+                if (cast) return cast;
+            }
+            return nullptr;
+        }
+
     }
+
+
 }
 
-
+typedef utils::Handle<sge::cmp::LogicHub> LogicHub_H;
 
 #endif //SGE_LOGIC_HUB_HPP
 

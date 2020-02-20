@@ -12,18 +12,13 @@
 
 #include "SGE/utils/events/Events.hpp"
 
-
-
-
-
-
-
 namespace sge {
     namespace core {
         class ObjectManager;
     }
 
     class Scene;
+
 
     /*!
      * \brief An object that holds an assortment of components that define its behaviour
@@ -145,6 +140,10 @@ namespace sge {
         template <class T>
         friend class core::ComponentMemoryLayer;
         friend class core::ObjectManager;
+
+
+    private:
+        void recursive_doom(utils::Handle<GameObject> pointed);
     };
 
 
@@ -171,13 +170,10 @@ namespace sge {
             return utils::Handle<T>();     // Returns a null handle.
         }
     }
-
-
 //endregion
-
 }
 
-
+typedef utils::Handle<sge::GameObject> GameObject_H;
 
 
 #endif //SGE_GAMEOBJECT_HPP

@@ -6,7 +6,7 @@
 #define SGE_ENGINE_CONSTRUCTIONDATA_HPP
 
 #include "WindowManager_ConstructionData.hpp"
-#include "SGE/SceneConstructionData.hpp"
+#include "SGE/Scene_ConstructionData.hpp"
 #include "SGE/engine/construction_data/PhysicsManager_ConstructionData.hpp"
 
 

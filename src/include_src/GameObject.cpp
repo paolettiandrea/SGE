@@ -21,8 +21,8 @@ GameObject::GameObject(Scene* _scene, const std::string& _name)
     for (int &val : m_components_mapped_array) {
         val = -1;
     }
-
-    transform_handle = add_component<Transform>("Transform");
+    auto transform = add_component<Transform>("Transform");
+    transform_handle = transform;
     logichub_handle = add_component<LogicHub>("LogicHub");
 }
 
@@ -33,7 +33,7 @@ GameObject::~GameObject() {
 
 void GameObject::doom() {
     LOG_DEBUG(32) << "Doomed";
-    is_doomed_flag = true;
+    recursive_doom(get_handle());
 }
 
 
@@ -42,11 +42,15 @@ Handle<GameObject> GameObject::get_handle() {
 }
 
 void GameObject::swap(GameObject& other_gameobj) {
+
     for (int i = 0; i < TOTAL_POSSIBLE_COMPONENTS; ++i) {
         auto temp = m_components_mapped_array[i];
         m_components_mapped_array[i] = other_gameobj.m_components_mapped_array[i];
         other_gameobj.m_components_mapped_array[i] = temp;
     }
+
+    auto temp_id = get_log_id();
+
 
     bool temp_flag = is_doomed_flag;
     is_doomed_flag = other_gameobj.is_doomed_flag;
@@ -67,6 +71,10 @@ void GameObject::swap(GameObject& other_gameobj) {
     std::string temp_string = get_log_id();
     set_log_id(other_gameobj.get_log_id());
     other_gameobj.set_log_id(temp_string);
+
+    //update handles
+    gameobject_handle.update_origin_pointer(&other_gameobj);
+    other_gameobj.gameobject_handle.update_origin_pointer(this);
 
 }
 
@@ -154,6 +162,14 @@ std::string sge::GameObject::recursive_get_string_local_hierarchy(std::string &o
     }
     return out_str;
 }
+
+void GameObject::recursive_doom(utils::Handle<GameObject> pointed) {
+    for (auto child: pointed->transform()->get_children()) {
+        recursive_doom(child->gameobject());
+    }
+    pointed->is_doomed_flag = true;
+}
+
 
 
 

@@ -40,6 +40,8 @@ namespace sge::cd {
 
         bool fullscreen_on = true;
 
+        std::vector<std::string> layers = { "Background" };
+
     };
 }
 

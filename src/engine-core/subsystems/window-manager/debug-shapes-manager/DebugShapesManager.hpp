@@ -1,7 +1,3 @@
-//
-// Created by andrea on 5/14/19.
-//
-
 #ifndef SGE_DEBUGSHAPESMANAGER_HPP
 #define SGE_DEBUGSHAPESMANAGER_HPP
 
@@ -22,7 +18,7 @@ namespace sge {
         class DebugShapesManager : public sf::Drawable {
         public:
             DebugShapesManager() {
-                debug_font.loadFromFile("resources/fonts/ProggyTinySZ.ttf");
+                debug_font.loadFromFile("res/fonts/RobotoMono-Medium.ttf");
             }
             virtual ~DebugShapesManager();
 

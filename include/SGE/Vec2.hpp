@@ -1,16 +1,7 @@
-//
-// Created by andrea on 5/5/19.
-//
-
 #ifndef SGE_VEC2_HPP
 #define SGE_VEC2_HPP
 
 #include <algorithm>
-
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/
 #include <string>
 #include <cmath>
 
@@ -37,8 +28,20 @@ namespace sge {
         Vec2 operator+(const Vec2& that) {
             return Vec2<T>(this->x+that.x, this->y+that.y);
         }
+        Vec2 operator+(const Vec2& that) const {
+            return Vec2<T>(this->x+that.x, this->y+that.y);
+        }
         Vec2 operator-(const Vec2& that) {
             return Vec2<T>(this->x-that.x, this->y-that.y);
+        }
+        Vec2 operator-(const Vec2& that) const {
+            return Vec2<T>(this->x-that.x, this->y-that.y);
+        }
+        Vec2 operator*(const T& that) {
+            return Vec2<T>(this->x*that, this->y*that);
+        }
+        Vec2 operator/(const T& that) {
+            return Vec2<T>(this->x/that, this->y/that);
         }
 
         static Vec2<T> rotate(const Vec2<T>& vec, const T& radians) {
@@ -56,12 +59,17 @@ namespace sge {
             return *this;
         }
 
-        void set_magnitude(const T& new_magnitude) {
+        Vec2<T>& set_magnitude(const T& new_magnitude) {
             T angle = atan2(y,x);
             x = cos(angle)*new_magnitude;
             y = sin(angle)*new_magnitude;
+            return *this;
         }
         T get_magnitude() {
+            return sqrt(powf(x,2) + powf(y,2));
+        }
+
+        const T get_magnitude() const {
             return sqrt(powf(x,2) + powf(y,2));
         }
 

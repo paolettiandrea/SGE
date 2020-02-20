@@ -19,7 +19,8 @@ namespace sge::cmp {
         /*!
          * \brief Event that is called when this transform is made dirty.
          */
-        utils::event::Event transform_changed_event;
+        utils::event::Event world_transform_changed_event;
+        utils::event::Event local_transform_changed_event;
         /*!
          * \brief Event called when the parent of this Transform is modified.
          */
@@ -40,18 +41,30 @@ namespace sge::cmp {
          * \brief Gets an handle to the parent of this object, null handle if base
          */
         utils::Handle<Transform> get_parent();
+        bool has_parent();
 
-        void remove_child(utils::Handle<Transform> target_child);
+        const std::list<utils::Handle<sge::cmp::Transform>> &get_children();
+
+        std::string get_debug_string() override;
+
+
+        void reallocation_callback() override;
+
+
         std::list<utils::Handle<Transform>> get_children_list();
         //endregion
 
         //region Spacial
 
         void set_local_position(float x, float y);
+        void set_local_position(const Vec2<float>& new_local_position);
         Vec2<float> get_local_position();
         Vec2<float> get_world_position();
 
         void set_local_scale(float scale);
+        void set_local_scale(float x, float y);
+        void set_local_scale(sge::Vec2<float> scale_vec);
+
         Vec2<float> get_local_scale();
         Vec2<float> get_world_scale();
 
@@ -70,6 +83,11 @@ namespace sge::cmp {
         }
         //endregion
 
+        bool is_root();
+
+        utils::Handle<sge::cmp::Transform> get_child(const std::string& gameobj_name);
+        unsigned int get_child_count(bool recursive = false);
+
 
     private:
         utils::Handle<sge::cmp::Transform> m_parent;
@@ -84,22 +102,15 @@ namespace sge::cmp {
         Matrix2D<float> m_world_scale_matrix;
         bool is_dirty = true;
 
-        void make_dirty();
+        void recursive_change_pulse();
         void update_world_data();
         void compose_with_parent();
         void add_child(utils::Handle<Transform> new_child);
 
+        void recursive_child_count(unsigned int& count);
+
     };
-
 }
-
-
+typedef utils::Handle<sge::cmp::Transform> Transform_H;
 
 #endif //SGE_TRANSFORM_HPP
-
-
-
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/

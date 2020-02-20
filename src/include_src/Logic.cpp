@@ -8,7 +8,7 @@ Logic::~Logic() {
 }
 
 void Logic::update_references(Handle<GameObject> gameobj) {
-    this->set_log_id("(" + this->get_logic_type_id() + ") of " + gameobj->get_log_id());
+    this->set_log_id("(" + this->get_logic_id() + ") of " + gameobj->get_log_id());
 
     m_gameobject_handle = gameobj;
     m_scene = m_gameobject_handle->get_scene();
@@ -26,6 +26,15 @@ Scene *Logic::scene() {
 IEnvironment *Logic::env() {
     return m_env;
 }
+
+void Logic::doom() {
+    is_doomed_flag = true;
+}
+
+bool Logic::is_doomed() {
+    return is_doomed_flag;
+}
+
 
 
 

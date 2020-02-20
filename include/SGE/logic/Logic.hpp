@@ -31,7 +31,7 @@ namespace sge {
          * \brief Method that effectivelly defines the unique logic_type_id for a Logic object
          * \return The unique logic_type_id
          */
-        virtual std::string get_logic_type_id() = 0;
+        virtual std::string get_logic_id() = 0;
         /*!
          * \brief Gets an handle to the GameObject this Logic is attached to
          * \return An Handle to the GameObject
@@ -48,25 +48,36 @@ namespace sge {
          */
         IEnvironment* env();
 
+        virtual std::string debug_string() { return std::string(); }
+
 
         // Logic Callbacks ------------------------------------------------------------------------------------------------
 
         void on_start() override {}
         void on_destruction() override {}
+        void on_scene_destruction() override {}
 
         void on_update() override {}
         void on_fixed_update() override {}
 
+        void on_scene_pause() override {}
+
+        void on_scene_resume() override {}
+
         void on_collision_begin(CollisionInfo &collision_info) override {}
         void on_collision_end(CollisionInfo &collision_info) override {}
 
-        void pre_solve(b2Contact *contact, const b2Manifold *oldManifold) override {}
-        void post_solve(b2Contact *contact, const b2ContactImpulse *impulse) override {}
+        void pre_solve(b2Contact *contact, const b2Manifold *oldManifold, const CollisionInfo &info) override {}
+        void post_solve(b2Contact *contact, const b2ContactImpulse *impulse, const CollisionInfo &info) override {}
+
+        void doom();
+        bool is_doomed();
 
     private:
         utils::Handle<GameObject> m_gameobject_handle;
         Scene* m_scene;
         IEnvironment* m_env;
+        bool is_doomed_flag = false;
 
     };
 }

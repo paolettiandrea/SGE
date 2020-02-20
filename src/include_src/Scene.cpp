@@ -10,7 +10,7 @@ using namespace sge::core;
 using namespace sge::cmp;
 using utils::Handle;
 
-Scene::Scene(cd::SceneConstructionData *scene_construction_data, GameObjectMemoryLayer *_gameobject_memory_layer,
+Scene::Scene(cd::Scene_ConstructionData *scene_construction_data, GameObjectMemoryLayer *_gameobject_memory_layer,
              core::IComponentMemoryLayer **_component_memory_layer_array, IEnvironment *_env)
         : Loggable ("SCENE <" + scene_construction_data->name + ">")
         , gameobject_memory_layer(_gameobject_memory_layer)
@@ -47,5 +47,30 @@ Scene::~Scene() {
 Camera *Scene::get_camera() {
     return &m_camera;
 }
+
+void Scene::set_gravity(sge::Vec2<float> gravity_vec) {
+    m_b2_world->SetGravity(b2Vec2(gravity_vec.x, gravity_vec.y));
+}
+
+void Scene::raycast(RayCastHandler* handler) {
+    b2Vec2 pointA = b2Vec2(handler->get_point_a().x, handler->get_point_a().y);
+    b2Vec2 pointB = b2Vec2(handler->get_point_b().x, handler->get_point_b().y);
+    handler->prepare_for_raycast();
+    m_b2_world->RayCast(handler, pointA, pointB);
+}
+
+b2World *Scene::get_b2World() {
+    return  m_b2_world;
+}
+
+IEnvironment *Scene::env() {
+    return env_p;
+}
+
+void Scene::doom_scene() {
+    env()->doom_scenes(1);
+}
+
+bool Scene::is_doomed() {return env()->is_top_scene_doomed(); }
 
 

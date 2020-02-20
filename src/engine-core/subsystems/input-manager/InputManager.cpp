@@ -84,8 +84,10 @@ void sge::core::InputManager::print_mousemaps() {
 }
 
 void sge::core::InputManager::pressed_key_callback(sf::Keyboard::Key key) {
-    pressed_keymap[(int) key] = true;
-    down_keymap[(int) key] = true;
+    if (down_keymap[(int) key] == false) {
+        pressed_keymap[(int) key] = true;
+        down_keymap[(int) key] = true;
+    }
 }
 
 void sge::core::InputManager::released_key_callback(sf::Keyboard::Key key) {

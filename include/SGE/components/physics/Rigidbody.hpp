@@ -30,6 +30,10 @@ namespace sge {
              */
             void set_body_type(b2BodyType body_type);
 
+            void set_fixed_rotation(bool fixed_rotation);
+
+            void set_transform(const sge::Vec2<float>& position, float rotation);
+
             /*!
              * \brief Get the b2 body of this Rigidbody
              */
@@ -37,10 +41,21 @@ namespace sge {
 
             void destruction_callback() override;
 
+            void apply_force(sge::Vec2<float> force_vec, sge::Vec2<float> apply_pos, bool wake);
+            void apply_force_center(sge::Vec2<float> force_vec, bool wake);
+            void apply_torque(float torque, bool wake);
+            void apply_linear_impulse(const Vec2<float> &impulse_vec, const Vec2<float> &impulse_point, bool wake);
+            void apply_angular_impulse(float impulse, bool wake);
+            float get_mass();
+            sge::Vec2<float> get_linear_velocity();
+
+            std::string get_debug_string() override;
+
         private:
             b2Body* m_body;
 
             utils::event::EventHandler transform_changed_callback;
+            utils::event::EventHandler parent_changed_callback;
             bool dirty_body_position_flag;
 
             /*!
@@ -53,6 +68,6 @@ namespace sge {
     }
 }
 
-
+typedef utils::Handle<sge::cmp::Rigidbody> Rigidbody_H;
 
 #endif //SGE_RIGIDBODY_HPP

@@ -2,7 +2,7 @@
 #define SGE_CUSTOMB2CONTACTLISTENER_HPP
 
 #include <vector>
-#include <SGE/components/physics/PolygonCollider.hpp>
+#include <SGE/components/physics/Collider.hpp>
 #include "Box2D/Box2D.h"
 namespace sge::cmp {
     class CustomB2ContactListener : public b2ContactListener {
@@ -15,6 +15,8 @@ namespace sge::cmp {
 
         void trigger_collision_callbacks();
 
+        void clean_collision_buffers();
+
         void PreSolve(b2Contact *contact, const b2Manifold *oldManifold) override;
 
         void PostSolve(b2Contact *contact, const b2ContactImpulse *impulse) override;
@@ -22,7 +24,6 @@ namespace sge::cmp {
     private:
         std::vector<sge::CollisionInfo> m_begin_collision_info_buffer;
         std::vector<sge::CollisionInfo> m_end_collision_info_buffer;
-
     };
 }
 

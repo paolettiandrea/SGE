@@ -19,7 +19,7 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
 
 else()
     target_compile_definitions(SGE PUBLIC RELEASE=1)
-    target_compile_definitions(SGE PUBLIC LOG_MAX_LEVEL=1)
+    target_compile_definitions(SGE PUBLIC LOG_MAX_LEVEL=0)
 endif()
 
 if (NOT LOG_HEADER)

@@ -21,7 +21,6 @@ namespace utils {
      */
     template <class T>
     struct Handle {
-    private:
         Handle(int _index, int _counter)
                 : index(_index)
                 , counter(_counter)
@@ -66,7 +65,7 @@ namespace utils {
 
         Handle<T>& operator=(const Handle<T>& that) {
             this->index = that.index;
-            this->counter = counter;
+            this->counter = that.counter;
             return *this;
         }
 
@@ -113,7 +112,7 @@ namespace utils {
         bool is_valid() {
             if (is_null()) return false;
             else {
-                return ((handle_entries[index].counter == counter));
+                return ((index < MAXIMUM_HANDLES_PER_TYPE && handle_entries[index].counter == counter));
             }
         }
 
@@ -228,7 +227,8 @@ namespace utils {
         }
 
         static Handle get_handle_from_index(int index) {
-            return  Handle(index, handle_entries[index].counter);
+            int count = handle_entries[index].counter;
+            return  Handle(index, count);
         }
 
         static void free_entry(Handle &handle) {
@@ -252,7 +252,7 @@ namespace utils {
                       << "\tThere are [" << invalidated_indexes.size() << "] invalidated entries\n\t\t";
 
             for (int i = 0; i < first_untouched_index ; ++i) {
-                std::cout << "[" << handle_entries[i].pointer << ", " << handle_entries[i].counter << "]-";
+                std::cout << "[" << handle_entries[i].pointer << ", i;" << i << ", c:" << handle_entries[i].counter << "]-";
             }
             std::cout << "[" << handle_entries[first_untouched_index].pointer << ", " << handle_entries[first_untouched_index].counter << "]-...\n";
         }

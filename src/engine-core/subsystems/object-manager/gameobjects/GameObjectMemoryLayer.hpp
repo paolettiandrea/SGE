@@ -31,7 +31,7 @@ namespace sge {
              * Removes a GameObject from this memory layer
              * \param target_handle An handle to the GameObject that needs to be removed
              */
-            void remove_gameobject(utils::Handle<GameObject> target_handle);
+            bool remove_gameobject(utils::Handle<GameObject> target_handle);
 
             std::vector<GameObject>* get_gameobjects_vector();
 

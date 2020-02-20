@@ -4,10 +4,6 @@
 #include "SGE/debug/DebugShape.hpp"
 #include "SGE/debug/PointDebugShape.hpp"
 
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/
 namespace sge {
     namespace debug {
         class LineDebugShape : public DebugShape {
@@ -30,6 +26,5 @@ namespace sge {
 
     }
 }
-
 
 #endif //SGE_LINEDEBUGSHAPE_HPP

@@ -4,7 +4,7 @@ target_sources(SGE PUBLIC
         engine/Engine.hpp
         GameObject.hpp
         Scene.hpp
-        SceneConstructionData.hpp
+        Scene_ConstructionData.hpp
         Vec2.hpp
         Camera.hpp
         Path.hpp

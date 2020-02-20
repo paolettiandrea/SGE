@@ -2,17 +2,19 @@
 #define SGE_WINDOWMANAGER_HPP
 
 #include <chrono>
+#include <SGE/components/graphics/ui/UI.hpp>
 
 #include "Subsystem.hpp"
 
 #include "SFML/Graphics.hpp"
 
 #include "SGE/components/graphics/VertArray.hpp"
-#include "SGE/components/graphics/PathRenderer.hpp"
 #include "SGE/Camera.hpp"
 
 #include "WindowManager_ConstructionData.hpp"
 #include "DebugShapesManager.hpp"
+
+#include "FontManager.hpp"
 
 
 namespace sge {
@@ -22,6 +24,7 @@ namespace sge {
          */
         class WindowManager : public Subsystem {
             friend class EngineCore;
+            friend class EngineCoreDebug;
 
         public:
 
@@ -44,12 +47,9 @@ namespace sge {
              */
             bool window_is_open() { return m_window.isOpen(); }
 
-
-            /*!
-             * \brief Exposes the clear method of the managed window
-             */
-            void clear_window() { m_window.clear(sf::Color::Black); }
-
+            sf::Vector2u get_window_size() {
+                return m_window.getSize();
+            }
 
             /*!
              * \brief Exposes the display method of the managed window
@@ -61,8 +61,6 @@ namespace sge {
                 m_window.display();
 
                 debug_shapes_manager.remove_expired_shapes();
-
-                
             }
 
 
@@ -96,12 +94,14 @@ namespace sge {
             sf::RenderWindow m_window;
 
             ComponentCreator<cmp::VertArray> vertarray_component_creator;
-            ComponentCreator<cmp::PathRenderer> path_component_creator;
+            ComponentCreator<cmp::UI> ui_component_creator;
 
             sf::RenderStates m_render_states;
 
             DebugShapesManager debug_shapes_manager;
             Camera* active_camera;
+
+            FontManager font_manager;
 
 
             void update_camera_ratio();
@@ -109,14 +109,10 @@ namespace sge {
 
             bool visual_debug_triangle_strip_switch = false;
             bool visual_debug_path_switch = false;
+
+            std::map<std::string, unsigned int> layers_map;
+            int layer_count;
         };
     }
 }
 #endif //SGE_WINDOWMANAGER_HPP
-
-
-
-/*!
-\file
-\brief ${BRIEF_FILE_DESCRIPTION}
-*/

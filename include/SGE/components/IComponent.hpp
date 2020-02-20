@@ -43,6 +43,8 @@ namespace sge {
              * \brief Gets an handle to the GameObject this Component is attached to
              */
             utils::Handle<sge::GameObject> gameobject() const;
+
+            virtual void initialization_callback() {}
             /*!
              * \brief A callback called right before the removal of the component,
              * a concrete component can override this in order to prepare for deletion
@@ -58,6 +60,9 @@ namespace sge {
              * \brief Dooms this Component, the actual destruction will be delayed to after the fixed_update and before render
              */
             void doom();
+
+            virtual std::string get_debug_string();
+
 
         private:
             utils::Handle<sge::GameObject> gameobject_handle;

@@ -1,17 +1,11 @@
 cmake_minimum_required(VERSION 3.13)
 project(SGE)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 
-add_library(SGE STATIC src/engine-core/subsystems/input-manager/InputManager.cpp src/engine-core/subsystems/input-manager/InputManager.hpp)
-
-add_executable(tester tester/main.cpp tester/phisics-sandbox-logic/PhysicsPolygon.cpp tester/phisics-sandbox-logic/PhysicsPolygon.hpp tester/old-test-logic/CameraControls.cpp tester/old-test-logic/CameraControls.hpp tester/phisics-sandbox-logic/PhysicsSandboxEntry.cpp tester/phisics-sandbox-logic/PhysicsSandboxEntry.hpp tester/phisics-sandbox-logic/StaticPolygon.cpp tester/phisics-sandbox-logic/StaticPolygon.hpp tester/phisics-sandbox-logic/AnotherScript.cpp tester/phisics-sandbox-logic/AnotherScript.hpp)
-target_link_libraries(tester PUBLIC SGE)
+add_library(SGE STATIC)
 
 
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug)
-endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
     target_compile_definitions(SGE PUBLIC DEBUG=1)
@@ -23,8 +17,6 @@ endif()
 
 add_subdirectory(src)
 add_subdirectory(include)
-add_subdirectory(resources)
-
 
 
 SET(BOX2D_BUILD_EXAMPLES OFF CACHE BOOL "This setting has been overridden" FORCE)
@@ -63,6 +55,7 @@ if(MINGW)
             sfml-main
             )
 endif()
+
 
 
 

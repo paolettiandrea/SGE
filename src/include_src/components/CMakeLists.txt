@@ -6,11 +6,15 @@ target_sources(SGE PRIVATE
         LogicHub.cpp
         Transform.cpp
 
-        PathRenderer.cpp
         VertArray.cpp
 
         Rigidbody.cpp
-        PolygonCollider.cpp
-
+        Collider.cpp
         CollisionInfo.cpp
+        RayCastHandler.cpp
+
+        UI.cpp
+        UIContent.cpp
+        UIText.cpp
+        UIBar.cpp
         )

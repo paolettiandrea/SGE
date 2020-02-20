@@ -1,3 +1,4 @@
+#include <SGE/Vec2.hpp>
 #include "Camera.hpp"
 
 sge::Camera::Camera(float vertical_size)
@@ -17,6 +18,7 @@ void sge::Camera::set_zoom(float vertical_size) {
 void sge::Camera::set_ratio(float screen_ratio) {
     m_screen_ratio = screen_ratio;
     update_view_size();
+    ratio_changed_event();
     changed_view_flag = true;
 }
 
@@ -37,7 +39,7 @@ void sge::Camera::update_view_size() {
 }
 
 void sge::Camera::set_center(float x, float y) {
-    m_view.setCenter(x,y);
+    m_view.setCenter(x,-y);
     changed_view_flag = true;
 }
 
@@ -48,5 +50,23 @@ void sge::Camera::offset_center(float x_offset, float y_offset) {
 float sge::Camera::get_zoom() {
     return m_vertical_size;
 }
+
+void sge::Camera::set_center(const sge::Vec2<float>& point) {
+    set_center(point.x, point.y);
+}
+
+void sge::Camera::set_viewport(sf::FloatRect float_rect) {
+    m_view.setViewport(float_rect);
+}
+
+void sge::Camera::set_background_color(sf::Color color) {
+    background_color = color;
+}
+
+sge::Vec2<float> sge::Camera::get_center() {
+    return sge::Vec2<float>(m_view.getCenter().x, -m_view.getCenter().y);
+}
+
+
 
 

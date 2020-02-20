@@ -18,6 +18,10 @@ namespace sge {
          */
         virtual void on_destruction() = 0;
 
+        virtual void on_scene_destruction() = 0;
+        virtual void on_scene_pause() = 0;
+        virtual void on_scene_resume() = 0;
+
         /*!
          * \brief Callbacks called right before render
          */
@@ -32,8 +36,8 @@ namespace sge {
         virtual void on_collision_begin(CollisionInfo &collision_info) = 0;
         virtual void on_collision_end(CollisionInfo &collision_info) = 0;
 
-        virtual void pre_solve(b2Contact *contact, const b2Manifold *oldManifold) = 0;
-        virtual void post_solve(b2Contact *contact, const b2ContactImpulse *impulse) = 0;
+        virtual void pre_solve(b2Contact *contact, const b2Manifold *oldManifold, const CollisionInfo &info) = 0;
+        virtual void post_solve(b2Contact *contact, const b2ContactImpulse *impulse, const CollisionInfo &info) = 0;
 
     };
 }

@@ -1,13 +1,11 @@
-//
-// Created by andrea on 5/8/19.
-//
-
 #ifndef SGE_EVENTS_HPP
 #define SGE_EVENTS_HPP
 
 #include <vector>
 #include <memory>
 #include "EventHandler.hpp"
+
+#define EVENTS_WARNING_ON_MISSED_REMOVAL        false
 
 
 namespace utils {
@@ -34,6 +32,7 @@ namespace utils {
              */
             void removeHandler(const EventHandler &handler_to_remove);
             void removeHandler(int handler_id);
+            void clearSubscribers();
             /*!
              * \brief Used to notify every subscriber, causes the call of every function in every EventHandler subscriber.
              */

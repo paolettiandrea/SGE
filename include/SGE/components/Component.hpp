@@ -17,6 +17,9 @@ namespace sge::cmp {
             return this_handle;
         }
 
+        void set_active(bool active) { m_active_flag = active; }
+        bool is_active() { return m_active_flag; }
+
         /*!
          * \brief Callback triggered AFTER a reallocation of this component
          */
@@ -24,6 +27,8 @@ namespace sge::cmp {
 
     private:
         utils::Handle<T> this_handle;
+
+        bool m_active_flag = true;
 
 
 

@@ -4,11 +4,6 @@
 
 #include <sstream>
 
-/*!
-\file
-\brief Header file
-*/
-
 namespace utils {
     namespace log {
 
