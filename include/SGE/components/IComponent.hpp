@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_ICOMPONENT_HPP
-#define FACTORY_EXPERIMENTS_ICOMPONENT_HPP
+#ifndef SGE_ICOMPONENT_HPP
+#define SGE_ICOMPONENT_HPP
 
 //#include "SGE/GameObject.hpp"
 #include "SGE/utils/handles/Handle.hpp"
@@ -38,7 +38,6 @@ namespace sge {
              * \brief Gets an handle to the GameObject this Component is attached to
              */
             utils::Handle<sge::GameObject> &gameobject();
-
             /*!
              * \brief A callback called right before the removal of the component,
              * a concrete component can override this in order to prepare for deletion
@@ -56,6 +55,8 @@ namespace sge {
             void doom();
 
 
+            virtual void visual_debug_pass() {}
+
         private:
             utils::Handle<sge::GameObject> gameobject_handle;
 
@@ -69,7 +70,7 @@ namespace sge {
 }
 
 
-#endif //FACTORY_EXPERIMENTS_ICOMPONENT_HPP
+#endif //SGE_ICOMPONENT_HPP
 
 
 

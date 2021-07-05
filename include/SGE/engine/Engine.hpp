@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_ENGINE_HPP
-#define FACTORY_EXPERIMENTS_ENGINE_HPP
+#ifndef SGE_ENGINE_HPP
+#define SGE_ENGINE_HPP
 
 #include "SGE/utils/log/Loggable.hpp"
 #include "SGE/engine/IEnvironment.hpp"
@@ -50,7 +50,7 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_ENGINE_HPP
+#endif //SGE_ENGINE_HPP
 
 
 

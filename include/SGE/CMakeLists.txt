@@ -1,11 +1,13 @@
-target_include_directories(factory_experiments PRIVATE .)
+target_include_directories(SGE PRIVATE .)
 
-target_sources(factory_experiments PUBLIC
+target_sources(SGE PUBLIC
         engine/Engine.hpp
         GameObject.hpp
         Scene.hpp
         SceneConstructionData.hpp
         Vec2.hpp
+        Camera.hpp
+        Path.hpp
         )
 
 add_subdirectory(engine)

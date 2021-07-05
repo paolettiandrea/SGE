@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_LOGIC_HUB_HPP
-#define FACTORY_EXPERIMENTS_LOGIC_HUB_HPP
+#ifndef SGE_LOGIC_HUB_HPP
+#define SGE_LOGIC_HUB_HPP
 
 #include <list>
 #include "SGE/components/Component.hpp"
@@ -77,7 +77,7 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_LOGIC_HUB_HPP
+#endif //SGE_LOGIC_HUB_HPP
 
 
 /*!

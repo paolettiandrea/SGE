@@ -32,12 +32,15 @@ unsigned int ObjectManager::get_scene_stack_size() {
     return scene_stack.size();
 }
 
+/**
+ * \brief Destroy the GameObjects and Components of the top Scene which are doomed (flagged for destruction)
+ */
 void ObjectManager::doom_pass() {
     // TODO optimization: right now the whole top scene array is scrolled, could save the index of doomed objects on doom and work with that
     LOG_DEBUG(15) << "Starting doom pass";
+    // Every component attached to the doomed gameobject is doomed before the actual doom passes
     for (auto & gameobj : (*gameobj_layers_stack.top().get_gameobjects_vector())) {
         if (gameobj.is_doomed()) {
-            // Every component attached to the doomed gameobject is doomed
             for (int id_index = 0; id_index < TOTAL_POSSIBLE_COMPONENTS; ++id_index) {
                 int unspecified_index = gameobj.m_components_mapped_array[id_index];
                 if (unspecified_index != -1) {
@@ -51,22 +54,26 @@ void ObjectManager::doom_pass() {
         }
     }
 
+    // Doom pass for the Components
     auto component_memory_array = scene_stack.top().get_component_memorylayer_array();
     for (int i = 0; i < TOTAL_POSSIBLE_COMPONENTS; ++i) {
         component_memory_array[i]->doom_pass();
     }
+
+    // Doom pass for the GameObjects
     gameobj_layers_stack.top().doom_pass();
 
     LOG_DEBUG(15) << "Doom pass terminated";
 
 }
 
-void ObjectManager::scene_pass() {
+bool ObjectManager::scene_pass() {
     LOG_DEBUG(15) << "Starting scene pass";
-    if (pop_top_scene_flag) {
+    bool scene_stack_modified=false;
+    if (scene_stack.top().is_doomed()) {
         LOG_DEBUG(15) << "Popping the top scene (since pop_top_scene_flag == true)";
         pop_top_scene();
-        pop_top_scene_flag = false;
+        scene_stack_modified=true;
     }
     if (new_scene_construction_data != nullptr) {
         LOG_DEBUG(15) << "Pushing a new scene (since new_scene_construction_data != nullptr)";
@@ -74,8 +81,10 @@ void ObjectManager::scene_pass() {
         new_scene_construction_data = nullptr;          // It's nulled before the push so that there's no conflict
         push_new_scene(temp_pointer);                   // if during scene creation some logic wants to book a push
         delete( temp_pointer );
+        scene_stack_modified=true;
     }
     LOG_DEBUG(15) << "Ending scene pass";
+    return scene_stack_modified;
 }
 
 bool ObjectManager::book_scene_push(const std::string &name, Logic *initial_logic) {
@@ -88,7 +97,7 @@ bool ObjectManager::book_scene_push(const std::string &name, Logic *initial_logi
 }
 
 void ObjectManager::doom_top_scene() {
-    pop_top_scene_flag = true;
+    scene_stack.top().doom_scene();
 }
 
 ObjectManager::~ObjectManager() {
@@ -98,4 +107,14 @@ ObjectManager::~ObjectManager() {
         delete((new_scene_construction_data->initial_logic));               // so some stuff needs to be deleted
         delete(new_scene_construction_data);
     }
+}
+
+void sge::core::ObjectManager::visual_debug_pass() {
+    Subsystem::visual_debug_pass();
+    if (cmp::Transform::visual_debug_general_switch) {
+        for (auto trans : transform_creator.get_top_layer()->get_component_vector()) {
+            trans->visual_debug_pass();
+        }
+    }
+
 }

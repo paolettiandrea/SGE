@@ -1,7 +1,9 @@
-#ifndef FACTORY_EXPERIMENTS_COMPONENT_HPP
-#define FACTORY_EXPERIMENTS_COMPONENT_HPP
+#ifndef SGE_COMPONENT_HPP
+#define SGE_COMPONENT_HPP
 
 #include "IComponent.hpp"
+#include "SGE/utils/events/Events.hpp"
+
 namespace sge::cmp {
     template <class T>
     class Component : public IComponent {
@@ -20,4 +22,4 @@ namespace sge::cmp {
 
 
 
-#endif //FACTORY_EXPERIMENTS_COMPONENT_HPP
+#endif //SGE_COMPONENT_HPP

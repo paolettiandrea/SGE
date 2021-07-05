@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_COMPONENTARRAY_HPP
-#define FACTORY_EXPERIMENTS_COMPONENTARRAY_HPP
+#ifndef SGE_COMPONENTARRAY_HPP
+#define SGE_COMPONENTARRAY_HPP
 
 #include <vector>
 #include "Handle.hpp"
@@ -17,15 +17,12 @@ namespace sge {
         template <class ComponentT>
         class ComponentMemoryLayer : public IComponentMemoryLayer, public utils::log::Loggable {
         public:
-            explicit ComponentMemoryLayer(const std::string& id, unsigned int initial_reserved_space = 16);
+            explicit ComponentMemoryLayer(const std::string& id, unsigned int initial_reserved_space = INITIAL_RESERVED_SPACE_FOR_COMPONENTS);
             /*!
              * \brief Creates a new Component in this ComponentArray
              * \return a handle to the created Component
              */
             utils::Handle<ComponentT> create_new_component(utils::Handle<GameObject> gameobject);
-
-            utils::Handle<ComponentT> get_component_by_index(unsigned int index);
-
 
             const std::vector<utils::Handle<ComponentT>> &get_component_vector() const;
 
@@ -125,6 +122,9 @@ namespace sge {
             return handle_vector;
         }
 
+        /**
+         * /brief Remove all the doomed Components of this ComponentMemoryLayer
+    */
         template<class ComponentT>
         void ComponentMemoryLayer<ComponentT>::doom_pass() {
             LOG_DEBUG(25) << "Doom pass";
@@ -145,7 +145,7 @@ namespace sge {
     }
 }
 
-#endif //FACTORY_EXPERIMENTS_COMPONENTARRAY_HPP
+#endif //SGE_COMPONENTARRAY_HPP
 
 
 /*!

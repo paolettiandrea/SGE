@@ -31,7 +31,12 @@ void ComponentFactory::register_component_creator(IComponentCreator *new_compone
 }
 
 unsigned int ComponentFactory::id_to_index(const std::string &id) {
-    return  id_to_index_map[id];
+    if (id_to_index_map.find(id)==id_to_index_map.end()) {
+        std::cout << "ERROR: The unique component id [" << id << "] isn't registered in the ComponentFactory" << std::endl;
+        exit(1);
+    } else {
+        return  id_to_index_map[id];
+    }
 }
 
 void ComponentFactory::push_new_component_memory_layer(IComponentMemoryLayer* componentarray_out[]) {

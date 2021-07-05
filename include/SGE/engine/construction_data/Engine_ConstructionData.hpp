@@ -2,11 +2,12 @@
 // Created by andrea on 5/3/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_ENGINE_CONSTRUCTIONDATA_HPP
-#define FACTORY_EXPERIMENTS_ENGINE_CONSTRUCTIONDATA_HPP
+#ifndef SGE_ENGINE_CONSTRUCTIONDATA_HPP
+#define SGE_ENGINE_CONSTRUCTIONDATA_HPP
 
 #include "WindowManager_ConstructionData.hpp"
 #include "SGE/SceneConstructionData.hpp"
+#include "SGE/engine/construction_data/PhysicsManager_ConstructionData.hpp"
 
 
 namespace sge {
@@ -22,9 +23,10 @@ namespace sge {
              * \brief The construction data related to the window and the video output of the engine
              */
             WindowManager_ConstructionData window;
+            PhysicsManager_ConstructionData physics;
         };
     }
 
 }
 
-#endif //FACTORY_EXPERIMENTS_ENGINE_CONSTRUCTIONDATA_HPP
+#endif //SGE_ENGINE_CONSTRUCTIONDATA_HPP

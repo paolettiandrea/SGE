@@ -1,9 +1,12 @@
-target_include_directories(factory_experiments PRIVATE .)
+target_include_directories(SGE PRIVATE .)
 
-target_sources(factory_experiments PUBLIC
+target_sources(SGE PUBLIC
         IComponent.hpp
+        Component.hpp
+
         Transform.hpp
         LogicHub.hpp
-        Polygon.hpp
-        Component.hpp
         )
+
+add_subdirectory(graphics)
+add_subdirectory(physics)

@@ -2,10 +2,11 @@
 // Created by andrea on 4/30/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_SUBSYSTEM_HPP
-#define FACTORY_EXPERIMENTS_SUBSYSTEM_HPP
+#ifndef SGE_SUBSYSTEM_HPP
+#define SGE_SUBSYSTEM_HPP
 
 #include "Loggable.hpp"
+#include "ComponentCreator.hpp"
 
 namespace sge {
     namespace core {
@@ -15,6 +16,8 @@ namespace sge {
         class Subsystem : public utils::log::Loggable {
         public:
             Subsystem (const std::string& subsystem_name);
+
+            virtual void visual_debug_pass() {};
         };
     }
 }
@@ -27,7 +30,7 @@ namespace sge {
 
 
 
-#endif //FACTORY_EXPERIMENTS_SUBSYSTEM_HPP
+#endif //SGE_SUBSYSTEM_HPP
 
 
 /*!

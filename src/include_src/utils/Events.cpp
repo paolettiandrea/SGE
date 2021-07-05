@@ -13,22 +13,24 @@ using std::unique_ptr;
 void Event::notifyHandlers() {
     auto func = this->subscribers.begin();
     for(; func != this->subscribers.end(); ++func) {
-        if(*func != nullptr && (*func)->get_id() != 0) {
-            (*(*func))();
+        if(func->is_valid() && (*func).get_id() != 0) {
+            (*func)();
         }
     }
 }
 
 void Event::addHandler(const EventHandler &handler) {
-    this->subscribers.push_back((new EventHandler{handler}));
+    this->subscribers.emplace_back(handler);
 }
 
-void Event::removeHandler(const EventHandler &handler) {
+void Event::removeHandler(const EventHandler &handler_to_remove) {
     bool found = false;
-    auto to_remove = this->subscribers.begin();
-    for(; to_remove != this->subscribers.end(); ++to_remove) {
-        if(*(*to_remove) == handler) {
-            this->subscribers.erase(to_remove);
+    auto target = this->subscribers.begin();
+    for(; target != this->subscribers.end(); ++target) {
+        auto yo = (*target).get_id();
+        auto yo2 = handler_to_remove.get_id();
+        if((*target) == handler_to_remove) {
+            this->subscribers.erase(target);
             found = true;
             break;
         }
@@ -37,6 +39,7 @@ void Event::removeHandler(const EventHandler &handler) {
 }
 
 void Event::operator()() {
+    auto yo = totalHandlers();
     this->notifyHandlers();
 }
 
@@ -57,3 +60,4 @@ Event &Event::operator-=(const EventHandler &handler) {
 
     return *this;
 }
+

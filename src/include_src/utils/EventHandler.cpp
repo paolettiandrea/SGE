@@ -25,10 +25,11 @@ void EventHandler::operator=(const Func &func) {
 bool EventHandler::operator==(const EventHandler &del) {
     return this->id == del.id;
 }
-bool EventHandler::operator!=(nullptr_t) {
-    return this->_func != nullptr;
-}
 
 int EventHandler::get_id() const {
     return id;
+}
+
+bool EventHandler::is_valid() {
+    return this->_func != nullptr;
 }

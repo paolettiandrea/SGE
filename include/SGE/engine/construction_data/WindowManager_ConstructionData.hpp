@@ -1,5 +1,5 @@
-#ifndef FACTORY_EXPERIMENTS_WINDOWMANAGER_CONSTRUCTIONDATA_HPP
-#define FACTORY_EXPERIMENTS_WINDOWMANAGER_CONSTRUCTIONDATA_HPP
+#ifndef SGE_WINDOWMANAGER_CONSTRUCTIONDATA_HPP
+#define SGE_WINDOWMANAGER_CONSTRUCTIONDATA_HPP
 
 #include <string>
 #include <SFML/Graphics/RenderStates.hpp>
@@ -38,10 +38,10 @@ namespace sge::cd {
 
         sf::ContextSettings context_settings;
 
-        float view_vertical_size = 1000.f;
+        bool fullscreen_on = true;
 
     };
 }
 
 
-#endif //FACTORY_EXPERIMENTS_WINDOWMANAGER_CONSTRUCTIONDATA_HPP
+#endif //SGE_WINDOWMANAGER_CONSTRUCTIONDATA_HPP

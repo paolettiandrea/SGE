@@ -1,18 +1,17 @@
-#ifndef FACTORY_EXPERIMENTS_FACTORY_HPP
-#define FACTORY_EXPERIMENTS_FACTORY_HPP
+#ifndef SGE_FACTORY_HPP
+#define SGE_FACTORY_HPP
 
 #include <stack>
 
 #include "GameObjectMemoryLayer.hpp"
 #include "ComponentFactory.hpp"
-#include "ComponentCreator.hpp"
+
 #include "Subsystem.hpp"
 
 #include "Scene.hpp"
 #include "SceneConstructionData.hpp"
 
 #include "Transform.hpp"
-#include "Polygon.hpp"
 
 namespace sge {
     namespace core {
@@ -20,7 +19,7 @@ namespace sge {
 /*!
  * \brief The object that manages Scenes, but also indirectly GameObject and Component generation and distruction.
  */
-        class ObjectManager : public Subsystem {
+class ObjectManager : public Subsystem {
         public:
             explicit ObjectManager(IEnvironment* _env)
                     : Subsystem("OBJECT MANAGER")
@@ -61,8 +60,11 @@ namespace sge {
             void doom_pass();
             /*!
              * \brief Checks if the scene stack needs to be modified and act accordingly
+             * \return true if the scene stack was modified, false otherwise
              */
-            void scene_pass();
+            bool scene_pass();
+
+            void visual_debug_pass() override;
 
 
         private:
@@ -78,10 +80,8 @@ namespace sge {
 
             // Acts as a flag that signals if the push of a new scene was requested during the last gameloop
             cd::SceneConstructionData* new_scene_construction_data = nullptr;
-            // Flag that signals if the popping of the top scene was requested during the last gameloop
-            bool pop_top_scene_flag = false;
-            // If both are true at the scene_pass the top scene is substituted by a new scene having the initial logic
-            // contained in the flag
+
+
 
 
 
@@ -89,7 +89,7 @@ namespace sge {
     }
 }
 
-#endif //FACTORY_EXPERIMENTS_FACTORY_HPP
+#endif //SGE_FACTORY_HPP
 
 
 /*!

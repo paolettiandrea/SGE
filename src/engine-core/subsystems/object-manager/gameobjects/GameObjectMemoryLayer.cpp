@@ -48,6 +48,9 @@ std::vector<GameObject>* GameObjectMemoryLayer::get_gameobjects_vector() {
     return &gameobjects_vector;
 }
 
+/**
+ * /brief Remove all the doomed GameObjects from this GameObjectMemoryLayer
+ */
 void GameObjectMemoryLayer::doom_pass() {
     LOG_DEBUG(25) << "Doom pass";
     int target_index = 0;

@@ -1,3 +1,3 @@
-target_include_directories(factory_experiments PUBLIC .)
+target_include_directories(SGE PUBLIC .)
 
 add_subdirectory(SGE)

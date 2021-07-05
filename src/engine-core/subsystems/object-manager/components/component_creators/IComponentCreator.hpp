@@ -2,8 +2,8 @@
 // Created by andrea on 4/17/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_ICOMPONENTCREATOR_HPP
-#define FACTORY_EXPERIMENTS_ICOMPONENTCREATOR_HPP
+#ifndef SGE_ICOMPONENTCREATOR_HPP
+#define SGE_ICOMPONENTCREATOR_HPP
 
 #include "GameObject.hpp"
 #include <string>
@@ -39,4 +39,4 @@ namespace sge {
 }
 
 
-#endif //FACTORY_EXPERIMENTS_ICOMPONENTCREATOR_HPP
+#endif //SGE_ICOMPONENTCREATOR_HPP

@@ -2,8 +2,8 @@
 // Created by andrea on 5/8/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_EVENTS_HPP
-#define FACTORY_EXPERIMENTS_EVENTS_HPP
+#ifndef SGE_EVENTS_HPP
+#define SGE_EVENTS_HPP
 
 #include <vector>
 #include <memory>
@@ -17,7 +17,11 @@ namespace utils {
          * \see http://www.dannyb.me/posts/2014/02/creating_event_system_c++/
          */
         class Event {
-            std::vector<EventHandler*> subscribers;
+            std::vector<EventHandler> subscribers;
+
+        public:
+
+        private:
 
             void notifyHandlers();
         public:
@@ -28,7 +32,7 @@ namespace utils {
             /*!
              * \brief Removes the handler from the subscriber list
              */
-            void removeHandler(const EventHandler &handler);
+            void removeHandler(const EventHandler &handler_to_remove);
             /*!
              * \brief Used to notify every subscriber, causes the call of every function in every EventHandler subscriber.
              */
@@ -59,9 +63,6 @@ namespace utils {
 \brief ${BRIEF_FILE_DESCRIPTION}
 */
 
-class Events {
-
-};
 
 
-#endif //FACTORY_EXPERIMENTS_EVENTS_HPP
+#endif //SGE_EVENTS_HPP

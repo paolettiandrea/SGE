@@ -2,8 +2,8 @@
 // Created by andrea on 5/2/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_SCENECONSTRUCTIONDATA_HPP
-#define FACTORY_EXPERIMENTS_SCENECONSTRUCTIONDATA_HPP
+#ifndef SGE_SCENECONSTRUCTIONDATA_HPP
+#define SGE_SCENECONSTRUCTIONDATA_HPP
 
 #include "Macros.hpp"
 #include <string>
@@ -38,9 +38,13 @@ namespace sge {
          */
         const std::string name;
         /*!
-         * \brief A pointer to the Logic that will be injected in the newly created scene
+         * \brief A pointer to the Logic that will be injected in the initial gameobject of the newly created scene
          */
         Logic* initial_logic;
+        /**
+         * \brief Defines the zoom of the camera by the game world units of vertical space that the Camera should show in a given moment
+         */
+        float camera_vertical_zoom = 10;
     };
     }
 
@@ -54,4 +58,4 @@ namespace sge {
  * \brief Object meant to contain all the data necessary to build a Scene object.
  */
 
-#endif //FACTORY_EXPERIMENTS_SCENECONSTRUCTIONDATA_HPP
+#endif //SGE_SCENECONSTRUCTIONDATA_HPP

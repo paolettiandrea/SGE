@@ -2,8 +2,8 @@
 // Created by andrea on 5/8/19.
 //
 
-#ifndef FACTORY_EXPERIMENTS_EVENTHANDLER_HPP
-#define FACTORY_EXPERIMENTS_EVENTHANDLER_HPP
+#ifndef SGE_EVENTHANDLER_HPP
+#define SGE_EVENTHANDLER_HPP
 
 
 #include <functional>
@@ -38,6 +38,11 @@ namespace utils {
 
             EventHandler() : id{0} {}
 
+            EventHandler(const EventHandler& that) {
+                this->_func = that._func;
+                this->id = that.id;
+            }
+
             explicit EventHandler(const Func &func) : _func{func} {
                 this->id = ++EventHandler::id_counter;
             }
@@ -59,7 +64,8 @@ namespace utils {
              * \brief Checks if the two EventHandlers have the same id
              */
             bool operator==(const EventHandler &del);
-            bool operator!=(nullptr_t);
+
+            bool is_valid();
         };
     }
 }
@@ -73,4 +79,4 @@ namespace utils {
 
 
 
-#endif //FACTORY_EXPERIMENTS_EVENTHANDLER_HPP
+#endif //SGE_EVENTHANDLER_HPP
